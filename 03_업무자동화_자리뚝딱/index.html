@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>자리뚝딱</title>
+  <meta name="description" content="조건만 체크하면 자리표·모둠·역할이 30초 만에 완성되는 담임 교사용 자리 배치 도우미">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="storage-banner" class="banner no-print" hidden>브라우저 저장 불가 — 메모리 모드로 동작 중입니다. 설정 탭에서 JSON으로 내보내 백업하세요.</div>
+
+  <header class="app-header no-print">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="9" width="26" height="5" rx="1.5" fill="currentColor"/><rect x="6" y="14" width="3" height="10" rx="1" fill="currentColor"/><rect x="23" y="14" width="3" height="10" rx="1" fill="currentColor"/><rect x="11" y="18" width="10" height="4" rx="1" fill="currentColor" opacity=".7"/><rect x="13" y="22" width="2" height="5" rx="1" fill="currentColor" opacity=".7"/><rect x="17" y="22" width="2" height="5" rx="1" fill="currentColor" opacity=".7"/></svg>
+      <div class="brand-text">
+        <h1>자리뚝딱</h1>
+        <p class="tagline">조건만 체크하면 자리표·모둠·역할이 뚝딱</p>
+      </div>
+    </div>
+    <div class="class-box">
+      <button type="button" class="class-name" id="class-name-btn" data-action="edit-class" title="학급명 편집">가온초등학교 5학년 2반</button>
+      <span class="save-dot" id="save-status" data-state="saved"><i></i><span id="save-text">저장됨</span></span>
+    </div>
+    <div class="toolbar">
+      <button type="button" class="btn" data-action="open-print" id="btn-print">🖨 인쇄</button>
+      <button type="button" class="btn btn-accent" data-action="open-present" id="btn-present">▶ 발표 모드</button>
+      <button type="button" class="icon-btn" data-action="toggle-theme" id="theme-btn" aria-label="테마 전환">🌙</button>
+      <button type="button" class="icon-btn" data-action="help" aria-label="도움말">?</button>
+    </div>
+  </header>
+
+  <nav class="tabs no-print" role="tablist" id="tabs">
+    <button type="button" role="tab" data-tab="roster" aria-selected="true"><span class="ico">👥</span><span>명렬</span></button>
+    <button type="button" role="tab" data-tab="seats" aria-selected="false"><span class="ico">🪑</span><span>자리 배치</span></button>
+    <button type="button" role="tab" data-tab="groups" aria-selected="false"><span class="ico">🧩</span><span>모둠</span></button>
+    <button type="button" role="tab" data-tab="history" aria-selected="false"><span class="ico">📚</span><span>히스토리</span></button>
+    <button type="button" role="tab" data-tab="settings" aria-selected="false"><span class="ico">⚙️</span><span>설정</span></button>
+  </nav>
+
+  <main id="app">
+    <!-- 명렬 탭 -->
+    <section data-view="roster" class="view">
+      <div class="view-head"><h2>학급 명렬</h2><div class="chips" id="roster-summary"></div><button type="button" class="icon-btn" data-action="help-tab" data-help="roster" aria-label="명렬 도움말">?</button></div>
+      <div class="grid-2">
+        <div class="card stack">
+          <div class="row between"><h3>학생 목록</h3><button type="button" class="btn btn-accent" data-action="add-student">＋ 학생 추가</button></div>
+          <div class="table-wrap" id="roster-table"></div>
+        </div>
+        <div class="stack">
+          <div class="card stack">
+            <h3>붙여넣기 등록</h3>
+            <p class="hint">엑셀에서 '번호 이름 성별' 열을 복사해 붙여넣거나 CSV 파일을 올리세요. 첫 줄이 제목이면 자동으로 건너뜁니다.</p>
+            <textarea id="paste-area" rows="5" placeholder="1&#9;김가상&#9;남&#10;2&#9;이가상&#9;여"></textarea>
+            <div class="row wrap">
+              <button type="button" class="btn" data-action="parse-paste">인식</button>
+              <button type="button" class="btn btn-ghost" data-action="clear-paste">지우기</button>
+              <label class="btn btn-ghost file-label">CSV 파일 선택<input type="file" id="csv-file" accept=".csv,.txt,text/csv,text/plain" hidden></label>
+            </div>
+            <div class="dropzone" id="csv-drop">CSV 파일을 여기에 끌어다 놓으세요</div>
+            <div id="paste-preview"></div>
+          </div>
+          <div class="card stack">
+            <h3>분리·결합 쌍</h3>
+            <div class="row wrap">
+              <select id="pair-a" aria-label="학생 1"></select>
+              <select id="pair-b" aria-label="학생 2"></select>
+              <button type="button" class="btn" data-action="add-pair" data-type="apart">↔ 떨어뜨리기</button>
+              <button type="button" class="btn" data-action="add-pair" data-type="together">🔗 붙이기</button>
+            </div>
+            <div id="pair-list" class="stack-sm"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 자리 배치 탭 -->
+    <section data-view="seats" class="view" hidden>
+      <div class="view-head"><h2>자리 배치</h2><button type="button" class="icon-btn" data-action="help-tab" data-help="seats" aria-label="자리 배치 도움말">?</button></div>
+      <div class="seats-layout">
+        <aside class="stack">
+          <details class="card panel" open>
+            <summary>교실 <span class="counter" id="desk-counter"></span></summary>
+            <div class="stack" id="layout-panel"></div>
+          </details>
+          <details class="card panel" open>
+            <summary>조건</summary>
+            <div class="stack" id="cond-panel"></div>
+          </details>
+        </aside>
+        <div class="stack seat-center">
+          <div class="row wrap actions">
+            <button type="button" class="btn btn-accent" data-action="auto" id="btn-auto">✨ 자동 배치</button>
+            <button type="button" class="btn" data-action="shuffle" id="btn-shuffle">🔀 다시 섞기</button>
+            <button type="button" class="btn" data-action="undo" id="btn-undo" title="Ctrl+Z">↶ 실행 취소</button>
+            <button type="button" class="btn" data-action="redo" id="btn-redo" title="Ctrl+Y">↷ 다시 실행</button>
+            <button type="button" class="btn" data-action="confirm-arr" id="btn-confirm">✔ 배치 확정</button>
+            <button type="button" class="btn" data-action="save-png" id="btn-png">🖼 이미지 저장</button>
+            <label class="zoom"><span>확대</span><input type="range" id="zoom" min="48" max="120" step="4" value="84" aria-label="좌석표 확대/축소"></label>
+          </div>
+          <div class="seatmap-wrap card" id="seatmap-wrap"><div id="seatmap"></div></div>
+          <div class="card stack-sm" id="unplaced-card" hidden><h3>미배치 학생 <span class="hint">칩을 탭한 뒤 빈 책상을 탭하면 배치됩니다</span></h3><div class="chips" id="unplaced"></div></div>
+        </div>
+        <aside class="card stack report" id="report"></aside>
+      </div>
+    </section>
+
+    <!-- 모둠 탭 -->
+    <section data-view="groups" class="view" hidden>
+      <div class="view-head"><h2>모둠 편성</h2><button type="button" class="icon-btn" data-action="help-tab" data-help="groups" aria-label="모둠 도움말">?</button></div>
+      <div class="card stack" id="group-options"></div>
+      <div class="group-grid" id="group-grid"></div>
+      <div class="card" id="group-report"></div>
+    </section>
+
+    <!-- 히스토리·공정성 탭 -->
+    <section data-view="history" class="view" hidden>
+      <div class="view-head"><h2>히스토리</h2><div class="chips" id="hist-filter"><button type="button" class="chip is-on" data-filter="all">전체</button><button type="button" class="chip" data-filter="seat">자리</button><button type="button" class="chip" data-filter="group">모둠</button></div><button type="button" class="icon-btn" data-action="help-tab" data-help="history" aria-label="히스토리 도움말">?</button></div>
+      <div class="hist-grid" id="hist-list"></div>
+      <h2 class="section-title">공정성 대시보드</h2>
+      <div id="fairness" class="stack"></div>
+    </section>
+
+    <!-- 설정·백업 탭 -->
+    <section data-view="settings" class="view" hidden>
+      <div class="view-head"><h2>설정·백업</h2><button type="button" class="icon-btn" data-action="help-tab" data-help="settings" aria-label="설정 도움말">?</button></div>
+      <div class="grid-2">
+        <div class="stack">
+          <div class="card stack" id="settings-roles"></div>
+          <div class="card stack" id="settings-groups"></div>
+          <div class="card stack" id="settings-misc"></div>
+        </div>
+        <div class="stack">
+          <div class="card stack">
+            <h3>백업</h3>
+            <div class="row wrap">
+              <button type="button" class="btn btn-accent" data-action="export-json">⬇ JSON 내보내기</button>
+              <label class="btn file-label">⬆ 가져오기<input type="file" id="json-file" accept=".json,application/json" hidden></label>
+            </div>
+            <div class="dropzone" id="json-drop">백업 JSON 파일을 여기에 끌어다 놓으세요</div>
+            <div class="row wrap">
+              <button type="button" class="btn" data-action="reset-sample">샘플 데이터 다시 불러오기</button>
+              <button type="button" class="btn btn-danger" data-action="wipe">전체 데이터 삭제</button>
+            </div>
+          </div>
+          <div class="card notice">
+            <h3>공용 PC 주의</h3>
+            <p>모든 데이터는 이 브라우저의 localStorage에만 저장됩니다. 교무실 공용 PC라면 사용 후 '전체 데이터 삭제'를 누르고, 다른 PC로 옮길 때는 JSON 내보내기/가져오기를 이용하세요.</p>
+            <p class="hint" id="storage-info"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer no-print">바이브코딩으로 만드는 교육용 앱 · 자리뚝딱 · 2026 · 내장된 데이터는 모두 가상의 샘플입니다</footer>
+
+  <!-- 발표 모드 오버레이 -->
+  <div id="present" class="present no-print" hidden>
+    <div class="present-head"><span id="present-title"></span><span id="present-progress">0/0 공개</span></div>
+    <div class="present-body"><div id="present-map"></div></div>
+    <div class="present-bar">
+      <button type="button" class="btn" data-action="pr-start" id="pr-start">▶ 시작</button>
+      <button type="button" class="btn" data-action="pr-next">⏭ 다음 한 장</button>
+      <button type="button" class="btn" data-action="pr-all">전체 공개</button>
+      <button type="button" class="btn" data-action="pr-order" id="pr-order">순서: 좌석순</button>
+      <button type="button" class="btn" data-action="pr-sound" id="pr-sound">🔇 소리 꺼짐</button>
+      <button type="button" class="btn btn-ghost" data-action="pr-exit">✕ 종료 (Esc)</button>
+    </div>
+  </div>
+
+  <!-- 인쇄 미리보기 -->
+  <div id="print-panel" class="print-panel" hidden>
+    <div class="print-side no-print">
+      <h2>인쇄 미리보기</h2>
+      <div class="stack-sm" id="print-kinds">
+        <label class="radio"><input type="radio" name="print-kind" value="student" checked> 학생 게시용 자리표 <small>A4 가로</small></label>
+        <label class="radio"><input type="radio" name="print-kind" value="teacher"> 교사용 자리표(180° 회전) <small>A4 가로</small></label>
+        <label class="radio"><input type="radio" name="print-kind" value="groups"> 모둠 명단표 <small>A4 세로</small></label>
+        <label class="radio"><input type="radio" name="print-kind" value="plates"> 책상 명패(4개/장) <small>A4 세로</small></label>
+      </div>
+      <h3>옵션</h3>
+      <label class="check"><input type="checkbox" id="opt-no" checked> 번호 표시</label>
+      <label class="check"><input type="checkbox" id="opt-gender" checked> 성별 색상</label>
+      <label class="check"><input type="checkbox" id="opt-title" checked> 제목(학급명·날짜)</label>
+      <p class="hint" id="print-pagecount"></p>
+      <div class="row wrap">
+        <button type="button" class="btn btn-accent" data-action="do-print">🖨 인쇄하기</button>
+        <button type="button" class="btn btn-ghost" data-action="close-print">닫기</button>
+      </div>
+    </div>
+    <div class="print-preview" id="print-preview"><div class="print-pages" id="print-pages"></div></div>
+  </div>
+
+  <div id="modal-root"></div>
+  <div id="toast-root" aria-live="polite"></div>
+  <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

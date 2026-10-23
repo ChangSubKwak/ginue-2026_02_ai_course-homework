@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>분수교구함</title>
+  <meta name="description" content="막대·원·수직선이 한 몸처럼 움직이는 분수 조작 교구 — 쪼개고, 겹치고, 통분하며 분수를 '보는' 수업">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header">
+    <button class="logo" type="button" data-action="help" aria-label="분수교구함 도움말 열기">
+      <svg viewBox="0 0 40 40" width="36" height="36" aria-hidden="true"><rect x="3" y="8" width="34" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="3" y="8" width="17" height="24" rx="4" fill="var(--fill-a)"/><line x1="20" y1="8" x2="20" y2="32" stroke="currentColor" stroke-width="2.5"/><line x1="11.5" y1="8" x2="11.5" y2="32" stroke="currentColor" stroke-width="1.5" opacity=".6"/><line x1="28.5" y1="8" x2="28.5" y2="32" stroke="currentColor" stroke-width="1.5" opacity=".6"/></svg>
+      <span class="logo-text"><h1>분수교구함</h1><span class="tagline">막대·원·수직선이 한 몸처럼 움직이는 분수 교구</span></span>
+    </button>
+    <div class="toolbar" id="toolbar">
+      <button type="button" class="tb" id="btn-undo" data-action="undo" title="되돌리기 (Ctrl+Z)" aria-label="되돌리기" disabled>↶<span class="tb-label">되돌리기</span></button>
+      <button type="button" class="tb" id="btn-redo" data-action="redo" title="다시하기 (Ctrl+Y)" aria-label="다시하기" disabled>↷<span class="tb-label">다시하기</span></button>
+      <button type="button" class="tb primary" data-action="save-scene">장면 저장</button>
+      <button type="button" class="tb" id="btn-pen" data-action="pen" aria-pressed="false">✎<span class="tb-label">펜</span></button>
+      <button type="button" class="tb" id="btn-curtain" data-action="curtain" aria-pressed="false">커튼</button>
+      <button type="button" class="tb" id="btn-board" data-action="board" aria-pressed="false">칠판</button>
+      <button type="button" class="tb" id="btn-fs" data-action="fullscreen">전체화면</button>
+      <details class="more" id="more-menu">
+        <summary class="tb" aria-label="더 보기">⋯</summary>
+        <div class="more-list">
+          <button type="button" class="tb" id="btn-teacher" data-action="teacher" aria-pressed="true">교사 모드: 켬</button>
+          <label class="tb-select">학년 <select id="grade-preset" aria-label="학년 프리셋"><option value="">전체</option><option value="3">3학년</option><option value="4">4학년</option><option value="5">5학년</option><option value="6">6학년</option></select></label>
+          <button type="button" class="tb" data-action="png">그림 저장(PNG)</button>
+          <button type="button" class="tb" data-action="export">JSON 내보내기</button>
+          <button type="button" class="tb" data-action="reset-samples">샘플 복원</button>
+        </div>
+      </details>
+      <button type="button" class="tb icon" id="btn-theme" data-action="theme" aria-label="테마 전환">🌙</button>
+      <button type="button" class="tb icon" data-action="help" aria-label="도움말">?</button>
+    </div>
+  </header>
+  <div id="save-banner" class="banner" hidden><span>저장이 꺼져 있어요. JSON 내보내기로 보관하세요</span><button type="button" data-action="close-banner" aria-label="배너 닫기">×</button></div>
+  <nav class="tabs" role="tablist" aria-label="화면 선택">
+    <button type="button" role="tab" data-tab="kit" aria-selected="true">교구판</button>
+    <button type="button" role="tab" data-tab="compare" aria-selected="false">비교·통분</button>
+    <button type="button" role="tab" data-tab="arith" aria-selected="false">덧셈·뺄셈</button>
+    <button type="button" role="tab" data-tab="cards" aria-selected="false">탐구 카드</button>
+    <button type="button" role="tab" data-tab="scenes" aria-selected="false">장면 보관함</button>
+    <button type="button" role="tab" data-tab="sheet" aria-selected="false">활동지</button>
+  </nav>
+  <details class="memo-panel" id="memo-panel" hidden open>
+    <summary>교사 메모 <span class="memo-title" id="memo-title"></span></summary>
+    <p id="memo-body"></p>
+  </details>
+
+  <div class="work-area">
+  <main id="app">
+    <!-- 교구판 -->
+    <section data-view="kit" class="view view-kit">
+      <aside class="panel ctrl" id="kit-ctrl">
+        <button type="button" class="ctrl-toggle" data-action="toggle-ctrl" aria-expanded="true">조작 패널</button>
+        <div class="ctrl-body">
+          <div class="ctrl-row">
+            <label for="kit-d">분모 <output id="kit-d-val">2</output></label>
+            <div class="stepper"><button type="button" data-action="kit-d" data-delta="-1" aria-label="분모 줄이기">−</button><input type="range" id="kit-d" min="1" max="24" value="2" aria-label="분모"><button type="button" data-action="kit-d" data-delta="1" aria-label="분모 늘리기">+</button></div>
+          </div>
+          <div class="ctrl-row">
+            <span>분자 <output id="kit-n-val">1</output></span>
+            <div class="stepper"><button type="button" data-action="kit-n" data-delta="-1" aria-label="분자 줄이기">−</button><button type="button" data-action="kit-n" data-delta="1" aria-label="분자 늘리기">+</button></div>
+          </div>
+          <div class="ctrl-row">
+            <span>같게 쪼개기·합치기</span>
+            <div class="btn-row"><button type="button" class="chip-btn" data-action="split" data-k="2" id="btn-x2">×2</button><button type="button" class="chip-btn" data-action="split" data-k="3" id="btn-x3">×3</button><button type="button" class="chip-btn" data-action="merge">합치기(약분)</button><button type="button" class="chip-btn ghost" data-action="clear-chain">사슬 지우기</button></div>
+          </div>
+          <div class="ctrl-row board-hide">
+            <label for="kit-range">수직선 범위</label>
+            <select id="kit-range"><option value="auto">자동</option><option value="1">0~1</option><option value="2">0~2</option><option value="3">0~3</option></select>
+          </div>
+          <div class="ctrl-row board-hide">
+            <span>모델 표시</span>
+            <div class="check-row"><label><input type="checkbox" data-model-toggle="bar" checked> 막대</label><label><input type="checkbox" data-model-toggle="circle" checked> 원</label><label><input type="checkbox" data-model-toggle="line" checked> 수직선</label><label><input type="checkbox" id="kit-decimal" checked> 소수 표시</label></div>
+          </div>
+          <div class="ctrl-row"><button type="button" class="chip-btn accent" data-action="estimate">어림해서 찍기</button></div>
+        </div>
+      </aside>
+      <div class="stage" id="kit-stage">
+        <div class="model-tabs" role="tablist" aria-label="모델 선택"><button type="button" role="tab" data-model-tab="bar" aria-selected="true">막대</button><button type="button" role="tab" data-model-tab="circle" aria-selected="false">원</button><button type="button" role="tab" data-model-tab="line" aria-selected="false">수직선</button></div>
+        <div class="models" data-active-model="bar">
+          <figure class="model" data-model="bar"><figcaption>막대 — 길이</figcaption><svg class="kit-bar" role="img" aria-label="막대 모델"></svg></figure>
+          <figure class="model" data-model="circle"><figcaption>원 — 넓이</figcaption><svg class="kit-circle" role="img" aria-label="원 모델"></svg><p class="model-cap kit-circle-cap" hidden>원은 12등분까지 조작할 수 있어요. 막대에서 칸을 눌러 보세요</p></figure>
+          <figure class="model" data-model="line"><figcaption>수직선 — 수</figcaption><svg class="kit-line" role="img" aria-label="수직선 모델"></svg><div class="estimate-box kit-estimate" hidden></div></figure>
+        </div>
+        <div class="symbol-row">
+          <div class="symbol-panel curtainable kit-symbol" aria-live="polite"></div>
+          <div class="formula curtainable kit-chain"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 비교·통분 -->
+    <section data-view="compare" class="view view-ab" hidden>
+      <div class="ab-inputs" id="cmp-inputs"></div>
+      <div class="stage">
+        <svg class="cmp-bars ab-svg" role="img" aria-label="두 분수 막대"></svg>
+        <svg class="cmp-line nline-svg" role="img" aria-label="수직선"></svg>
+        <div class="step-bar">
+          <ol class="steps cmp-steps"><li>A 재분할</li><li>B 재분할</li><li>비교</li></ol>
+          <div class="btn-row">
+            <button type="button" class="chip-btn accent" data-action="cmp-start">같은 분모로 맞추기</button>
+            <button type="button" class="chip-btn" data-action="cmp-next">다음</button>
+            <button type="button" class="chip-btn" data-action="cmp-auto">자동 재생</button>
+            <button type="button" class="chip-btn ghost" data-action="cmp-reset">처음으로</button>
+            <button type="button" class="chip-btn toggle" data-action="cmp-overlay" aria-pressed="false">겹쳐 보기</button>
+            <button type="button" class="chip-btn ghost" data-action="cmp-swap">바꾸기(A↔B)</button>
+            <button type="button" class="chip-btn ghost" data-action="cmp-clear">초기화</button>
+          </div>
+        </div>
+        <div class="formula curtainable cmp-formula" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- 덧셈·뺄셈 -->
+    <section data-view="arith" class="view view-ab" hidden>
+      <div class="ab-inputs" id="ar-inputs"></div>
+      <div class="stage">
+        <svg class="ar-bars ab-svg" role="img" aria-label="덧셈·뺄셈 막대"></svg>
+        <div class="step-bar">
+          <ol class="steps ar-steps"><li>통분</li><li>합치기/지우기</li><li>결과</li><li>약분</li></ol>
+          <div class="btn-row">
+            <button type="button" class="chip-btn accent" data-action="ar-next">다음</button>
+            <button type="button" class="chip-btn" data-action="ar-auto">자동 재생</button>
+            <button type="button" class="chip-btn ghost" data-action="ar-reset">처음으로</button>
+            <button type="button" class="chip-btn toggle teacher-only" data-action="ar-mirror" aria-pressed="false">오개념 거울</button>
+            <button type="button" class="chip-btn ghost" data-action="ar-swap">바꾸기(A↔B)</button>
+          </div>
+        </div>
+        <div class="formula curtainable ar-formula" aria-live="polite"></div>
+        <p class="mirror-label ar-mirror-label" hidden></p>
+      </div>
+    </section>
+
+    <!-- 탐구 카드 -->
+    <section data-view="cards" class="view view-cards" hidden>
+      <aside class="panel card-pane">
+        <div class="pane-tools">
+          <select id="card-set" aria-label="카드 세트"></select>
+          <div class="chips" id="card-grade"><button type="button" class="chip" data-grade="" aria-pressed="true">전체</button><button type="button" class="chip" data-grade="3">3학년</button><button type="button" class="chip" data-grade="4">4학년</button><button type="button" class="chip" data-grade="5">5학년</button></div>
+          <input type="search" id="card-search" placeholder="질문 검색" aria-label="카드 검색">
+          <div class="btn-row teacher-only"><button type="button" class="chip-btn" data-action="card-new">새 카드</button><button type="button" class="chip-btn" data-action="set-save">세트로 저장</button></div>
+        </div>
+        <ul class="card-list" id="card-list"></ul>
+      </aside>
+      <div class="card-main">
+        <div class="card-view panel" id="card-view"></div>
+        <div class="tally panel teacher-only" id="tally-panel"></div>
+        <div class="card-stage panel" id="card-stage"></div>
+      </div>
+    </section>
+
+    <!-- 장면 보관함 -->
+    <section data-view="scenes" class="view view-scenes" hidden>
+      <div class="scene-tools panel">
+        <input type="search" id="scene-search" placeholder="이름·단원·메모 검색" aria-label="장면 검색">
+        <select id="scene-grade" aria-label="학년 필터"><option value="">모든 학년</option><option value="3">3학년</option><option value="4">4학년</option><option value="5">5학년</option><option value="6">6학년</option><option value="none">학년 없음</option></select>
+        <div class="btn-row"><button type="button" class="chip-btn" data-action="export">내보내기(전체)</button><button type="button" class="chip-btn" data-action="export-selected">선택만 내보내기</button><button type="button" class="chip-btn ghost" data-action="reset-samples">샘플 복원</button></div>
+        <div class="dropzone" id="dropzone" tabindex="0"><span>JSON 파일을 여기에 끌어다 놓거나</span><label class="chip-btn">파일 선택<input type="file" id="import-file" accept=".json,application/json" hidden></label></div>
+      </div>
+      <div class="scene-grid" id="scene-grid"></div>
+    </section>
+
+    <!-- 활동지 -->
+    <section data-view="sheet" class="view view-sheet" hidden>
+      <aside class="panel sheet-pane">
+        <h2>문항 출처</h2>
+        <details open><summary>탐구 카드</summary><ul class="src-list" id="sheet-cards"></ul></details>
+        <details><summary>장면</summary><ul class="src-list" id="sheet-scenes"></ul></details>
+        <details open><summary>빠른 문항 추가</summary>
+          <div class="quick-add">
+            <select id="qa-type" aria-label="문항 유형"><option value="color">색칠하기</option><option value="write">분수 쓰기</option><option value="line">수직선 표시</option><option value="compare">크기 비교</option><option value="arith">덧셈·뺄셈</option></select>
+            <button type="button" class="chip-btn" data-action="qa-a">분수 A: <span id="qa-a">3/8</span></button>
+            <button type="button" class="chip-btn" data-action="qa-b" id="qa-b-btn" hidden>분수 B: <span id="qa-b">1/4</span></button>
+            <select id="qa-op" aria-label="연산" hidden><option value="+">+</option><option value="-">−</option></select>
+            <button type="button" class="chip-btn accent" data-action="qa-add">추가</button>
+          </div>
+        </details>
+        <h2>문항 목록 <span class="muted" id="sheet-count"></span></h2>
+        <ol class="item-list" id="sheet-items"></ol>
+        <div class="btn-row"><button type="button" class="chip-btn" data-action="sheet-shuffle">순서 섞기</button><button type="button" class="chip-btn ghost" data-action="sheet-clear">모두 지우기</button></div>
+        <h2>설정</h2>
+        <div class="sheet-settings">
+          <label>제목 <input type="text" id="ws-title" maxlength="40"></label>
+          <label><input type="checkbox" id="ws-blanks"> 학교·학년·반·이름 빈칸</label>
+          <label><input type="checkbox" id="ws-answers"> 정답지 포함</label>
+          <label><input type="checkbox" id="ws-bw"> 흑백 인쇄용 빗금</label>
+          <label>문항 모델 <select id="ws-model"><option value="bar">막대</option><option value="circle">원</option></select></label>
+        </div>
+        <button type="button" class="chip-btn accent big" id="btn-print" data-action="print">인쇄</button>
+        <p class="muted" id="print-hint"></p>
+      </aside>
+      <div class="sheet-preview-wrap"><div class="sheet-preview" id="sheet-preview"></div></div>
+    </section>
+  </main>
+  <div id="pen-layer" class="pen-layer" hidden><canvas id="pen-canvas" aria-label="펜 주석"></canvas></div>
+  </div>
+
+  <div class="pen-tools" id="pen-tools" hidden>
+    <button type="button" data-pen="red" class="pen-tool active" aria-label="빨강 펜"><i style="background:#ef4444"></i></button>
+    <button type="button" data-pen="blue" class="pen-tool" aria-label="파랑 펜"><i style="background:#2563eb"></i></button>
+    <button type="button" data-pen="hl" class="pen-tool" aria-label="노랑 형광펜"><i style="background:#facc15"></i></button>
+    <button type="button" data-pen="eraser" class="pen-tool" aria-label="지우개">지우개</button>
+    <button type="button" data-pen="clear" class="pen-tool">모두 지우기</button>
+    <button type="button" data-pen="off" class="pen-tool accent">펜 끄기</button>
+  </div>
+  <footer class="app-footer">바이브코딩으로 만드는 교육용 앱 · 분수교구함 · 2026 · 내장된 데이터는 모두 가상의 샘플입니다</footer>
+</div>
+<div id="modal-root"></div>
+<div id="toast-root" aria-live="polite"></div>
+<div id="print-root" aria-hidden="true"></div>
+<svg width="0" height="0" class="svg-defs" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="hatch-diff" patternUnits="userSpaceOnUse" width="12" height="12" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="12" class="hatch-diff-line"/></pattern>
+    <pattern id="hatch-wrong" patternUnits="userSpaceOnUse" width="12" height="12" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="12" class="hatch-wrong-line"/></pattern>
+    <pattern id="hatch-bw" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#000" stroke-width="3"/></pattern>
+  </defs>
+</svg>
+<script src="js/data.js"></script>
+<script src="js/fraction.js"></script>
+<script src="js/render.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+<script src="js/cards.js"></script>
+<script src="js/scenes.js"></script>
+</body>
+</html>

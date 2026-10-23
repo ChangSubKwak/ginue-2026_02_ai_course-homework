@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>교육용 앱 다섯 가지</title>
+  <meta name="description" content="바이브코딩으로 만든 교육용 앱 5종 — 교과 교육지원·학습지도·학교 업무 자동화·학교 행정 지원·교육용 게임">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+  <style>
+    /* 레이아웃: 한 장의 안내판 — 상단 소개 띠, 5장의 앱 카드(2열→1열), 하단 공통 규약 요약 */
+    :root {
+      --bg: #f6f5f1; --surface: #ffffff; --surface-2: #eeece6; --fg: #1d2127; --fg-muted: #5c6370; --border: #dcd8ce;
+      --accent: #1f3a5f; --accent-fg: #ffffff; --accent-soft: #e4ebf5;
+      --radius: 14px; --shadow: 0 2px 10px rgba(30, 40, 60, .08);
+      --font: "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #15181d; --surface: #1e232a; --surface-2: #262c35; --fg: #e8eaee; --fg-muted: #a3aab5; --border: #333a45;
+        --accent: #8fb3e6; --accent-fg: #0f1722; --accent-soft: #223246; --shadow: 0 2px 10px rgba(0, 0, 0, .35);
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #15181d; --surface: #1e232a; --surface-2: #262c35; --fg: #e8eaee; --fg-muted: #a3aab5; --border: #333a45;
+      --accent: #8fb3e6; --accent-fg: #0f1722; --accent-soft: #223246; --shadow: 0 2px 10px rgba(0, 0, 0, .35);
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      background: var(--bg); color: var(--fg); font-family: var(--font); line-height: 1.6; word-break: keep-all;
+      padding-block: 32px 48px;
+      padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+    }
+    .wrap { max-width: 1040px; margin: 0 auto; }
+    .hero { display: grid; gap: 14px; padding: 28px 0 10px; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
+    .eyebrow { font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-muted); font-weight: 500; }
+    h1 { font-size: clamp(28px, 4.5vw, 42px); line-height: 1.2; margin: 0; font-weight: 900; text-wrap: balance; }
+    .lead { max-width: 64ch; color: var(--fg-muted); margin: 0; font-size: 17px; }
+    .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; color: var(--fg-muted); margin: 4px 0 0; padding: 0; list-style: none; }
+    .facts li::before { content: "·"; margin-right: 6px; color: var(--accent); font-weight: 900; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+    .card {
+      display: grid; grid-template-rows: auto 1fr auto; gap: 12px; background: var(--surface); border: 1px solid var(--border);
+      border-top: 6px solid var(--app, var(--accent)); border-radius: var(--radius); padding: 20px 22px 18px; box-shadow: var(--shadow); min-width: 0;
+      text-decoration: none; color: inherit; transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .card:hover, .card:focus-visible { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(30, 40, 60, .14); outline: none; }
+    .card:focus-visible { box-shadow: 0 0 0 3px var(--app, var(--accent)); }
+    .cat { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--app, var(--accent)); }
+    .cat .num { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--app, var(--accent)); color: #fff; font-variant-numeric: tabular-nums; }
+    .card h2 { margin: 0; font-size: 24px; font-weight: 900; }
+    .card .tag { margin: 2px 0 0; color: var(--fg-muted); font-size: 15px; }
+    .meta { display: grid; gap: 6px; font-size: 13.5px; color: var(--fg-muted); border-top: 1px dashed var(--border); padding-top: 10px; }
+    .meta b { color: var(--fg); font-weight: 600; }
+    .open { justify-self: start; margin-top: 2px; font-weight: 700; color: var(--app, var(--accent)); }
+    .open::after { content: " →"; }
+    .common { margin-top: 36px; background: var(--surface-2); border-radius: var(--radius); padding: 22px 24px; }
+    .common h3 { margin: 0 0 10px; font-size: 18px; }
+    .common ul { margin: 0; padding-left: 20px; color: var(--fg-muted); font-size: 15px; }
+    .common li + li { margin-top: 4px; }
+    footer { margin-top: 28px; color: var(--fg-muted); font-size: 13px; display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: space-between; }
+    .theme { font: inherit; font-size: 13px; background: var(--surface); color: var(--fg); border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+    .theme:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
+    @media (max-width: 480px) { .card { padding: 16px; } .card h2 { font-size: 21px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">바이브코딩으로 만드는 교육용 앱 개발 · 과제 제출물</div>
+      <h1>교육용 앱 다섯 가지</h1>
+      <p class="lead">같은 가상 학급 ‘가온초등학교 5학년 2반’을 다섯 가지 각도에서 비추는 웹앱 모음입니다. 수업 시간의 교구, 방과 후 자기주도 복습, 담임의 학급 운영, 학교 공유 자원 행정, 그리고 연산 훈련 게임까지 한 사람이 AI와 함께 만들었습니다.</p>
+      <ul class="facts">
+        <li>설치 없이 index.html 더블클릭으로 실행</li>
+        <li>순수 HTML · CSS · JavaScript, 외부 라이브러리 없음</li>
+        <li>데이터는 브라우저(localStorage)에만 저장, JSON 백업 지원</li>
+        <li>내장 학생·교사 이름은 모두 가상</li>
+      </ul>
+    </header>
+
+    <main class="grid" aria-label="앱 목록">
+      <a class="card" style="--app:#3B82F6" href="01_교과교육지원_분수교구함/index.html">
+        <span class="cat"><span class="num">1</span>교과 교육지원 앱</span>
+        <div>
+          <h2>분수교구함</h2>
+          <p class="tag">막대·원·수직선이 한 몸처럼 움직이는 분수 조작 교구. 쪼개고, 겹치고, 통분하며 분수를 ‘보는’ 수업.</p>
+        </div>
+        <div class="meta">
+          <span><b>대상</b> 3~5학년 수학 수업(전자칠판 시연·태블릿 조작)</span>
+          <span><b>대표 기술</b> SVG 세 표상 실시간 동기화, 분할선 애니메이션, 활동지 인쇄</span>
+        </div>
+        <span class="open">앱 열기</span>
+      </a>
+
+      <a class="card" style="--app:#7C5CE6" href="02_학습지도_기억상자/index.html">
+        <span class="cat"><span class="num">2</span>학습지도용 앱</span>
+        <div>
+          <h2>기억상자</h2>
+          <p class="tag">외울 것과 틀린 것을 상자에 넣고, 잊기 직전에 다시 만나는 간격 반복 복습·오답 노트.</p>
+        </div>
+        <div class="meta">
+          <span><b>대상</b> 3~6학년 학생의 자기주도 복습, 교사의 학급 오답 집계</span>
+          <span><b>대표 기술</b> 라이트너 간격 반복 스케줄러, 직접 그린 SVG 차트(잔디 달력·도넛)</span>
+        </div>
+        <span class="open">앱 열기</span>
+      </a>
+
+      <a class="card" style="--app:#F59E0B" href="03_업무자동화_자리뚝딱/index.html">
+        <span class="cat"><span class="num">3</span>학교 업무 자동화 앱</span>
+        <div>
+          <h2>자리뚝딱</h2>
+          <p class="tag">조건만 체크하면 자리표·모둠·역할이 30초 만에 완성되고, TV 화면에서 카드가 뒤집히며 공개되는 자리 배치 도우미.</p>
+        </div>
+        <div class="meta">
+          <span><b>대상</b> 담임교사의 자리 바꾸기·모둠 편성·명패 인쇄</span>
+          <span><b>대표 기술</b> 제약 만족 자동 배치 엔진, 드래그앤드롭, 교사용 반전 인쇄</span>
+        </div>
+        <span class="open">앱 열기</span>
+      </a>
+
+      <a class="card" style="--app:#1E3A5F" href="04_행정지원_특별실지기/index.html">
+        <span class="cat"><span class="num">4</span>학교 행정 지원 앱</span>
+        <div>
+          <h2>특별실지기</h2>
+          <p class="tag">과학실·강당·컴퓨터실과 태블릿 세트까지, 학교 공유 자원을 주간 교시 격자에서 예약하고 이중 예약을 즉시 잡아내는 예약판.</p>
+        </div>
+        <div class="meta">
+          <span><b>대상</b> 특별실·기자재 담당 교사, 예약하는 전교 교사, 실적 보고 담당자</span>
+          <span><b>대표 기술</b> 주간 격자 예약과 교시 단위 충돌 검사, 형평성 히트맵 통계</span>
+        </div>
+        <span class="open">앱 열기</span>
+      </a>
+
+      <a class="card" style="--app:#E63946" href="05_교육용게임_연산수호대/index.html">
+        <span class="cat"><span class="num">5</span>교육용 게임 앱</span>
+        <div>
+          <h2>연산수호대</h2>
+          <p class="tag">답을 입력해 쏘는 연산 타워 디펜스. 틀린 문제는 ‘복수 몬스터’로 다시 돌아온다.</p>
+        </div>
+        <div class="meta">
+          <span><b>대상</b> 1~6학년 학생의 연산 연습(아침활동·마무리 5분·보충학습)</span>
+          <span><b>대표 기술</b> Canvas 게임 루프와 파티클, Web Audio 합성 효과음</span>
+        </div>
+        <span class="open">앱 열기</span>
+      </a>
+    </main>
+
+    <section class="common" aria-labelledby="common-h">
+      <h3 id="common-h">다섯 앱이 공유하는 규약</h3>
+      <ul>
+        <li>각 폴더는 완전히 독립된 앱입니다. index.html, css/style.css, js/*.js, README.md로 구성되며 폴더 밖 파일을 참조하지 않습니다.</li>
+        <li>라이트·다크 테마를 모두 지원하고(헤더의 테마 버튼), 400px 폭의 휴대폰부터 전자칠판까지 반응형으로 동작합니다.</li>
+        <li>처음 열면 가상의 샘플 데이터가 들어 있어 바로 기능을 체험할 수 있고, 언제든 ‘샘플로 초기화’할 수 있습니다.</li>
+        <li>확인이 필요한 동작은 브라우저 경고창 대신 앱 안의 모달과 토스트로 안내합니다.</li>
+        <li>각 앱 폴더의 README.md와 docs/ 폴더에 개요·설명서가 있습니다.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <span>바이브코딩으로 만드는 교육용 앱 개발 · 2026</span>
+      <button class="theme" id="theme-toggle" type="button" aria-label="테마 전환">테마: 시스템</button>
+    </footer>
+  </div>
+  <script>
+    'use strict';
+    (function () {
+      // 테마 토글: 시스템 → 라이트 → 다크 순환, 선택값은 localStorage에 저장
+      var KEY = 'edu.hub.theme';
+      var btn = document.getElementById('theme-toggle');
+      var order = ['system', 'light', 'dark'];
+      var labels = { system: '테마: 시스템', light: '테마: 라이트', dark: '테마: 다크' };
+      function read() { try { return localStorage.getItem(KEY) || 'system'; } catch (e) { return 'system'; } }
+      function apply(mode) {
+        if (mode === 'system') document.documentElement.removeAttribute('data-theme');
+        else document.documentElement.setAttribute('data-theme', mode);
+        btn.textContent = labels[mode];
+      }
+      var mode = read();
+      apply(mode);
+      btn.addEventListener('click', function () {
+        mode = order[(order.indexOf(mode) + 1) % order.length];
+        try { localStorage.setItem(KEY, mode); } catch (e) { /* 저장 불가 환경에서는 세션 동안만 유지 */ }
+        apply(mode);
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# IDE
+.idea/
+*.iml
+
+# 의존성·임시 파일
+node_modules/
+__pycache__/
+*.log
+~$*
+_preview.docx
+
+# OS
+Thumbs.db
+.DS_Store
