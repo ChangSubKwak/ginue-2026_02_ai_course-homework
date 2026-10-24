@@ -32,8 +32,8 @@ SRB.board = (() => {
     const root = view(); const d = S.state.data; const s = d.settings; ensureWeek();
     const active = d.resources.filter(r => r.active);
     if (!active.length) {
-      root.innerHTML = `<div class="empty card"><h2>자원을 먼저 등록하세요</h2><p>과학실·강당 같은 특별실이나 태블릿 세트 같은 기자재를 자원 탭에서 추가하면 요일×교시 예약판이 그려집니다.</p>
-        <div class="row"><button type="button" class="btn btn-primary" data-act="go-resources">자원 탭으로 이동</button><button type="button" class="btn" data-act="load-sample">샘플 데이터로 시작</button></div></div>`;
+      root.innerHTML = `<div class="empty card"><h2>자원을 먼저 등록하세요</h2><p>과학실·강당 같은 특별실이나 태블릿 세트 같은 기자재를 '특별실·기자재' 탭에서 추가하면 요일×교시 예약판이 그려집니다.</p>
+        <div class="row"><button type="button" class="btn btn-primary" data-act="go-resources">특별실·기자재 탭으로 이동</button><button type="button" class="btn" data-act="load-sample">샘플 데이터로 시작</button></div></div>`;
       return;
     }
     const res = currentResource(); const days = weekDays(); const mon = days[0]; const t = S.todayStr();
@@ -78,11 +78,12 @@ SRB.board = (() => {
   // 격자 HTML(CSS Grid, 셀은 data-day/data-period, 공간형 블록은 grid-row span)
   function gridHTML(res, cols) {
     const keys = S.periodKeys(); const t = S.todayStr();
-    let h = `<div class="grid" style="--cols:${cols.length}" role="grid" aria-label="${esc(res.name)} 주간 예약 격자"><div class="gh corner">교시</div>`;
+    let h = `<div class="grid" style="--cols:${cols.length}" role="group" aria-label="${esc(res.name)} 주간 예약 격자"><div class="gh corner">교시</div>`;
     cols.forEach((date, ci) => {
       const closed = S.closureOn(date);
       h += `<div class="gh day${date === t ? ' is-today' : ''}${closed ? ' closed' : ''}" style="grid-column:${ci + 2};grid-row:1"><b>${S.DAY_KO[S.dayOfWeek(date)]}</b><span>${S.fmtMD(date)}</span>${closed ? `<em>${esc(closed.title)}</em>` : ''}</div>`;
     });
+    const lastBlk = {}; // 열마다 직전 교시의 차단 행사(연속 차단 셀은 첫 셀에만 사유 표기)
     keys.forEach((p, ri) => {
       const po = S.periodObj(p);
       h += `<div class="ph" style="grid-row:${ri + 2}"><b>${esc(po.label)}</b><span>${esc(po.time || '')}</span></div>`;
@@ -90,23 +91,28 @@ SRB.board = (() => {
         const st = cellState(res, date, p);
         let cls = 'cell'; if (st.closed) cls += ' closed'; if (st.blk) cls += ' blocked'; if (st.unavail) cls += ' unavail'; if (st.full) cls += ' full'; if (st.free) cls += ' free'; if (date === t) cls += ' is-today';
         let inner = '';
-        if (st.blk) inner += `<span class="blk-label">■ ${esc(st.blk.title)}</span>`;
+        if (st.blk) { if (!lastBlk[ci] || lastBlk[ci] !== st.blk) inner += `<span class="blk-label">■ ${esc(st.blk.title)}</span>`; }
         else if (st.unavail && !st.closed) inner += '<span class="blk-label muted">사용 불가</span>';
+        lastBlk[ci] = st.blk;
         if (res.type === 'equipment' && !st.closed && st.list.length) {
-          inner += st.list.map(b => `<button type="button" class="eq-chip g${S.gradeOf(b.classId || b.customLabel)}${st.blk ? ' conflict' : ''}" data-booking-id="${b.id}" title="${esc(S.bookingShort(b))} ${esc(b.tag)}">${esc(S.classLabel(b))}${(b.qty || 1) > 1 ? ` ×${b.qty}` : ''}</button>`).join('');
-          inner += `<span class="left${st.full ? ' full' : ''}">${st.full ? `${st.used}/${st.cap} 사용 중` : `잔여 ${st.cap - st.used}`}</span>`;
+          const over = st.used > st.cap;
+          inner += st.list.map(b => `<button type="button" class="eq-chip g${S.gradeOf(b.classId || b.customLabel)}${st.blk || over ? ' conflict' : ''}" data-booking-id="${esc(b.id)}" title="${esc(S.bookingShort(b))} ${esc(b.tag)}${b.memo ? ` · ${esc(b.memo)}` : ''}"><b>${esc(S.classLabel(b))}</b> ${esc(S.teacherName(b.teacherId))}<small>${esc(b.tag)}${(b.qty || 1) > 1 ? ` ×${b.qty}` : ''}</small></button>`).join('');
+          inner += `<span class="left${st.full ? ' full' : ''}">${over ? `${st.used}/${st.cap} 초과` : st.full ? `${st.used}/${st.cap} 사용 중` : `잔여 ${st.cap - st.used}`}</span>`;
         }
         const a11y = st.free ? ` tabindex="0" role="button" aria-label="${S.fmtMDW(date)} ${esc(po.label)} 예약"` : '';
         h += `<div class="${cls}" data-day="${S.dayOfWeek(date)}" data-date="${date}" data-period="${p}" style="grid-column:${ci + 2};grid-row:${ri + 2}"${a11y}>${inner}</div>`;
       });
     });
     if (res.type === 'room') cols.forEach((date, ci) => {
-      for (const b of S.bookingsAt(res.id, date)) {
+      const placed = []; // 같은 열에서 교시가 겹치는 예약(병합·강제 생성으로 생긴 초과 예약)은 비켜 쌓고 '중복' 배지
+      const list = S.bookingsAt(res.id, date).slice().sort((x, y) => x.periodStart - y.periodStart || (x.createdAt || 0) - (y.createdAt || 0));
+      for (const b of list) {
         const si = keys.indexOf(b.periodStart), ei = keys.indexOf(b.periodEnd); if (si < 0 && ei < 0) continue;
         const a = si < 0 ? 0 : si, z = ei < 0 ? keys.length - 1 : ei;
         let conflict = !!S.closureOn(date); for (let p = b.periodStart; p <= b.periodEnd && !conflict; p++) if (S.blockAt(res.id, date, p)) conflict = true;
-        h += `<button type="button" class="block g${S.gradeOf(b.classId || b.customLabel)}${conflict ? ' conflict' : ''}${b.date < t ? ' past' : ''}" data-booking-id="${b.id}" style="grid-column:${ci + 2};grid-row:${a + 2} / span ${z - a + 1}" title="${esc(S.bookingShort(b))} · ${esc(b.tag)}${b.memo ? ` · ${esc(b.memo)}` : ''}">
-          <b>${esc(S.classLabel(b))} ${esc(S.teacherName(b.teacherId))}</b><span>${esc(b.tag)}${b.seriesId ? ' · 정기' : ''}</span>${conflict ? '<i class="badge badge-danger">충돌</i>' : ''}${b.used === false ? '<i class="badge badge-warn">미사용</i>' : b.used === true ? '<i class="badge badge-ok">사용</i>' : ''}</button>`;
+        const lane = placed.filter(x => x.periodStart <= b.periodEnd && b.periodStart <= x.periodEnd).length; placed.push(b);
+        h += `<button type="button" class="block g${S.gradeOf(b.classId || b.customLabel)}${conflict || lane ? ' conflict' : ''}${lane ? ' dup' : ''}${b.date < t ? ' past' : ''}" data-booking-id="${esc(b.id)}" data-day="${S.dayOfWeek(date)}" style="grid-column:${ci + 2};grid-row:${a + 2} / span ${z - a + 1};--lane:${lane}" title="${esc(S.bookingShort(b))} · ${esc(b.tag)}${b.memo ? ` · ${esc(b.memo)}` : ''}${lane ? ' · 같은 교시에 다른 예약과 겹침' : ''}">
+          <b>${esc(S.classLabel(b))} ${esc(S.teacherName(b.teacherId))}</b><span>${esc(b.tag)}${b.seriesId ? ' · 정기' : ''}</span>${lane ? '<i class="badge badge-danger">중복</i>' : conflict ? '<i class="badge badge-danger">충돌</i>' : ''}${b.used === false ? '<i class="badge badge-warn">미사용</i>' : b.used === true ? '<i class="badge badge-ok">사용</i>' : ''}</button>`;
       }
     });
     return h + '</div>';
@@ -130,19 +136,22 @@ SRB.board = (() => {
     if (!drag.moved && Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < DRAG_THRESHOLD) return;
     drag.moved = true;
     const el = document.elementFromPoint(e.clientX, e.clientY); const c = el && el.closest('.cell');
-    if (!c || c.dataset.day !== drag.day) return;
+    const warn = () => { if (!drag.warned) { drag.warned = true; S.showToast('예약·차단된 교시를 지나 선택할 수 없습니다.', 'warn', 1800); } };
+    if (!c) { const blk = el && el.closest('.block'); if (blk && blk.dataset.day === drag.day) warn(); return; } // 같은 열의 예약 블록 위
+    if (c.dataset.day !== drag.day) return;
     const p = Number(c.dataset.period); const lo = Math.min(p, drag.anchor), hi = Math.max(p, drag.anchor);
     const cells = S.$$(`.cell[data-day="${drag.day}"]`, drag.root).filter(x => { const k = Number(x.dataset.period); return k >= lo && k <= hi; });
     if (cells.every(x => x.classList.contains('free'))) { drag.range = [lo, hi]; drag.warned = false; applySel(drag.root, drag.day, lo, hi); }
-    else if (!drag.warned) { drag.warned = true; S.showToast('예약·차단된 교시를 지나 선택할 수 없습니다.', 'warn', 1800); }
+    else warn();
   }
-  function onPointerUp() {
+  function onPointerUp(e) {
     if (!drag) return; const dg = drag; drag = null; clearSel(dg.root);
-    if (dg.moved) {
-      suppressClick = true; setTimeout(() => { suppressClick = false; }, 300);
-      const [lo, hi] = dg.range || [dg.anchor, dg.anchor];
-      openBookingModal({ resourceId: currentResource().id, date: dg.date, pStart: lo, pEnd: hi });
-    }
+    if (!dg.moved) return;
+    suppressClick = true; setTimeout(() => { suppressClick = false; }, 300);
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    if (!el || !el.closest('.grid')) { S.showToast('격자 밖에서 놓아 선택을 취소했습니다.', 'info', 1500); return; } // 격자 밖 → 선택 해제
+    const [lo, hi] = dg.range || [dg.anchor, dg.anchor];
+    openBookingModal({ resourceId: currentResource().id, date: dg.date, pStart: lo, pEnd: hi });
   }
   function onPointerCancel() { if (drag) { clearSel(drag.root); drag = null; } }
 
@@ -217,13 +226,12 @@ SRB.board = (() => {
       <div class="field used-wrap" hidden><span class="lbl">사용 여부(지난 예약)</span><div class="seg">
         <button type="button" data-used="null">미확인</button><button type="button" data-used="true">실제 사용함</button><button type="button" data-used="false">사용 안 함</button></div></div>
       <p class="series-note muted" hidden></p>
-      <div class="validate" aria-live="polite"></div>
-      <div class="alts"></div>`;
+      <div class="verdict"><div class="validate" aria-live="polite"></div><div class="alts"></div></div>`;
     const footer = `<button type="button" class="btn" data-result="">취소</button>${isEdit ? '<button type="button" class="btn btn-danger-outline" data-act="delete">삭제</button>' : ''}<button type="button" class="btn btn-primary" data-act="save">저장</button>`;
     const m = S.openModal({ title: isEdit ? '예약 수정' : '예약 등록', body, footer, cls: 'modal-lg' });
     const q = n => body.elements[n]; const saveBtn = S.$('[data-act="save"]', m.foot);
     if (b && b.seriesId) { const sr = d.series.find(x => x.id === b.seriesId); const note = S.$('.series-note', body); note.hidden = false; note.textContent = sr ? `매주 ${S.DAY_KO[sr.weekday]} ${S.rangeLabel(sr.periodStart, sr.periodEnd)} 정기 예약 시리즈(${S.fmtMD(sr.dateFrom)}~${S.fmtMD(sr.dateTo)})에 속한 건입니다.` : '정기 예약 시리즈에 속한 건입니다.'; }
-    let last = null; // 마지막 검증 결과
+    let last = null; let touched = isEdit; // 마지막 검증 결과 · 사용자가 입력을 시작했는지(미입력 안내를 빨간 오류로 보이지 않게)
     // 폼 값 읽기·정규화(끝<시작 교정, 수량 클램프)
     const read = () => {
       f.resourceId = q('resourceId').value; f.date = q('date').value; f.pStart = Number(q('pStart').value); f.pEnd = Number(q('pEnd').value);
@@ -246,17 +254,19 @@ SRB.board = (() => {
       if (!f.teacherId) formErr.push('교사를 선택하세요');
       const box = S.$('.validate', body); const alts = S.$('.alts', body);
       const remain = c.remaining.length ? `<p class="muted">교시별 잔여: ${c.remaining.map(x => `${S.periodLabel(x.p)} 잔여 ${x.left}`).join(', ')}</p>` : '';
-      if (c.ok && !formErr.length) box.innerHTML = `<div class="ok"><b>예약 가능</b> · ${S.fmtMDW(f.date)} ${S.rangeLabel(f.pStart, f.pEnd)}${res ? ` · ${esc(res.name)}` : ''}</div>${remain}`;
-      else box.innerHTML = `<div class="bad"><b>${c.ok ? '입력을 확인하세요' : '예약할 수 없습니다'}</b><ul>${c.reasons.concat(formErr).map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>${remain}`;
+      const slot = `${S.fmtMDW(f.date)} ${S.rangeLabel(f.pStart, f.pEnd)}${res ? ` · ${esc(res.name)}` : ''}`;
+      if (c.ok && !formErr.length) box.innerHTML = `<div class="ok"><b>예약 가능</b> · ${slot}</div>${remain}`;
+      else if (c.ok && !touched) box.innerHTML = `<div class="hint"><b>자리는 비어 있습니다</b> · ${slot}<br>학급과 교사를 고르면 저장할 수 있습니다.</div>${remain}`;
+      else box.innerHTML = `<div class="bad"><b>${c.ok ? '입력을 확인하세요' : '예약할 수 없습니다'}</b><ul>${c.reasons.concat(touched ? formErr : []).map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>${remain}`;
       if (c.warnings.length) box.innerHTML += `<div class="warn">${c.warnings.map(esc).join('<br>')}</div>`;
       const list = c.ok ? [] : S.suggestAlternatives({ resourceId: f.resourceId, date: f.date, pStart: f.pStart, pEnd: f.pEnd, qty: f.qty, excludeId: b ? b.id : null, classId: classIdOf() });
       alts.innerHTML = list.length ? `<span class="lbl">대안</span>${list.map((a, i) => `<button type="button" class="chip alt" data-alt="${i}">${esc(a.label)}</button>`).join('')}` : '';
       alts._list = list;
       saveBtn.disabled = !c.ok || formErr.length > 0;
     };
-    body.addEventListener('input', validate); body.addEventListener('change', e => {
+    body.addEventListener('input', () => { touched = true; validate(); }); body.addEventListener('change', e => {
       if (e.target.name === 'classSel') { const cls = S.classById(e.target.value); if (cls && cls.teacherId) q('teacherId').value = cls.teacherId; }
-      validate();
+      touched = true; validate();
     });
     body.addEventListener('submit', e => e.preventDefault());
     body.addEventListener('click', e => {
@@ -271,7 +281,7 @@ SRB.board = (() => {
     m.foot.addEventListener('click', async e => {
       const act = e.target.closest('[data-act]'); if (!act) return;
       if (act.dataset.act === 'save') {
-        validate(); if (saveBtn.disabled) return;
+        touched = true; validate(); if (saveBtn.disabled) return;
         const now = Date.now(); const payload = { resourceId: f.resourceId, date: f.date, periodStart: f.pStart, periodEnd: f.pEnd, classId: classIdOf(), customLabel: labelOf(), teacherId: f.teacherId, tag: f.tag, qty: f.qty, memo: f.memo, used: f.date < t ? f.used : null, updatedAt: now };
         if (isEdit) Object.assign(b, payload); else d.bookings.push(Object.assign({ id: S.uid('b'), seriesId: null, createdAt: now }, payload));
         S.save(); m.close('saved'); S.showToast(isEdit ? '예약이 수정되었습니다.' : '예약되었습니다.', 'success'); S.render();
@@ -333,8 +343,10 @@ SRB.board = (() => {
       return { sr: { resourceId: res.id, weekday: Number(q('weekday').value), periodStart: pS, periodEnd: pE, classId, customLabel, teacherId: q('teacherId').value, tag: q('tag').value, qty, dateFrom: from, dateTo: to }, errs };
     };
     const invalidate = () => { read(); createBtn.disabled = true; rows = []; S.$('.preview', body).innerHTML = ''; S.$('.validate', body).innerHTML = '<p class="muted">조건을 입력하고 미리보기를 눌러 날짜별 생성 여부를 확인하세요.</p>'; };
-    body.addEventListener('input', invalidate);
-    body.addEventListener('change', e => { if (e.target.name === 'classSel') { const cls = S.classById(e.target.value); if (cls && cls.teacherId) q('teacherId').value = cls.teacherId; } invalidate(); });
+    // 조건 입력이 바뀌면 미리보기 무효화. 미리보기 표 안의 행 체크박스 이벤트는 제외(체크 상태만 바꿈)
+    const fromPreview = e => !!e.target.closest('.preview');
+    body.addEventListener('input', e => { if (!fromPreview(e)) invalidate(); });
+    body.addEventListener('change', e => { if (fromPreview(e)) return; if (e.target.name === 'classSel') { const cls = S.classById(e.target.value); if (cls && cls.teacherId) q('teacherId').value = cls.teacherId; } invalidate(); });
     body.addEventListener('submit', e => e.preventDefault());
     body.addEventListener('click', e => {
       const cb = e.target.closest('input[data-row]'); if (cb) { rows[Number(cb.dataset.row)].checked = cb.checked; summarize(); }
@@ -351,7 +363,7 @@ SRB.board = (() => {
         sr = r.sr; rows = S.expandSeries(sr);
         if (!rows.length) { S.$('.validate', body).innerHTML = '<div class="bad">생성할 건이 없습니다(요일·기간을 확인하세요).</div>'; S.$('.preview', body).innerHTML = ''; createBtn.disabled = true; return; }
         const lab = { ok: '생성', holiday: '휴업일 제외', blocked: '차단 제외', conflict: '충돌', skip: '제외' };
-        S.$('.preview', body).innerHTML = `<div class="table-wrap"><table class="table"><thead><tr><th></th><th>날짜</th><th>상태</th><th>사유</th></tr></thead><tbody>${rows.map((x, i) => `<tr class="st-${x.status}"><td>${x.status === 'ok' || x.status === 'conflict' ? `<input type="checkbox" data-row="${i}"${x.checked ? ' checked' : ''} aria-label="${S.fmtMDW(x.date)} 생성">` : ''}</td><td>${S.fmtMDW(x.date)}</td><td><span class="badge st-${x.status}">${lab[x.status]}</span></td><td class="muted">${esc(x.reason)}</td></tr>`).join('')}</tbody></table></div>`;
+        S.$('.preview', body).innerHTML = `<div class="table-wrap"><table class="table"><thead><tr><th></th><th>날짜</th><th>상태</th><th>사유</th></tr></thead><tbody>${rows.map((x, i) => `<tr class="st-${x.status}"><td>${x.status === 'ok' || x.status === 'conflict' ? `<input type="checkbox" data-row="${i}"${x.checked ? ' checked' : ''} aria-label="${S.fmtMDW(x.date)} 생성">` : ''}</td><td>${S.fmtMDW(x.date)}</td><td><span class="badge st-${x.status}">${lab[x.status]}</span></td><td class="muted wrap">${esc(x.reason)}</td></tr>`).join('')}</tbody></table></div>`;
         summarize();
       } else if (act.dataset.act === 'create' && rows.length) {
         const now = Date.now(); const series = Object.assign({ id: S.uid('s'), createdAt: now }, sr);
@@ -405,7 +417,8 @@ SRB.board = (() => {
   // 주간 이용 현황표(자원당 1쪽, A4 가로)
   function weeklyPrintHtml(resources, days) {
     const s = S.state.data.settings; const keys = S.periodKeys();
-    return resources.map(res => `<section class="print-page">
+    const rowH = Math.min(58, Math.floor(540 / keys.length)); // 교시 수에 따라 행 높이를 맞춰 A4 가로 1쪽에 들어가게
+    return resources.map(res => `<section class="print-page" style="--wk-row:${rowH}px">
       <header class="print-head"><div><p class="school">${esc(s.schoolName)}</p><h1>${s.schoolYear}학년도 ${s.semester}학기 특별실 주간 이용 현황표</h1>
       <p class="meta">${S.weekLabel(days[0])} (${S.fmtMD(days[0])}~${S.fmtMD(days[4])}) · 자원: <b>${esc(res.name)}</b>${res.manager ? ` (담당 ${esc(res.manager)})` : ''} · 출력일 ${S.fmtKo(S.todayStr())}</p></div>${approvalHtml()}</header>
       <table class="wk"><thead><tr><th class="pcol">교시</th>${days.map(dt => `<th>${S.DAY_KO[S.dayOfWeek(dt)]} ${S.fmtMD(dt)}</th>`).join('')}</tr></thead><tbody>

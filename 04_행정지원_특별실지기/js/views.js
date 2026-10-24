@@ -34,7 +34,7 @@
           ${list.length ? `<ul class="event-list">${list.map(e => {
             const n = S.affectedBookings(e).length; const names = e.type === 'event' ? e.blockResourceIds.map(id => (S.resourceById(id) || {}).name).filter(Boolean) : [];
             return `<li><div class="ev-main"><b>${esc(e.title)}</b> ${badgeType(e.type)}<div class="muted">${S.fmtMDW(e.dateStart)}${e.dateEnd !== e.dateStart ? ` ~ ${S.fmtMDW(e.dateEnd)}` : ''}${e.type === 'event' ? ` · 차단: ${names.length ? esc(names.join(', ')) : '없음'}${names.length ? ` · ${e.blockPeriods === 'all' ? '전체 교시' : e.blockPeriods.map(S.periodLabel).join(',')}` : ''}` : ' · 전체 자원 예약 불가'}${e.memo ? ` · ${esc(e.memo)}` : ''}</div></div>
-              <div class="row">${n ? `<button type="button" class="btn btn-sm btn-danger-outline" data-affected="${e.id}">충돌 ${n}건</button>` : ''}<button type="button" class="btn btn-sm" data-event-edit="${e.id}">수정</button><button type="button" class="btn btn-sm" data-event-del="${e.id}">삭제</button></div></li>`;
+              <div class="row">${n ? `<button type="button" class="btn btn-sm btn-danger-outline" data-affected="${esc(e.id)}">충돌 ${n}건</button>` : ''}<button type="button" class="btn btn-sm" data-event-edit="${esc(e.id)}">수정</button><button type="button" class="btn btn-sm" data-event-del="${esc(e.id)}">삭제</button></div></li>`;
           }).join('')}</ul>` : '<p class="empty-inline">등록된 일정이 없습니다. 달력의 날짜를 누르거나 \'일정 추가\'로 등록하세요.</p>'}
         </section>
       </div>`;
@@ -58,8 +58,9 @@
   }
   // 일정 모달(등록·수정) → 저장 시 영향 예약 수 안내
   function openEventModal(ev, presetDate) {
-    const d = S.state.data; const s = d.settings; const isEdit = !!ev;
-    const f = ev ? JSON.parse(JSON.stringify(ev)) : { title: '', type: 'event', dateStart: presetDate || s.semesterStart, dateEnd: presetDate || s.semesterStart, blockResourceIds: [], blockPeriods: 'all', memo: '' };
+    const d = S.state.data; const isEdit = !!ev; const t = S.todayStr(); const cm = S.state.ui.calMonth;
+    const base = presetDate || (t.startsWith(cm) ? t : `${cm}-01`); // 기본 날짜: 보고 있는 달의 오늘(아니면 1일)
+    const f = ev ? JSON.parse(JSON.stringify(ev)) : { title: '', type: 'event', dateStart: base, dateEnd: base, blockResourceIds: [], blockPeriods: 'all', memo: '' };
     const body = document.createElement('form'); body.className = 'form'; body.noValidate = true;
     body.innerHTML = `
       <div class="form-grid">
@@ -147,11 +148,11 @@
         <div class="res-card-head"><h3>${esc(r.name)}</h3><span class="badge">${r.type === 'equipment' ? `수량형 · ${r.quantity}개` : '공간형'}</span></div>
         <dl><dt>그룹</dt><dd>${esc(r.group || '-')}</dd><dt>담당</dt><dd>${esc(r.manager || '-')}</dd><dt>수용</dt><dd>${r.capacity ? `${r.capacity}명` : '-'}</dd><dt>교시</dt><dd>${r.availablePeriods.length === S.periodKeys().length ? '전체' : r.availablePeriods.map(S.periodLabel).join(', ')}</dd>${r.priorityRule ? `<dt>우선</dt><dd>${r.priorityRule.weekdays.map(w => S.DAY_KO[w]).join('·')}요일 ${r.priorityRule.grades.join('·')}학년</dd>` : ''}<dt>예약</dt><dd>${n}건</dd></dl>
         ${r.notice ? `<p class="muted small">${esc(r.notice)}</p>` : ''}
-        <div class="res-card-foot"><label class="switch"><input type="checkbox" data-toggle="${r.id}"${r.active ? ' checked' : ''}> <span>${r.active ? '활성' : '비활성'}</span></label><div class="row"><button type="button" class="btn btn-sm" data-res-edit="${r.id}">수정</button><button type="button" class="btn btn-sm" data-res-del="${r.id}">삭제</button></div></div></article>`;
+        <div class="res-card-foot"><label class="switch"><input type="checkbox" data-toggle="${esc(r.id)}"${r.active ? ' checked' : ''}> <span>${r.active ? '활성' : '비활성'}</span></label><div class="row"><button type="button" class="btn btn-sm" data-res-edit="${esc(r.id)}">수정</button><button type="button" class="btn btn-sm" data-res-del="${esc(r.id)}">삭제</button></div></div></article>`;
     }).join('');
     const classes = S.sortedClasses();
     root.innerHTML = `
-      <section class="card"><div class="card-head"><h2>자원 <small class="muted">${d.resources.length}개 · 활성 ${d.resources.filter(r => r.active).length}</small></h2><button type="button" class="btn btn-primary" data-act="res-add">자원 추가</button></div>
+      <section class="card"><div class="card-head"><h2>특별실·기자재 <small class="muted">${d.resources.length}개 · 활성 ${d.resources.filter(r => r.active).length}</small></h2><button type="button" class="btn btn-primary" data-act="res-add">자원 추가</button></div>
         ${d.resources.length ? `<div class="res-grid">${cards}</div>` : '<p class="empty-inline">등록된 자원이 없습니다. \'자원 추가\'로 특별실·기자재를 등록하세요.</p>'}</section>
       <div class="split">
         <section class="card"><div class="card-head"><h2>학급 <small class="muted">${classes.length}개</small></h2><button type="button" class="btn" data-act="class-add">학급 추가</button></div>
@@ -162,10 +163,16 @@
   }
   function initResources() {
     const root = view('resources');
-    root.addEventListener('change', e => {
+    root.addEventListener('change', async e => {
       const tg = e.target.closest('[data-toggle]'); if (!tg) return;
-      const r = S.resourceById(tg.dataset.toggle); r.active = tg.checked; r.updatedAt = Date.now(); S.save(); renderResources();
-      S.showToast(r.active ? `${r.name}을(를) 활성화했습니다.` : `${r.name}을(를) 비활성화했습니다. 예약판 칩에서 숨겨지고 통계에는 남습니다.`, 'info');
+      const r = S.resourceById(tg.dataset.toggle); const on = tg.checked;
+      if (!on) { // 비활성화 전 영향 예약 수 확인(예약은 유지되고 예약판에서만 숨김)
+        const t = S.todayStr(); const n = S.state.data.bookings.filter(b => b.resourceId === r.id && b.date >= t).length;
+        const ok = await S.showModal({ title: '자원 비활성화', body: `<p><b>${esc(r.name)}</b>을(를) 비활성화하면 예약판 칩에서 숨겨지고 새 예약을 받지 않습니다.</p><p class="${n ? 'warn-text' : 'muted'}">오늘 이후 예약 <b>${n}</b>건은 삭제되지 않고 유지되며 통계에도 남습니다.</p>`, confirmText: '비활성화' });
+        if (!ok) { renderResources(); return; }
+      }
+      r.active = on; r.updatedAt = Date.now(); S.save(); renderResources();
+      S.showToast(on ? `${r.name}을(를) 활성화했습니다.` : `${r.name}을(를) 비활성화했습니다. 예약판 칩에서 숨겨지고 통계에는 남습니다.`, 'info');
     });
     root.addEventListener('click', async e => {
       const d = S.state.data; const act = e.target.closest('[data-act]');
@@ -255,9 +262,10 @@
   }
   function openClassModal(c) {
     const d = S.state.data; const isEdit = !!c;
+    const nextRoom = g => Math.max(0, ...d.classes.filter(x => x.grade === g).map(x => x.room)) + 1; // 추가 시 비어 있는 다음 반 번호
     const body = document.createElement('form'); body.className = 'form'; body.noValidate = true;
     body.innerHTML = `<div class="form-grid"><label>학년<select name="grade">${[1, 2, 3, 4, 5, 6].map(g => opt(g, `${g}학년`, c ? c.grade === g : g === 1)).join('')}</select></label>
-      <label>반<input type="number" name="room" min="1" max="30" step="1" value="${c ? c.room : 1}"></label>
+      <label>반<input type="number" name="room" min="1" max="30" step="1" value="${c ? c.room : Math.min(30, nextRoom(1))}"></label>
       <label>담임<select name="teacherId">${opt('', '미지정', !c || !c.teacherId)}${d.teachers.map(x => opt(x.id, `${x.name} (${x.role})`, c && c.teacherId === x.id)).join('')}</select></label></div><div class="validate"></div>`;
     const m = S.openModal({ title: isEdit ? '학급 수정' : '학급 추가', body, footer: '<button type="button" class="btn" data-result="">취소</button><button type="button" class="btn btn-primary" data-act="save">저장</button>' });
     const q = n => body.elements[n]; const saveBtn = S.$('[data-act="save"]', m.foot);
@@ -281,8 +289,9 @@
     body.innerHTML = `<div class="form-grid"><label>이름<input name="name" maxlength="12" value="${esc(t ? t.name : '')}" required></label><label>담당<input name="role" maxlength="12" value="${esc(t ? t.role : '담임')}" list="role-list" placeholder="담임 / 과학 전담"><datalist id="role-list">${[...new Set(d.teachers.map(x => x.role))].map(x => `<option value="${esc(x)}">`).join('')}</datalist></label></div><div class="validate"></div>`;
     const m = S.openModal({ title: isEdit ? '교사 수정' : '교사 추가', body, footer: '<button type="button" class="btn" data-result="">취소</button><button type="button" class="btn btn-primary" data-act="save">저장</button>' });
     const q = n => body.elements[n]; const saveBtn = S.$('[data-act="save"]', m.foot);
-    const read = () => { const name = q('name').value.trim(); const err = !name ? '이름을 입력하세요' : d.teachers.some(x => x !== t && x.name === name) ? '같은 이름의 교사가 이미 있습니다' : ''; S.$('.validate', body).innerHTML = err ? `<div class="bad">${err}</div>` : ''; saveBtn.disabled = !!err; return { name, role: q('role').value.trim() || '담임', err }; };
-    body.addEventListener('input', read); body.addEventListener('submit', e => e.preventDefault());
+    let touched = isEdit; // 입력 전에는 '이름을 입력하세요'를 오류로 보이지 않게
+    const read = () => { const name = q('name').value.trim(); const err = !name ? '이름을 입력하세요' : d.teachers.some(x => x !== t && x.name === name) ? '같은 이름의 교사가 이미 있습니다' : ''; S.$('.validate', body).innerHTML = err && touched ? `<div class="bad">${err}</div>` : ''; saveBtn.disabled = !!err; return { name, role: q('role').value.trim() || '담임', err }; };
+    body.addEventListener('input', () => { touched = true; read(); }); body.addEventListener('submit', e => e.preventDefault());
     m.foot.addEventListener('click', e => {
       if (!e.target.closest('[data-act="save"]')) return; const v = read(); if (v.err) return;
       if (isEdit) Object.assign(t, { name: v.name, role: v.role }); else d.teachers.push({ id: S.uid('t'), name: v.name, role: v.role });
@@ -301,22 +310,24 @@
   }
   // (2) 학급×자원 히트맵(학년 평균 50% 미만 '저조')
   function svgHeatmap(st) {
-    const cols = st.resources; const rows = st.classes; const CW = 46, RH = 24, L = 48, T = 78; const W = L + cols.length * CW + 8, H = T + rows.length * RH + 6;
+    const cols = st.resources; const rows = st.classes; const CW = 52, RH = 26, L = 48, T = 84; const W = L + cols.length * CW + 76, H = T + rows.length * RH + 6;
     let max = 1; rows.forEach(c => cols.forEach(r => { max = Math.max(max, st.matrix[`${c.id}|${r.id}`] || 0); }));
     const lowSet = new Set(st.low.map(x => `${x.classId}|${x.resourceId}`));
-    return `<svg class="chart heat" viewBox="0 0 ${W} ${H}" role="img" aria-label="학급별 자원 이용 횟수 히트맵">
-      ${cols.map((r, i) => `<text transform="translate(${L + i * CW + CW / 2 + 4} ${T - 6}) rotate(-40)" class="lbl small">${esc(r.name.length > 7 ? r.name.slice(0, 7) + '…' : r.name)}</text>`).join('')}
-      ${rows.map((c, j) => `<text x="${L - 6}" y="${T + j * RH + 16}" text-anchor="end" class="lbl">${esc(c.id)}</text>${cols.map((r, i) => { const k = `${c.id}|${r.id}`; const v = st.matrix[k] || 0; const low = lowSet.has(k); return `<rect x="${L + i * CW}" y="${T + j * RH}" width="${CW - 2}" height="${RH - 2}" class="h h${heatLevel(v, max)}${low ? ' low' : ''}" data-tip="${esc(c.id)} × ${esc(r.name)}: ${v}회 (${c.grade}학년 평균 ${Math.round((st.avgMap[k] || 0) * 10) / 10}회)${low ? ' · 저조' : ''}"/><text x="${L + i * CW + (CW - 2) / 2}" y="${T + j * RH + 15}" text-anchor="middle" class="hv${v ? '' : ' zero'}">${v ? v : '·'}</text>${low ? `<text x="${L + i * CW + CW - 6}" y="${T + j * RH + 8}" text-anchor="end" class="lowmark">저조</text>` : ''}`; }).join('')}`).join('')}</svg>`;
+    // '저조' 칸은 빨간 테두리 + 우상단 모서리 삼각형(.lowmark)으로 표시해 숫자와 겹치지 않게 한다
+    const mark = (x, y) => `<polygon class="lowmark" points="${x + CW - 11},${y} ${x + CW - 2},${y} ${x + CW - 2},${y + 9}"><title>저조</title></polygon>`;
+    return `<svg class="chart heat" viewBox="0 0 ${W} ${H}" style="width:${W}px" role="img" aria-label="학급별 자원 이용 횟수 히트맵">
+      ${cols.map((r, i) => `<text transform="translate(${L + i * CW + CW / 2 + 4} ${T - 6}) rotate(-40)" class="lbl small">${esc(r.name.length > 9 ? r.name.slice(0, 9) + '…' : r.name)}</text>`).join('')}
+      ${rows.map((c, j) => `<text x="${L - 6}" y="${T + j * RH + 17}" text-anchor="end" class="lbl">${esc(c.id)}</text>${cols.map((r, i) => { const k = `${c.id}|${r.id}`; const v = st.matrix[k] || 0; const low = lowSet.has(k); const x = L + i * CW, y = T + j * RH; return `<rect x="${x}" y="${y}" width="${CW - 2}" height="${RH - 2}" class="h h${heatLevel(v, max)}${low ? ' low' : ''}" data-tip="${esc(c.id)} × ${esc(r.name)}: ${v}회 (${c.grade}학년 평균 ${Math.round((st.avgMap[k] || 0) * 10) / 10}회)${low ? ' · 저조' : ''}"/><text x="${x + (CW - 2) / 2}" y="${y + 16}" text-anchor="middle" class="hv${v ? '' : ' zero'}">${v ? v : '·'}</text>${low ? mark(x, y) : ''}`; }).join('')}`).join('')}</svg>`;
   }
   // (4) 학년별 이용 횟수 세로 막대
   function svgGradeBars(st) {
-    const W = 420, H = 180, L = 36, BW = 44, GAP = 20, base = 150; const max = Math.max(1, ...st.gradeCounts.slice(1));
+    const W = 460, H = 180, L = 36, BW = 48, GAP = 22, base = 150; const max = Math.max(1, ...st.gradeCounts.slice(1));
     return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="학년별 이용 횟수">${[1, 2, 3, 4, 5, 6].map(g => { const v = st.gradeCounts[g]; const h = Math.round(120 * v / max); const x = L + (g - 1) * (BW + GAP); return `<rect x="${x}" y="${base - h}" width="${BW}" height="${h}" class="bar g${g}" data-tip="${g}학년: ${v}건"/><text x="${x + BW / 2}" y="${base - h - 5}" text-anchor="middle" class="val">${v}</text><text x="${x + BW / 2}" y="${base + 16}" text-anchor="middle" class="lbl">${g}학년</text>`; }).join('')}<line x1="${L - 4}" y1="${base}" x2="${W}" y2="${base}" class="axis"/></svg>`;
   }
   // (5) 요일×교시 혼잡도 히트맵
   function svgCongestion(st) {
     const keys = S.periodKeys(); const CW = 64, RH = 24, L = 64, T = 24; const W = L + 5 * CW + 6, H = T + keys.length * RH + 4;
-    return `<svg class="chart heat" viewBox="0 0 ${W} ${H}" role="img" aria-label="요일×교시 혼잡도">${[1, 2, 3, 4, 5].map(w => `<text x="${L + (w - 1) * CW + CW / 2}" y="16" text-anchor="middle" class="lbl">${S.DAY_KO[w]}</text>`).join('')}
+    return `<svg class="chart heat" viewBox="0 0 ${W} ${H}" style="width:${W}px" role="img" aria-label="요일×교시 혼잡도">${[1, 2, 3, 4, 5].map(w => `<text x="${L + (w - 1) * CW + CW / 2}" y="16" text-anchor="middle" class="lbl">${S.DAY_KO[w]}</text>`).join('')}
       ${keys.map((p, j) => `<text x="${L - 6}" y="${T + j * RH + 16}" text-anchor="end" class="lbl small">${esc(S.periodLabel(p))}</text>${[1, 2, 3, 4, 5].map(w => { const v = st.congestion[`${w}|${p}`] || 0; return `<rect x="${L + (w - 1) * CW}" y="${T + j * RH}" width="${CW - 2}" height="${RH - 2}" class="h h${heatLevel(v, st.congMax || 1)}" data-tip="${S.DAY_KO[w]}요일 ${esc(S.periodLabel(p))}: ${v}건"/><text x="${L + (w - 1) * CW + (CW - 2) / 2}" y="${T + j * RH + 15}" text-anchor="middle" class="hv${v ? '' : ' zero'}">${v || '·'}</text>`; }).join('')}`).join('')}</svg>`;
   }
   const lowListHtml = st => st.low.length ? `<ul class="low-list">${st.low.sort((a, b) => a.classId.localeCompare(b.classId)).map(x => `<li><b>${esc(x.classId)}</b> — ${esc(x.resourceName)} ${x.count}회 <span class="muted">(${x.classId[0]}학년 평균 ${x.avg}회)</span></li>`).join('')}</ul>` : '<p class="ok-text">학년 평균의 50% 미만인 학급이 없습니다.</p>';
@@ -342,7 +353,7 @@
         <section class="card"><h2>자원별 가동률</h2><p class="muted small">사용 교시 ÷ 가용 교시(수업일 × 사용 가능 교시 − 차단 교시, 수량형은 × 보유 수량)</p><div class="chart-wrap">${svgRateBars(st)}</div></section>
         <section class="card"><h2>학년별 이용 횟수</h2><p class="muted small">학급 또는 '학년 전체' 예약 건수</p><div class="chart-wrap">${svgGradeBars(st)}</div></section>
       </div>
-      <section class="card"><h2>학급 × 자원 이용 형평성 히트맵</h2><p class="muted small">칸의 숫자는 예약 건수. 같은 학년 평균의 50% 미만(평균 2건 이상)이면 '저조'로 표시합니다.</p><div class="chart-wrap">${svgHeatmap(st)}</div>
+      <section class="card"><h2>학급 × 자원 이용 형평성 히트맵</h2><p class="muted small">칸의 숫자는 예약 건수. 같은 학년 평균의 50% 미만(평균 2건 이상)이면 빨간 테두리와 모서리 표시로 '저조'를 나타냅니다.</p><div class="chart-wrap">${svgHeatmap(st)}</div>
         <h3>이용 저조 학급 <small class="muted">${st.low.length}건</small></h3>${lowListHtml(st)}</section>
       <section class="card"><h2>요일 × 교시 혼잡도</h2><p class="muted small">교시 단위 예약 건수(수량 무시), 최댓값 기준 5단계 농도</p><div class="chart-wrap narrow">${svgCongestion(st)}</div></section>`;
   }
@@ -428,16 +439,20 @@
       } else if (form.dataset.form === 'periods') {
         const n = S.clamp(Math.floor(Number(q('count').value)) || 8, 4, 10);
         const hit = d.bookings.filter(b => b.periodEnd > n).length;
-        if (hit) { out.innerHTML = `<div class="bad">${n + 1}교시 이후에 예약 ${hit}건이 있어 교시 개수를 ${n}개로 줄일 수 없습니다. 해당 예약을 먼저 정리하세요.</div>`; return; }
+        if (hit) { out.innerHTML = `<div class="bad">${esc(S.periodLabel(n + 1))} 이후에 예약 ${hit}건이 있어 교시 개수를 ${n}개로 줄일 수 없습니다. 해당 예약을 먼저 정리하세요.</div>`; return; }
         const periods = []; for (let i = 0; i < n; i++) { const old = s.periods[i]; const lab = q(`label${i}`) ? q(`label${i}`).value.trim() : ''; periods.push({ key: i + 1, label: lab || (old ? old.label : `${i + 1}교시`), time: q(`time${i}`) ? q(`time${i}`).value.trim() : (old ? old.time : '') }); }
         if (periods.some(p => !p.label)) { out.innerHTML = '<div class="bad">교시 라벨을 모두 입력하세요</div>'; return; }
-        const prevN = s.periods.length; s.periods = periods;
+        const prevN = s.periods.length; s.periods = periods; let cleaned = 0;
         d.resources.forEach(r => { // 범위 밖 교시는 제거하고, 전체 사용이던 자원은 새 교시도 사용 가능으로 확장
           const wasAll = r.availablePeriods.length >= prevN; r.availablePeriods = r.availablePeriods.filter(p => p <= n);
           if (wasAll) for (let p = prevN + 1; p <= n; p++) r.availablePeriods.push(p);
           if (!r.availablePeriods.length) r.availablePeriods = periods.map(p => p.key);
         });
-        S.save(); renderSettings(); S.showToast(`교시 구조를 저장했습니다(${n}교시).`, 'success');
+        if (n < prevN) { // 축소 시 행사 차단 교시·정기 예약 정의의 범위 밖 교시도 정리
+          d.events.forEach(ev => { if (!Array.isArray(ev.blockPeriods)) return; const kept = ev.blockPeriods.filter(p => p <= n); if (kept.length !== ev.blockPeriods.length) { cleaned++; ev.blockPeriods = kept.length ? kept : 'all'; if (!kept.length) ev.blockResourceIds = []; } });
+          d.series.forEach(sr => { if (sr.periodEnd > n) { cleaned++; sr.periodEnd = n; sr.periodStart = Math.min(sr.periodStart, n); } });
+        }
+        S.save(); renderSettings(); S.showToast(`교시 구조를 저장했습니다(${n}교시).${cleaned ? ` 범위 밖 교시를 쓰던 행사·정기 예약 정의 ${cleaned}건을 정리했습니다.` : ''}`, 'success', cleaned ? 4000 : 2500);
       }
     });
     root.addEventListener('change', e => {
@@ -458,6 +473,9 @@
     ['dragenter', 'dragover'].forEach(t => root.addEventListener(t, e => { const dz = e.target.closest('.dropzone'); if (dz) { e.preventDefault(); dz.classList.add('over'); } }));
     root.addEventListener('dragleave', e => { const dz = e.target.closest('.dropzone'); if (dz) dz.classList.remove('over'); });
     root.addEventListener('drop', e => { const dz = e.target.closest('.dropzone'); if (!dz) return; e.preventDefault(); dz.classList.remove('over'); const f = e.dataTransfer.files && e.dataTransfer.files[0]; if (f) importFile(f); });
+    // 드롭존 밖에 파일을 떨어뜨려도 브라우저가 파일로 이동하지 않게 막는다
+    document.addEventListener('dragover', e => { if (!e.target.closest || !e.target.closest('.dropzone')) e.preventDefault(); });
+    document.addEventListener('drop', e => { if (e.target.closest && e.target.closest('.dropzone')) return; e.preventDefault(); if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) S.showToast('JSON 파일은 설정 탭의 가져오기 드롭존에 놓아 주세요.', 'info', 3000); });
   }
   function exportJson() { S.dl(`special-room-booking_${S.stamp()}.json`, JSON.stringify(S.state.data, null, 2), 'application/json'); S.showToast('JSON 파일을 내보냈습니다.', 'success'); }
   function exportCsv() {
@@ -474,16 +492,21 @@
   async function importData(obj, mode, name) {
     const err = obj ? S.validateImport(obj) : '올바른 백업 파일이 아닙니다(JSON 해석 실패 또는 빈 파일)';
     if (err) { S.showToast(err, 'error', 3500); return false; }
+    const norm = S.normalizeData(obj); const inc = norm.data; // 항목 단위 검증: 손상 항목은 제외하고 기본값을 채운다
+    const dropNote = norm.dropped ? `, 손상 항목 ${norm.dropped}건 제외` : '';
     if (!mode) {
-      const m = S.openModal({ title: 'JSON 가져오기', body: `<p><b>${esc(name || '파일')}</b> — 예약 ${obj.bookings.length}건 · 자원 ${obj.resources.length}개 · 일정 ${obj.events.length}건${obj.meta.savedAt ? ` · 저장 ${new Date(obj.meta.savedAt).toLocaleString('ko-KR')}` : ''}</p><ul class="muted small"><li><b>교체</b>: 현재 데이터를 모두 지우고 파일 내용으로 바꿉니다.</li><li><b>병합</b>: 같은 id는 수정 시각이 최신인 쪽을 남기고 나머지는 합칩니다(설정은 현재 값 유지).</li></ul>`,
+      const m = S.openModal({ title: 'JSON 가져오기', body: `<p><b>${esc(name || '파일')}</b> — 예약 ${inc.bookings.length}건 · 자원 ${inc.resources.length}개 · 일정 ${inc.events.length}건${inc.meta.savedAt ? ` · 저장 ${new Date(inc.meta.savedAt).toLocaleString('ko-KR')}` : ''}</p>${norm.dropped ? `<p class="warn-text">필수 항목이 빠졌거나 형식이 틀린 손상 항목 ${norm.dropped}건은 제외됩니다.</p>` : ''}<ul class="muted small"><li><b>교체</b>: 현재 데이터를 모두 지우고 파일 내용으로 바꿉니다.</li><li><b>병합</b>: 같은 id는 수정 시각이 최신인 쪽을 남기고 나머지는 합칩니다(설정은 현재 값 유지).</li></ul>`,
         footer: '<button type="button" class="btn" data-result="">취소</button><button type="button" class="btn" data-result="merge">병합</button><button type="button" class="btn btn-danger" data-result="replace">교체</button>' });
       mode = await m.done; if (!mode) return false;
     }
-    let conflicts = 0;
-    if (mode === 'replace') { S.state.data = Object.assign(S.emptyData(), obj, { meta: Object.assign({ app: 'special-room-booking', version: 1 }, obj.meta) }); S.state.data.settings = Object.assign(S.defaultSettings(), obj.settings); }
-    else conflicts = S.mergeData(obj);
-    S.state.ui.weekStart = null; S.save(); S.render();
-    S.showToast(mode === 'replace' ? `데이터를 교체했습니다(예약 ${S.state.data.bookings.length}건).` : `병합했습니다(예약 ${S.state.data.bookings.length}건${conflicts ? `, 초과 예약 ${conflicts}건 확인 필요` : ', 초과 예약 없음'}).`, conflicts ? 'warn' : 'success', 3500);
+    const prev = JSON.parse(JSON.stringify(S.state.data)); let conflicts = 0; // 실패 시 되돌릴 스냅샷
+    try {
+      if (mode === 'replace') S.state.data = inc; else conflicts = S.mergeData(inc);
+      S.state.ui.weekStart = null; S.save(); S.render();
+    } catch (e) {
+      S.state.data = prev; S.save(); S.render(); S.showToast('가져오기 중 오류가 나서 이전 데이터로 되돌렸습니다.', 'error', 4000); return false;
+    }
+    S.showToast(mode === 'replace' ? `데이터를 교체했습니다(예약 ${S.state.data.bookings.length}건${dropNote}).` : `병합했습니다(예약 ${S.state.data.bookings.length}건${conflicts ? `, 초과 예약 ${conflicts}건 확인 필요` : ', 초과 예약 없음'}${dropNote}).`, conflicts || norm.dropped ? 'warn' : 'success', 3500);
     return true;
   }
   async function resetSemester() {
@@ -502,10 +525,11 @@
     const body = document.createElement('div');
     body.innerHTML = `<p class="lead">특별실·기자재 예약을 요일×교시 격자에서 드래그로 등록하고, 이중 예약·휴업일·행사 차단을 저장 전에 잡아내는 학교 공유 자원 예약판입니다.</p>
       <div class="onboard-choice"><button type="button" class="choice" data-result="sample"><b>샘플로 시작</b><span>가온초등학교 자원 10개·예약 약 220건으로 바로 체험</span></button><button type="button" class="choice" data-result="empty"><b>빈 상태로 시작</b><span>우리 학교 자원·학급을 직접 등록</span></button></div>
-      <div class="split small-gap"><div class="guide-box"><h3>공용 PC 운영</h3><p>교무실 공용 PC 브라우저에 데이터가 저장됩니다. 주 1회 JSON 백업을 권장합니다.</p></div><div class="guide-box"><h3>JSON 공유 드라이브</h3><p>담당자가 입력하고 JSON을 공유합니다. 다른 PC는 '가져오기 → 교체'로 최신 파일을 읽습니다.</p></div></div>`;
+      <p class="guide-title">운영 방법 안내</p><div class="split small-gap"><div class="guide-box"><h3>공용 PC 운영</h3><p>교무실 공용 PC 브라우저에 데이터가 저장됩니다. 주 1회 JSON 백업을 권장합니다.</p></div><div class="guide-box"><h3>JSON 공유 드라이브</h3><p>담당자가 입력하고 JSON을 공유합니다. 다른 PC는 '가져오기 → 교체'로 최신 파일을 읽습니다.</p></div></div>`;
     const m = S.openModal({ title: '특별실지기에 오신 것을 환영합니다', body, cls: 'modal-lg' });
     m.done.then(v => {
-      const mode = v === 'empty' ? 'empty' : 'sample';
+      if (v !== 'sample' && v !== 'empty') { S.showToast('시작 방식을 선택해 주세요.', 'info', 1800); showOnboarding(); return; } // ESC·배경 클릭은 선택으로 보지 않음
+      const mode = v;
       if (mode === 'empty') { S.state.data = S.emptyData(); S.state.ui = S.defaultUi(); }
       S.save(); S.storage.set(S.KEYS.onboard, { done: true, mode }); S.state.ui.weekStart = null; S.saveUi(); S.render();
       S.showToast(mode === 'empty' ? '빈 상태로 시작합니다. 자원 탭에서 특별실을 등록하세요.' : '샘플 데이터로 시작합니다. 격자를 드래그해 예약해 보세요.', 'info', 3500);
@@ -518,7 +542,7 @@
       <li><b>정기 예약</b> — '정기 예약'에서 요일·교시·기간을 넣고 미리보기로 휴업일 제외·충돌을 확인한 뒤 생성합니다. 시리즈 블록 삭제 시 '이 건만/이후 모두/전체'를 고릅니다.</li>
       <li><b>학사일정</b> — 공휴일·재량휴업일은 전체 자원을, 학교행사는 지정 자원·교시를 차단합니다. 저장 시 충돌 예약 수를 알려 주고 목록에서 수정·삭제할 수 있습니다.</li>
       <li><b>통계·보고</b> — 자원별 가동률, 학급×자원 형평성 히트맵('저조' 표시), 요일×교시 혼잡도를 보고 '실적 보고 인쇄'로 A4 보고서를 출력합니다. 지난 예약은 '실제 사용함/사용 안 함'을 체크해 미사용률에 반영합니다.</li>
-      <li><b>인쇄·보관</b> — 예약판 '인쇄'는 교무실 게시용 주간 이용 현황표(A4 가로·결재란)를 만듭니다. 설정 탭에서 JSON 내보내기/가져오기, CSV, 새 학기 초기화를 합니다.</li></ol>
+      <li><b>인쇄·보관</b> — 예약판 '인쇄'는 교무실 게시용 주간 이용 현황표(A4 가로·결재란)를 만듭니다. 설정 탭에서 JSON 내보내기/가져오기, CSV, 새 학기 초기화를 합니다. 특별실·기자재와 학급·교사 명단은 '특별실·기자재' 탭에서 관리합니다.</li></ol>
       <p class="muted small">팁: 640px 미만 화면에서는 요일 탭으로 한 요일씩 보고 셀을 탭해 교시 범위를 select로 지정합니다. 단축키: 모달은 Esc로 닫기, 격자 빈 셀은 Tab 이동 후 Enter로 예약.</p>`, footer: '<button type="button" class="btn btn-primary" data-result="ok">확인</button>' });
   }
   function renderHeader() {
@@ -546,10 +570,12 @@
     S.state.ui = Object.assign(S.defaultUi(), S.storage.get(S.KEYS.ui, null) || {});
     if (!S.state.ui.statsRange || typeof S.state.ui.statsRange !== 'object') S.state.ui.statsRange = { mode: 'semester', month: '' };
     const saved = S.storage.get(S.KEYS.data, null); const onboarded = S.storage.get(S.KEYS.onboard, null);
-    if (saved && !S.validateImport(saved)) { S.state.data = saved; S.state.data.settings = Object.assign(S.defaultSettings(), saved.settings); }
+    let dropped = 0;
+    if (saved && !S.validateImport(saved)) { const n = S.normalizeData(saved); S.state.data = n.data; dropped = n.dropped; } // 저장 데이터도 항목 단위로 정규화해 손상 항목이 있어도 기동
     else if (onboarded && onboarded.mode === 'empty') S.state.data = S.emptyData();
     else S.buildSampleData();
     S.rebuildIndex();
+    if (dropped) { S.save(); S.showToast(`저장된 데이터에서 손상 항목 ${dropped}건을 제외하고 불러왔습니다.`, 'warn', 4500); }
     B.initBoard(); initCalendar(); initResources(); initStats(); initSettings();
     S.$('.tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) selectTab(b.dataset.tab); });
     S.$('.tabs').addEventListener('keydown', e => {

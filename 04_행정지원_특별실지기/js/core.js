@@ -16,7 +16,8 @@ const SRB = (() => {
   const pad2 = n => String(n).padStart(2, '0');
   const ymd = d => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
   const parseDate = s => { const [y, m, d] = String(s).split('-').map(Number); return new Date(y, m - 1, d); };
-  const isValidDate = s => /^\d{4}-\d{2}-\d{2}$/.test(s || '') && !isNaN(parseDate(s).getTime());
+  // 형식 + 실존 날짜 검사(2026-02-30 같은 보정 날짜 거부)
+  const isValidDate = s => typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && !isNaN(parseDate(s).getTime()) && ymd(parseDate(s)) === s;
   const addDays = (s, n) => { const d = parseDate(s); d.setDate(d.getDate() + n); return ymd(d); };
   const dayOfWeek = s => parseDate(s).getDay();
   const todayStr = () => ymd(new Date());
@@ -91,7 +92,17 @@ const SRB = (() => {
       if (prev && prev.focus && document.contains(prev)) prev.focus();
       if (onClose) onClose(v); resolve(v);
     };
-    const onKey = e => { if (e.key === 'Escape' && root.lastElementChild === wrap) close(null); };
+    // 키보드: ESC 닫기, Tab은 모달 안에서만 순환(포커스 트랩)
+    const FOCUSABLE = 'button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const onKey = e => {
+      if (root.lastElementChild !== wrap) return;
+      if (e.key === 'Escape') { close(null); return; }
+      if (e.key !== 'Tab') return;
+      const list = $$(FOCUSABLE, wrap).filter(el => el.getClientRects().length); if (!list.length) { e.preventDefault(); return; }
+      const act = document.activeElement; const i = list.indexOf(act); const outside = !wrap.contains(act);
+      if (e.shiftKey && (i === 0 || outside)) { e.preventDefault(); list[list.length - 1].focus(); }
+      else if (!e.shiftKey && (i === list.length - 1 || outside)) { e.preventDefault(); list[0].focus(); }
+    };
     document.addEventListener('keydown', onKey);
     wrap.addEventListener('pointerdown', e => { if (e.target === wrap) wrap.dataset.down = '1'; else delete wrap.dataset.down; });
     wrap.addEventListener('click', e => {
@@ -125,12 +136,12 @@ const SRB = (() => {
   function indexAdd(b) { const k = `${b.resourceId}|${b.date}`; const arr = state.index.get(k); if (arr) arr.push(b); else state.index.set(k, [b]); }
   const bookingsAt = (resourceId, date) => state.index.get(`${resourceId}|${date}`) || [];
 
-  // 저장(실패 시 메모리 모드 배너)
+  // 저장(실패 시 메모리 모드 배너). 인덱스 재구성을 먼저 해 손상 데이터가 예외를 내면 저장되지 않게 한다
   function save() {
-    state.data.meta.savedAt = Date.now();
+    rebuildIndex(); state.data.meta.savedAt = Date.now();
     const ok = storage.set(KEYS.data, state.data);
     const was = state.memoryMode; state.memoryMode = !ok;
-    rebuildIndex(); renderSaveStatus();
+    renderSaveStatus();
     if (!ok && !was) showToast('저장 불가 — 메모리 모드로 동작합니다. JSON 내보내기를 권장합니다.', 'warn', 4000);
   }
   const saveUi = () => storage.set(KEYS.ui, state.ui);
@@ -168,6 +179,8 @@ const SRB = (() => {
     const s = state.data.settings;
     if (!resource) r.reasons.push('자원을 선택하세요');
     if (!isValidDate(date)) { r.reasons.push('날짜를 입력하세요'); return r; }
+    const keys = periodKeys();
+    if (!Number.isInteger(pStart) || !Number.isInteger(pEnd) || pEnd < pStart || !keys.includes(pStart) || !keys.includes(pEnd)) { r.reasons.push('교시 범위가 올바르지 않습니다'); return r; }
     if (date < s.semesterStart || date > s.semesterEnd) r.reasons.push(`학기 기간 밖(${fmtMD(s.semesterStart)}~${fmtMD(s.semesterEnd)})`);
     const w = dayOfWeek(date); if (w === 0 || w === 6) r.reasons.push('수업일 아님(주말)');
     const closed = closureOn(date); if (closed) r.reasons.push(`휴업일: ${closed.title}`);
@@ -309,12 +322,57 @@ const SRB = (() => {
     return { from: s.semesterStart, to: s.semesterEnd, label: `${s.schoolYear}학년도 ${s.semester}학기 전체` };
   }
 
-  // ───────── 데이터 검증·병합
+  // ───────── 데이터 검증·정규화·병합
+  // 1단계(구조): 앱 식별자·6개 컬렉션 배열·settings 존재 여부
   function validateImport(obj) {
-    if (!obj || typeof obj !== 'object' || !obj.meta || obj.meta.app !== 'special-room-booking') return '올바른 백업 파일이 아닙니다(앱 식별자 불일치)';
+    if (!obj || typeof obj !== 'object' || Array.isArray(obj) || !obj.meta || obj.meta.app !== 'special-room-booking') return '올바른 백업 파일이 아닙니다. 특별실지기 설정 탭에서 내보낸 .json 파일을 선택하세요.';
     for (const k of COLLECTIONS) if (!Array.isArray(obj[k])) return `올바른 백업 파일이 아닙니다(${k} 누락)`;
-    if (!obj.settings || !Array.isArray(obj.settings.periods)) return '올바른 백업 파일이 아닙니다(settings 누락)';
+    if (!obj.settings || typeof obj.settings !== 'object' || !Array.isArray(obj.settings.periods)) return '올바른 백업 파일이 아닙니다(settings 누락)';
     return '';
+  }
+  // 2단계(항목): 필수 필드가 없거나 형식이 틀린 항목은 제외하고(dropped), 선택 필드는 기본값을 채운 새 데이터를 돌려준다
+  const isObj = v => !!v && typeof v === 'object' && !Array.isArray(v);
+  const isId = v => typeof v === 'string' && /^[\w.:-]{1,40}$/.test(v);
+  const str = (v, d = '') => typeof v === 'string' ? v.slice(0, 200) : d;
+  const int = (v, d) => Number.isInteger(v) ? v : d;
+  const intArr = v => Array.isArray(v) ? v.filter(Number.isInteger) : null;
+  function normalizeData(obj) {
+    const out = emptyData(); const def = defaultSettings(); const st = isObj(obj.settings) ? obj.settings : {}; let dropped = 0;
+    const periods = (Array.isArray(st.periods) ? st.periods : []).filter(p => isObj(p) && Number.isInteger(p.key) && typeof p.label === 'string' && p.label).map(p => ({ key: p.key, label: p.label.slice(0, 8), time: str(p.time).slice(0, 13) }));
+    out.settings = Object.assign(def, {
+      schoolName: str(st.schoolName, def.schoolName) || def.schoolName, schoolYear: int(st.schoolYear, def.schoolYear), semester: st.semester === 1 ? 1 : 2,
+      semesterStart: isValidDate(st.semesterStart) ? st.semesterStart : def.semesterStart, semesterEnd: isValidDate(st.semesterEnd) ? st.semesterEnd : def.semesterEnd,
+      periods: periods.length >= 4 && periods.length <= 10 ? periods : def.periods,
+      approvalLine: Array.isArray(st.approvalLine) && st.approvalLine.length ? st.approvalLine.slice(0, 4).map(x => str(x, '담당') || '담당') : def.approvalLine,
+    });
+    if (out.settings.semesterStart >= out.settings.semesterEnd) { out.settings.semesterStart = def.semesterStart; out.settings.semesterEnd = def.semesterEnd; }
+    const keys = out.settings.periods.map(p => p.key); const inKeys = arr => arr.filter(p => keys.includes(p));
+    const range = x => Number.isInteger(x.periodStart) && Number.isInteger(x.periodEnd) && x.periodStart <= x.periodEnd;
+    const rules = { // 컬렉션별: 필수 필드 검사(false면 제외) 후 선택 필드 보정
+      resources: r => {
+        if (!isId(r.id) || typeof r.name !== 'string' || !r.name) return false;
+        const type = r.type === 'equipment' ? 'equipment' : 'room'; const avail = inKeys(intArr(r.availablePeriods) || keys); const pr = r.priorityRule;
+        return Object.assign(r, { name: r.name.slice(0, 20), type, quantity: type === 'equipment' ? clamp(int(r.quantity, 1), 1, 99) : 1, group: str(r.group), manager: str(r.manager), capacity: clamp(int(r.capacity, 0), 0, 999),
+          color: /^#[0-9a-f]{6}$/i.test(r.color) ? r.color : APP_DATA.PALETTE[1], availablePeriods: avail.length ? avail : keys.slice(), notice: str(r.notice),
+          priorityRule: isObj(pr) && intArr(pr.grades) && intArr(pr.weekdays) ? { grades: intArr(pr.grades), weekdays: intArr(pr.weekdays) } : null, active: r.active !== false });
+      },
+      classes: c => isId(c.id) && Object.assign(c, { grade: clamp(int(c.grade, gradeOf(c.id)), 1, 6), room: clamp(int(c.room, 1), 1, 30), teacherId: str(c.teacherId) }),
+      teachers: t => isId(t.id) && typeof t.name === 'string' && !!t.name && Object.assign(t, { name: t.name.slice(0, 12), role: str(t.role, '담임') || '담임' }),
+      events: e => isId(e.id) && typeof e.title === 'string' && isValidDate(e.dateStart) && Object.assign(e, {
+        title: e.title.slice(0, 30), type: EVENT_TYPE[e.type] ? e.type : 'event', dateEnd: isValidDate(e.dateEnd) && e.dateEnd >= e.dateStart ? e.dateEnd : e.dateStart,
+        blockResourceIds: Array.isArray(e.blockResourceIds) ? e.blockResourceIds.filter(isId) : [], blockPeriods: e.blockPeriods === 'all' ? 'all' : (intArr(e.blockPeriods) || 'all'), memo: str(e.memo) }),
+      series: s => isId(s.id) && isId(s.resourceId) && isValidDate(s.dateFrom) && isValidDate(s.dateTo) && range(s) && Object.assign(s, {
+        weekday: clamp(int(s.weekday, 1), 1, 5), classId: str(s.classId), customLabel: str(s.customLabel), teacherId: str(s.teacherId), tag: str(s.tag, '기타') || '기타', qty: clamp(int(s.qty, 1), 1, 99) }),
+      bookings: b => isId(b.id) && isId(b.resourceId) && isValidDate(b.date) && range(b) && Object.assign(b, {
+        classId: str(b.classId), customLabel: str(b.customLabel), teacherId: str(b.teacherId), tag: str(b.tag, '기타') || '기타', qty: clamp(int(b.qty, 1), 1, 99), memo: str(b.memo),
+        seriesId: isId(b.seriesId) ? b.seriesId : null, used: b.used === true || b.used === false ? b.used : null, createdAt: int(b.createdAt, 0), updatedAt: int(b.updatedAt, 0) }),
+    };
+    for (const k of COLLECTIONS) {
+      const seen = new Set();
+      out[k] = (Array.isArray(obj[k]) ? obj[k] : []).filter(x => { const ok = isObj(x) && !!rules[k](x) && !seen.has(x.id); if (ok) seen.add(x.id); else dropped++; return ok; });
+    }
+    out.meta = Object.assign({ app: 'special-room-booking', version: 1, savedAt: null }, isObj(obj.meta) ? obj.meta : {}, { app: 'special-room-booking' });
+    return { data: out, dropped };
   }
   function mergeData(incoming) {
     const cur = state.data;
@@ -390,6 +448,6 @@ const SRB = (() => {
     resourceById, classById, teacherById, teacherName, periodKeys, periodObj, periodLabel, rangeLabel, gradeOf, classLabel, bookingShort, sortedClasses,
     inSemester, eventsOn, closureOn, blockEventsFor, blockAt,
     checkConflict, suggestAlternatives, expandSeries, deleteSeriesScope, affectedBookings, computeStats, statsRange,
-    validateImport, mergeData, countOverbooked, buildSampleData, applyTheme, toggleTheme,
+    validateImport, normalizeData, mergeData, countOverbooked, buildSampleData, applyTheme, toggleTheme,
   };
 })();
