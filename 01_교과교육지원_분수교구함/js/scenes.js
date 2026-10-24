@@ -2,7 +2,7 @@
 'use strict';
 (() => {
   const F = FK.frac, R = FK.render, U = FK.ui, D = APP_DATA;
-  const { $, escapeHtml, clamp, toast } = U;
+  const { $, escapeHtml, toast } = U;
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const GRADE_TXT = g => (g ? `${g}학년` : '학년 없음');
   const fmtDate = iso => { const d = new Date(iso); return isNaN(d) ? '' : `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`; };
@@ -22,14 +22,14 @@
   function renderScenes() {
     const grid = $('#scene-grid'), list = visibleScenes();
     if (!db.scenes.length) { grid.innerHTML = `<div class="empty-state"><p>저장된 장면이 없어요. 교구판에서 장면 저장을 눌러 보세요</p><button type="button" class="chip-btn accent" data-action="reset-samples">샘플 복원</button></div>`; return; }
-    grid.innerHTML = list.length ? list.map(s => `<article class="scene-card" data-id="${s.id}">
-      <label class="scene-check"><input type="checkbox" data-scene-check="${s.id}" aria-label="장면 선택"></label>
+    grid.innerHTML = list.length ? list.map(s => { const id = escapeHtml(s.id); return `<article class="scene-card" data-id="${id}">
+      <label class="scene-check"><input type="checkbox" data-scene-check="${id}" aria-label="장면 선택"></label>
       <div class="scene-thumb">${R.thumb(primaryFr(s.state), s.state.tab === 'arith' ? 'r' : 'a')}</div>
       <h3 class="scene-name">${escapeHtml(s.name)}</h3>
       <div class="scene-meta"><span class="badge g${s.grade || 0}">${GRADE_TXT(s.grade)}</span>${s.builtin ? '<span class="badge soft">내장</span>' : ''}<span class="muted">${escapeHtml(s.unit)}</span></div>
-      <p class="scene-memo">${escapeHtml((s.memo || '').split(/\s*\/\s*|\n/)[0])}</p>
+      <p class="scene-memo">${escapeHtml((s.memo || '').split(/\s+\/\s+|\n/)[0])}</p>
       <div class="scene-foot"><span class="muted">${fmtDate(s.updatedAt)} · ${({ kit: '교구판', compare: '비교·통분', arith: '덧셈·뺄셈' })[s.state.tab]}</span></div>
-      <div class="btn-row"><button type="button" class="chip-btn accent" data-sc="load" data-id="${s.id}">불러오기</button><button type="button" class="chip-btn ghost" data-sc="rename" data-id="${s.id}">이름 바꾸기</button><button type="button" class="chip-btn ghost" data-sc="dup" data-id="${s.id}">복제</button><button type="button" class="chip-btn ghost danger" data-sc="del" data-id="${s.id}">삭제</button></div></article>`).join('')
+      <div class="btn-row"><button type="button" class="chip-btn accent" data-sc="load" data-id="${id}">불러오기</button><button type="button" class="chip-btn ghost" data-sc="rename" data-id="${id}">이름 바꾸기</button><button type="button" class="chip-btn ghost" data-sc="dup" data-id="${id}">복제</button><button type="button" class="chip-btn ghost danger" data-sc="del" data-id="${id}">삭제</button></div></article>`; }).join('')
       : '<p class="empty">조건에 맞는 장면이 없어요</p>';
   }
   // 장면 저장 모달
@@ -38,7 +38,7 @@
     const loaded = st.loadedSceneId && db.scenes.find(s => s.id === st.loadedSceneId);
     let meta = null;
     const ok = await U.openDialog({ title: '장면 저장', buttons: [{ text: '취소', value: null }, { text: '저장', value: true, primary: true }],
-      body: `<div class="form-stack"><label>이름 <span class="req">(필수, 40자)</span><input type="text" id="sv-name" maxlength="40" value="${escapeHtml(loaded ? loaded.name : '')}"></label>
+      body: `<div class="form-stack">${loaded ? '<p class="muted">새 장면으로 저장돼요. 불러온 장면은 그대로 남아요.</p>' : ''}<label>이름 <span class="req">(필수, 40자)</span><input type="text" id="sv-name" maxlength="40" value="${escapeHtml(loaded ? uniqueName(loaded.name) : '')}"></label>
         <label>학년 <select id="sv-grade"><option value="">없음</option>${[3, 4, 5, 6].map(g => `<option value="${g}" ${loaded && loaded.grade === g ? 'selected' : ''}>${g}학년</option>`).join('')}</select></label>
         <label>단원 <input type="text" id="sv-unit" maxlength="30" value="${escapeHtml(loaded ? loaded.unit : '')}" placeholder="예: 5-1 약분과 통분"></label>
         <label>메모(발문) <textarea id="sv-memo" maxlength="300" rows="3" placeholder="학생에게 던질 질문을 적어 두세요">${escapeHtml(loaded ? loaded.memo : '')}</textarea></label><p class="form-err" id="sv-err"></p></div>`,
@@ -57,6 +57,7 @@
     const s = db.scenes.find(x => x.id === id); if (!s) return;
     const ns = app.sanitizeState(s.state);
     app.pushUndo(ns.tab); st.kit = ns.kit; st.compare = ns.compare; st.arith = ns.arith; st.loadedSceneId = s.id; app.tr.estimate = null;
+    app.tr.abCarry = false; if (app.tr.pen.on) app.penClear(); // 불러온 장면은 비교→연산 이어 붙이기로 덮지 않고, 펜 주석은 지운다
     app.setTab(ns.tab); toast(`'${s.name}' 장면을 불러왔어요`, 'success');
   }
   async function rename(id) {
@@ -86,6 +87,7 @@
     U.download(name, JSON.stringify(exportData(ids), null, 2)); toast(`${name} 내려받기 시작`, 'success');
   }
   const TYPES = ['make', 'compare', 'split', 'add', 'sub', 'convert', 'decimal', 'line'];
+  const ID_RE = /^[A-Za-z0-9_-]{1,40}$/; // 가져온 id는 안전한 문자만 허용(innerHTML 속성에 들어가므로)
   const frOk = (fr, dMin, dMax) => F.valid(fr, dMin, dMax);
   // 가져오기 본체: 모든 검증 후 원자적 병합. 결과 {scenes, cards, sets, skipped:[사유]}
   function importText(text) {
@@ -95,6 +97,7 @@
     if (obj.schema > 1) toast('새 버전 파일이에요. 가능한 항목만 가져옵니다', 'warn');
     const skipped = [], newScenes = [], newCards = [], newSets = [], idMap = {}, usedIds = new Set([...db.scenes, ...db.cards, ...db.cardSets].map(x => x.id));
     const freshId = p => { let id; do { id = U.uid(p); } while (usedIds.has(id)); usedIds.add(id); return id; };
+    const safeId = (v, p) => (typeof v === 'string' && ID_RE.test(v) ? v : freshId(p)); // 형식이 어긋난 id는 새 id로 교체
     const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
     (Array.isArray(obj.scenes) ? obj.scenes : []).forEach((s, i) => {
       const label = `장면 ${i + 1}${s && s.name ? ` '${cut(s.name, 20)}'` : ''}`;
@@ -104,10 +107,11 @@
       if (c && !(frOk(c.a, 2, 12) && frOk(c.b, 2, 12))) return skipped.push(`${label}: 비교 분수 범위 오류`);
       if (a && !(frOk(a.a, 2, 12) && frOk(a.b, 2, 12))) return skipped.push(`${label}: 연산 분수 범위 오류`);
       const now = new Date().toISOString();
-      const clean = { id: typeof s.id === 'string' ? s.id : freshId('sc-'), name: cut(s.name, 40), grade: [3, 4, 5, 6].includes(s.grade) ? s.grade : null, unit: cut(s.unit, 30), memo: cut(s.memo, 300), builtin: !!s.builtin, createdAt: s.createdAt || now, updatedAt: s.updatedAt || now, state: app.sanitizeState(s.state) };
+      // builtin 플래그는 내장 id일 때만 인정하고, 새 id를 받는 사본은 사용자 항목으로 취급(샘플 복원 대상과 어긋나지 않게)
+      const clean = { id: safeId(s.id, 'sc-'), name: cut(s.name, 40), grade: [3, 4, 5, 6].includes(s.grade) ? s.grade : null, unit: cut(s.unit, 30), memo: cut(s.memo, 300), builtin: !!s.builtin && D.scenes.some(x => x.id === s.id), createdAt: s.createdAt || now, updatedAt: s.updatedAt || now, state: app.sanitizeState(s.state) };
       const ex = db.scenes.find(x => x.id === clean.id);
-      if (ex) { if (same(ex, clean) || same(ex, s)) return skipped.push(`${label}: 동일한 장면이 이미 있음`); clean.id = freshId('sc-'); }
-      else if (newScenes.some(x => x.id === clean.id)) clean.id = freshId('sc-');
+      if (ex) { if (same(ex, clean) || same(ex, s)) return skipped.push(`${label}: 동일한 장면이 이미 있음`); clean.id = freshId('sc-'); clean.builtin = false; }
+      else if (newScenes.some(x => x.id === clean.id)) { clean.id = freshId('sc-'); clean.builtin = false; }
       newScenes.push(clean);
     });
     (Array.isArray(obj.cards) ? obj.cards : []).forEach((c, i) => {
@@ -116,9 +120,11 @@
       if (!Number.isInteger(c.answer) || c.answer < 0 || c.answer >= c.choices.length) return skipped.push(`${label}: 정답 인덱스 오류`);
       const su = c.setup || {}, kitType = ['make', 'split', 'convert', 'decimal', 'line'].includes(c.type);
       if (!frOk(su.a, kitType ? 1 : 2, kitType ? 24 : 12) || (su.b && !frOk(su.b, 2, 12))) return skipped.push(`${label}: 분수 범위 오류`);
-      const clean = { id: typeof c.id === 'string' ? c.id : freshId('cd-'), grade: [3, 4, 5].includes(c.grade) ? c.grade : 5, unit: cut(c.unit, 30), type: c.type, question: cut(c.question, 120), choices: c.choices.map(x => cut(x, 30)), answer: c.answer, setup: { a: { n: su.a.n, d: su.a.d }, b: su.b ? { n: su.b.n, d: su.b.d } : null, op: c.type === 'add' ? '+' : c.type === 'sub' ? '-' : null, model: ['bar', 'circle', 'line'].includes(su.model) ? su.model : 'bar', lineRange: [1, 2, 3].includes(su.lineRange) ? su.lineRange : 1 }, explanation: cut(c.explanation, 300), builtin: !!c.builtin, order: Number.isInteger(c.order) ? c.order : 999 };
+      const clean = { id: safeId(c.id, 'cd-'), grade: [3, 4, 5].includes(c.grade) ? c.grade : 5, unit: cut(c.unit, 30), type: c.type, question: cut(c.question, 120), choices: c.choices.map(x => cut(x, 30)), answer: c.answer, setup: { a: { n: su.a.n, d: su.a.d }, b: su.b ? { n: su.b.n, d: su.b.d } : null, op: c.type === 'add' ? '+' : c.type === 'sub' ? '-' : null, model: ['bar', 'circle', 'line'].includes(su.model) ? su.model : 'bar', lineRange: [1, 2, 3].includes(su.lineRange) ? su.lineRange : 1 }, explanation: cut(c.explanation, 300), builtin: !!c.builtin && D.cards.some(x => x.id === c.id), order: Number.isInteger(c.order) ? c.order : 999 };
+      if (typeof c.id === 'string' && clean.id !== c.id) idMap[c.id] = clean.id; // 교체된 id는 세트의 cardIds 치환용으로 기록
       const ex = db.cards.find(x => x.id === clean.id);
-      if (ex) { if (same(ex, clean) || same(ex, c)) return skipped.push(`${label}: 동일한 카드가 이미 있음`); const nid = freshId('cd-'); idMap[clean.id] = nid; clean.id = nid; }
+      if (ex) { if (same(ex, clean) || same(ex, c)) return skipped.push(`${label}: 동일한 카드가 이미 있음`); const nid = freshId('cd-'); idMap[c.id] = nid; clean.id = nid; clean.builtin = false; }
+      else if (newCards.some(x => x.id === clean.id)) { const nid = freshId('cd-'); idMap[c.id] = nid; clean.id = nid; clean.builtin = false; }
       newCards.push(clean);
     });
     (Array.isArray(obj.cardSets) ? obj.cardSets : []).forEach((s, i) => {
@@ -126,9 +132,10 @@
       if (!s || typeof s.name !== 'string' || !Array.isArray(s.cardIds)) return skipped.push(`${label}: 형식 오류`);
       const ids = s.cardIds.map(id => idMap[id] || id).filter(id => db.cards.some(c => c.id === id) || newCards.some(c => c.id === id));
       if (!ids.length) return skipped.push(`${label}: 포함된 카드가 없음`);
-      const clean = { id: typeof s.id === 'string' ? s.id : freshId('cs-'), name: cut(s.name, 40), cardIds: ids, builtin: !!s.builtin, createdAt: s.createdAt || new Date().toISOString() };
+      const clean = { id: safeId(s.id, 'cs-'), name: cut(s.name, 40), cardIds: ids, builtin: !!s.builtin && D.cardSets.some(x => x.id === s.id), createdAt: s.createdAt || new Date().toISOString() };
       const ex = db.cardSets.find(x => x.id === clean.id);
-      if (ex) { if (same(ex, clean) || same(ex, s)) return skipped.push(`${label}: 동일한 세트가 이미 있음`); clean.id = freshId('cs-'); }
+      if (ex) { if (same(ex, clean) || same(ex, s)) return skipped.push(`${label}: 동일한 세트가 이미 있음`); clean.id = freshId('cs-'); clean.builtin = false; }
+      else if (newSets.some(x => x.id === clean.id)) { clean.id = freshId('cs-'); clean.builtin = false; }
       newSets.push(clean);
     });
     if (db.scenes.length + newScenes.length > app.LIM.scenes) { toast(`장면이 200개를 넘어 가져올 수 없어요 (현재 ${db.scenes.length}개)`, 'error', 3500); return null; }
@@ -191,7 +198,7 @@
   function answerOf(it) {
     const a = it.a, extra = fr => { const parts = [F.str(fr.n, fr.d)]; if (fr.n >= fr.d && fr.d > 1) parts.push('= ' + F.mixedStr(fr.n, fr.d)); const r = F.reduce(fr.n, fr.d); if (fr.n > 0 && r.d !== fr.d) parts.push('= ' + F.str(r.n, r.d)); return parts.join(' '); };
     if (it.type === 'color') return `${F.str(a.n, a.d)} (${a.d}칸 중 ${a.n}칸)`;
-    if (it.type === 'write') return `${extra(a)} = ${F.toDecimal(a.n, a.d)}`;
+    if (it.type === 'write') { const dec = F.toDecimal(a.n, a.d); return `${extra(a)} ${dec.startsWith('≈') ? '≈ ' + dec.slice(1) : '= ' + dec}`; } // '= ≈0.667' 겹침 방지
     if (it.type === 'line') return `${F.str(a.n, a.d)} 위치 (0에서 ${a.n}칸, 소수 ${F.toDecimal(a.n, a.d)})`;
     const x = app.Compare.calc({ a: it.a, b: it.b });
     if (it.type === 'compare') return `${F.str(a.n, a.d)} ${x.sign > 0 ? '>' : x.sign < 0 ? '<' : '='} ${F.str(it.b.n, it.b.d)}  (${F.str(x.A.n, x.L)} vs ${F.str(x.B.n, x.L)})`;
@@ -202,7 +209,7 @@
   const svgStr = (fn, cls) => { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('class', 'ws-svg ' + (cls || '')); fn(s); return s.outerHTML; };
   function itemHtml(it, i, opt) {
     const a = it.a, bw = opt.bwPattern, model = it.model === 'circle' || (opt.model === 'circle' && it.type !== 'line');
-    const shape = (fr, o) => model && fr.d <= 12 ? svgStr(s => R.circle(s, Object.assign({ n: fr.n, d: fr.d, units: R.unitsFor(fr.n, fr.d, 'auto'), fill: 'a', bw }, o)), 'circ') : svgStr(s => R.bar(s, Object.assign({ n: fr.n, d: fr.d, units: R.unitsFor(fr.n, fr.d, 'auto'), fill: 'a', bw, labels: false, height: 70 }, o)));
+    const shape = (fr, o) => model && fr.d <= 12 ? svgStr(s => R.circle(s, Object.assign({ n: fr.n, d: fr.d, units: R.unitsFor(fr.n, fr.d, 'auto'), fill: 'a', bw }, o)), 'circ') : svgStr(s => R.bar(s, Object.assign({ n: fr.n, d: fr.d, units: R.unitsFor(fr.n, fr.d, 'auto'), fill: 'a', bw, labels: false, height: 180 }, o))); // 2열 폭(약 75mm)에서 13mm 안팎의 색칠 가능한 높이
     let prompt = '', fig = '';
     if (it.type === 'color') { prompt = `${F.inline(F.str(a.n, a.d))}만큼 색칠하세요.`; fig = shape(a, { outline: true }); }
     else if (it.type === 'write') { prompt = '색칠한 부분을 분수로 쓰세요.'; fig = shape(a, {}) + '<div class="ws-blank">답: <span class="line"></span></div>'; }
@@ -217,18 +224,20 @@
     const head = p => `<header class="ws-head"><h1>${escapeHtml(w.title || '분수 활동지')}</h1>${w.showBlanks ? `<div class="ws-blanks"><span>학교: <i></i></span><span>학년: <i class="s"></i></span><span>반: <i class="s"></i></span><span>이름: <i></i></span></div>` : ''}<span class="ws-page">${p}</span></header>`;
     let html = pages.map((pg, pi) => `<section class="a4">${head(`${pi + 1} / ${pages.length + (w.withAnswers ? 1 : 0)}`)}<div class="ws-grid">${pg.map((it, j) => itemHtml(it, pi * 6 + j, w)).join('')}</div></section>`).join('');
     if (w.withAnswers && items.length) html += `<section class="a4 answers">${head('정답')}<h2>정답지</h2><ol class="ws-answers">${items.map(it => `<li><span class="muted">${TYPE_TXT[it.type]}</span> ${escapeHtml(answerOf(it))}</li>`).join('')}</ol></section>`;
-    return html || '<div class="empty-state"><p>문항이 없어요. 왼쪽에서 카드·장면을 체크하거나 빠른 문항을 추가하세요</p></div>';
+    return html;
   }
-  function renderPrint() { $('#print-root').innerHTML = ws().items.length ? sheetHtml() : ''; $('#print-root').classList.toggle('bw', !!ws().bwPattern); }
+  // 인쇄 루트: 문항이 없으면 빈 종이 대신 안내 한 줄(Ctrl+P 대비)
+  function renderPrint() { $('#print-root').innerHTML = ws().items.length ? sheetHtml() : '<p class="print-empty">활동지 문항이 없어요. 활동지 탭에서 문항을 추가한 뒤 인쇄하세요</p>'; $('#print-root').classList.toggle('bw', !!ws().bwPattern); }
   function renderSheet() {
     const w = ws(), used = new Set(w.items.map(i => i.sourceId));
-    $('#sheet-cards').innerHTML = [...db.cards].sort((a, b) => a.order - b.order).map(c => `<li><label><input type="checkbox" data-src="card" data-id="${c.id}" ${used.has(c.id) ? 'checked' : ''}> <span class="badge soft">${c.grade}</span> ${escapeHtml(c.question)}</label></li>`).join('') || '<li class="muted">카드 없음</li>';
-    $('#sheet-scenes').innerHTML = db.scenes.map(s => `<li><label><input type="checkbox" data-src="scene" data-id="${s.id}" ${used.has(s.id) ? 'checked' : ''}> ${escapeHtml(s.name)}</label></li>`).join('') || '<li class="muted">장면 없음</li>';
+    $('#sheet-cards').innerHTML = [...db.cards].sort((a, b) => a.order - b.order).map(c => `<li><label><input type="checkbox" data-src="card" data-id="${escapeHtml(c.id)}" ${used.has(c.id) ? 'checked' : ''}> <span class="badge soft">${c.grade}</span> ${escapeHtml(c.question)}</label></li>`).join('') || '<li class="muted">카드 없음</li>';
+    $('#sheet-scenes').innerHTML = db.scenes.map(s => `<li><label><input type="checkbox" data-src="scene" data-id="${escapeHtml(s.id)}" ${used.has(s.id) ? 'checked' : ''}> ${escapeHtml(s.name)}</label></li>`).join('') || '<li class="muted">장면 없음</li>';
     $('#sheet-items').innerHTML = w.items.map((it, i) => `<li><span class="badge soft">${TYPE_TXT[it.type]}</span><span class="ws-item-fr">${F.str(it.a.n, it.a.d)}${it.b ? ` ${it.type === 'arith' ? (it.op === '-' ? '−' : '+') : 'vs'} ${F.str(it.b.n, it.b.d)}` : ''}</span><span class="card-ops"><button type="button" data-wmove="-1" data-i="${i}" aria-label="위로" ${i === 0 ? 'disabled' : ''}>↑</button><button type="button" data-wmove="1" data-i="${i}" aria-label="아래로" ${i === w.items.length - 1 ? 'disabled' : ''}>↓</button><button type="button" data-wdel="${i}" aria-label="삭제">×</button></span></li>`).join('') || '<li class="muted">문항이 없어요</li>';
     $('#sheet-count').textContent = w.items.length ? `${w.items.length}문항 · ${Math.ceil(w.items.length / 6)}쪽` : '';
     $('#ws-title').value = w.title; $('#ws-blanks').checked = !!w.showBlanks; $('#ws-answers').checked = !!w.withAnswers; $('#ws-bw').checked = !!w.bwPattern; $('#ws-model').value = w.model;
     const t = $('#qa-type').value; $('#qa-b-btn').hidden = !['compare', 'arith'].includes(t); $('#qa-op').hidden = t !== 'arith'; $('#qa-a').textContent = F.str(qa.a.n, qa.a.d); $('#qa-b').textContent = F.str(qa.b.n, qa.b.d);
     $('#btn-print').disabled = !w.items.length; $('#print-hint').textContent = w.items.length ? 'A4 세로 · 쪽당 6문항' : '문항을 추가하면 인쇄할 수 있어요';
+    $('#sheet-empty').hidden = !!w.items.length; // 빈 상태 안내는 축소(zoom)된 미리보기 밖에 표시
     $('#sheet-preview').innerHTML = sheetHtml(); $('#sheet-preview').classList.toggle('bw', !!w.bwPattern); renderPrint();
   }
   function initSheet() {

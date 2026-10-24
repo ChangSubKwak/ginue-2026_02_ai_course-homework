@@ -51,8 +51,9 @@ window.FK = window.FK || {};
         svgEl('line', { class: 'div' + (isNew ? ' new' : '') + (thin ? ' thin' : ''), x1: x0 + j * geo.cell, x2: x0 + j * geo.cell, y1: top, y2: top + H }, g);
       }
       svgEl('rect', { class: 'bar-frame' + (o.flash ? ' flash' : ''), x: x0, y: top, width: geo.unitW, height: H }, g);
-      if (o.labels !== false && d <= 12 && !thin) for (let i = 0; i < d; i++) {
-        svgEl('text', { class: 'cell-label', x: x0 + (i + 0.5) * geo.cell, y: top + H / 2, 'text-anchor': 'middle', 'dominant-baseline': 'central' }, g).textContent = i + 1;
+      if (o.labels !== false && d <= 12 && !thin) for (let i = 0; i < d; i++) { // 칸 번호(색칠 칸은 .on으로 대비색)
+        const on = u * d + i < o.n && !o.outline;
+        svgEl('text', { class: 'cell-label' + (on ? ' on' : ''), x: x0 + (i + 0.5) * geo.cell, y: top + H / 2, 'text-anchor': 'middle', 'dominant-baseline': 'central' }, g).textContent = i + 1;
       }
     }
     return geo;
@@ -107,6 +108,7 @@ window.FK = window.FK || {};
     svgEl('line', { class: 'axis', x1: x0 - 12, x2: x1 + 12, y1: y, y2: y }, g);
     svgEl('path', { class: 'axis-arrow', d: `M ${x1 + 12} ${y} l -10 -6 v 12 z` }, g);
     const showFrac = o.labels !== false && d <= 12 && total <= 36 && !o.hideTicks;
+    const labelEvery = (x1 - x0) / total < 70 ? 2 : 1; // 눈금 간격이 좁으면 분수 라벨을 하나 걸러 표시(겹침 방지)
     const thin = total > THIN_CELLS;
     if (o.ghostD && !o.hideTicks) { const ratio = o.ghostD / d; for (let k = 1; k < U * o.ghostD; k++) if (k % ratio !== 0) { const x = px(k / o.ghostD); svgEl('line', { class: 'tick ghost', x1: x, x2: x, y1: y - 8, y2: y + 8 }, g); } }
     for (let k = 0; k <= total; k++) {
@@ -115,7 +117,7 @@ window.FK = window.FK || {};
       const x = px(k / d), isNew = !isInt && o.newFrom && (k % (d / o.newFrom)) !== 0;
       svgEl('line', { class: 'tick' + (isInt ? ' big' : '') + (isNew ? ' new' : '') + (thin ? ' thin' : ''), x1: x, x2: x, y1: y - (isInt ? 16 : 8), y2: y + (isInt ? 16 : 8) }, g);
       if (isInt) svgEl('text', { class: 'tick-label int', x, y: y + 40, 'text-anchor': 'middle' }, g).textContent = k / d;
-      else if (showFrac) svgEl('text', { class: 'tick-label', x, y: y + 34, 'text-anchor': 'middle' }, g).textContent = `${k}/${d}`;
+      else if (showFrac && k % labelEvery === 0) svgEl('text', { class: 'tick-label', x, y: y + 34, 'text-anchor': 'middle' }, g).textContent = `${k}/${d}`;
     }
     for (const p of o.points || []) {
       const x = px(p.n / (p.d || d));
@@ -153,8 +155,11 @@ window.FK = window.FK || {};
     running.add(a); a.raf = requestAnimationFrame(tick);
     return a;
   }
-  // 진행 중인 애니메이션을 모두 즉시 완료(새 입력 시 겹침 방지)
-  function finishAll() { for (const a of [...running]) { cancelAnimationFrame(a.raf); running.delete(a); a.step(1); if (a.done) a.done(); } }
+  // 진행 중인 애니메이션을 모두 즉시 완료(새 입력 시 겹침 방지). done 안에서 새로 시작된 것까지 비워질 때까지 반복
+  function finishAll() {
+    let guard = 8;
+    while (running.size && guard--) for (const a of [...running]) { cancelAnimationFrame(a.raf); running.delete(a); a.step(1); if (a.done) a.done(); }
+  }
   // 선택자 요소를 투명→선명
   function fadeIn(root, sel, dur = 400) { const els = [...root.querySelectorAll(sel)]; if (!els.length) return; els.forEach(e => e.style.opacity = 0); run(dur, t => els.forEach(e => e.style.opacity = t)); }
   // 선택자 요소를 선명→투명 후 제거

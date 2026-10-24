@@ -12,10 +12,10 @@
 <body>
 <div class="app-shell">
   <header class="app-header">
-    <button class="logo" type="button" data-action="help" aria-label="분수교구함 도움말 열기">
-      <svg viewBox="0 0 40 40" width="36" height="36" aria-hidden="true"><rect x="3" y="8" width="34" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="3" y="8" width="17" height="24" rx="4" fill="var(--fill-a)"/><line x1="20" y1="8" x2="20" y2="32" stroke="currentColor" stroke-width="2.5"/><line x1="11.5" y1="8" x2="11.5" y2="32" stroke="currentColor" stroke-width="1.5" opacity=".6"/><line x1="28.5" y1="8" x2="28.5" y2="32" stroke="currentColor" stroke-width="1.5" opacity=".6"/></svg>
-      <span class="logo-text"><h1>분수교구함</h1><span class="tagline">막대·원·수직선이 한 몸처럼 움직이는 분수 교구</span></span>
-    </button>
+    <div class="logo" data-action="help" title="도움말 열기">
+      <button type="button" class="logo-btn" aria-label="분수교구함 도움말 열기"><svg viewBox="0 0 40 40" width="36" height="36" aria-hidden="true"><rect x="3" y="8" width="34" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="3" y="8" width="17" height="24" rx="4" fill="var(--fill-a)"/><line x1="20" y1="8" x2="20" y2="32" stroke="currentColor" stroke-width="2.5"/><line x1="11.5" y1="8" x2="11.5" y2="32" stroke="currentColor" stroke-width="1.5" opacity=".6"/><line x1="28.5" y1="8" x2="28.5" y2="32" stroke="currentColor" stroke-width="1.5" opacity=".6"/></svg></button>
+      <div class="logo-text"><h1>분수교구함</h1><span class="tagline">막대·원·수직선이 한 몸처럼 움직이는 분수 교구</span></div>
+    </div>
     <div class="toolbar" id="toolbar">
       <button type="button" class="tb" id="btn-undo" data-action="undo" title="되돌리기 (Ctrl+Z)" aria-label="되돌리기" disabled>↶<span class="tb-label">되돌리기</span></button>
       <button type="button" class="tb" id="btn-redo" data-action="redo" title="다시하기 (Ctrl+Y)" aria-label="다시하기" disabled>↷<span class="tb-label">다시하기</span></button>
@@ -39,6 +39,7 @@
     </div>
   </header>
   <div id="save-banner" class="banner" hidden><span>저장이 꺼져 있어요. JSON 내보내기로 보관하세요</span><button type="button" data-action="close-banner" aria-label="배너 닫기">×</button></div>
+  <div class="tabs-wrap">
   <nav class="tabs" role="tablist" aria-label="화면 선택">
     <button type="button" role="tab" data-tab="kit" aria-selected="true">교구판</button>
     <button type="button" role="tab" data-tab="compare" aria-selected="false">비교·통분</button>
@@ -47,6 +48,7 @@
     <button type="button" role="tab" data-tab="scenes" aria-selected="false">장면 보관함</button>
     <button type="button" role="tab" data-tab="sheet" aria-selected="false">활동지</button>
   </nav>
+  </div>
   <details class="memo-panel" id="memo-panel" hidden open>
     <summary>교사 메모 <span class="memo-title" id="memo-title"></span></summary>
     <p id="memo-body"></p>
@@ -196,16 +198,16 @@
         <button type="button" class="chip-btn accent big" id="btn-print" data-action="print">인쇄</button>
         <p class="muted" id="print-hint"></p>
       </aside>
-      <div class="sheet-preview-wrap"><div class="sheet-preview" id="sheet-preview"></div></div>
+      <div class="sheet-preview-wrap"><div class="empty-state" id="sheet-empty" hidden><p>문항이 없어요. 왼쪽에서 카드·장면을 체크하거나 빠른 문항을 추가하세요</p></div><div class="sheet-preview" id="sheet-preview"></div></div>
     </section>
   </main>
   <div id="pen-layer" class="pen-layer" hidden><canvas id="pen-canvas" aria-label="펜 주석"></canvas></div>
   </div>
 
   <div class="pen-tools" id="pen-tools" hidden>
-    <button type="button" data-pen="red" class="pen-tool active" aria-label="빨강 펜"><i style="background:#ef4444"></i></button>
-    <button type="button" data-pen="blue" class="pen-tool" aria-label="파랑 펜"><i style="background:#2563eb"></i></button>
-    <button type="button" data-pen="hl" class="pen-tool" aria-label="노랑 형광펜"><i style="background:#facc15"></i></button>
+    <button type="button" data-pen="red" class="pen-tool active" aria-label="빨강 펜"><i class="sw-red"></i></button>
+    <button type="button" data-pen="blue" class="pen-tool" aria-label="파랑 펜"><i class="sw-blue"></i></button>
+    <button type="button" data-pen="hl" class="pen-tool" aria-label="노랑 형광펜"><i class="sw-hl"></i></button>
     <button type="button" data-pen="eraser" class="pen-tool" aria-label="지우개">지우개</button>
     <button type="button" data-pen="clear" class="pen-tool">모두 지우기</button>
     <button type="button" data-pen="off" class="pen-tool accent">펜 끄기</button>
@@ -219,7 +221,7 @@
   <defs>
     <pattern id="hatch-diff" patternUnits="userSpaceOnUse" width="12" height="12" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="12" class="hatch-diff-line"/></pattern>
     <pattern id="hatch-wrong" patternUnits="userSpaceOnUse" width="12" height="12" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="12" class="hatch-wrong-line"/></pattern>
-    <pattern id="hatch-bw" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#000" stroke-width="3"/></pattern>
+    <pattern id="hatch-bw" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" class="hatch-bw-line"/></pattern>
   </defs>
 </svg>
 <script src="js/data.js"></script>

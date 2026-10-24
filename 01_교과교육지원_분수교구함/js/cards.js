@@ -6,7 +6,7 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const TYPE_LABEL = { make: '만들기', compare: '비교', split: '쪼개기', add: '덧셈', sub: '뺄셈', convert: '변환', decimal: '소수', line: '수직선' };
   const KIT_TYPES = ['make', 'split', 'convert', 'decimal', 'line'];
-  let app, st, db, tr;
+  let app, st, db;
   const cur = { predict: null, revealed: false, board: null, filterGrade: '', search: '', play: null };
 
   // 현재 목록(세트·학년·검색 반영)
@@ -52,17 +52,17 @@
   function render() { renderSetSelect(); renderList(); renderView(); renderTally(); renderStage(); }
   function renderSetSelect() {
     const sel = $('#card-set');
-    sel.innerHTML = `<option value="">전체 카드 (${db.cards.length}장)</option>` + db.cardSets.map(s => `<option value="${s.id}">${escapeHtml(s.name)} (${s.cardIds.length})</option>`).join('');
+    sel.innerHTML = `<option value="">전체 카드 (${db.cards.length}장)</option>` + db.cardSets.map(s => `<option value="${escapeHtml(s.id)}">${escapeHtml(s.name)} (${s.cardIds.length})</option>`).join('');
     sel.value = st.currentSetId && db.cardSets.some(s => s.id === st.currentSetId) ? st.currentSetId : '';
     $$('#card-grade .chip').forEach(ch => ch.setAttribute('aria-pressed', String(ch.dataset.grade === cur.filterGrade)));
   }
   function renderList() {
     const list = visible(), ul = $('#card-list');
     if (!db.cards.length) { ul.innerHTML = `<li class="empty">카드가 없어요.<br><button type="button" class="chip-btn" data-action="reset-samples">샘플 복원</button></li>`; return; }
-    ul.innerHTML = list.length ? list.map((c, i) => `<li class="card-item ${c.id === st.currentCardId ? 'active' : ''}" data-id="${c.id}">
-      <input type="checkbox" class="card-check teacher-only" data-check="${c.id}" aria-label="카드 선택">
-      <button type="button" class="card-pick" data-pick="${c.id}"><span class="badge t-${c.type}">${TYPE_LABEL[c.type]}</span><span class="card-q">${escapeHtml(c.question)}</span><span class="muted">${c.grade}학년 · ${escapeHtml(c.unit)}</span></button>
-      <span class="card-ops teacher-only"><button type="button" data-move="-1" data-id="${c.id}" aria-label="위로" ${i === 0 ? 'disabled' : ''}>↑</button><button type="button" data-move="1" data-id="${c.id}" aria-label="아래로" ${i === list.length - 1 ? 'disabled' : ''}>↓</button><button type="button" data-edit="${c.id}" aria-label="편집">✎</button><button type="button" data-del="${c.id}" aria-label="삭제">×</button></span></li>`).join('')
+    ul.innerHTML = list.length ? list.map((c, i) => { const id = escapeHtml(c.id); return `<li class="card-item ${c.id === st.currentCardId ? 'active' : ''}" data-id="${id}">
+      <input type="checkbox" class="card-check teacher-only" data-check="${id}" aria-label="카드 선택">
+      <button type="button" class="card-pick" data-pick="${id}"><span class="badge t-${c.type}">${TYPE_LABEL[c.type]}</span><span class="card-q">${escapeHtml(c.question)}</span><span class="muted">${c.grade}학년 · ${escapeHtml(c.unit)}</span></button>
+      <span class="card-ops teacher-only"><button type="button" data-move="-1" data-id="${id}" aria-label="위로" ${i === 0 ? 'disabled' : ''}>↑</button><button type="button" data-move="1" data-id="${id}" aria-label="아래로" ${i === list.length - 1 ? 'disabled' : ''}>↓</button><button type="button" data-edit="${id}" aria-label="편집">✎</button><button type="button" data-del="${id}" aria-label="삭제">×</button></span></li>`; }).join('')
       : '<li class="empty">조건에 맞는 카드가 없어요</li>';
   }
   function renderView() {
@@ -80,18 +80,28 @@
       </div>
       ${cur.revealed ? `<p class="result-msg ${correct ? 'ok' : 'warn'}">${correct ? '예측대로예요!' : '예측과 달라요 — 왜 그럴까요?'}</p><div class="explain teacher-only"><b>교사용 해설</b><p>${escapeHtml(c.explanation)}</p></div>` : ''}`;
   }
+  // 현재 카드의 집계(0~99 클램프)와 합계
+  const tallyOf = c => { const t = db.tally[c.id] || { counts: c.choices.map(() => 0), label: '' }; const counts = c.choices.map((_, i) => clamp(t.counts[i] | 0, 0, 99)); return { t, counts, total: counts.reduce((a, b) => a + b, 0) }; };
+  const tallyLabel = (n, total) => `${n}명 · ${total ? (n / total * 100).toFixed(1) + '%' : '-'}`;
+  const tallyTotal = (t, total) => `손든 수 입력 · 합계 ${total}명${t.label ? ' · ' + t.label : ''}`;
   function renderTally() {
     const c = current(), p = $('#tally-panel');
     if (!c) { p.innerHTML = ''; return; }
-    const t = db.tally[c.id] || { counts: c.choices.map(() => 0), label: '' };
-    const counts = c.choices.map((_, i) => clamp(t.counts[i] | 0, 0, 99)), total = counts.reduce((a, b) => a + b, 0);
-    p.innerHTML = `<div class="tally-head"><b>학급 집계</b><span class="muted">손든 수 입력 · 합계 ${total}명${t.label ? ' · ' + escapeHtml(t.label) : ''}</span><button type="button" class="chip-btn ghost" data-tally="clear">지우기</button></div>
-      ${c.choices.map((ch, i) => { const pct = total ? counts[i] / total * 100 : 0; return `<div class="tally-row ${cur.revealed && i === c.answer ? 'correct' : ''}"><span class="tally-choice">${F.inline(escapeHtml(ch))}</span><input type="number" min="0" max="99" value="${counts[i]}" data-tally="${i}" aria-label="선택지 ${i + 1} 인원"><div class="tally-bar"><div class="tally-fill" style="width:${pct}%"></div></div><span class="tally-label">${counts[i]}명 · ${total ? pct.toFixed(1) + '%' : '-'}</span></div>`; }).join('')}`;
+    const { t, counts, total } = tallyOf(c);
+    p.innerHTML = `<div class="tally-head"><b>학급 집계</b><span class="muted tally-total">${escapeHtml(tallyTotal(t, total))}</span><button type="button" class="chip-btn ghost" data-tally="clear">지우기</button></div>
+      ${c.choices.map((ch, i) => `<div class="tally-row ${cur.revealed && i === c.answer ? 'correct' : ''}"><span class="tally-choice">${F.inline(escapeHtml(ch))}</span><input type="number" min="0" max="99" value="${counts[i]}" data-tally="${i}" aria-label="선택지 ${i + 1} 인원"><div class="tally-bar"><div class="tally-fill" style="width:${total ? counts[i] / total * 100 : 0}%"></div></div><span class="tally-label">${tallyLabel(counts[i], total)}</span></div>`).join('')}`;
   }
-  function setTally(counts) {
+  // 입력 중에는 입력란을 다시 만들지 않고 막대·라벨·합계만 갱신(캐럿 위치 보존 → 두 자리 수 타이핑 가능)
+  function updateTallyBars() {
+    const c = current(), p = $('#tally-panel'); if (!c) return;
+    const { t, counts, total } = tallyOf(c);
+    const tot = p.querySelector('.tally-total'); if (tot) tot.textContent = tallyTotal(t, total);
+    p.querySelectorAll('.tally-row').forEach((row, i) => { row.querySelector('.tally-fill').style.width = (total ? counts[i] / total * 100 : 0) + '%'; row.querySelector('.tally-label').textContent = tallyLabel(counts[i], total); });
+  }
+  function setTally(counts, quiet) {
     const c = current(); if (!c) return;
     db.tally[c.id] = { counts: c.choices.map((_, i) => clamp(Math.round(+counts[i]) || 0, 0, 99)), label: (db.tally[c.id] || {}).label || '', updatedAt: new Date().toISOString() };
-    app.saveDb(); renderTally();
+    app.saveDb(); if (quiet) updateTallyBars(); else renderTally();
   }
   // 연동 작업판
   function renderStage() {
@@ -141,8 +151,9 @@
     const c = db.cards.find(x => x.id === id); if (!c) return;
     if (!await U.showModal({ title: '카드 삭제', body: `<p>'${escapeHtml(c.question)}' 카드를 삭제할까요?${c.builtin ? '<br><span class="muted">내장 카드는 샘플 복원으로 되살릴 수 있어요.</span>' : ''}</p>`, confirmText: '삭제', danger: true })) return;
     db.cards = db.cards.filter(x => x.id !== id); db.cardSets.forEach(s => { s.cardIds = s.cardIds.filter(x => x !== id); }); delete db.tally[id];
-    app.saveDb(); if (st.currentCardId === id) { const l = visible(); st.currentCardId = null; if (l.length) return select(l[0].id); cur.board = null; }
-    render(); toast('카드를 삭제했어요', 'info');
+    app.saveDb(); toast('카드를 삭제했어요', 'info');
+    if (st.currentCardId === id) { const l = visible(); st.currentCardId = null; if (l.length) return select(l[0].id); cur.board = null; }
+    render();
   }
 
   // ---- 카드 편집 모달 ----
@@ -206,7 +217,7 @@
 
   // ---- 초기화 ----
   function init() {
-    app = FK.app; st = app.state; db = app.db; tr = app.tr;
+    app = FK.app; st = app.state; db = app.db;
     cur.filterGrade = app.settings.gradePreset && app.settings.gradePreset <= 5 ? String(app.settings.gradePreset) : '';
     $('#card-set').addEventListener('change', e => { st.currentSetId = e.target.value || null; const l = visible(); if (!l.some(c => c.id === st.currentCardId)) select(l.length ? l[0].id : null); else { app.persist(); render(); } });
     $('#card-grade').addEventListener('click', e => { const b = e.target.closest('[data-grade]'); if (!b) return; cur.filterGrade = b.dataset.grade; render(); });
@@ -219,7 +230,12 @@
       const b = e.target.closest('button'); if (!b) return;
       if (b.dataset.choice != null) predict(+b.dataset.choice); else if (b.dataset.card === 'confirm') reveal(); else if (b.dataset.card === 'prev') step(-1); else if (b.dataset.card === 'next') step(1);
     });
-    $('#tally-panel').addEventListener('input', e => { if (e.target.dataset.tally != null && e.target.dataset.tally !== 'clear') { const inputs = $$('#tally-panel input[data-tally]'); const counts = inputs.map(i => i.value === '' ? 0 : +i.value); setTally(counts); const again = $(`#tally-panel input[data-tally="${e.target.dataset.tally}"]`); if (again) again.focus(); } });
+    // 집계 입력: 입력란을 다시 만들지 않고(포커스·캐럿 유지) 막대만 갱신하며, 범위를 벗어난 값만 그 자리에서 보정
+    $('#tally-panel').addEventListener('input', e => {
+      const inp = e.target; if (inp.dataset.tally == null || inp.dataset.tally === 'clear') return;
+      setTally($$('#tally-panel input[data-tally]').map(i => i.value === '' ? 0 : +i.value), true);
+      const n = clamp(Math.round(+inp.value) || 0, 0, 99); if (String(n) !== inp.value) inp.value = n;
+    });
     $('#tally-panel').addEventListener('click', e => { if (e.target.closest('[data-tally=clear]')) { const c = current(); if (c) { delete db.tally[c.id]; app.saveDb(); renderTally(); } } });
     FK.actions['card-new'] = () => edit(null); FK.actions['set-save'] = saveSet;
     if (!st.currentCardId || !db.cards.some(c => c.id === st.currentCardId)) { const l = visible(); st.currentCardId = l.length ? l[0].id : null; }

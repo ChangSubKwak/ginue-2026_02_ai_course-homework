@@ -147,7 +147,7 @@ window.FK = window.FK || {};
           if (/^[0-9]$/.test(e.key)) { type(e.key); e.preventDefault(); }
           else if (e.key === 'Backspace') { type('back'); e.preventDefault(); }
           else if (e.key === '/') { active = 'd'; refresh(); e.preventDefault(); }
-          else if (e.key === 'Enter') { const p = parsed(); if (p.ok) a.close(true); e.preventDefault(); }
+          else if (e.key === 'Enter') { if (e.target.closest('.modal-foot')) return; const p = parsed(); if (p.ok) a.close(true); e.preventDefault(); } // 푸터 버튼(취소 등)에서는 기본 클릭에 맡긴다
         });
       },
     }).then(v => (v ? parsed().fr : null));

@@ -86,6 +86,6 @@ const APP_DATA = (() => {
   ];
   const shortcuts = [['Ctrl+Z / Ctrl+Y', '되돌리기 / 다시하기'], ['Esc', '모달 닫기 · 전체화면 해제'], ['Ctrl+P', '활동지 인쇄(활동지 탭)']];
 
-  return { version: 1, builtinVersion: 1, school: '가온초등학교', className: '5학년 2반', scenes, cards, cardSets, tally, worksheet, help, shortcuts,
+  return { version: 1, builtinVersion: 1, scenes, cards, cardSets, tally, worksheet, help, shortcuts,
     chips: [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [1, 6], [5, 6], [1, 8], [3, 8]], defaultSceneId: 'sc-b08' };
 })();

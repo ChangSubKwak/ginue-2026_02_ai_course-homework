@@ -6,7 +6,10 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const clone = o => JSON.parse(JSON.stringify(o));
   const LIM = { kitD: 24, abDmin: 2, abDmax: 12, mul: 3, undo: 50, scenes: 200 };
-  const ROWH = 112, BAR_TOP = 24, BAR_H = 76, ANIM = 400;
+  const ANIM = 400;
+  const MOBILE = window.matchMedia('(max-width: 720px)');
+  // 막대 치수(viewBox 단위). 좁은 화면에서는 행·막대를 키워 라벨과 칸을 읽기 쉽게 한다
+  const dims = () => (MOBILE.matches ? { ROWH: 160, BAR_TOP: 44, BAR_H: 104, KIT_H: 160 } : { ROWH: 118, BAR_TOP: 30, BAR_H: 80, KIT_H: document.documentElement.dataset.board === 'on' ? 160 : 120 });
   FK.data = D;
   FK.actions = {};
 
@@ -17,11 +20,12 @@
     arith: () => ({ a: { n: 1, d: 2 }, b: { n: 1, d: 3 }, op: '+', step: 0, mirror: false }),
   };
   const state = { tab: 'kit', kit: defaults.kit(), compare: defaults.compare(), arith: defaults.arith(), currentCardId: null, currentSetId: null, loadedSceneId: null, worksheet: clone(D.worksheet) };
-  const settings = { teacherMode: true, boardMode: false, gradePreset: null, lastTab: 'kit', reduceMotion: 'auto', bwPattern: false };
+  const settings = { teacherMode: true, boardMode: false, gradePreset: null, lastTab: 'kit', reduceMotion: 'auto' };
   const db = { scenes: [], cards: [], cardSets: [], tally: {} };
-  const tr = { curtain: false, pen: { on: false, tool: 'red', strokes: [] }, estimate: null, fsFallback: false, autoplay: null };
+  const tr = { curtain: false, pen: { on: false, tool: 'red', strokes: [] }, estimate: null, fsFallback: false, autoplay: null, abCarry: false }; // abCarry: 비교 탭 A·B 변경을 연산 탭으로 1회 이어 붙일지
   FK.reduceMotion = () => settings.reduceMotion === 'on' || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const OP_RE = /^(start|[×÷]\d{1,2})$/; // 동치 사슬 라벨 허용 목록
   // 분수 정상화(정수·범위)
   const fixFr = (fr, dMin, dMax, def) => {
     if (!fr || !Number.isInteger(fr.n) || !Number.isInteger(fr.d)) return def;
@@ -33,9 +37,12 @@
     if (s && s.kit) {
       const k = s.kit, fr = fixFr(k, 1, LIM.kitD, { n: 1, d: 2 });
       Object.assign(out.kit, { n: fr.n, d: fr.d, lineRange: ['auto', 1, 2, 3].includes(k.lineRange) ? k.lineRange : 'auto', showDecimal: k.showDecimal !== false });
-      if (k.models) out.kit.models = { bar: k.models.bar !== false, circle: k.models.circle !== false, line: k.models.line !== false };
-      const chain = Array.isArray(k.chain) ? k.chain.filter(c => Number.isInteger(c.n) && Number.isInteger(c.d) && c.d >= 1 && c.d <= LIM.kitD) : [];
-      out.kit.chain = chain.length && chain[chain.length - 1].n === fr.n && chain[chain.length - 1].d === fr.d ? chain : [{ n: fr.n, d: fr.d, op: 'start' }];
+      if (k.models) { out.kit.models = { bar: k.models.bar !== false, circle: k.models.circle !== false, line: k.models.line !== false }; if (!Object.values(out.kit.models).some(Boolean)) out.kit.models.bar = true; }
+      // 사슬 항은 정수 분수 + 허용된 연산 라벨('start', '×k', '÷p')만 수용(가져온 파일의 임의 문자열 차단)
+      const raw = Array.isArray(k.chain) ? k.chain : [];
+      const chain = raw.filter(c => c && Number.isInteger(c.n) && Number.isInteger(c.d) && c.d >= 1 && c.d <= LIM.kitD && OP_RE.test(String(c.op))).map(c => ({ n: c.n, d: c.d, op: String(c.op) }));
+      const last = chain[chain.length - 1];
+      out.kit.chain = chain.length && chain.length === raw.length && last.n === fr.n && last.d === fr.d ? chain : [{ n: fr.n, d: fr.d, op: 'start' }];
     }
     if (s && s.compare) { const c = s.compare; out.compare = { a: fixFr(c.a, 2, 12, { n: 2, d: 3 }), b: fixFr(c.b, 2, 12, { n: 3, d: 5 }), overlay: !!c.overlay, step: clamp(c.step | 0, 0, 3) }; }
     if (s && s.arith) { const r = s.arith; out.arith = { a: fixFr(r.a, 2, 12, { n: 1, d: 2 }), b: fixFr(r.b, 2, 12, { n: 1, d: 3 }), op: r.op === '-' ? '-' : '+', step: clamp(r.step | 0, 0, 4), mirror: !!r.mirror }; }
@@ -73,11 +80,13 @@
 
   // ---- 되돌리기(탭별 50단계) ----
   const undo = { kit: { past: [], future: [] }, compare: { past: [], future: [] }, arith: { past: [], future: [] } };
-  function pushUndo(tab = state.tab) {
+  function pushUndo(tab = state.tab, snap) {
     const u = undo[tab]; if (!u) return;
-    u.past.push(JSON.stringify(state[tab])); if (u.past.length > LIM.undo) u.past.shift(); u.future = [];
+    u.past.push(snap || JSON.stringify(state[tab])); if (u.past.length > LIM.undo) u.past.shift(); u.future = [];
     updateUndoButtons();
   }
+  // 조작 뒤 상태가 실제로 바뀌었을 때만 이전 스냅숏을 스택에 넣는다(중복 항목 방지)
+  const commitUndo = (tab, before) => { if (JSON.stringify(state[tab]) !== before) pushUndo(tab, before); };
   function updateUndoButtons() {
     const u = undo[state.tab];
     $('#btn-undo').disabled = !u || !u.past.length; $('#btn-redo').disabled = !u || !u.future.length;
@@ -96,12 +105,18 @@
   function setTab(tab) {
     if (!TABS.includes(tab)) return;
     A.finishAll(); stopAuto();
-    if (state.tab === 'compare' && tab === 'arith' && state.arith.step === 0) { state.arith.a = clone(state.compare.a); state.arith.b = clone(state.compare.b); }
+    const changed = tab !== state.tab;
+    // 비교 탭에서 A·B를 바꾼 뒤 처음 연산 탭으로 넘어갈 때만 1회 이어 붙인다(연산 탭 직접 입력·불러온 장면은 덮어쓰지 않음, 되돌리기 가능)
+    if (changed && state.tab === 'compare' && tab === 'arith' && tr.abCarry && state.arith.step === 0) {
+      const c = state.compare, r = state.arith;
+      if (JSON.stringify([c.a, c.b]) !== JSON.stringify([r.a, r.b])) { pushUndo('arith'); r.a = clone(c.a); r.b = clone(c.b); r.mirror = false; }
+    }
+    if (tab === 'arith') tr.abCarry = false;
     state.tab = tab; settings.lastTab = tab; saveSettings();
     $$('.tabs [role=tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
     $$('main [data-view]').forEach(s => { s.hidden = s.dataset.view !== tab; });
     document.body.dataset.tab = tab;
-    if (tr.pen.on) penClear();
+    if (tr.pen.on && changed) penClear(); // 실제 탭 전환 때만 주석 삭제(현재 탭 재클릭은 유지)
     renderTab(); updateUndoButtons(); persist();
   }
   function renderTab(o = {}) {
@@ -115,7 +130,7 @@
   // 불러온 장면의 교사 메모 패널
   function renderMemo() {
     const p = $('#memo-panel'), sc = state.loadedSceneId && db.scenes.find(s => s.id === state.loadedSceneId);
-    const show = sc && sc.memo && ['kit', 'compare', 'arith'].includes(state.tab);
+    const show = sc && sc.memo && state.tab === (sc.state && sc.state.tab); // 장면이 속한 탭에서만 발문 표시
     p.hidden = !show;
     if (show) { $('#memo-title').textContent = '— ' + sc.name; $('#memo-body').textContent = sc.memo; }
   }
@@ -138,6 +153,7 @@
   function abSet(tab, who, fr) {
     A.finishAll(); stopAuto(); pushUndo(tab);
     const s = state[tab]; s[who] = { n: fr.n, d: fr.d }; s.step = 0; if (tab === 'arith') s.mirror = false;
+    if (tab === 'compare') tr.abCarry = true; // 비교 탭 입력은 다음 연산 탭 진입 때 1회 이어 붙인다
     renderTab(); persist();
   }
   function bindAb(tab) {
@@ -150,7 +166,8 @@
     svg.addEventListener('pointerdown', e => {
       const cell = e.target.closest('.cell'); if (!cell || tr.pen.on) return;
       const g = cell.closest('[data-who]'); if (!g) return;
-      const who = g.dataset.who, s = state[tab], fr = s[who];
+      const who = g.dataset.who; if (who !== 'a' && who !== 'b') return; // 결과 막대는 입력용이 아님
+      const s = state[tab], fr = s[who];
       if (s.step > 0) return toast('처음으로를 누른 뒤 분수를 바꿀 수 있어요', 'info');
       const i = +cell.dataset.i, n = i + 1 === fr.n ? i : i + 1;
       if (n > LIM.mul * fr.d) return;
@@ -162,11 +179,14 @@
   const Kit = {
     units: k => R.unitsFor(k.n, k.d, k.lineRange),
     render(root, k, o = {}) {
-      const Un = this.units(k), m = k.models;
+      const Un = this.units(k), m = k.models, shown = ['bar', 'circle', 'line'].filter(x => m[x]);
       root.querySelectorAll('.model').forEach(el => { el.hidden = !m[el.dataset.model]; });
+      const models = root.querySelector('.models');
+      if (models) { models.dataset.shown = shown.join(' '); if ('activeModel' in models.dataset && !m[models.dataset.activeModel]) models.dataset.activeModel = shown[0]; } // 좁은 화면 모델 탭: 꺼진 모델이 활성이면 첫 켜진 모델로
+      root.querySelectorAll('[data-model-tab]').forEach(b => { b.hidden = !m[b.dataset.modelTab]; b.setAttribute('aria-selected', String(!!models && b.dataset.modelTab === models.dataset.activeModel)); });
       const common = { n: k.n, d: k.d, units: Un, fill: 'a', interactive: o.interactive };
       if (o.anim) common[o.anim.type === 'split' ? 'newFrom' : 'ghostD'] = o.anim.from;
-      if (m.bar) R.bar(root.querySelector('.kit-bar'), common);
+      if (m.bar) R.bar(root.querySelector('.kit-bar'), Object.assign({ height: dims().KIT_H }, common));
       if (m.circle) { R.circle(root.querySelector('.kit-circle'), common); const cap = root.querySelector('.kit-circle-cap'); if (cap) cap.hidden = k.d <= 12; }
       if (m.line) {
         const est = tr.estimate && o.controls ? tr.estimate : null;
@@ -189,11 +209,14 @@
       const r = F.reduce(n, d); if (n > 0 && r.d !== d) parts.push(`<span class="sym-chip hint"><small>약분</small>= ${F.str(r.n, r.d)}</span>`);
       return `<div class="sym-main">${main}</div><div class="sym-extra">${parts.join('')}</div>`;
     },
-    chainHtml: chain => chain.map((c, i) => (i ? `<span class="eq"><span class="eq-label">${c.op}</span>=</span>` : '') + `<span class="term">${F.str(c.n, c.d)}</span>`).join(''),
+    // 동치 사슬: 가로 한 줄 '1/2 ×2= 2/4 ×3= 6/12' (라벨은 이스케이프)
+    chainHtml: chain => `<div class="fline">${chain.map((c, i) => (i ? `<span class="eq"><span class="eq-label">${escapeHtml(c.op)}</span>=</span>` : '') + `<span class="term${i && i === chain.length - 1 ? ' last' : ''}">${F.str(c.n, c.d)}</span>`).join('')}</div>`,
     controls(root, k) {
-      const sl = root.querySelector('#kit-d'); sl.value = k.d; sl.max = gradeMaxD();
+      const maxD = gradeMaxD(), sl = root.querySelector('#kit-d'); sl.value = k.d; sl.max = maxD;
       root.querySelector('#kit-d-val').textContent = k.d; root.querySelector('#kit-n-val').textContent = k.n;
-      root.querySelectorAll('[data-action=split]').forEach(b => { const ok = k.d * +b.dataset.k <= LIM.kitD; b.disabled = !ok; b.title = ok ? '' : '분모는 24까지 나눌 수 있어요'; });
+      root.querySelectorAll('[data-action=split]').forEach(b => { const ok = k.d * +b.dataset.k <= maxD; b.disabled = !ok; b.title = ok ? '' : `분모는 ${maxD}까지 나눌 수 있어요`; }); // 학년 프리셋 상한도 적용
+      root.querySelector('[data-action=kit-d][data-delta="1"]').disabled = k.d >= maxD;
+      root.querySelector('[data-action=kit-d][data-delta="-1"]').disabled = k.d <= 1;
       root.querySelector('[data-action=kit-n][data-delta="1"]').disabled = k.n >= LIM.mul * k.d;
       root.querySelector('[data-action=kit-n][data-delta="-1"]').disabled = k.n <= 0;
       root.querySelector('#kit-range').value = String(k.lineRange);
@@ -205,23 +228,29 @@
     // 어림 모드 안내 박스
     renderEstimate(root) {
       const box = root.querySelector('.kit-estimate'), e = tr.estimate; box.hidden = !e; if (!e) return;
-      box.innerHTML = `<div class="est-target">목표 ${F.html(e.target.n, e.target.d, { mixed: true })}<span class="muted">${F.str(e.target.n, e.target.d)}</span></div>
+      box.innerHTML = `<div class="est-target">목표 ${F.html(e.target.n, e.target.d, { mixed: true })}<span class="muted">${F.toText(e.target.n, e.target.d)}</span></div>
         <p class="est-msg ${e.cls || ''}">${e.msg || '수직선에서 목표 분수가 있을 자리를 눌러 보세요'}</p>
         <div class="btn-row"><button type="button" class="chip-btn" data-action="est-again">다시</button><button type="button" class="chip-btn" data-action="est-random">무작위 목표</button><button type="button" class="chip-btn ghost" data-action="estimate">끝내기</button></div>`;
     },
   };
   const gradeMaxD = () => ({ 3: 10, 4: 12 }[settings.gradePreset] || LIM.kitD);
   const kitRoot = () => $('[data-view=kit]');
-  function kitChange(mut, anim, keepChain) { A.finishAll(); pushUndo('kit'); mut(state.kit); if (!anim && !keepChain) state.kit.chain = [{ n: state.kit.n, d: state.kit.d, op: 'start' }]; Kit.render(kitRoot(), state.kit, { interactive: true, controls: true, anim }); persist(); }
+  function kitChange(mut, anim, keepChain) {
+    A.finishAll(); const before = JSON.stringify(state.kit); mut(state.kit);
+    if (!anim && !keepChain) state.kit.chain = [{ n: state.kit.n, d: state.kit.d, op: 'start' }];
+    commitUndo('kit', before); // 어림 모드는 유지(목표는 자기 분모 기준이라 ×2·합치기 뒤에도 같은 자리)
+    Kit.render(kitRoot(), state.kit, { interactive: true, controls: true, anim }); persist();
+  }
   function kitSetD(d) { d = clamp(d, 1, gradeMaxD()); if (d === state.kit.d) return; tr.estimate = null; kitChange(k => { k.d = d; k.n = Math.min(k.n, LIM.mul * d); }); }
   function kitSetN(n) {
     if (n > LIM.mul * state.kit.d) { toast('최대 3까지만 나타낼 수 있어요', 'warn'); n = LIM.mul * state.kit.d; }
     n = clamp(n, 0, LIM.mul * state.kit.d); if (n === state.kit.n) return;
     kitChange(k => { k.n = n; });
   }
-  function kitSplit(k) { const s = state.kit; if (s.d * k > LIM.kitD) return toast('분모는 24까지 나눌 수 있어요', 'warn'); const from = s.d; kitChange(st => { st.n *= k; st.d *= k; st.chain.push({ n: st.n, d: st.d, op: '×' + k }); }, { type: 'split', from }); }
+  function kitSplit(k) { const s = state.kit, max = gradeMaxD(); if (s.d * k > max) return toast(`분모는 ${max}까지 나눌 수 있어요`, 'warn'); const from = s.d; kitChange(st => { st.n *= k; st.d *= k; st.chain.push({ n: st.n, d: st.d, op: '×' + k }); }, { type: 'split', from }); }
   function kitMerge() {
     const s = state.kit, g = F.gcd(s.n, s.d);
+    if (s.n === 0) return toast('색칠된 칸이 없어요. 먼저 칸을 색칠해 보세요', 'info'); // reduce(0,d)는 (0,d) 유지
     if (g === 1 || s.d === 1) return toast('더 약분할 수 없어요(기약분수)', 'info');
     const p = F.spf(g), from = s.d;
     kitChange(st => { st.n /= p; st.d /= p; st.chain.push({ n: st.n, d: st.d, op: '÷' + p }); }, { type: 'merge', from });
@@ -248,9 +277,8 @@
       if (!drag) return; const k = state.kit;
       const n = drag.moved ? k.n : (drag.start + 1 === k.n ? drag.start : drag.start + 1);
       const before = drag.before; drag = null; document.body.classList.remove('dragging');
-      const u = undo.kit; u.past.push(before); if (u.past.length > LIM.undo) u.past.shift(); u.future = [];
       k.n = clamp(n, 0, LIM.mul * k.d); k.chain = [{ n: k.n, d: k.d, op: 'start' }];
-      Kit.render(kitRoot(), k, { interactive: true, controls: true }); updateUndoButtons(); persist();
+      commitUndo('kit', before); Kit.render(kitRoot(), k, { interactive: true, controls: true }); persist();
     };
     svg.addEventListener('pointerup', up); svg.addEventListener('pointercancel', up);
   }
@@ -266,20 +294,20 @@
     });
     const moveTo = v => { const k = state.kit, n = clamp(Math.round(v * k.d), 0, LIM.mul * k.d); if (n !== k.n) { k.n = n; Kit.render(kitRoot(), k, { interactive: true, controls: true }); } };
     svg.addEventListener('pointermove', e => { if (drag) moveTo(valueAt(e)); });
-    const up = () => { if (!drag) return; const u = undo.kit; u.past.push(drag.before); if (u.past.length > LIM.undo) u.past.shift(); u.future = []; drag = null; document.body.classList.remove('dragging'); state.kit.chain = [{ n: state.kit.n, d: state.kit.d, op: 'start' }]; Kit.render(kitRoot(), state.kit, { interactive: true, controls: true }); updateUndoButtons(); persist(); };
+    const up = () => { if (!drag) return; const before = drag.before; drag = null; document.body.classList.remove('dragging'); state.kit.chain = [{ n: state.kit.n, d: state.kit.d, op: 'start' }]; commitUndo('kit', before); Kit.render(kitRoot(), state.kit, { interactive: true, controls: true }); persist(); };
     svg.addEventListener('pointerup', up); svg.addEventListener('pointercancel', up);
   }
   // 어림 피드백
   function estimateTap(v) {
     const e = tr.estimate; if (!e || e.revealed) return;
-    const k = state.kit, t = e.target.n / k.d, err = Math.abs(v - t);
+    const k = state.kit, td = e.target.d, t = e.target.n / td, err = Math.abs(v - t); // 목표는 자기 분모 기준
     e.tapped = v;
     Kit.render(kitRoot(), k, { interactive: true, controls: true });
     setTimeout(() => {
       if (tr.estimate !== e) return; e.revealed = true;
-      if (err < 1 / (4 * k.d)) { e.msg = '정확해요!'; e.cls = 'ok'; }
-      else if (err < 1 / k.d) { e.msg = `가까워요 (차이 약 1/${k.d})`; e.cls = 'warn'; }
-      else { e.msg = `${v < t ? '오른쪽' : '왼쪽'}으로 ${Math.round(err * k.d)}칸`; e.cls = 'warn'; }
+      if (err < 1 / (4 * td)) { e.msg = '정확해요!'; e.cls = 'ok'; }
+      else if (err < 1 / td) { e.msg = `가까워요 (차이 약 1/${td})`; e.cls = 'warn'; }
+      else { e.msg = `${v < t ? '오른쪽' : '왼쪽'}으로 ${Math.round(err * td)}칸`; e.cls = 'warn'; }
       Kit.render(kitRoot(), k, { interactive: true, controls: true });
     }, A.motionOff() ? 0 : 300);
   }
@@ -305,12 +333,12 @@
     calc(c) { const L = F.lcm(c.a.d, c.b.d), k1 = L / c.a.d, k2 = L / c.b.d, Ax = { n: c.a.n * k1, d: L }, Bx = { n: c.b.n * k2, d: L }; return { L, k1, k2, A: Ax, B: Bx, sign: F.compare(c.a, c.b), diff: F.reduce(Math.abs(Ax.n - Bx.n), L), same: c.a.d === c.b.d }; },
     units: c => Math.max(R.unitsFor(c.a.n, c.a.d, 'auto'), R.unitsFor(c.b.n, c.b.d, 'auto')),
     render(root, c, o = {}) {
-      const x = this.calc(c), Un = this.units(c), svg = root.querySelector('.cmp-bars');
+      const x = this.calc(c), Un = this.units(c), svg = root.querySelector('.cmp-bars'), { ROWH, BAR_TOP, BAR_H } = dims();
       R.clear(svg); svg.setAttribute('viewBox', `0 0 ${R.W} ${ROWH * 2}`);
       const g = R.svgEl('g', { class: 'bar' + (o.interactive ? ' interactive' : '') }, svg);
       const va = c.a.n / c.a.d, vb = c.b.n / c.b.d;
       [['a', c.step >= 1 ? x.A : c.a, o.anim === 'a' ? c.a.d : null], ['b', c.step >= 2 ? x.B : c.b, o.anim === 'b' ? c.b.d : null]].forEach(([who, fr, newFrom], i) => {
-        R.svgEl('text', { class: 'row-label f-' + who, x: 0, y: i * ROWH + 14 }, g).textContent = who.toUpperCase();
+        R.svgEl('text', { class: 'row-label f-' + who, x: 0, y: i * ROWH + BAR_TOP - 8 }, g).textContent = who.toUpperCase();
         const gw = R.svgEl('g', { 'data-who': who }, g);
         const opts = { n: fr.n, d: fr.d, units: Un, fill: who, top: i * ROWH + BAR_TOP, height: BAR_H, newFrom };
         if (who === 'a' && c.overlay) { opts.overlay = { v: vb, fill: 'b' }; opts.hatch = [Math.min(va, vb), Math.max(va, vb)]; }
@@ -323,7 +351,7 @@
       const sg = x.sign > 0 ? '>' : x.sign < 0 ? '<' : '=', lines = [];
       if (c.step >= 1 && !x.same) lines.push(`${F.str(c.a.n, c.a.d)} = ${F.str(x.A.n, x.L)}`);
       if (c.step >= 2 && !x.same) lines.push(`${F.str(c.b.n, c.b.d)} = ${F.str(x.B.n, x.L)}`);
-      if (c.step >= 3) lines.push(`${F.str(x.A.n, x.L)} ${sg} ${F.str(x.B.n, x.L)} → ${F.str(c.a.n, c.a.d)} ${sg} ${F.str(c.b.n, c.b.d)}`);
+      if (c.step >= 3) lines.push(x.same ? `${F.str(c.a.n, c.a.d)} ${sg} ${F.str(c.b.n, c.b.d)}` : `${F.str(x.A.n, x.L)} ${sg} ${F.str(x.B.n, x.L)} → ${F.str(c.a.n, c.a.d)} ${sg} ${F.str(c.b.n, c.b.d)}`); // 분모가 같으면 통분 없이 한 번만
       if (c.step >= 3 || c.overlay) lines.push(`차이: ${F.str(x.diff.n, x.diff.d)}`);
       root.querySelector('.cmp-formula').innerHTML = lines.length ? lines.map(l => `<div class="fline">${escapeHtml(l)}</div>`).join('') : '<div class="fline muted">같은 분모로 맞추기를 눌러 통분 과정을 확인하세요</div>';
       if (o.controls) {
@@ -341,7 +369,7 @@
     },
   };
   function cmpStep() { const c = state.compare; A.finishAll(); const r = Compare.advance(c); if (!r) return false; if (r.msg) toast(r.msg, 'info'); renderTab({ anim: r.anim }); persist(); return c.step < 3; }
-  function cmpChange(mut) { A.finishAll(); stopAuto(); pushUndo('compare'); mut(state.compare); renderTab(); persist(); }
+  function cmpChange(mut) { A.finishAll(); stopAuto(); const b = JSON.stringify(state.compare); mut(state.compare); commitUndo('compare', b); renderTab(); persist(); }
 
   // ---- 덧셈·뺄셈 ----
   const Arith = {
@@ -353,16 +381,17 @@
     },
     units(r) { const x = this.calc(r); return Math.max(R.unitsFor(r.a.n, r.a.d, 'auto'), R.unitsFor(r.b.n, r.b.d, 'auto'), R.unitsFor(Math.max(x.N, 0), x.L, 'auto')); },
     render(root, r, o = {}) {
-      const x = this.calc(r), Un = this.units(r), svg = root.querySelector('.ar-bars');
+      const x = this.calc(r), Un = this.units(r), svg = root.querySelector('.ar-bars'), { ROWH, BAR_TOP, BAR_H } = dims();
+      const token = root._arToken = (root._arToken || 0) + 1; // 지연 콜백이 이 렌더 이후의 상태(되돌리기·장면 불러오기)를 덮어쓰지 않도록 표식
       const mirror = r.mirror && r.step >= 3 && settings.teacherMode, rows = mirror && x.wrongN >= 0 ? 4 : 3;
       R.clear(svg); svg.setAttribute('viewBox', `0 0 ${R.W} ${ROWH * rows}`);
       const g = R.svgEl('g', { class: 'bar' + (o.interactive ? ' interactive' : '') }, svg);
-      const row = (i, label, cls) => { R.svgEl('text', { class: 'row-label ' + cls, x: 0, y: i * ROWH + 14 }, g).textContent = label; return i * ROWH + BAR_TOP; };
+      const row = (i, label, cls) => { R.svgEl('text', { class: 'row-label ' + cls, x: 0, y: i * ROWH + BAR_TOP - 8 }, g).textContent = label; return i * ROWH + BAR_TOP; };
       const common = o.anim === 'common' && !x.same;
       R.barInto(R.svgEl('g', { 'data-who': 'a' }, g), { n: (r.step >= 1 ? x.A : r.a).n, d: (r.step >= 1 ? x.A : r.a).d, units: Un, fill: 'a', top: row(0, 'A', 'f-a'), height: BAR_H, newFrom: common ? r.a.d : null });
       R.barInto(R.svgEl('g', { 'data-who': 'b' }, g), { n: (r.step >= 1 ? x.B : r.b).n, d: (r.step >= 1 ? x.B : r.b).d, units: Un, fill: 'b', top: row(1, 'B', 'f-b'), height: BAR_H, newFrom: common ? r.b.d : null });
       const rt = row(2, '결과', 'f-r');
-      const resN = r.step >= 2 ? Math.max(x.N, 0) : 0, moving = o.anim === 'move';
+      const resN = r.step >= 2 ? Math.max(x.N, 0) : 0, moving = o.anim === 'move' && x.N <= LIM.mul * x.L; // 결과가 3단위를 넘으면 이동 애니메이션 생략(막대 밖으로 나감)
       const resOpts = { n: moving ? x.A.n : resN, d: x.L, units: Un, fill: 'r', top: rt, height: BAR_H, flash: o.anim === 'flash' && x.N >= x.L, highlight: o.highlight ? [0, resN] : null };
       if (r.step >= 4 && x.canReduce) { resOpts.d = x.red.d; resOpts.n = x.red.n; if (o.anim === 'reduce') resOpts.ghostD = x.L; }
       const geo = R.barInto(R.svgEl('g', { 'data-who': 'r' }, g), resOpts);
@@ -377,9 +406,10 @@
         for (let i = 0; i < x.B.n; i++) R.svgEl('rect', { class: 'cell on f-b', x: xOf(i), y: ROWH + BAR_TOP, width: geo.cell, height: BAR_H }, mg);
         const dx = xOf(x.sub ? x.A.n - x.B.n : x.A.n), dy = rt - (ROWH + BAR_TOP);
         A.move(mg, [0, 0], [dx, dy], 600, () => {
+          if (root._arToken !== token) return; // 그 사이 다시 그려졌으면(되돌리기 등) 옛 상태로 덮지 않음
           if (!x.sub) return this.render(root, r, Object.assign({}, o, { anim: null }));
           mg.querySelectorAll('rect').forEach(e => e.setAttribute('fill', 'url(#hatch-wrong)'));
-          A.run(500, t => { mg.style.opacity = 1 - t; }, () => this.render(root, r, Object.assign({}, o, { anim: null, highlight: true })));
+          A.run(500, t => { mg.style.opacity = 1 - t; }, () => { if (root._arToken === token) this.render(root, r, Object.assign({}, o, { anim: null, highlight: true })); });
         });
       }
       root.querySelectorAll('.ar-steps li').forEach((li, i) => { li.classList.toggle('active', r.step === i + 1); li.classList.toggle('done', r.step > i + 1); li.classList.toggle('skip', (i === 0 && x.same) || (i === 3 && r.step >= 3 && !x.canReduce)); });
@@ -407,19 +437,23 @@
       return null;
     },
   };
-  async function arStep(fromUser) {
+  // 한 단계 진행. viaAuto면 자동 재생 중이라 되돌리기 항목을 쌓지 않는다(재생 시작 때 1회만)
+  async function arStep(fromUser, viaAuto) {
     const r = state.arith; A.finishAll();
+    const before = JSON.stringify(r);
     if (r.step === 0 && r.op === '-' && F.compare(r.a, r.b) < 0) {
       stopAuto();
       const ok = fromUser && await U.showModal({ title: '뺄셈 순서', body: '<p>앞의 분수가 더 작아요. 자리를 바꿀까요?</p>', confirmText: '바꾸기', cancelText: '취소' });
       if (!ok) return false;
-      pushUndo('arith'); [r.a, r.b] = [r.b, r.a];
-    } else pushUndo('arith');
+      [r.a, r.b] = [r.b, r.a];
+    }
     const res = Arith.advance(r); if (!res) return false;
+    if (!viaAuto) commitUndo('arith', before);
+    const x = Arith.calc(r); if (r.step === 2 && x.N > LIM.mul * x.L) toast('결과가 3을 넘어 막대로는 3까지만 보여요', 'info');
     renderTab({ anim: res.anim }); persist();
     return !!Arith.advance(clone(r));
   }
-  function arChange(mut) { A.finishAll(); stopAuto(); pushUndo('arith'); mut(state.arith); renderTab(); persist(); }
+  function arChange(mut) { A.finishAll(); stopAuto(); const b = JSON.stringify(state.arith); mut(state.arith); commitUndo('arith', b); renderTab(); persist(); }
 
   // ---- 앱 셸: 테마·칠판·교사·전체화면·커튼·학년 ----
   function applyTheme() {
@@ -446,8 +480,11 @@
     applySettings(); renderTab(); persist();
     toast(g ? `${g}학년 프리셋 적용` : '학년 프리셋 해제', 'info');
   }
+  // 전체화면 버튼 문구·상태(API 전체화면과 CSS 대체 레이아웃 공통)
+  function fsLabel() { const on = !!document.fullscreenElement || tr.fsFallback, b = $('#btn-fs'); b.textContent = on ? '전체화면 해제' : '전체화면'; b.setAttribute('aria-pressed', String(on)); }
+  function setFsFallback(on) { tr.fsFallback = on; document.documentElement.dataset.fs = on ? 'on' : 'off'; fsLabel(); }
   function toggleFullscreen() {
-    const html = document.documentElement, fb = () => { tr.fsFallback = !tr.fsFallback; html.dataset.fs = tr.fsFallback ? 'on' : 'off'; };
+    const html = document.documentElement, fb = () => setFsFallback(!tr.fsFallback);
     if (document.fullscreenElement) { document.exitFullscreen().catch(() => {}); return; }
     if (tr.fsFallback) { fb(); return; }
     try { const p = html.requestFullscreen(); if (p && p.catch) p.catch(fb); } catch (e) { fb(); }
@@ -457,14 +494,15 @@
 
   // ---- 펜 주석 레이어 ----
   const pen = tr.pen, canvas = $('#pen-canvas'), pctx = canvas.getContext('2d');
-  const TOOLS = { red: { color: '#ef4444', w: 4, a: 1 }, blue: { color: '#2563eb', w: 4, a: 1 }, hl: { color: '#facc15', w: 18, a: 0.4 }, eraser: { w: 24, erase: true } };
+  const TOOLS = { red: { token: '--pen-red', w: 4, a: 1 }, blue: { token: '--pen-blue', w: 4, a: 1 }, hl: { token: '--pen-hl', w: 18, a: 0.4 }, eraser: { w: 24, erase: true } };
+  const cssVar = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim(); // 펜 색은 CSS 토큰에서 읽는다
   function penResize() {
     const area = $('.work-area'), rect = area.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
     canvas.width = Math.round(rect.width * dpr); canvas.height = Math.round(rect.height * dpr); canvas.style.width = rect.width + 'px'; canvas.style.height = rect.height + 'px';
     penRedraw();
   }
   function penDrawStroke(s) {
-    const t = TOOLS[s.tool]; pctx.save(); pctx.lineCap = pctx.lineJoin = 'round'; pctx.lineWidth = t.w * (canvas.width / 1000) * (1000 / Math.max(600, canvas.clientWidth)); pctx.strokeStyle = t.color || '#000'; pctx.globalAlpha = t.a || 1;
+    const t = TOOLS[s.tool]; pctx.save(); pctx.lineCap = pctx.lineJoin = 'round'; pctx.lineWidth = t.w * (canvas.width / 1000) * (1000 / Math.max(600, canvas.clientWidth)); pctx.strokeStyle = (t.token && cssVar(t.token)) || '#000'; pctx.globalAlpha = t.a || 1;
     pctx.globalCompositeOperation = t.erase ? 'destination-out' : 'source-over'; pctx.beginPath();
     s.pts.forEach(([x, y], i) => { const X = x * canvas.width, Y = y * canvas.height; if (i) pctx.lineTo(X, Y); else pctx.moveTo(X, Y); });
     if (s.pts.length === 1) pctx.lineTo(s.pts[0][0] * canvas.width + 0.1, s.pts[0][1] * canvas.height);
@@ -491,26 +529,37 @@
     window.addEventListener('resize', U.debounce(() => { if (pen.on) penResize(); }, 150));
   })();
 
-  // ---- 그림(PNG) 저장 ----
+  // ---- 그림(PNG) 저장: 작업판(교구판·비교·덧셈뺄셈)의 모델 SVG를 세로로 합성 ----
   async function savePng() {
-    const stage = $(`main [data-view=${state.tab}] .stage`) || $(`main [data-view=${state.tab}]`);
+    if (!['kit', 'compare', 'arith'].includes(state.tab)) return toast('저장할 그림이 없어요. 교구판·비교·덧셈뺄셈 탭에서 이용하세요', 'warn');
+    const stage = $(`main [data-view=${state.tab}] .stage`);
     const svgs = $$('svg', stage).filter(s => s.getBoundingClientRect().width > 0 && !s.closest('[hidden]'));
-    if (!svgs.length) return toast('저장할 그림이 없어요. 교구판·비교·덧셈뺄셈 탭에서 이용하세요', 'warn');
+    if (!svgs.length) return toast('저장할 그림이 없어요. 모델을 하나 이상 켜 주세요', 'warn');
     let includePen = true;
     const go = await U.openDialog({ title: '그림 저장(PNG)', body: '<label><input type="checkbox" id="png-pen" checked> 펜 주석 포함</label>', buttons: [{ text: '취소', value: null }, { text: '저장', value: true, primary: true }], validate(a) { includePen = a.body.querySelector('#png-pen').checked; return true; } });
     if (!go) return;
     try {
-      const Wpx = 1600, cs = getComputedStyle(document.documentElement), css = `.bar-bg{fill:${cs.getPropertyValue('--bar-bg')}}.cell{fill:transparent}.cell.on.f-a{fill:${cs.getPropertyValue('--fill-a')}}.cell.on.f-b{fill:${cs.getPropertyValue('--fill-b')}}.cell.on.f-r{fill:${cs.getPropertyValue('--fill-r')}}.cell.ov{opacity:.55}.div,.tick,.axis,.bar-frame,.circle-frame{stroke:${cs.getPropertyValue('--div')};stroke-width:2;fill:none}.tick.big{stroke-width:3}.cell-label,.tick-label,.row-label{font:20px sans-serif;fill:${cs.getPropertyValue('--fg')}}.pt{fill:${cs.getPropertyValue('--fill-a')}}.pt.f-b{fill:${cs.getPropertyValue('--fill-b')}}.hatch{opacity:.8}`;
+      const Wpx = 1600, cs = getComputedStyle(document.documentElement), v = n => cs.getPropertyValue(n).trim(), defs = $('.svg-defs defs'), area = $('.work-area').getBoundingClientRect();
+      // 직렬화된 SVG는 페이지 CSS를 못 쓰므로 필요한 규칙만 토큰값으로 인라인(겹쳐 보기·빗금·오개념 막대 포함)
+      const css = `.bar-bg{fill:${v('--bar-bg')}}.cell{fill:transparent}.cell.on.f-a{fill:${v('--fill-a')}}.cell.on.f-b{fill:${v('--fill-b')}}.cell.on.f-r{fill:${v('--fill-r')}}.cell.on.f-w{fill:url(#hatch-wrong)}.cell.ov{opacity:.55}.cell.ov.f-b{fill:${v('--fill-b')}}.cell.hl{stroke:${v('--fg')};stroke-width:3}.hatch-diff-line{stroke:${v('--hatch')};stroke-width:3}.hatch-wrong-line{stroke:${v('--fill-w')};stroke-width:3}.div,.tick,.axis{stroke:${v('--div')};stroke-width:2;fill:none}.div.thin,.tick.thin{stroke-width:.8}.div.faint{stroke-width:.7;opacity:.4}.bar-frame,.circle-frame{stroke:${v('--bar-frame')};stroke-width:3;fill:none}.tick.big{stroke-width:3.5}.axis-arrow{fill:${v('--div')}}.cell-label,.tick-label,.row-label,.pt-label{font:600 24px sans-serif;fill:${v('--fg')}}.cell-label.on{fill:${v('--on-fill')}}.pt{fill:${v('--fill-a')};stroke:${v('--surface')};stroke-width:3}.pt.f-b,.pt-label.f-b{fill:${v('--fill-b')}}.pt.f-r{fill:${v('--fill-r')}}.moving{display:none}`;
       const parts = await Promise.all(svgs.map(s => new Promise((res, rej) => {
-        const vb = s.viewBox.baseVal, h = Math.round(Wpx * vb.height / vb.width), c = s.cloneNode(true);
+        const vb = s.viewBox.baseVal, h = Math.round(Wpx * vb.height / vb.width), c = s.cloneNode(true), rect = s.getBoundingClientRect();
         c.setAttribute('xmlns', 'http://www.w3.org/2000/svg'); c.setAttribute('width', Wpx); c.setAttribute('height', h); c.insertAdjacentHTML('afterbegin', `<style>${css}</style>`);
+        if (defs) c.insertBefore(defs.cloneNode(true), c.firstChild); // 빗금 패턴 defs를 함께 넣어야 url(#hatch-…)가 그려진다
         const img = new Image(), url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(c)], { type: 'image/svg+xml' }));
-        img.onload = () => { URL.revokeObjectURL(url); res({ img, h }); }; img.onerror = () => rej(new Error('svg')); img.src = url;
+        img.onload = () => { URL.revokeObjectURL(url); res({ img, h, rect }); }; img.onerror = () => rej(new Error('svg')); img.src = url;
       })));
       const out = document.createElement('canvas'); out.width = Wpx; out.height = parts.reduce((a, p) => a + p.h + 40, 40);
-      const ctx = out.getContext('2d'); ctx.fillStyle = cs.getPropertyValue('--surface') || '#fff'; ctx.fillRect(0, 0, out.width, out.height);
-      let y = 20; parts.forEach(p => { ctx.drawImage(p.img, 0, y); y += p.h + 40; });
-      if (includePen && pen.on) ctx.drawImage(canvas, 0, 0, out.width, out.height);
+      const ctx = out.getContext('2d'); ctx.fillStyle = v('--surface') || '#fff'; ctx.fillRect(0, 0, out.width, out.height);
+      let y = 20;
+      parts.forEach(p => {
+        ctx.drawImage(p.img, 0, y);
+        if (includePen && pen.on && area.width && area.height) { // 펜 주석은 각 SVG가 차지한 화면 영역만 잘라 같은 자리에 합성
+          const sx = (p.rect.left - area.left) / area.width * canvas.width, sy = (p.rect.top - area.top) / area.height * canvas.height;
+          ctx.drawImage(canvas, sx, sy, p.rect.width / area.width * canvas.width, p.rect.height / area.height * canvas.height, 0, y, Wpx, p.h);
+        }
+        y += p.h + 40;
+      });
       const name = (state.loadedSceneId && (db.scenes.find(s => s.id === state.loadedSceneId) || {}).name) || state.tab;
       U.download(`fraction-kit-${name}.png`, await new Promise(r => out.toBlob(r, 'image/png')), 'image/png');
       toast('그림을 저장했어요', 'success');
@@ -529,7 +578,7 @@
   Object.assign(FK.actions, {
     undo: () => doUndo(false), redo: () => doUndo(true), help: openHelp, png: savePng,
     theme: () => { const html = document.documentElement; const cur = html.dataset.theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); store.set('theme', cur === 'dark' ? 'light' : 'dark'); applyTheme(); },
-    board: () => { settings.boardMode = !settings.boardMode; saveSettings(); applySettings(); if (pen.on) penResize(); },
+    board: () => { settings.boardMode = !settings.boardMode; saveSettings(); applySettings(); renderTab(); if (pen.on) penResize(); },
     teacher: () => { settings.teacherMode = !settings.teacherMode; saveSettings(); applySettings(); renderTab(); },
     fullscreen: toggleFullscreen,
     curtain: () => setCurtain(!tr.curtain),
@@ -543,15 +592,15 @@
     estimate: openEstimate,
     'est-again': () => { if (tr.estimate) { tr.estimate.tapped = null; tr.estimate.revealed = false; tr.estimate.msg = ''; renderTab(); } },
     'est-random': () => { if (tr.estimate) { tr.estimate = { target: randomTarget(), tapped: null, revealed: false }; renderTab(); } },
-    'cmp-start': () => { const c = state.compare; if (c.step !== 0) return toast('처음으로를 누른 뒤 다시 시작하세요', 'info'); stopAuto(); pushUndo('compare'); cmpStep(); },
-    'cmp-next': () => { stopAuto(); pushUndo('compare'); cmpStep(); },
-    'cmp-auto': () => { stopAuto(); pushUndo('compare'); tr.autoplay = A.playSteps(cmpStep, 600, () => { tr.autoplay = null; }); },
+    'cmp-start': () => { const c = state.compare; if (c.step !== 0) return toast('처음으로를 누른 뒤 다시 시작하세요', 'info'); stopAuto(); const b = JSON.stringify(c); cmpStep(); commitUndo('compare', b); },
+    'cmp-next': () => { stopAuto(); const b = JSON.stringify(state.compare); cmpStep(); commitUndo('compare', b); },
+    'cmp-auto': () => { stopAuto(); if (state.compare.step >= 3) return; pushUndo('compare'); tr.autoplay = A.playSteps(cmpStep, 600, () => { tr.autoplay = null; }); },
     'cmp-reset': () => cmpChange(c => { c.step = 0; }),
     'cmp-overlay': () => cmpChange(c => { c.overlay = !c.overlay; }),
-    'cmp-swap': () => cmpChange(c => { [c.a, c.b] = [c.b, c.a]; c.step = 0; }),
-    'cmp-clear': () => cmpChange(c => Object.assign(c, defaults.compare())),
+    'cmp-swap': () => { cmpChange(c => { [c.a, c.b] = [c.b, c.a]; c.step = 0; }); tr.abCarry = true; },
+    'cmp-clear': () => { cmpChange(c => Object.assign(c, defaults.compare())); tr.abCarry = true; },
     'ar-next': () => { stopAuto(); arStep(true); },
-    'ar-auto': () => { stopAuto(); const r = state.arith; if (r.step === 0 && r.op === '-' && F.compare(r.a, r.b) < 0) return arStep(true); tr.autoplay = A.playSteps(() => { const before = state.arith.step; arStep(false); if (state.arith.step === before) return false; return !!Arith.advance(clone(state.arith)); }, 900, () => { tr.autoplay = null; }); },
+    'ar-auto': () => { stopAuto(); const r = state.arith; if (r.step === 0 && r.op === '-' && F.compare(r.a, r.b) < 0) return arStep(true); if (!Arith.advance(clone(r))) return; pushUndo('arith'); tr.autoplay = A.playSteps(() => { const before = state.arith.step; arStep(false, true); if (state.arith.step === before) return false; return !!Arith.advance(clone(state.arith)); }, 900, () => { tr.autoplay = null; }); },
     'ar-reset': () => arChange(r => { r.step = 0; r.mirror = false; }),
     'ar-mirror': () => arChange(r => { r.mirror = !r.mirror; }),
     'ar-swap': () => arChange(r => { [r.a, r.b] = [r.b, r.a]; r.step = 0; r.mirror = false; }),
@@ -566,6 +615,10 @@
     });
     document.addEventListener('click', e => { const m = $('#more-menu'); if (m && m.open && !m.contains(e.target)) m.open = false; });
     $('.tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) setTab(b.dataset.tab); });
+    // 좁은 화면에서 탭 줄이 가로 스크롤되면 오른쪽에 탭이 더 있다는 그라데이션 표시
+    const tabs = $('.tabs'), tabsWrap = tabs.parentElement;
+    const tabsHint = () => tabsWrap.classList.toggle('more-right', tabs.scrollLeft + tabs.clientWidth < tabs.scrollWidth - 2);
+    tabs.addEventListener('scroll', tabsHint, { passive: true }); window.addEventListener('resize', U.debounce(tabsHint, 100)); tabsHint();
     $('#grade-preset').addEventListener('change', e => setGrade(e.target.value ? +e.target.value : null));
     // 교구판 컨트롤
     const kr = kitRoot(), slider = $('#kit-d'); let sliding = false;
@@ -584,7 +637,7 @@
     // 단축키
     document.addEventListener('keydown', e => {
       const tag = (e.target.tagName || '').toLowerCase();
-      if (e.key === 'Escape') { if (tr.fsFallback) { tr.fsFallback = false; document.documentElement.dataset.fs = 'off'; } return; }
+      if (e.key === 'Escape') { if (tr.fsFallback) setFsFallback(false); return; }
       const textLike = tag === 'textarea' || tag === 'select' || (tag === 'input' && !['range', 'checkbox', 'radio', 'file'].includes(e.target.type));
       if (textLike || document.documentElement.dataset.modal === 'on') return;
       if ((e.ctrlKey || e.metaKey) && !e.altKey) {
@@ -593,8 +646,9 @@
         else if (k === 'y' || (k === 'z' && e.shiftKey)) { e.preventDefault(); doUndo(true); }
       }
     });
-    document.addEventListener('fullscreenchange', () => { $('#btn-fs').textContent = document.fullscreenElement ? '전체화면 해제' : '전체화면'; });
+    document.addEventListener('fullscreenchange', fsLabel);
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+    MOBILE.addEventListener('change', () => { A.finishAll(); renderTab(); }); // 좁은 화면 경계를 넘으면 막대 치수가 달라지므로 다시 그림
   }
 
   // ---- 시작 ----
