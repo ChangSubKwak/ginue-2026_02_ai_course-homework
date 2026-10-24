@@ -196,18 +196,22 @@ const Engine = (() => {
   }
 
   // ── 빈 책상 예약(2인 짝 레이아웃): 남는 책상을 짝 단위로 뒷줄·양끝부터 비워 혼자 앉는 학생을 최소화 ──
+  // 핀 고정 학생의 옆자리는 '외딴 책상'이 아니므로 비우지 않는다(고정 학생이 매번 혼자 앉던 회귀 방지). 그 밖에 비울 책상이 없을 때만 마지막으로 사용
   function reserveEmpty(ctx, fixed, extra) {
     const reserved = new Set(); if (extra <= 0 || ctx.layout.preset !== 'pair') return reserved;
     const z = zoneInfo(ctx.layout); const backRank = (d) => z.rowOrder.indexOf(d.r);              // 교탁에서 먼 줄일수록 큼
     const center = (ctx.layout.cols - 1) / 2; const edge = (d) => Math.abs(d.c - center);
-    const groups = Object.values(ctx.pgMembers).map(m => m.filter(i => !fixed[i])).filter(m => m.length);
-    const score = (m) => -(backRank(ctx.desks[m[0]]) * 100 + edge(ctx.desks[m[0]]));                // 뒤쪽·가장자리 우선
-    const singles = groups.filter(m => m.length === 1).sort((a, b) => score(a) - score(b));
-    const pairsG = groups.filter(m => m.length >= 2).sort((a, b) => score(a) - score(b));
+    const score = (g) => -(backRank(ctx.desks[g.free[0]]) * 100 + edge(ctx.desks[g.free[0]]));    // 뒤쪽·가장자리 우선
+    const groups = Object.values(ctx.pgMembers).map(m => ({ free: m.filter(i => !fixed[i]), hasFixed: m.some(i => !!fixed[i]) })).filter(g => g.free.length).sort((a, b) => score(a) - score(b));
+    const singles = groups.filter(g => g.free.length === 1 && !g.hasFixed);     // 짝 책상이 꺼져 혼자 남은 외딴 책상
+    const pairsG = groups.filter(g => g.free.length >= 2);                        // 양쪽 모두 비어 있는 짝 책상
+    const besideFixed = groups.filter(g => g.free.length === 1 && g.hasFixed);   // 고정 학생의 옆자리(마지막 수단)
     let left = extra;
-    singles.forEach(m => { if (left > 0) { reserved.add(m[0]); left--; } });                     // 짝이 없는 외딴 책상부터
-    pairsG.forEach(m => { if (left >= 2) { m.forEach(i => reserved.add(i)); left -= m.length; } });   // 그다음 짝 책상 통째로
-    if (left > 0) { const m = pairsG.find(g => !reserved.has(g[0])); if (m) { reserved.add(m[0]); left--; } }   // 홀수면 1석만
+    const take = (i) => { if (left > 0 && !reserved.has(i)) { reserved.add(i); left--; } };
+    singles.forEach(g => take(g.free[0]));                                         // 외딴 책상부터
+    pairsG.forEach(g => { if (left >= g.free.length) g.free.forEach(take); });     // 그다음 짝 책상 통째로
+    if (left > 0) { const g = pairsG.find(x => !reserved.has(x.free[0])); if (g) take(g.free[0]); }   // 홀수면 1석만
+    besideFixed.forEach(g => take(g.free[0]));                                     // 그래도 남으면 고정 학생 옆자리
     return reserved;
   }
 

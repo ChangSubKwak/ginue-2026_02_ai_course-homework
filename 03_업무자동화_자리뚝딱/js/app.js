@@ -163,13 +163,16 @@
     APP_DATA.presets[preset].fields.forEach(([f, , mn, mx]) => { params[f] = Math.max(mn, Math.min(mx, Number(params[f]) || mn)); });   // 프리셋별 범위로 수치 보정
     setLayout(Engine.buildLayout(preset, params, L.teacherSide, [], L.name));
   }
-  // 좌석표 확대값을 컨테이너 폭에 맞춤(레이아웃 변경·'맞춤' 버튼·모바일 첫 표시)
+  // 좌석표 확대값을 컨테이너 폭에 맞춤(레이아웃 변경·'맞춤' 버튼·좁은 화면 전환). 호출 뒤에는 '자동 맞춤' 상태 — 슬라이더를 움직이면 그 값이 수동으로 유지됨
   function fitZoom() {
-    const wrap = $('#seatmap-wrap'); if (!wrap || !wrap.clientWidth) { fitOnShow = true; return; }
+    ui.zoomManual = false;
+    const wrap = $('#seatmap-wrap'); if (!wrap || !wrap.clientWidth) { fitOnShow = true; return; }   // 탭이 숨겨져 폭을 모르면 다음 표시 때 맞춤
     const avail = wrap.clientWidth - 2 * parseFloat(getComputedStyle(wrap).paddingLeft || 0) - 2;
     const z = Math.floor(avail / trackUnits(state.layout.colTpl, state.layout.cols) / ZOOM_STEP) * ZOOM_STEP;
     ui.zoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, z)); fitOnShow = false; storage.set('ui', ui);
   }
+  // 확대값만 화면에 반영(--cell·슬라이더). 패널을 다시 그리지 않으므로 리사이즈 중에도 입력 포커스를 잃지 않음
+  const applyZoom = () => { $('#seatmap-wrap').style.setProperty('--cell', ui.zoom + 'px'); $('#zoom').value = ui.zoom; };
   function toggleDesk(key) {
     const cell = state.layout.cells.find(c => cellKey(c) === key); if (!cell || cell.gap) return;
     cell.desk = !cell.desk; resetUndo(); afterSeatChange(false);
@@ -710,7 +713,7 @@
     document.addEventListener('click', async e => {
       const b = e.target.closest('[data-action]'); if (!b || b.disabled) return; const a = b.dataset.action; const tr = b.closest('tr[data-id]'); const sid = tr ? tr.dataset.id : b.dataset.sid;
       const map = {
-        'toggle-theme': toggleTheme, help: () => helpModal(), 'help-tab': () => helpModal(b.dataset.help), 'edit-class': editClass, 'go-seats': () => setTab('seats'), 'fit-zoom': () => { ui.zoomManual = false; fitZoom(); renderSeats(); },
+        'toggle-theme': toggleTheme, help: () => helpModal(), 'help-tab': () => helpModal(b.dataset.help), 'edit-class': editClass, 'go-seats': () => setTab('seats'), 'fit-zoom': () => { fitZoom(); renderSeats(); },
         'add-student': addStudent, 'del-student': () => deleteStudent(sid), 'toggle-tag': () => { const s = byId(sid); const t = b.dataset.tag; s.tags = s.tags.includes(t) ? s.tags.filter(x => x !== t) : [...s.tags, t]; lastReport = null; renderRoster(); renderSeats(); touch(); },
         'parse-paste': () => parsePaste($('#paste-area').value), 'clear-paste': () => { $('#paste-area').value = ''; pendingRows = []; renderPastePreview(); }, 'add-parsed': addParsed,
         'add-pair': () => addPair(b.dataset.type), 'del-pair': () => { const id = b.closest('[data-pid]').dataset.pid; state.pairs = state.pairs.filter(p => p.id !== id); lastReport = null; renderRoster(); renderSeats(); touch(); },
@@ -796,7 +799,11 @@
     });
     // 인쇄 패널
     $('#print-panel').addEventListener('change', e => { if (e.target.closest('.print-side')) renderPrint(); });
-    window.addEventListener('resize', () => { if (!$('#print-panel').hidden) scalePrintPreview(); if (present.active) fitPresent(); });
+    // 창 크기·기기 방향이 바뀔 때(새로고침 없이): 600px 경계를 넘으면 교실·조건 패널을 접거나 펼치고, 자동 맞춤 상태면 좌석표를 폭에 다시 맞춤
+    const mq = matchMedia(MOBILE_MQ);
+    mq.addEventListener('change', () => { $$('.panel').forEach(d => { d.open = !mq.matches; }); if (!ui.zoomManual) { fitZoom(); applyZoom(); } });
+    const refitOnResize = debounce(() => { const w = $('#seatmap-wrap'); if (ui.zoomManual || $('#view-seats').hidden || w.scrollWidth <= w.clientWidth + 1) return; fitZoom(); applyZoom(); }, 150);   // 자동 맞춤 상태에서 좌석표가 폭을 넘치면 다시 맞춤
+    window.addEventListener('resize', () => { if (!$('#print-panel').hidden) scalePrintPreview(); if (present.active) fitPresent(); refitOnResize(); });
     window.addEventListener('beforeprint', () => { if ($('#print-panel').hidden) { autoPrint = true; openPrint(); } });
     window.addEventListener('afterprint', () => { if (autoPrint) { autoPrint = false; closePrint(); } });   // Ctrl+P로 자동 열린 패널은 인쇄 후 닫음
     document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && present.active) closePresent(); else if (present.active) setTimeout(fitPresent, 50); });

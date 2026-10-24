@@ -290,8 +290,8 @@ body.dragging { cursor: grabbing; user-select: none; }
 .modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
 .modal ul { margin: 6px 0; padding-left: 20px; }
 .help { padding-left: 20px; margin: 0 0 10px; } .help li { margin-bottom: 6px; }
-#toast-root { position: fixed; left: 50%; transform: translateX(-50%); bottom: 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 950; width: max-content; max-width: min(420px, calc(100vw - 32px)); pointer-events: none; }   /* 하단 중앙: 우측 리포트를 가리지 않음 */
-.toast { background: var(--fg); color: var(--bg); padding: 10px 14px; border-radius: var(--radius-sm); box-shadow: var(--shadow); font-size: .9rem; opacity: 0; transform: translateY(8px); transition: opacity .25s, transform .25s; border-left: 4px solid var(--info); }
+#toast-root { position: fixed; left: 50%; transform: translateX(-50%); top: 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 950; width: max-content; max-width: min(420px, calc(100vw - 32px)); pointer-events: none; }   /* 상단 중앙(헤더 위에만 잠시 겹침): 좌석표 뒷줄·우측 리포트를 가리지 않음 */
+.toast { background: var(--fg); color: var(--bg); padding: 10px 14px; border-radius: var(--radius-sm); box-shadow: var(--shadow); font-size: .9rem; opacity: 0; transform: translateY(-8px); transition: opacity .25s, transform .25s; border-left: 4px solid var(--info); }
 .toast.show { opacity: 1; transform: none; }
 .toast-success { border-left-color: var(--ok); } .toast-warn { border-left-color: var(--warn); } .toast-error { border-left-color: var(--danger); }
 .tooltip { position: fixed; z-index: 960; background: var(--fg); color: var(--bg); padding: 6px 10px; border-radius: 6px; font-size: .8rem; max-width: 280px; pointer-events: none; box-shadow: var(--shadow); }
@@ -387,7 +387,8 @@ body.dragging { cursor: grabbing; user-select: none; }
 }
 @media (max-width: 600px) {
   body { padding-bottom: 76px; }
-  #toast-root { bottom: 84px; }
+  #toast-root { top: auto; bottom: 84px; }                       /* 좁은 화면: 하단 고정 탭 바 바로 위 */
+  .toast { transform: translateY(8px); }
   .scroll-hint { display: block; }
   .present-bar .btn { flex: 1 1 30%; }
   .tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 700; background: var(--surface); border-top: 1px solid var(--border); padding: 4px max(8px, env(safe-area-inset-left, 0px)) max(4px, env(safe-area-inset-bottom, 0px)); justify-content: space-around; gap: 0; overflow: visible; }
