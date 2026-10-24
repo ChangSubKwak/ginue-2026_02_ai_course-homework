@@ -7,12 +7,18 @@ const Engine = (() => {
   const shuffle = (arr) => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
   const pairKey = (a, b) => (a < b ? a + '|' + b : b + '|' + a);
   const key = (r, c) => r + '-' + c;
+  const GAP_TOKEN = 'calc(var(--cell)*0.35)', GAP_RATIO = 0.35;       // 통로 트랙 폭(셀의 35%)
+  // 격자 템플릿 문자열 → 트랙 배열(공백 포함 구버전 토큰도 허용). 화면·발표·인쇄·PNG가 공용
+  const tplTracks = (tpl) => String(tpl || '').match(/calc\((?:[^()]|\([^()]*\))*\)|var\(--cell\)|\S+/g) || [];   // calc 안의 괄호 1단계 중첩 허용
+  const normTpl = (tpl) => tplTracks(tpl).map(t => (t.includes(String(GAP_RATIO)) ? GAP_TOKEN : t)).join(' ');
+  // 저장된 레이아웃의 템플릿을 현재 토큰 형식으로 정규화(구버전 저장 데이터 호환)
+  function normalizeLayout(L) { if (L && typeof L === 'object') { if (L.colTpl) L.colTpl = normTpl(L.colTpl); if (L.rowTpl) L.rowTpl = normTpl(L.rowTpl); } return L; }
 
   // ── 레이아웃 생성: 프리셋 4종 → 격자 셀(desk 책상 / gap 통로·빈칸) ──
   function buildLayout(preset, params, teacherSide, offKeys, name) {
-    const p = Object.assign({ sections: 3, rows: 5, groups: 6, cols: 6 }, params || {});
+    const p = Object.assign({ sections: 3, rows: 5, groups: 6, cols: 6, layers: 2 }, params || {});
     const cells = []; let rows = 0, cols = 0; const colTpl = [], rowTpl = [];
-    const CELL = 'var(--cell)', GAP = 'calc(var(--cell) * 0.35)';
+    const CELL = 'var(--cell)', GAP = GAP_TOKEN;                   // 토큰 안에 공백이 없어야 split(' ')로 안전하게 뒤집을 수 있음
     if (preset === 'pair') {                       // 분단마다 2책상 + 통로 1칸
       rows = p.rows; cols = p.sections * 3 - 1;
       for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
@@ -31,10 +37,11 @@ const Engine = (() => {
       }
       for (let c = 0; c < cols; c++) colTpl.push(c % 3 === 2 ? GAP : CELL);
       for (let r = 0; r < rows; r++) rowTpl.push(r % 3 === 2 ? GAP : CELL);
-    } else if (preset === 'u') {                   // ㄷ자형: 뒤쪽 가로 줄 + 양쪽 세로 줄(교탁 쪽이 열림)
-      cols = p.cols; rows = p.rows + 1;
+    } else if (preset === 'u') {                   // ㄷ자형: 뒤쪽 가로 줄 + 양쪽 세로 줄(교탁 쪽이 열림). 겹(layers) 1~2로 두께 조절
+      const T = Math.max(1, Math.min(2, p.layers | 0, Math.floor((p.cols - 2) / 2)));
+      cols = p.cols; rows = p.rows + T;
       for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
-        const desk = r === rows - 1 || c === 0 || c === cols - 1;
+        const desk = r >= rows - T || c < T || c >= cols - T;
         cells.push({ r, c, desk, gap: !desk, pairGroup: null });
       }
       for (let c = 0; c < cols; c++) colTpl.push(CELL);
@@ -65,10 +72,14 @@ const Engine = (() => {
     return { zoneOf, frontTwo, frontDesks, rowOrder: deskRows };
   }
 
+  // 날짜 역순 정렬 키(같은 날짜는 생성 시각 → id 순). app.js의 정렬과 동일
+  const sortKey = (h) => h.date + (h.createdAt || h.id || '');
+  const latestFirst = (arr) => arr.slice().sort((a, b) => sortKey(b).localeCompare(sortKey(a)));
+
   // ── 히스토리에서 최근 N건의 짝 반복 횟수·좌석 이력 집계 ──
   function recentStats(history, n) {
     const partner = {}, seatHist = {};
-    const recent = history.slice().sort((a, b) => (b.date + b.id).localeCompare(a.date + a.id)).slice(0, n);
+    const recent = latestFirst(history).slice(0, n);
     recent.forEach(h => {
       const byPg = {};
       Object.entries(h.seats || {}).forEach(([k, sid]) => {
@@ -93,7 +104,9 @@ const Engine = (() => {
     const pgMembers = {}; desks.forEach((d, i) => { if (d.pg != null) (pgMembers[d.pg] = pgMembers[d.pg] || []).push(i); });
     const stu = {}; students.forEach(s => { stu[s.id] = s; });
     const N = cond.avoidPartnerN | 0;
-    const rs = recentStats(history, Math.max(N, cond.avoidSeat ? (settings.avoidN || 3) : 0));
+    // 짝 반복은 조건 패널의 N건, 좌석 이력은 설정의 기본 회피 횟수(avoidN)건 — 창을 따로 집계
+    const rsP = recentStats(history, N), rsS = recentStats(history, cond.avoidSeat ? (settings.avoidN || 3) : 0);
+    const rs = { partner: rsP.partner, seatHist: rsS.seatHist, count: Math.max(rsP.count, rsS.count) };
     const activePairs = pairs.filter(p => stu[p.a] && stu[p.b] && p.a !== p.b);
     return {
       layout, desks, idx, pgMembers, stu, cond, W: settings.weights, students,
@@ -182,11 +195,29 @@ const Engine = (() => {
     return detailed ? { penalty: P, items, cellViolations: cellV } : P;
   }
 
+  // ── 빈 책상 예약(2인 짝 레이아웃): 남는 책상을 짝 단위로 뒷줄·양끝부터 비워 혼자 앉는 학생을 최소화 ──
+  function reserveEmpty(ctx, fixed, extra) {
+    const reserved = new Set(); if (extra <= 0 || ctx.layout.preset !== 'pair') return reserved;
+    const z = zoneInfo(ctx.layout); const backRank = (d) => z.rowOrder.indexOf(d.r);              // 교탁에서 먼 줄일수록 큼
+    const center = (ctx.layout.cols - 1) / 2; const edge = (d) => Math.abs(d.c - center);
+    const groups = Object.values(ctx.pgMembers).map(m => m.filter(i => !fixed[i])).filter(m => m.length);
+    const score = (m) => -(backRank(ctx.desks[m[0]]) * 100 + edge(ctx.desks[m[0]]));                // 뒤쪽·가장자리 우선
+    const singles = groups.filter(m => m.length === 1).sort((a, b) => score(a) - score(b));
+    const pairsG = groups.filter(m => m.length >= 2).sort((a, b) => score(a) - score(b));
+    let left = extra;
+    singles.forEach(m => { if (left > 0) { reserved.add(m[0]); left--; } });                     // 짝이 없는 외딴 책상부터
+    pairsG.forEach(m => { if (left >= 2) { m.forEach(i => reserved.add(i)); left -= m.length; } });   // 그다음 짝 책상 통째로
+    if (left > 0) { const m = pairsG.find(g => !reserved.has(g[0])); if (m) { reserved.add(m[0]); left--; } }   // 홀수면 1석만
+    return reserved;
+  }
+
   // ── 자동 배치: 핀 고정 유지 + 랜덤 재시작 언덕 오르기(최대 800ms) ──
   function solve(ctx, fixed, freeStudents, opts) {
     const o = Object.assign({ restarts: 30, iters: 2000, patience: 200, timeMs: 800 }, opts || {});
     const n = ctx.desks.length; const freeDesks = [];
-    for (let i = 0; i < n; i++) if (!fixed[i]) freeDesks.push(i);
+    const nFixed = Object.keys(fixed).length;
+    const reserved = reserveEmpty(ctx, fixed, n - nFixed - freeStudents.length);
+    for (let i = 0; i < n; i++) if (!fixed[i] && !reserved.has(i)) freeDesks.push(i);
     let best = null; const t0 = Date.now();
     for (let rs = 0; rs < o.restarts && Date.now() - t0 < o.timeMs; rs++) {
       const assign = new Array(n).fill(null); Object.keys(fixed).forEach(i => { assign[i] = fixed[i]; });
@@ -240,7 +271,7 @@ const Engine = (() => {
     G = Math.max(1, Math.min(G, n));
     const stu = {}; students.forEach(s => { stu[s.id] = s; });
     const lv = s => s.level || 2;
-    const recent = groupHistory.slice().sort((a, b) => (b.date + b.id).localeCompare(a.date + a.id)).slice(0, opts.avoidN | 0);
+    const recent = latestFirst(groupHistory).slice(0, opts.avoidN | 0);
     const repeat = {}; recent.forEach(gp => gp.groups.forEach(g => { const ids = g.members.map(m => m.studentId); for (let i = 0; i < ids.length; i++) for (let j = i + 1; j < ids.length; j++) { const k = pairKey(ids[i], ids[j]); repeat[k] = (repeat[k] || 0) + 1; } }));
     const apart = pairs.filter(p => p.type === 'apart' && stu[p.a] && stu[p.b]), together = pairs.filter(p => p.type === 'together' && stu[p.a] && stu[p.b]);
     const sortedList = () => { // 수준 내림차순, 같은 수준 안에서 남녀 교대
@@ -318,13 +349,27 @@ const Engine = (() => {
   }
 
   // ── 붙여넣기·CSV 파싱: BOM 제거 → 구분자 감지 → 헤더 판별 → 열 매핑 → 성별 정규화 ──
+  // 한 줄을 구분자로 나눔(따옴표 안의 구분자는 보호, "" → ")
+  function splitLine(line, sep) {
+    const out = []; let cur = '', q = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') { if (q && line[i + 1] === '"') { cur += '"'; i++; } else q = !q; }
+      else if (!q && ch === sep) { out.push(cur); cur = ''; }
+      else cur += ch;
+    }
+    out.push(cur); return out;
+  }
   function parseRoster(text, nextNo, limit) {
     const lines = String(text || '').replace(/^﻿/, '').split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-    const sep = lines.some(l => l.includes('\t')) ? /\t/ : lines.some(l => l.includes(',')) ? /,/ : lines.some(l => /\s{2,}/.test(l)) ? /\s{2,}/ : /\s+/;
+    const anyTab = lines.some(l => l.includes('\t')), anyComma = lines.some(l => l.includes(','));
     const rows = []; let no = nextNo;
     const normGender = (v) => (/^(남|남자|m|male)$/i.test(v) ? 'M' : /^(여|여자|f|female)$/i.test(v) ? 'F' : null);
     lines.forEach((line, li) => {
-      const cols = line.split(sep).map(c => c.replace(/^"|"$/g, '').trim()).filter(c => c !== '');
+      // 구분자: 탭 > 콤마 > 공백(줄마다 다시 판단해 한 칸 공백 줄도 분리)
+      const sep = anyTab && line.includes('\t') ? '\t' : anyComma && line.includes(',') ? ',' : null;
+      const parts = sep ? splitLine(line, sep) : line.split(/\s{2,}/.test(line) ? /\s{2,}/ : /\s+/);
+      const cols = parts.map(c => c.replace(/^"|"$/g, '').trim()).filter(c => c !== '');
       if (li === 0 && cols.some(c => /이름|번호|성별|name/i.test(c))) return;   // 헤더 행
       let num = null, gender = null, name = null;
       cols.forEach(c => {
@@ -340,5 +385,5 @@ const Engine = (() => {
     return rows;
   }
 
-  return { buildLayout, zoneInfo, prepare, evaluate, solve, suggest, makeGroups, assignRoles, roleCounts, fairness, parseRoster, recentStats, shuffle, pairKey };
+  return { buildLayout, normalizeLayout, tplTracks, GAP_RATIO, zoneInfo, prepare, evaluate, solve, suggest, makeGroups, assignRoles, roleCounts, fairness, parseRoster, recentStats, latestFirst, shuffle, pairKey };
 })();

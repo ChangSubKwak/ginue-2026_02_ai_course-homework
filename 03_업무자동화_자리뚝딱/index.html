@@ -33,21 +33,22 @@
   </header>
 
   <nav class="tabs no-print" role="tablist" id="tabs">
-    <button type="button" role="tab" data-tab="roster" aria-selected="true"><span class="ico">👥</span><span>명렬</span></button>
-    <button type="button" role="tab" data-tab="seats" aria-selected="false"><span class="ico">🪑</span><span>자리 배치</span></button>
-    <button type="button" role="tab" data-tab="groups" aria-selected="false"><span class="ico">🧩</span><span>모둠</span></button>
-    <button type="button" role="tab" data-tab="history" aria-selected="false"><span class="ico">📚</span><span>히스토리</span></button>
-    <button type="button" role="tab" data-tab="settings" aria-selected="false"><span class="ico">⚙️</span><span>설정</span></button>
+    <button type="button" role="tab" data-tab="roster" aria-selected="true" aria-controls="view-roster"><span class="ico">👥</span><span>명렬</span></button>
+    <button type="button" role="tab" data-tab="seats" aria-selected="false" aria-controls="view-seats"><span class="ico">🪑</span><span>자리 배치</span></button>
+    <button type="button" role="tab" data-tab="groups" aria-selected="false" aria-controls="view-groups"><span class="ico">🧩</span><span>모둠</span></button>
+    <button type="button" role="tab" data-tab="history" aria-selected="false" aria-controls="view-history"><span class="ico">📚</span><span>히스토리</span></button>
+    <button type="button" role="tab" data-tab="settings" aria-selected="false" aria-controls="view-settings"><span class="ico">⚙️</span><span>설정</span></button>
   </nav>
 
   <main id="app">
     <!-- 명렬 탭 -->
-    <section data-view="roster" class="view">
-      <div class="view-head"><h2>학급 명렬</h2><div class="chips" id="roster-summary"></div><button type="button" class="icon-btn" data-action="help-tab" data-help="roster" aria-label="명렬 도움말">?</button></div>
+    <section data-view="roster" id="view-roster" class="view" role="tabpanel">
+      <div class="view-head"><h2>학급 명렬</h2><div class="chips" id="roster-summary"></div><button type="button" class="btn btn-accent" data-action="go-seats">다음: 자리 배치 →</button><button type="button" class="icon-btn" data-action="help-tab" data-help="roster" aria-label="명렬 도움말">?</button></div>
       <div class="grid-2">
         <div class="card stack">
           <div class="row between"><h3>학생 목록</h3><button type="button" class="btn btn-accent" data-action="add-student">＋ 학생 추가</button></div>
           <div class="table-wrap" id="roster-table"></div>
+          <p class="hint scroll-hint">표를 옆으로 밀면 배려 태그·활성·삭제 열이 보입니다.</p>
         </div>
         <div class="stack">
           <div class="card stack">
@@ -77,7 +78,7 @@
     </section>
 
     <!-- 자리 배치 탭 -->
-    <section data-view="seats" class="view" hidden>
+    <section data-view="seats" id="view-seats" class="view" role="tabpanel" hidden>
       <div class="view-head"><h2>자리 배치</h2><button type="button" class="icon-btn" data-action="help-tab" data-help="seats" aria-label="자리 배치 도움말">?</button></div>
       <div class="seats-layout">
         <aside class="stack">
@@ -98,9 +99,9 @@
             <button type="button" class="btn" data-action="redo" id="btn-redo" title="Ctrl+Y">↷ 다시 실행</button>
             <button type="button" class="btn" data-action="confirm-arr" id="btn-confirm">✔ 배치 확정</button>
             <button type="button" class="btn" data-action="save-png" id="btn-png">🖼 이미지 저장</button>
-            <label class="zoom"><span>확대</span><input type="range" id="zoom" min="48" max="120" step="4" value="84" aria-label="좌석표 확대/축소"></label>
+            <label class="zoom"><span>확대</span><input type="range" id="zoom" min="48" max="120" step="4" value="84" aria-label="좌석표 확대/축소"><button type="button" class="btn" data-action="fit-zoom" title="좌석표를 화면 폭에 맞춤">맞춤</button></label>
           </div>
-          <div class="seatmap-wrap card" id="seatmap-wrap"><div id="seatmap"></div></div>
+          <div class="seatmap-wrap card" id="seatmap-wrap"><div id="seatmap"></div><div class="legend seat-legend" id="seat-legend"></div></div>
           <div class="card stack-sm" id="unplaced-card" hidden><h3>미배치 학생 <span class="hint">칩을 탭한 뒤 빈 책상을 탭하면 배치됩니다</span></h3><div class="chips" id="unplaced"></div></div>
         </div>
         <aside class="card stack report" id="report"></aside>
@@ -108,7 +109,7 @@
     </section>
 
     <!-- 모둠 탭 -->
-    <section data-view="groups" class="view" hidden>
+    <section data-view="groups" id="view-groups" class="view" role="tabpanel" hidden>
       <div class="view-head"><h2>모둠 편성</h2><button type="button" class="icon-btn" data-action="help-tab" data-help="groups" aria-label="모둠 도움말">?</button></div>
       <div class="card stack" id="group-options"></div>
       <div class="group-grid" id="group-grid"></div>
@@ -116,7 +117,7 @@
     </section>
 
     <!-- 히스토리·공정성 탭 -->
-    <section data-view="history" class="view" hidden>
+    <section data-view="history" id="view-history" class="view" role="tabpanel" hidden>
       <div class="view-head"><h2>히스토리</h2><div class="chips" id="hist-filter"><button type="button" class="chip is-on" data-filter="all">전체</button><button type="button" class="chip" data-filter="seat">자리</button><button type="button" class="chip" data-filter="group">모둠</button></div><button type="button" class="icon-btn" data-action="help-tab" data-help="history" aria-label="히스토리 도움말">?</button></div>
       <div class="hist-grid" id="hist-list"></div>
       <h2 class="section-title">공정성 대시보드</h2>
@@ -124,7 +125,7 @@
     </section>
 
     <!-- 설정·백업 탭 -->
-    <section data-view="settings" class="view" hidden>
+    <section data-view="settings" id="view-settings" class="view" role="tabpanel" hidden>
       <div class="view-head"><h2>설정·백업</h2><button type="button" class="icon-btn" data-action="help-tab" data-help="settings" aria-label="설정 도움말">?</button></div>
       <div class="grid-2">
         <div class="stack">
@@ -175,6 +176,10 @@
   <div id="print-panel" class="print-panel" hidden>
     <div class="print-side no-print">
       <h2>인쇄 미리보기</h2>
+      <div class="row wrap print-actions">
+        <button type="button" class="btn btn-accent" data-action="do-print">🖨 인쇄하기</button>
+        <button type="button" class="btn btn-ghost" data-action="close-print">닫기 (Esc)</button>
+      </div>
       <div class="stack-sm" id="print-kinds">
         <label class="radio"><input type="radio" name="print-kind" value="student" checked> 학생 게시용 자리표 <small>A4 가로</small></label>
         <label class="radio"><input type="radio" name="print-kind" value="teacher"> 교사용 자리표(180° 회전) <small>A4 가로</small></label>
@@ -186,10 +191,6 @@
       <label class="check"><input type="checkbox" id="opt-gender" checked> 성별 색상</label>
       <label class="check"><input type="checkbox" id="opt-title" checked> 제목(학급명·날짜)</label>
       <p class="hint" id="print-pagecount"></p>
-      <div class="row wrap">
-        <button type="button" class="btn btn-accent" data-action="do-print">🖨 인쇄하기</button>
-        <button type="button" class="btn btn-ghost" data-action="close-print">닫기</button>
-      </div>
     </div>
     <div class="print-preview" id="print-preview"><div class="print-pages" id="print-pages"></div></div>
   </div>

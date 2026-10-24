@@ -19,12 +19,19 @@ const UI = (() => {
   const uid = (p) => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
   const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
 
-  // 토스트: 우하단 스택, 자동 소멸
+  // 토스트: 하단 중앙 스택(위치는 CSS), 자동 소멸. 같은 문구가 떠 있으면 타이머만 연장(중복 제거), 최대 3개
+  const MAX_TOASTS = 3;
   function showToast(message, type = 'info', ms = 2500) {
-    const root = $('#toast-root'); const el = document.createElement('div');
+    const root = $('#toast-root');
+    const dismiss = (t) => { clearTimeout(t._timer); t.classList.remove('show'); setTimeout(() => t.remove(), 300); };
+    const arm = (t) => { clearTimeout(t._timer); t._timer = setTimeout(() => dismiss(t), ms); };
+    const same = $$('.toast', root).find(t => t.textContent === message && t.classList.contains('show'));
+    if (same) { arm(same); return same; }
+    const live = $$('.toast.show', root); while (live.length >= MAX_TOASTS) dismiss(live.shift());
+    const el = document.createElement('div');
     el.className = 'toast toast-' + type; el.textContent = message; root.appendChild(el);
     requestAnimationFrame(() => el.classList.add('show'));
-    setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 300); }, ms);
+    arm(el);
     return el;
   }
 
@@ -69,7 +76,8 @@ const UI = (() => {
     hide() { if (this.el) this.el.hidden = true; } };
   document.addEventListener('pointerover', e => { const t = e.target.closest('[data-tip]'); if (t && t.dataset.tip) tip.show(t.dataset.tip, e.clientX, e.clientY); });
   document.addEventListener('pointermove', e => { if (e.target.closest('[data-tip]')) tip.move(e.clientX, e.clientY); else tip.hide(); });   // 앵커가 재렌더로 사라져도 숨김
-  document.addEventListener('pointerout', e => { if (e.target.closest('[data-tip]')) tip.hide(); });
+  document.addEventListener('pointerout', e => { if (e.pointerType !== 'touch' && e.target.closest('[data-tip]')) tip.hide(); });        // 터치는 탭한 뒤에도 툴팁 유지
+  document.addEventListener('pointerdown', e => { if (e.pointerType !== 'touch') return; const t = e.target.closest('[data-tip]'); if (t && t.dataset.tip) tip.show(t.dataset.tip, e.clientX, e.clientY); else tip.hide(); }, true);
 
   // Pointer Events 드래그 + 탭-탭: 이동 거리 5px 미만이면 탭으로 간주. elementFromPoint로 드롭 대상 판정
   const TAP_PX = 5;

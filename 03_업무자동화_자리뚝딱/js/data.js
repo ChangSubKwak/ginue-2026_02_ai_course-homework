@@ -100,7 +100,7 @@ const APP_DATA = (() => {
     presets: {
       pair: { label: '2인 짝 분단형', fields: [['sections', '분단', 2, 4], ['rows', '열(줄)', 3, 7]] },
       group4: { label: '4인 모둠형', fields: [['groups', '모둠', 4, 9]] },
-      u: { label: 'ㄷ자형', fields: [['cols', '가로 책상', 4, 10], ['rows', '세로 깊이', 2, 5]] },
+      u: { label: 'ㄷ자형', fields: [['cols', '가로 책상', 6, 12], ['rows', '세로 깊이', 2, 6], ['layers', '겹(줄 두께)', 1, 2]] },
       exam: { label: '1인 시험형', fields: [['rows', '행', 3, 8], ['cols', '열', 3, 8]] },
     },
     tagLabels: { front: '앞자리 필요', focus: '집중 지원', tall: '키 큼' },
