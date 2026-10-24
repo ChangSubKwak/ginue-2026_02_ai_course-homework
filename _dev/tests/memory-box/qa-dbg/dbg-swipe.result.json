@@ -1,0 +1,22 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/02_학습지도_기억상자/index.html",
+  "test": "dbg-swipe.js",
+  "passed": [],
+  "failed": [],
+  "logs": [
+    "p0=1/11",
+    "p1=1/11",
+    "{\"x\":320,\"y\":134.828125,\"width\":640,\"height\":499.984375}",
+    "ev=[\"pointerdown:640,385:face-text\",\"pointerup:760,395:face-text\"]",
+    "p2=3/12",
+    "p3=5/13",
+    "p4=7/14",
+    "bar=width:43%"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "0 passed, 0 failed, 0 page errors, 0 console errors"
+}

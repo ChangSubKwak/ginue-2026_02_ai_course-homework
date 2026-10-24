@@ -1,0 +1,37 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "func-game-full2.js",
+  "passed": [
+    "판 종료 109s",
+    "정답 47·오답 3·미응답 0 (47/3/0)",
+    "교정 카드 3회 모두 점 배열 모델 (3)",
+    "복수 몬스터 3마리 등장·격파 (3/3)",
+    "약점 큐 출제(기존 약점 문제 10회 등장)",
+    "AC7 정답률 94%(47/50) → 별 2개 (2)",
+    "결과 점수 = 종료 시 점수(무피해 보너스 포함) (25550)",
+    "최고 기록 갱신 리본 (9600→25550)",
+    "통계 정답률 94% | 최대 콤보 46 | 평균 반응 0.2초 | 남은 HP ❤❤❤ | 복수 격파 3 | 문제 수 50",
+    "틀린 문제 카드 3개(복수 표시) 8 × 9 = 72 복수 8 × 9 = 72 (8씩 9묶음) 상자 3/3 | 3 × 5 = 15 복수 3 × 5 = 15 (3씩 5묶음) 상자 3/3 | 8 × 7 = 56 복수 8 × 7 = 56 (8씩 7묶음) 상자 3/3",
+    "오답 사실 상자: 오답 0 → 복수 격파 +1 이상 (3,3,3; 약점 큐 재출제 10회)",
+    "결과 카드 상자 표시 = 실제 상자 (상자 3/3 | 상자 3/3 | 상자 3/3)",
+    "이도윤 2-3 기록 갱신 {\"best\":25550,\"stars\":2,\"plays\":6}",
+    "복습 후 상자 +1(최대 3) (3,3,3 → 3,3,3)",
+    "복습 결과 저장 유지 (3,3,3)",
+    "도감 칸 색 = 상자 값 (hm-cell box-3 | hm-cell box-3 | hm-cell box-3)"
+  ],
+  "failed": [
+    "보스 방패 중 1개는 약점 큐 문제 (9×5,8×8,3×7 vs 약점 8×7,8×6,9×8,6×7,8×9,3×5,8×7)"
+  ],
+  "logs": [
+    "이도윤 2-3 약점: 8×7,8×6,9×8,6×7",
+    "플레이 109s, wrongKeys=8×9,3×5,8×7, revengeSeen=3, revengeKilled=3, weakSpawns=10, bossShields=9×5,8×8,3×7, final={\"score\":25550,\"correct\":47,\"wrong\":3,\"reached\":0,\"hp\":3}"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\math-guardians\\func-out\\result-doyun-2stars.png"
+  ],
+  "fatal": null,
+  "summary": "16 passed, 1 failed, 0 page errors, 0 console errors"
+}

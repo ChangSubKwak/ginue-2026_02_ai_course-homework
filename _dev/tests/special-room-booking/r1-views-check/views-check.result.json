@@ -1,0 +1,39 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/04_행정지원_특별실지기/index.html",
+  "test": "views-check.js",
+  "passed": [
+    "400px board 가로 스크롤 없음",
+    "400px calendar 가로 스크롤 없음",
+    "400px resources 가로 스크롤 없음",
+    "400px stats 가로 스크롤 없음",
+    "400px settings 가로 스크롤 없음",
+    "400px 모달 가로 스크롤 없음",
+    "교시 축소 차단 안내",
+    "CSV 파일명 special-room-booking_bookings_20261025.csv",
+    "빈 상태 안내 카드",
+    "통계 빈 상태",
+    "자원 추가 후 격자"
+  ],
+  "failed": [],
+  "logs": [],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-views-check\\desk-calendar.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-views-check\\desk-resources.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-views-check\\desk-stats.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-views-check\\desk-settings.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-views-check\\m-board.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-views-check\\m-calendar.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-views-check\\m-resources.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-views-check\\m-stats.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-views-check\\m-settings.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-views-check\\m-modal.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-views-check\\dark-board.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-views-check\\dark-stats.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-views-check\\empty-board.png"
+  ],
+  "fatal": null,
+  "summary": "11 passed, 0 failed, 0 page errors, 0 console errors"
+}

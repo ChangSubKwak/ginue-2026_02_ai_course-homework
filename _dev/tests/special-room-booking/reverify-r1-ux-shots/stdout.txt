@@ -1,0 +1,129 @@
+[shot] 00-onboarding--desk-light
+[shot] 00-onboarding--mobile
+[shot] 01-board-after-onboard-toast
+[shot] 10-board-sci1--desk-light
+[shot] 10-board-sci1--desk-dark
+[shot] 10-board-sci1--tablet
+[shot] 10-board-sci1--mobile
+[shot] 11-board-mobile-wed
+[shot] 12-board-gym-blocked--desk-light
+[shot] 12-board-gym-blocked--desk-dark
+[shot] 12-board-gym-blocked--mobile
+[shot] 13-board-tablet-equipment--desk-light
+[shot] 13-board-tablet-equipment--desk-dark
+[shot] 13-board-tablet-equipment--mobile
+[shot] 14-board-gym-conflict-week--desk-light
+[shot] 14-board-gym-conflict-week--desk-dark
+[shot] 15-board-holiday-week--desk-light
+[shot] 15-board-holiday-week--desk-dark
+[shot] 15-board-holiday-week--mobile
+[shot] 16-board-out-of-semester--desk-light
+[shot] 20-drag-selecting
+[shot] 21-booking-modal-new-invalid--desk-light
+[shot] 22-booking-modal-new-ok--desk-light
+[shot] 22-booking-modal-new-ok--desk-dark
+[shot] 22-booking-modal-new-ok--mobile
+[shot] 23-board-after-save-toast
+[shot] 24-booking-modal-conflict--desk-light
+[shot] 24-booking-modal-conflict--desk-dark
+[shot] 24-booking-modal-conflict--mobile
+[shot] 25-booking-modal-after-alt
+[shot] 26-booking-modal-equipment-full--desk-light
+[shot] 26-booking-modal-equipment-ok--desk-light
+[shot] 27-booking-modal-edit-past--desk-light
+[shot] 27-booking-modal-edit-past--desk-dark
+[shot] 27-booking-modal-edit-past--mobile
+[shot] 28-delete-confirm--desk-light
+[shot] 29-booking-modal-series--desk-light
+[shot] 29-series-delete-scope--desk-light
+[shot] 29-series-delete-scope--mobile
+[shot] 30-series-modal-empty--desk-light
+[shot] 31-series-modal-preview--desk-light
+[shot] 31-series-modal-preview--desk-dark
+[shot] 31-series-modal-preview--mobile
+[shot] 32-unchecked-modal--desk-light
+[shot] 32-unchecked-modal--mobile
+[shot] 40-print-weekly-preview--desk-light
+[shot] 40-print-weekly-preview--desk-dark
+[shot] 40-print-weekly-preview--mobile
+[shot] 41-print-weekly-media-print
+[shot] 50-calendar--desk-light
+[shot] 50-calendar--desk-dark
+[shot] 50-calendar--tablet
+[shot] 50-calendar--mobile
+[shot] 51-event-modal--desk-light
+[shot] 51-event-modal--desk-dark
+[shot] 51-event-modal--mobile
+[shot] 52-affected-modal--desk-light
+[shot] 53-event-delete-confirm
+[shot] 60-resources--desk-light
+[shot] 60-resources--desk-dark
+[shot] 60-resources--tablet
+[shot] 60-resources--mobile
+[shot] 61-resource-modal--desk-light
+[shot] 61-resource-modal--desk-dark
+[shot] 61-resource-modal--mobile
+[shot] 62-resource-cannot-delete
+[shot] 63-class-modal
+[shot] 64-teacher-modal
+[shot] 70-stats--desk-light
+[shot] 70-stats--desk-dark
+[shot] 70-stats--tablet
+[shot] 70-stats--mobile
+[shot] 71-stats-tooltip
+[shot] 72-stats-month--desk-light
+[shot] 73-print-report-preview--desk-light
+[shot] 73-print-report-preview--desk-dark
+[shot] 73-print-report-preview--mobile
+[shot] 74-print-report-media-print
+[shot] 80-settings--desk-light
+[shot] 80-settings--desk-dark
+[shot] 80-settings--tablet
+[shot] 80-settings--mobile
+[shot] 81-reset-modal-disabled
+[shot] 81-reset-modal-enabled
+[shot] 82-import-modal
+[shot] 83-import-error-toast
+[shot] 90-help--desk-light
+[shot] 90-help--desk-dark
+[shot] 90-help--mobile
+[shot] 91-focus-cell
+[shot] 91-focus-tab
+[shot] 95-empty-board--desk-light
+[shot] 95-empty-board--mobile
+[shot] 96-empty-stats--desk-light
+[shot] 97-empty-calendar--desk-light
+[shot] 98-empty-resources--desk-light
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/04_행정지원_특별실지기/index.html",
+  "test": "ux-shots.js",
+  "passed": [
+    "첫 실행 온보딩 모달 표시",
+    "자원 칩 10개",
+    "드래그 중 3칸 하이라이트",
+    "드래그 후 예약 모달",
+    "모달 교시 범위 = 드래그 범위 1~3",
+    "5-2 선택 시 담임 이가람 자동: 이가람 (담임)",
+    "충돌 시 저장 버튼 disabled",
+    "대안 칩 1~3개: 3",
+    "대안 칩 클릭 후 예약 가능",
+    "지난 예약 모달에 사용 여부 토글",
+    "정기 예약 미리보기에 추석(9/24) 휴업일 제외 행",
+    "인쇄 미리보기에 결재란",
+    "이용 저조 학급 목록에 5-3",
+    "JSON 가져오기 교체/병합 모달",
+    "테마 토글 클릭 → dark: dark"
+  ],
+  "failed": [],
+  "logs": [
+    "weekStart=2026-10-26 bookings=247",
+    "drag target={\"date\":\"2026-10-19\",\"p\":1}",
+    "shots=96"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "15 passed, 0 failed, 0 page errors, 0 console errors"
+}

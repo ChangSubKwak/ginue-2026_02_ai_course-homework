@@ -1,0 +1,54 @@
+{
+  "app": "자리뚝딱 (jari-ttukttak)",
+  "folder": "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱",
+  "files": [
+    { "path": "index.html", "lines": 207 },
+    { "path": "css/style.css", "lines": 372 },
+    { "path": "js/data.js", "lines": 124 },
+    { "path": "js/engine.js", "lines": 345 },
+    { "path": "js/ui.js", "lines": 132 },
+    { "path": "js/app.js", "lines": 744 },
+    { "path": "README.md", "lines": 85 }
+  ],
+  "total_code_lines": 1924,
+  "features": [
+    { "name": "학급 명렬 관리", "priority": "must", "status": "done", "note": "표 편집·태그 칩·비활성 토글·삭제 모달·붙여넣기/CSV 인식 미리보기(정상/경고/오류 행)·분리/결합 쌍(반드시/가능하면)·중복 번호 경고·자기 자신/중복 쌍 차단" },
+    { "name": "교실 레이아웃 프리셋·책상 편집", "priority": "must", "status": "done", "note": "프리셋 4종+수치, 편집 모드 책상 켜기/끄기(점선), 교탁 위/아래, 책상/학생 카운터(부족 시 빨강+버튼 비활성), 레이아웃 변경 시 미배치 목록" },
+    { "name": "조건 설정과 자동 배치 엔진", "priority": "must", "status": "done", "note": "조건 7종 하드/소프트, 패널티 언덕 오르기(2000회·30재시작·800ms), 충족 리포트 n/n·위반 k건, 빨간 테두리+툴팁, 완화 제안(앞 구역 책상 부족/고정 해제/성별 인원 차이), 다시 섞기+자물쇠 핀" },
+    { "name": "수동 조정과 실행 취소", "priority": "must", "status": "done", "note": "Pointer Events 드래그 교환/이동(elementFromPoint), 탭-탭 교환, 즉시 재검사+위반 토스트, Undo/Redo 50단계 Ctrl+Z/Y, 배치 확정 모달(날짜·메모), 30건 초과 안내" },
+    { "name": "모둠 편성과 역할 로테이션", "priority": "must", "status": "done", "note": "모둠 수/인원, 성별·수준·쌍·회피 N·역할 자동, 뱀 분배+교환 언덕 오르기, 역할 경험 최소 우선, 멤버 드래그/탭-탭, 역할 배지 클릭 변경, 이름 편집, 편차 경고 배지, 자리표에서 가져오기(4인 모둠형), 편성 확정·리포트" },
+    { "name": "발표 모드(TV·전자칠판)", "priority": "must", "status": "done", "note": "Fullscreen API(거부 시 오버레이 폴백), '?' 뒷면 3D 플립 0.7초 간격(설정 가능), 좌석순/무작위, 시작/일시정지/다음/전체 공개, Web Audio 딩(기본 꺼짐), Space/Esc, 종료 후 상태 유지" },
+    { "name": "인쇄 출력 4종", "priority": "must", "status": "done", "note": "게시용(칠판 위)·교사용(180° 회전, 칠판 아래)·모둠 명단표(2열)·접이식 명패(4개/장 자동 분할), 번호/성별 색/제목 옵션, A4 비율 미리보기, @page 방향 자동, window.print" },
+    { "name": "자동 저장·히스토리·백업", "priority": "must", "status": "done", "note": "300ms 디바운스 localStorage(try/catch, 실패 시 노란 배너), 새로고침 복원, 히스토리 카드 미리보기/불러오기/삭제, JSON 내보내기(jari-ttukttak-YYYYMMDD.json)/가져오기(요약 모달, 손상 파일 거부), 전체 삭제 2단계, 샘플 다시 불러오기, 공용 PC 안내·용량 표시" },
+    { "name": "공정성 대시보드", "priority": "should", "status": "done", "note": "n×n 짝·모둠 히트맵(SVG, DOM 툴팁 '짝 n회·모둠 m회'), 앞/중/뒤 누적 막대, 편중 주의 배지(뒤 70%↑·3회↑), 역할 경험 횟수 표, 기록 0건 안내" },
+    { "name": "자리표 PNG 저장", "priority": "should", "status": "done", "note": "Canvas 2D 제목·날짜·칠판·격자·이름 → jari-YYYYMMDD.png" },
+    { "name": "첫 실행 가이드 투어", "priority": "should", "status": "done", "note": "첫 방문 3단계 모달 + 다시 보지 않기, 각 탭 ? 도움말 모달, 툴바 전체 도움말" },
+    { "name": "레이아웃 복수 저장", "priority": "nice", "status": "done", "note": "이름으로 최대 5개 저장·드롭다운 전환(전환 시 미배치)·삭제" },
+    { "name": "1인 1역 주간 로테이션표", "priority": "nice", "status": "skipped", "note": "out_of_scope 안내대로 must/should 완성 우선, 규모 통제를 위해 미구현(README 향후 개선에 명시)" }
+  ],
+  "self_check": {
+    "lint_issues": 0,
+    "pw_problems": [],
+    "page_errors": 0,
+    "console_errors": 0,
+    "console_warnings": 0,
+    "dialogs": 0,
+    "acceptance_checked": 15,
+    "acceptance_test_module": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\acceptance.js",
+    "acceptance_result": "64 passed, 0 failed, 0 page errors, 0 console errors (run3)",
+    "screenshots_reviewed": ["check1/desktop-light.png", "check1/desktop-dark.png", "check1/mobile-light.png", "run2/02-auto.png", "run2/07-present.png", "run2/08-groups.png", "run2/09-fairness.png", "run2/10-print-plates.png", "run2/14-mobile-seats.png", "run3/08-groups.png", "run3/14-mobile-groups.png"],
+    "horizontal_scroll_400px": false
+  },
+  "debug_api": {
+    "window.__app.version": "1.0.0",
+    "getState()": "state(Root)·ui·undo 스택 길이·마지막 리포트(penalty/items/suggestions)·발표 모드 상태의 JSON 딥카피(읽기 전용)",
+    "actions": ["autoArrange", "shuffle", "swapSeats(k1,k2)", "placeStudent(sid,key)", "toggleLock(sid)", "undo", "redo", "confirmArrangement", "setTab(tab)", "rebuildLayout(changes)", "toggleDesk(key)", "makeGroups", "groupsFromSeats", "confirmGroups", "openPresent", "closePresent", "startPresent", "flipOne", "openPrint(kind)", "closePrint", "savePng", "exportJson", "importRoot(obj)", "resetSample", "wipe", "parseRoster(text)", "addParsed", "addPair(type)", "addStudent", "computeReport", "setCondition(key,{on,hard})", "toggleTheme"]
+  },
+  "known_issues": [
+    "ㄷ자형 프리셋은 교탁 위치와 무관하게 아래쪽이 가로 줄인 한 가지 모양으로 생성됨(교탁 아래 선택 시 모양은 유지, 앞/뒤 판정만 반전)",
+    "1인 1역 주간 로테이션표(nice) 미구현",
+    "Playwright 헤드리스 환경에서는 requestFullscreen이 거부되어 오버레이 폴백으로 검증함(실제 브라우저에서는 전체 화면)",
+    "좌석 카드 자물쇠 버튼은 셀 크기에 비례(최소 16px)하여 최소 확대 단계에서는 터치 타깃 44px 미만"
+  ],
+  "notes": "순수 HTML/CSS/JS, ES 모듈·외부 라이브러리 없음(Google Fonts link 1개 + 시스템 폰트 대체), file:// 실행 확인. storage 키 edu.jari-ttukttak.{data,ui,theme}. 총 코드 1,924줄(README 제외). 테스트/결과 파일은 scratchpad/tests/jari-ttukttak 아래에만 저장."
+}

@@ -1,0 +1,232 @@
+{
+  "summary": "특별실지기 소스 전체(index.html 72줄, style.css 360줄, data.js 108줄, core.js 395줄, board.js 432줄, views.js 580줄, README) 정독 + lint(issues 0) + pw-check(problems 0, 콘솔 오류 0) + Playwright 수용 기준 13건 전부 통과(65 passed) + 결함 재현 모듈 실행. 아키텍처(SRB 네임스페이스·단일 checkConflict·Map 인덱스·Promise 모달)는 견고하고 alert/confirm/prompt·ES 모듈·fetch·외부 라이브러리 없음, 테마 3블록·safe-area·focus-visible·reduced-motion 규약 준수, CSV BOM·RFC4180 이스케이프 정상. 확인된 결함 17건: critical 1(필드 누락 JSON 가져오기 시 저장 후 렌더 예외 → 새로고침해도 앱 동작 불가), major 2(정기 예약 미리보기 체크박스 토글 시 표가 사라져 충돌 행 포함/제외 불가, 초과 예약 블록이 완전히 겹쳐 숨겨짐), minor 14(터치 타깃 44px 미만, 모달 포커스 트랩 없음, 토스트가 모달 버튼 가림, isValidDate 2/30 허용, 역순 교시 범위 API 통과, 비활성화 영향 건수 모달 없음, 격자 밖 드롭 시 모달 열림, 리터럴 색, role=grid 오용, 히트맵 '저조' 라벨 겹침 등).",
+  "findings": [
+    {
+      "id": "C-01",
+      "severity": "critical",
+      "area": "데이터/가져오기",
+      "title": "항목 필드가 빠진 JSON을 '교체'로 가져오면 저장된 뒤 렌더에서 TypeError → 새로고침해도 앱이 뜨지 않음",
+      "description": "validateImport은 meta.app과 6개 컬렉션이 배열인지, settings.periods가 배열인지만 확인한다(얕은 검증). 자원에 availablePeriods가 없거나 행사에 blockResourceIds가 없는 등 항목 단위 필드가 빠진 파일은 통과하며, importData는 S.save()로 localStorage에 먼저 기록한 뒤 S.render()를 호출하므로 cellState의 `res.availablePeriods.includes(p)`(board.js:72)와 renderCalendar의 `e.blockResourceIds.map`(views.js:35)에서 예외가 난다. 손상 데이터가 이미 저장되어 있어 새로고침해도 init → validateImport 통과 → renderBoard 예외가 반복되어 localStorage를 수동으로 지우기 전까지 앱을 쓸 수 없다. 병합 모드에서도 같은 id의 incoming 항목이 더 최신이면 동일하게 발생한다. 트리거는 손으로 편집했거나 구버전/다른 도구가 만든 백업 파일이지만, 스펙 edge_cases('손상·필수 배열 누락 → 토스트와 기존 데이터 유지')가 요구하는 안전성에 미달한다.",
+      "evidence": "pw-run code-bugs.js 10번: importData({...resources:[{id:'r_x',name:'엑스실',type:'room',active:true}], events:[{id:'e_x',title:'행사',type:'event',dateStart,dateEnd}]}, 'replace') → 'TypeError: Cannot read properties of undefined (reading 'includes') at cellState (board.js:72:117)' 및 pageerror \"Cannot read properties of undefined (reading 'map')\"(views.js:35). 예외 이전에 views.js:485 `S.state.ui.weekStart = null; S.save(); S.render();` 순서로 저장이 끝남. 스크린샷 bug-broken-import.png.",
+      "file": "js/core.js",
+      "line": 313,
+      "suggested_fix": "validateImport에서 항목 단위 스키마(resources: id/name/type/quantity/availablePeriods 배열, bookings: date 'YYYY-MM-DD'/periodStart≤periodEnd/resourceId, events: dateStart/dateEnd/blockResourceIds 배열/blockPeriods)를 검사하거나, 가져오기·init 로드 시 normalizeData()로 기본값을 채운다(예: r.availablePeriods ||= periodKeys(), ev.blockResourceIds ||= [], ev.blockPeriods ||= 'all', b.qty ||= 1). 또한 importData는 render가 성공한 뒤 save하거나 try/catch로 감싸 실패 시 이전 state로 롤백하고 토스트를 띄운다."
+    },
+    {
+      "id": "C-02",
+      "severity": "major",
+      "area": "논리/이벤트",
+      "title": "정기 예약 미리보기에서 체크박스를 누르면 input/change 이벤트가 invalidate()를 호출해 표 전체가 사라지고 '생성'이 비활성화됨",
+      "description": "openSeriesModal은 폼(body)에 `input`과 `change` 리스너로 invalidate()를 등록해 조건이 바뀌면 미리보기를 지운다. 그런데 미리보기 표의 행 체크박스(`<input type=checkbox data-row>`)도 같은 form 안에 있어 클릭 시 click 핸들러(rows[i].checked 갱신·summarize)가 먼저 실행된 직후 input→change가 버블링되어 invalidate()가 rows=[]·preview.innerHTML=''·createBtn.disabled=true로 되돌린다. 결과적으로 스펙 must('ok 기본 체크, conflict 기본 해제, 체크박스로 조정')대로 충돌 행을 포함하거나 특정 날짜를 제외하는 것이 불가능하고, 사용자는 표가 갑자기 사라지는 현상을 겪는다(미리보기를 다시 누르면 체크가 초기화됨).",
+      "evidence": "pw-run code-acceptance.js AC6: 미리보기 16행 표시 후 첫 체크박스 클릭 → `.preview input[data-row]` 16 → 0, 생성 버튼 disabled=true ('BUG 정기 예약 미리보기 체크박스 토글 후 표 유지(전 16 → 후 0)' 실패). 스크린샷 ac6-series-preview.png(재미리보기 후).",
+      "file": "js/board.js",
+      "line": 336,
+      "suggested_fix": "invalidate 리스너에서 미리보기 영역 이벤트를 제외한다: `body.addEventListener('input', e => { if (e.target.closest('.preview')) return; invalidate(); })`와 change 리스너도 동일하게 처리(또는 .preview를 form 밖의 별도 컨테이너로 두고 체크박스는 change 이벤트로 rows[i].checked를 갱신)."
+    },
+    {
+      "id": "C-03",
+      "severity": "major",
+      "area": "상태/렌더 불일치",
+      "title": "같은 자원·날짜·교시에 예약이 2건 이상이면(병합·충돌 행 강제 생성) 공간형 블록이 완전히 겹쳐 앞 예약이 보이지도 클릭되지도 않음",
+      "description": "gridHTML은 공간형 예약마다 같은 grid-column/grid-row 영역에 .block 버튼을 쌓는다. 병합 후 '초과 예약 n건 확인 필요' 토스트가 뜨거나 정기 예약 미리보기에서 충돌 행을 체크해 생성하면 동일 셀에 블록 2개가 정확히 같은 위치에 겹쳐 뒤의 것이 앞의 것을 덮는다. 충돌 배지는 휴업/행사 차단일 때만 붙으므로(board.js:107) 초과 예약은 아무 표시가 없고, 사용자는 숨겨진 예약을 찾거나 정리할 방법이 없다. 스펙은 병합 후 '충돌 건수를 보고 토스트에 표시'까지만 요구하지만, 토스트가 가리키는 건을 찾을 수 없어 사실상 데이터가 사라진 것처럼 보인다.",
+      "evidence": "pw-run code-bugs.js 4번: r_sci1 2026-10-20 1~2교시에 예약 2건 → 같은 style(grid-column:3;grid-row:2 / span 2) 블록 2개, getBoundingClientRect 좌표 완전 일치(overlap=true), .conflict 클래스 0개. 5번: 병합 시 토스트 '병합했습니다(예약 239건, 초과 예약 2건 확인 필요)'는 정상 표시. 스크린샷 bug-dup-block.png.",
+      "file": "js/board.js",
+      "line": 103,
+      "suggested_fix": "블록 렌더 시 같은 셀의 교시별 사용량(cellState.used > cap)을 보고 두 번째 이후 블록에 '중복' 배지와 오프셋(예: margin-left 증가·반투명) 또는 셀 안에 '예약 2건' 요약 버튼을 두고, 병합 결과 토스트에서 '초과 예약 목록 보기' 모달(openAffectedModal 재사용)을 열어 수정·삭제할 수 있게 한다."
+    },
+    {
+      "id": "C-04",
+      "severity": "minor",
+      "area": "규약/접근성",
+      "title": "터치 타깃이 44px 미만인 컨트롤(자원 칩 36px, .btn-sm 32px, 날짜 입력 39px)",
+      "description": "CONVENTIONS 2절은 태블릿·전자칠판 터치를 고려해 44px 이상을 요구한다. 예약판의 자원 칩(.chip min-height 36px), 주 이동 ◀▶·목록의 수정/삭제(.btn-sm 32px), 주 선택 date input(36px)이 미달이다.",
+      "evidence": "pw-run code-bugs.js 7번 getBoundingClientRect: {chip:36, btnSm:32, weekInput:39, tab:46}. css/style.css:99 `.btn-sm { min-height: 32px }`, :131 `.chip { min-height: 36px }`, :138 `.week-nav .input { min-height: 36px }`.",
+      "file": "css/style.css",
+      "line": 99,
+      "suggested_fix": "pointer: coarse 환경에서 min-height 44px를 보장한다: `@media (pointer: coarse) { .btn-sm, .chip, .week-nav .input { min-height: 44px; } }` 또는 기본값을 40~44px로 상향."
+    },
+    {
+      "id": "C-05",
+      "severity": "minor",
+      "area": "접근성",
+      "title": "모달에 포커스 트랩이 없어 Tab 키로 뒤의 앱 UI(탭·격자)로 포커스가 빠져나감",
+      "description": "openModal은 열릴 때 첫 컨트롤에 포커스하고 닫힐 때 복귀시키지만 Tab 순환을 가두지 않는다. aria-modal=true여도 키보드 사용자는 배경 요소에 포커스해 조작할 수 있다(배경은 overflow hidden만 적용).",
+      "evidence": "pw-run code-bugs.js 8번: 예약 모달에서 Tab 반복 → document.activeElement가 .modal 밖으로 이동('모달 안에서 Tab 포커스가 밖으로 나가지 않음' 실패).",
+      "file": "js/core.js",
+      "line": 94,
+      "suggested_fix": "onKey에 Tab 처리 추가: 모달 내 포커스 가능 요소를 수집해 첫/마지막에서 순환시키거나, 모달이 열린 동안 `#app, .app-header, .tabs`에 inert 속성을 부여한다."
+    },
+    {
+      "id": "C-06",
+      "severity": "minor",
+      "area": "UI/레이어",
+      "title": "토스트(z-index 60)가 모달(z-index 50) 위에 떠서 모달 하단의 저장/취소 버튼을 가림",
+      "description": "예약 저장 직후 다른 셀을 열면 '예약되었습니다' 토스트가 우하단에 2.5~3.5초 떠 있는 동안 중앙 모달의 푸터 버튼과 겹친다(1280×994 뷰포트 기준). 모달은 ESC·배경 클릭으로 닫히지만 토스트 아래 버튼은 그 시간 동안 클릭할 수 없다.",
+      "evidence": "스크린샷 ac3-conflict.png: 토스트 2개가 '취소/저장' 버튼 위를 덮음. css/style.css:181 `.modal-backdrop { z-index: 50 }`, :190 `#toast-root { z-index: 60 }`.",
+      "file": "css/style.css",
+      "line": 190,
+      "suggested_fix": "body.modal-open 상태에서는 토스트를 상단 중앙으로 옮기거나(`body.modal-open #toast-root { bottom:auto; top:16px }`) 토스트 z-index를 모달보다 낮게 두고 모달 쪽에서 별도 안내를 한다."
+    },
+    {
+      "id": "C-07",
+      "severity": "minor",
+      "area": "논리/날짜",
+      "title": "isValidDate가 존재하지 않는 날짜('2026-02-30', '2026-13-01')를 유효로 판정",
+      "description": "정규식 + `!isNaN(new Date(y, m-1, d))`만 검사하므로 로컬 Date가 월을 넘겨 보정한 값도 유효로 본다. date input 경로에서는 발생하지 않지만, 가져온 JSON·API(addBooking)·시리즈 dateFrom/dateTo 문자열에는 통과해 ymd()와 불일치한 날짜가 저장될 수 있다.",
+      "evidence": "pw-run code-bugs.js 2번: SRB.isValidDate('2026-02-30') === true, SRB.isValidDate('2026-13-01') === true.",
+      "file": "js/core.js",
+      "line": 19,
+      "suggested_fix": "`const isValidDate = s => /^\\d{4}-\\d{2}-\\d{2}$/.test(s||'') && ymd(parseDate(s)) === s;`"
+    },
+    {
+      "id": "C-08",
+      "severity": "minor",
+      "area": "논리/경계값",
+      "title": "checkConflict가 pEnd < pStart(역순 범위)를 ok로 반환해 API 경로로 잘못된 예약이 저장될 수 있음",
+      "description": "교시 루프 `for (let p = pStart; p <= pEnd; p++)`가 한 번도 돌지 않아 reasons가 비고 ok=true가 된다. UI(read)에서는 끝<시작을 자동 교정하지만 README가 공개한 `window.__app.actions.addBooking`이나 가져온 데이터는 보정이 없어 periodEnd<periodStart인 예약이 생기고, 격자에서는 span이 음수로 계산되어 블록이 비정상 표시된다(추정).",
+      "evidence": "pw-run code-bugs.js 2번: __app.actions.checkConflict('r_sci1','2026-10-20',4,2,1).ok === true.",
+      "file": "js/core.js",
+      "line": 181,
+      "suggested_fix": "checkConflict 초입에 `if (!(Number.isInteger(pStart) && Number.isInteger(pEnd)) || pEnd < pStart || !periodKeys().includes(pStart) || !periodKeys().includes(pEnd)) r.reasons.push('교시 범위가 올바르지 않습니다');`를 추가한다."
+    },
+    {
+      "id": "C-09",
+      "severity": "minor",
+      "area": "스펙 누락",
+      "title": "자원 비활성화 시 영향받는 예약 건수를 모달로 보여 주지 않고 토스트만 표시",
+      "description": "스펙 edge_cases: '교시 개수 축소·수량 감소·자원 비활성화 시 영향받는 예약 수를 모달로 보여 주고 … 비활성화는 허용'. 구현은 스위치 토글 즉시 active를 바꾸고 안내 토스트만 띄운다(교시 축소·수량 감소는 인라인 오류로 차단되어 취지는 충족). 예약이 많은 자원을 실수로 끄면 예약판에서 바로 사라져 당황할 수 있다.",
+      "evidence": "pw-run code-bugs.js 9번: r_sci1 토글 → 모달 0개, 토스트만. js/views.js:165-169.",
+      "file": "js/views.js",
+      "line": 167,
+      "suggested_fix": "비활성화 전 `d.bookings.filter(b => b.resourceId === r.id && b.date >= todayStr()).length`를 계산해 showModal로 '향후 예약 n건은 유지되며 예약판에서 숨겨집니다. 비활성화할까요?'를 확인받고 취소 시 체크박스를 되돌린다."
+    },
+    {
+      "id": "C-10",
+      "severity": "minor",
+      "area": "드래그/스펙",
+      "title": "드래그 중 포인터가 격자 밖으로 나가 놓이면 선택이 해제되지 않고 마지막 유효 범위로 모달이 열림",
+      "description": "스펙 edge_cases '포인터가 격자 밖으로 나가면 pointercancel로 선택 해제'. setPointerCapture 상태에서는 격자 밖에서도 pointerup이 셀로 전달되므로 onPointerUp이 moved=true로 모달을 연다. 또한 lostpointercapture 미처리로 캡처가 외부 요인으로 풀리면 drag 상태가 남을 수 있다(추정).",
+      "evidence": "pw-run code-bugs.js 6번: 10/19 1교시에서 아래로 60px 끌고 왼쪽 400px 밖에서 mouse.up → 모달 1개 열림.",
+      "file": "js/board.js",
+      "line": 139,
+      "suggested_fix": "onPointerUp에서 `document.elementFromPoint(e.clientX, e.clientY)?.closest('.grid') !== dg.root`이면 선택만 해제하고 토스트('격자 밖에서 놓아 취소됨')를 띄운다. `lostpointercapture`에도 onPointerCancel을 연결한다."
+    },
+    {
+      "id": "C-11",
+      "severity": "minor",
+      "area": "규약/테마",
+      "title": "컴포넌트 규칙에 리터럴 색 사용(.btn-danger color:#fff, .switch 노브 #fff, .eq-chip/.block rgba 테두리, 모달 배경 rgba)",
+      "description": "CONVENTIONS 4절 '모든 색은 토큰으로만'. 인쇄·종이 미리보기(.paper, .wk, .rep, .approval)의 흑백 리터럴은 의도적이라 제외하더라도 화면 컴포넌트 5곳에 리터럴이 남아 있다. 다크 모드에서 .btn-danger의 #fff는 --danger(#F08A82) 위에서 대비가 낮아진다(추정 약 2.6:1).",
+      "evidence": "css/style.css:96 `.btn-danger { ... color: #fff }`, :165 `.eq-chip { border: 1px solid rgba(0,0,0,.15) }`, :169 `.block { border-left: 4px solid rgba(0,0,0,.25) }`, :181 `.modal-backdrop { background: rgba(10,16,28,.55) }`, :225 `.switch input::after { background: #fff }`.",
+      "file": "css/style.css",
+      "line": 96,
+      "suggested_fix": "`--danger-fg`, `--overlay`, `--knob`, `--block-edge` 토큰을 라이트/다크 3블록에 추가하고 해당 규칙에서 참조한다."
+    },
+    {
+      "id": "C-12",
+      "severity": "minor",
+      "area": "접근성/ARIA",
+      "title": "격자에 role=\"grid\"를 쓰면서 자식이 row/gridcell이 아니라 role=button 셀·버튼이라 ARIA 구조가 깨짐",
+      "description": "role=grid는 row > gridcell 계층과 화살표 키 탐색을 전제로 한다. 현재는 div 셀에 role=button/tabindex=0, 예약 블록은 button이라 스크린리더가 '표'로 안내하지만 행·열 정보를 읽지 못한다.",
+      "evidence": "js/board.js:81 `role=\"grid\" aria-label=...`, :99 `tabindex=\"0\" role=\"button\"`.",
+      "file": "js/board.js",
+      "line": 81,
+      "suggested_fix": "role=grid를 제거하고 컨테이너에 `role=\"group\" aria-label`만 두거나, 행(교시) 래퍼에 role=row·셀에 role=gridcell을 부여하고 ArrowUp/Down/Left/Right 탐색을 구현한다."
+    },
+    {
+      "id": "C-13",
+      "severity": "minor",
+      "area": "통계/SVG 가독성",
+      "title": "히트맵 '저조' 표시 텍스트가 칸의 숫자와 겹쳐 읽기 어려움",
+      "description": "svgHeatmap은 lowmark 텍스트를 칸 우상단(y+8)에, 값 텍스트를 중앙(y+15)에 그려 46×24px 칸에서 두 글자가 겹친다(예: 5-3 과학실1 '2저조', 4-3 강당 '1저조'). 인쇄 보고서(.rep-chart)에서도 동일.",
+      "evidence": "스크린샷 ac8-stats.png 히트맵 5-3·4-3 칸. js/views.js:309 lowmark `y=\"${T + j * RH + 8}\"`, 값 `y=\"${T + j * RH + 15}\"`.",
+      "file": "js/views.js",
+      "line": 309,
+      "suggested_fix": "저조 칸은 값을 왼쪽 정렬(x+6, text-anchor start)하고 '저조'를 우측에 두거나, 텍스트 대신 칸 테두리(이미 빨간 stroke)와 범례 '빨간 테두리 = 저조'만 사용한다. 또는 CW를 56px로 늘린다."
+    },
+    {
+      "id": "C-14",
+      "severity": "minor",
+      "area": "데이터/설정",
+      "title": "교시 개수를 줄일 때 학사일정의 blockPeriods·시리즈 정의의 periodStart/End는 정리되지 않음",
+      "description": "periods 폼 저장은 예약(periodEnd>n)만 차단하고 자원 availablePeriods만 보정한다. 행사 차단 교시 [7,8]이나 시리즈 periodEnd 8은 그대로 남아 일정 목록에 '방과후2' 대신 '8교시'(periodLabel 폴백)로 표시되고, 나중에 교시를 다시 늘리면 의도치 않은 차단이 부활한다.",
+      "evidence": "js/views.js:434-439 (resources만 순회), :150 periodLabel 폴백 `${k}교시`. 코드 리뷰로 확인(실행 재현은 하지 않음, 추정).",
+      "file": "js/views.js",
+      "line": 434,
+      "suggested_fix": "교시 축소 시 `events.forEach(ev => Array.isArray(ev.blockPeriods) && (ev.blockPeriods = ev.blockPeriods.filter(p => p <= n)))`와 series 범위 클램프를 함께 수행하고, 영향 건수를 안내한다."
+    },
+    {
+      "id": "C-15",
+      "severity": "minor",
+      "area": "데이터/드래그앤드롭",
+      "title": "드롭존 밖(페이지 아무 곳)에 JSON 파일을 떨어뜨리면 브라우저가 파일로 이동해 앱 화면이 사라짐",
+      "description": "dragover/drop preventDefault가 .dropzone 안에서만 수행된다. file:// 환경에서 사용자가 드롭존을 살짝 빗나가면 Chrome/Edge 기본 동작으로 JSON 파일이 현재 탭에 열린다(localStorage 데이터는 보존되지만 작업 흐름이 끊김). 실행 재현은 하지 않았다(추정).",
+      "evidence": "js/views.js:458-460: 리스너가 settings 뷰 root에만 등록되고 `if (dz)`일 때만 preventDefault.",
+      "file": "js/views.js",
+      "line": 458,
+      "suggested_fix": "document 수준에 `['dragover','drop'].forEach(t => document.addEventListener(t, e => { if (!e.target.closest('.dropzone')) e.preventDefault(); }))`를 추가해 페이지 이탈을 막고, 드롭존 밖 드롭 시 토스트로 안내한다."
+    },
+    {
+      "id": "C-16",
+      "severity": "minor",
+      "area": "보안/XSS",
+      "title": "가져온 데이터의 id·date 값이 이스케이프 없이 속성에 삽입됨(data-booking-id, data-resource, value=\"${f.date}\" 등)",
+      "description": "앱이 생성하는 id는 uid()라 안전하지만, JSON 가져오기로 들어온 id/date 문자열은 검증 없이 `data-booking-id=\"${b.id}\"`, `data-resource=\"${r.id}\"`, `value=\"${f.date}\"`, `data-cal-date` 등에 그대로 들어간다. 따옴표를 포함한 id면 속성 탈출로 임의 속성/핸들러 주입이 가능하다(자기 파일을 가져오는 구조라 위험도는 낮음, 추정).",
+      "evidence": "js/board.js:41 `data-resource=\"${r.id}\"`, :96/:108 `data-booking-id=\"${b.id}\"`, :207 `value=\"${f.date}\"`; js/views.js:37 `data-event-edit=\"${e.id}\"`, :148 `style=\"--res-color:${esc(r.color)}\"`(이건 이스케이프됨).",
+      "file": "js/board.js",
+      "line": 108,
+      "suggested_fix": "속성 삽입 값도 모두 esc()로 감싸고, validateImport에서 id는 `/^[\\w-]+$/`, date는 isValidDate, color는 `/^#[0-9a-f]{6}$/i`로 형식을 검사한다."
+    },
+    {
+      "id": "C-17",
+      "severity": "minor",
+      "area": "샘플 데이터/스펙",
+      "title": "샘플의 사용 여부 분포가 스펙 수치(9월 used=true 40·false 12·미확인 8)와 다르고 실행 날짜에 따라 변함",
+      "description": "buildSampleData는 '오늘 이전' 모든 예약에 15건 주기 패턴(사용 11·미사용 3·미확인 1)을 적용한다. 2026-10-24 실행 기준 true 89·false 24·미확인 6으로 스펙의 설명과 다르며, 실행일이 바뀔 때마다 통계 탭의 미사용률·미확인 건수가 달라진다. README/스펙 문구('9월 과거 예약 중 …')와 불일치. 또한 '오늘 기준 전후 2주 집중' 대신 10/5~10/26 주에 고정 밀도를 둔다.",
+      "evidence": "pw-run code-acceptance.js 로그: 'sample used: true=89 false=24 null-past=6'. js/core.js:372-373, :361-362.",
+      "file": "js/core.js",
+      "line": 373,
+      "suggested_fix": "스펙 수치가 중요하면 9월 예약에 한해 40/12/8 분포를 결정적으로 부여하고 10월 이후 과거 건은 미확인으로 두거나, README·스펙의 수치 설명을 '지난 예약의 약 20%가 사용 안 함'처럼 비율 서술로 고친다."
+    }
+  ],
+  "acceptance_results": [
+    { "criterion": "file://로 열면 온보딩 모달 → '샘플로 시작' → 자원 칩 10개·월~금×8교시 격자·예약 블록 1개 이상", "status": "pass", "note": "선택지 2개, 칩 10, 요일 열 5, 교시 행 8, 블록 존재. 예약 247건 생성." },
+    { "criterion": "과학실1에서 빈 셀 한 칸 아래로 드래그 → 모달 시작·끝 교시 채워짐 → 5-2 선택 시 이가람 자동 → 저장 후 '5-2 이가람' 블록·토스트", "status": "pass", "note": "드래그 중 .sel 2칸, pStart=1/pEnd=2, teacherId=t_14, 모달 중복 없음, 블록·토스트 확인." },
+    { "criterion": "이미 블록이 있는 자리로 저장 시도 → 저장 disabled·빨간 사유·대안 칩 1~3개 → 칩 클릭 시 녹색", "status": "pass", "note": "사유 '1교시: 5-2 이가람 사용 중', 대안 3개(같은 날 3~4교시 / 과학실2 같은 교시 / 수요일 같은 교시), 칩 적용 후 '예약 가능'." },
+    { "criterion": "태블릿 세트(보유 2)에 같은 날·교시 수량 1 예약 2건 → '2/2', 세 번째는 '잔여 0'으로 차단", "status": "pass", "note": "셀 텍스트 '2/2 사용 중', 세 번째 모달 사유 '1교시: 잔여 0' + 저장 disabled." },
+    { "criterion": "학사일정에서 10/19~10/22 운동회 연습(강당 5~6교시) 저장 → 영향 건수 표시 → 강당 해당 셀 빗금+사유, 클릭해도 저장 차단", "status": "pass", "note": "샘플에 이미 있는 e_05가 '충돌 1건' 버튼 표시; 동일 흐름을 10/26~10/29 행사로 UI 재현 시 저장 전 실시간 '기존 예약 n건과 충돌'과 저장 후 목록 보기 모달 확인. 차단 셀은 free 클래스가 없어 아예 열리지 않음(스펙의 '모달에서 저장 차단'보다 강한 처리)." },
+    { "criterion": "정기 예약 과학실2·매주 목·1~2교시·6-1·9/1~12/31 미리보기에 추석(9/24) '휴업일 제외', 생성 후 10월 목요일 1~2교시에 6-1 블록, 삭제 시 범위 선택 모달", "status": "pass", "note": "미리보기 '16건 생성 · 1건 휴업일 제외 · 1건 차단 제외(12/31 겨울방학식)', 10/15 블록·시리즈 안내·삭제 범위 모달 확인. 단, 체크박스 토글 시 미리보기가 사라지는 결함(C-02) 발견." },
+    { "criterion": "'인쇄' → 학교명·주간 이용 현황표·주차 기간·자원별 표·결재란 3칸, @media print에서 앱 UI 숨김", "status": "pass", "note": "'가온초등학교', '2026학년도 2학기 특별실 주간 이용 현황표', '2026년 10월 3주 (10/12~10/16)', 결재 th 결재/담당/부장/교감 + 서명 td 3, 전체 10쪽·선택 1쪽, window.print 호출 후 #print-root 채움, print 매체에서 body>.page display:none·#print-root block." },
+    { "criterion": "통계 '학기 전체' → SVG 가동률 막대·학급×자원 히트맵(+학년별·요일×교시) 표시, 저조 목록에 5-3", "status": "pass", "note": "svg.chart 4개(히트맵 2), 저조 목록 '5-3 — 과학실1 2회 (5학년 평균 12.3회)', DOM 툴팁 표시." },
+    { "criterion": "JSON 내보내기 .json 다운로드, '초기화' 입력 후 예약판 비고 칩 유지, 내보낸 파일 드롭존 '교체' 시 예약 건수 복원", "status": "pass", "note": "special-room-booking_20261024.json 다운로드, 초기화 후 예약·시리즈·일정 0/자원 10/학급 18, 교체 후 예약 건수 동일(초기화 전 값) 복원. CSV BOM·헤더 확인, 잘못된 JSON은 오류 토스트·데이터 유지." },
+    { "criterion": "컴퓨터실 선택·다음 주 이동 후 새로고침 → 같은 자원·같은 주 복원", "status": "pass", "note": "chip.on=r_com, 주차 라벨 동일, 온보딩 재표시 없음." },
+    { "criterion": "400px 폭: 요일 탭 5개·1열 격자, 가로 스크롤 없음, 셀 탭 시 모달에서 교시 select", "status": "pass", "note": "day-tabs 5, gh.day 1, 5개 탭 모두 scrollWidth ≤ clientWidth, 모달(시트형)에 pStart/pEnd select." },
+    { "criterion": "지난 예약 블록을 열면 사용함/사용 안 함 토글, '사용 안 함' 저장 시 미사용률 증가", "status": "pass", "note": "used-wrap 표시, 미사용률 21.2 → 21.9(테스트 실행 시점 값)." },
+    { "criterion": "alert/confirm/prompt 미사용, 모든 알림은 토스트로 표시 후 자동 소멸", "status": "pass", "note": "소스 grep 0건, Playwright dialogs 0건, 4초 후 .toast 0개." }
+  ],
+  "test_files": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-acceptance.js",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-bugs.js",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-acc\\code-acceptance.result.json",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-bugs\\code-bugs.result.json"
+  ],
+  "screenshots": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\smoke\\desktop-light.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\smoke\\desktop-dark.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\smoke\\mobile-light.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-acc\\ac1-board.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-acc\\ac2-saved.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-acc\\ac3-conflict.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-acc\\ac4-tablet.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-acc\\ac5-gym-blocked.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-acc\\ac6-series-preview.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-acc\\ac6-delete-scope.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-acc\\ac7-print-preview.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-acc\\ac8-stats.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-acc\\ac9-settings.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-acc\\ac11-mobile-modal.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-acc\\ac11-mobile-stats.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-bugs\\bug-dup-block.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\code-bugs\\bug-broken-import.png"
+  ]
+}

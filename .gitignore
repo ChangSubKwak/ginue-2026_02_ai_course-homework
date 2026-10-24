@@ -12,3 +12,7 @@ _preview.docx
 # OS
 Thumbs.db
 .DS_Store
+
+# 개발 도구 의존성
+_dev/tools/node_modules/
+_dev/tests/**/*.png

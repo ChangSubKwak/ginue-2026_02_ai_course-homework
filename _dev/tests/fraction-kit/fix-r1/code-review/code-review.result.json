@@ -1,0 +1,19 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/01_교과교육지원_분수교구함/index.html",
+  "test": "code-review.js",
+  "passed": [
+    "AC1 초기 1/2",
+    "AC1 기호 패널 0.5 · 2분의 1: 1 2 1/2 소수 0.5 읽기 2분의 1",
+    "AC1 내장 12/24/2: {\"scenes\":12,\"cards\":24,\"cardSets\":2}",
+    "AC1 기본 장면 sc-b08 로드",
+    "AC1 수직선 점 50% 위치 cx=500"
+  ],
+  "failed": [],
+  "logs": [],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": "page.click: Timeout 30000ms exceeded. | Call log: | \u001b[2m  - waiting for locator('.kit-bar .cell[data-i=\"2\"]')\u001b[22m | ",
+  "summary": "5 passed, 0 failed, 0 page errors, 0 console errors, FATAL"
+}

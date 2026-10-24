@@ -1,0 +1,123 @@
+{
+  "doyun_sua_partner": 3,
+  "yang_zones": {
+    "front": 0,
+    "mid": 1,
+    "back": 3,
+    "total": 4
+  },
+  "biased": [
+    "s23"
+  ],
+  "deskCount": 28,
+  "frontDesks": 6,
+  "recentStats_count_when_N1_avoidSeat": 3,
+  "partner_doyun_sua_when_N1_noSeat": 0,
+  "colTpl": "var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell)",
+  "colTpl_split_len": 8,
+  "colTpl_reversed": "var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell)",
+  "g4_rowTpl_reversed": "var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell)",
+  "bom_literal_codepoint": "feff",
+  "parse_tab": [
+    [
+      1,
+      "김가상",
+      "M",
+      "ok",
+      "정상"
+    ],
+    [
+      2,
+      "이가상",
+      "F",
+      "ok",
+      "정상"
+    ],
+    [
+      3,
+      "박가상",
+      "M",
+      "ok",
+      "정상"
+    ],
+    [
+      4,
+      "최가상",
+      "",
+      "warn",
+      "성별 미지정"
+    ]
+  ],
+  "parse_quoted_comma": [
+    [
+      1,
+      "김,가상",
+      "M",
+      "ok"
+    ]
+  ],
+  "parse_mixed_space": [
+    [
+      1,
+      "김가상",
+      "M",
+      "ok"
+    ],
+    [
+      2,
+      "이가상",
+      "F",
+      "ok"
+    ]
+  ],
+  "parse_limit0": [
+    [
+      "error",
+      "상한 0명 초과"
+    ]
+  ],
+  "solve_ms": 10,
+  "solve_penalty": 0,
+  "solve_items": [
+    "앞자리 배려:3/3 v0",
+    "집중 지원:2/2 v0",
+    "키 큼 뒤쪽:3/3 v0",
+    "남녀 짝:12/12 v0",
+    "분리 쌍:2/2 v0",
+    "결합 쌍:1/1 v0",
+    "최근 3회 짝 회피:12/12 v0",
+    "같은 좌석 회피:24/24 v0"
+  ],
+  "groups6_sizes": [
+    4,
+    4,
+    4,
+    4,
+    4,
+    4
+  ],
+  "groups6_roles_each_once": true,
+  "groups_size5_sizes": [
+    5,
+    5,
+    5,
+    5,
+    4
+  ],
+  "zone_rows2": [
+    "front",
+    "back",
+    3
+  ],
+  "zone_rows4": [
+    "front",
+    "mid",
+    "mid",
+    "back"
+  ],
+  "zone_bottom": [
+    "back",
+    "mid",
+    "front"
+  ]
+}

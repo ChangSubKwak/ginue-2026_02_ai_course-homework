@@ -1,0 +1,29 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "code-blocked.pw.js",
+  "passed": [
+    "(전제) 페이지에서 localStorage 접근이 예외를 던진다",
+    "상단 '저장 불가' 경고 배지 표시",
+    "storageOk=false",
+    "홈 스테이지 카드 표시(1학년 3개)",
+    "차단 환경에서도 플레이 가능"
+  ],
+  "failed": [
+    "localStorage 차단 시에도 학년 탭 전환이 동작한다",
+    "localStorage 차단 시에도 명예의 전당 탭 전환이 동작한다"
+  ],
+  "logs": [
+    "localStorage blocked in page: true",
+    "after clicking 2학년 tab: cards=1-1,1-2,1-3 selected=1",
+    "after clicking 별 tab: selected=score head=\"최고 점수\"",
+    "game: state=playing monsters=1"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\math-guardians\\code-out\\code-blocked-grade-tab.png"
+  ],
+  "fatal": null,
+  "summary": "5 passed, 2 failed, 0 page errors, 0 console errors"
+}

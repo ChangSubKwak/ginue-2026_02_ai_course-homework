@@ -1,0 +1,43 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/03_업무자동화_자리뚝딱/index.html",
+  "test": "code-02-bugs.js",
+  "passed": [
+    "B1 PNG 파일명 jari-YYYYMMDD.png",
+    "B1 PNG 열 폭 배열 길이(8) == cols(8)",
+    "B2 확정 직후 재계산 시 같은 좌석 회피 위반이 전원(0건)으로 표시됨",
+    "B2 모둠 확정 후 재렌더 시 반복 모둠 쌍이 전원(36건)으로 표시됨",
+    "B3 삭제 직후 학생 0명",
+    "B3 전체 삭제 후 새로고침해도 빈 상태 유지(실제 0명)",
+    "B4 손상 히스토리 항목 가져오기: 거부되거나 예외 없이 처리",
+    "B4 깨진 데이터가 localStorage에 저장되지 않음",
+    "B4 새로고침 후 renderAll 완료(설정 탭 렌더됨)",
+    "B6 이름 변경 후 쌍 목록·요약에 새 이름 반영"
+  ],
+  "failed": [],
+  "logs": [
+    "png saved: C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\out\\b1-saved-png.png name=jari-20261025.png",
+    "png colW: {\"cols\":8,\"colWLen\":8,\"colW\":[110,110,38.5,110,110,38.5,110,110]}",
+    "report right after confirm (stale?): 최근 3회 짝 회피: v0 | 같은 좌석 회피: v0",
+    "after recompute: repeatSeat v=0, repeatPartner v=0, viol cells=0",
+    "group report after confirm+rerender: 편성 리포트 성별 균형 모둠 6/6 분리 쌍 위반 0건 반복 모둠 쌍 0건 인원 4·4·4·4·4·4",
+    "localStorage data after wipe: null",
+    "students after wipe+reload: 0",
+    "import modal title: 가져오기 실패",
+    "pageerrors after bad import: []",
+    "bad history persisted to localStorage: false",
+    "after reload storage-info rendered: true",
+    "pair before rename: ↔ 분리 최민준 · 강시우 반드시 가능하면 🗑",
+    "pair after rename: ↔ 분리 최민준B · 강시우 반드시 가능하면 🗑",
+    "unplaced chips before any arrange: 24",
+    "focusable empty/off desks: 4"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r1\\code-02-bugs\\b2-self-compare.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r1\\code-02-bugs\\b7-initial-seats.png"
+  ],
+  "fatal": null,
+  "summary": "10 passed, 0 failed, 0 page errors, 0 console errors"
+}

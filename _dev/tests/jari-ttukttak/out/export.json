@@ -1,0 +1,3621 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-24T16:16:42.237Z",
+  "classInfo": {
+    "school": "가온초등학교",
+    "grade": 5,
+    "classNo": 2,
+    "teacher": "이가람",
+    "className": "5학년 2반"
+  },
+  "students": [
+    {
+      "id": "s01",
+      "no": 1,
+      "name": "김하늘2",
+      "gender": "F",
+      "level": 2,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s02",
+      "no": 2,
+      "name": "이도윤",
+      "gender": "M",
+      "level": 3,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s03",
+      "no": 3,
+      "name": "박서아",
+      "gender": "F",
+      "level": 2,
+      "tags": [
+        "front"
+      ],
+      "active": true
+    },
+    {
+      "id": "s04",
+      "no": 4,
+      "name": "최민준",
+      "gender": "M",
+      "level": 1,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s05",
+      "no": 5,
+      "name": "정하윤",
+      "gender": "F",
+      "level": 3,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s06",
+      "no": 6,
+      "name": "강시우",
+      "gender": "M",
+      "level": 1,
+      "tags": [
+        "focus"
+      ],
+      "active": true
+    },
+    {
+      "id": "s07",
+      "no": 7,
+      "name": "윤서준",
+      "gender": "M",
+      "level": 2,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s08",
+      "no": 8,
+      "name": "장지우",
+      "gender": "F",
+      "level": 3,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s09",
+      "no": 9,
+      "name": "임예준",
+      "gender": "M",
+      "level": 2,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s10",
+      "no": 10,
+      "name": "한수아",
+      "gender": "F",
+      "level": 2,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s11",
+      "no": 11,
+      "name": "오지호",
+      "gender": "M",
+      "level": 1,
+      "tags": [
+        "front"
+      ],
+      "active": true
+    },
+    {
+      "id": "s12",
+      "no": 12,
+      "name": "서아린",
+      "gender": "F",
+      "level": 3,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s13",
+      "no": 13,
+      "name": "신준서",
+      "gender": "M",
+      "level": 2,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s14",
+      "no": 14,
+      "name": "권유나",
+      "gender": "F",
+      "level": 2,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s15",
+      "no": 15,
+      "name": "황도현",
+      "gender": "M",
+      "level": 1,
+      "tags": [
+        "focus"
+      ],
+      "active": true
+    },
+    {
+      "id": "s16",
+      "no": 16,
+      "name": "안지아",
+      "gender": "F",
+      "level": 2,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s17",
+      "no": 17,
+      "name": "송민재",
+      "gender": "M",
+      "level": 3,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s18",
+      "no": 18,
+      "name": "류채원",
+      "gender": "F",
+      "level": 2,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s19",
+      "no": 19,
+      "name": "홍태양",
+      "gender": "M",
+      "level": 2,
+      "tags": [
+        "tall"
+      ],
+      "active": true
+    },
+    {
+      "id": "s20",
+      "no": 20,
+      "name": "배소율",
+      "gender": "F",
+      "level": 3,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s21",
+      "no": 21,
+      "name": "조현우",
+      "gender": "M",
+      "level": 1,
+      "tags": [
+        "tall"
+      ],
+      "active": true
+    },
+    {
+      "id": "s22",
+      "no": 22,
+      "name": "문다은",
+      "gender": "F",
+      "level": 3,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "s23",
+      "no": 23,
+      "name": "양은우",
+      "gender": "M",
+      "level": 2,
+      "tags": [
+        "tall"
+      ],
+      "active": true
+    },
+    {
+      "id": "s24",
+      "no": 24,
+      "name": "노시은",
+      "gender": "F",
+      "level": 1,
+      "tags": [
+        "front"
+      ],
+      "active": true
+    },
+    {
+      "id": "s25",
+      "no": 25,
+      "name": "백건우",
+      "gender": "M",
+      "level": 2,
+      "tags": [],
+      "active": false
+    },
+    {
+      "id": "smvmlpyupc1o8",
+      "no": 1,
+      "name": "김가상",
+      "gender": "M",
+      "level": null,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "smvmlpyupuydu",
+      "no": 2,
+      "name": "이가상",
+      "gender": "F",
+      "level": null,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "smvmlpyupzs4l",
+      "no": 3,
+      "name": "박가상",
+      "gender": "M",
+      "level": null,
+      "tags": [],
+      "active": true
+    },
+    {
+      "id": "smvmlpyup3xbi",
+      "no": 4,
+      "name": "최가상",
+      "gender": "",
+      "level": null,
+      "tags": [],
+      "active": true
+    }
+  ],
+  "pairs": [
+    {
+      "id": "p1",
+      "a": "s04",
+      "b": "s06",
+      "type": "apart",
+      "hard": true,
+      "memo": ""
+    },
+    {
+      "id": "p2",
+      "a": "s08",
+      "b": "s14",
+      "type": "apart",
+      "hard": true,
+      "memo": ""
+    },
+    {
+      "id": "p3",
+      "a": "s16",
+      "b": "s12",
+      "type": "together",
+      "hard": false,
+      "memo": "또래 도우미"
+    }
+  ],
+  "layout": {
+    "id": "Lmvmlpwtb",
+    "name": "수업형",
+    "preset": "pair",
+    "params": {
+      "sections": 3,
+      "rows": 5,
+      "groups": 6,
+      "cols": 6,
+      "layers": 2
+    },
+    "rows": 5,
+    "cols": 8,
+    "cells": [
+      {
+        "r": 0,
+        "c": 0,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 0
+      },
+      {
+        "r": 0,
+        "c": 1,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 0
+      },
+      {
+        "r": 0,
+        "c": 2,
+        "desk": false,
+        "gap": true,
+        "pairGroup": null
+      },
+      {
+        "r": 0,
+        "c": 3,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 1
+      },
+      {
+        "r": 0,
+        "c": 4,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 1
+      },
+      {
+        "r": 0,
+        "c": 5,
+        "desk": false,
+        "gap": true,
+        "pairGroup": null
+      },
+      {
+        "r": 0,
+        "c": 6,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 2
+      },
+      {
+        "r": 0,
+        "c": 7,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 2
+      },
+      {
+        "r": 1,
+        "c": 0,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 3
+      },
+      {
+        "r": 1,
+        "c": 1,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 3
+      },
+      {
+        "r": 1,
+        "c": 2,
+        "desk": false,
+        "gap": true,
+        "pairGroup": null
+      },
+      {
+        "r": 1,
+        "c": 3,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 4
+      },
+      {
+        "r": 1,
+        "c": 4,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 4
+      },
+      {
+        "r": 1,
+        "c": 5,
+        "desk": false,
+        "gap": true,
+        "pairGroup": null
+      },
+      {
+        "r": 1,
+        "c": 6,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 5
+      },
+      {
+        "r": 1,
+        "c": 7,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 5
+      },
+      {
+        "r": 2,
+        "c": 0,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 6
+      },
+      {
+        "r": 2,
+        "c": 1,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 6
+      },
+      {
+        "r": 2,
+        "c": 2,
+        "desk": false,
+        "gap": true,
+        "pairGroup": null
+      },
+      {
+        "r": 2,
+        "c": 3,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 7
+      },
+      {
+        "r": 2,
+        "c": 4,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 7
+      },
+      {
+        "r": 2,
+        "c": 5,
+        "desk": false,
+        "gap": true,
+        "pairGroup": null
+      },
+      {
+        "r": 2,
+        "c": 6,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 8
+      },
+      {
+        "r": 2,
+        "c": 7,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 8
+      },
+      {
+        "r": 3,
+        "c": 0,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 9
+      },
+      {
+        "r": 3,
+        "c": 1,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 9
+      },
+      {
+        "r": 3,
+        "c": 2,
+        "desk": false,
+        "gap": true,
+        "pairGroup": null
+      },
+      {
+        "r": 3,
+        "c": 3,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 10
+      },
+      {
+        "r": 3,
+        "c": 4,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 10
+      },
+      {
+        "r": 3,
+        "c": 5,
+        "desk": false,
+        "gap": true,
+        "pairGroup": null
+      },
+      {
+        "r": 3,
+        "c": 6,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 11
+      },
+      {
+        "r": 3,
+        "c": 7,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 11
+      },
+      {
+        "r": 4,
+        "c": 0,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 12
+      },
+      {
+        "r": 4,
+        "c": 1,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 12
+      },
+      {
+        "r": 4,
+        "c": 2,
+        "desk": false,
+        "gap": true,
+        "pairGroup": null
+      },
+      {
+        "r": 4,
+        "c": 3,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 13
+      },
+      {
+        "r": 4,
+        "c": 4,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 13
+      },
+      {
+        "r": 4,
+        "c": 5,
+        "desk": false,
+        "gap": true,
+        "pairGroup": null
+      },
+      {
+        "r": 4,
+        "c": 6,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 14
+      },
+      {
+        "r": 4,
+        "c": 7,
+        "desk": true,
+        "gap": false,
+        "pairGroup": 14
+      }
+    ],
+    "teacherSide": "top",
+    "colTpl": "var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell)",
+    "rowTpl": "var(--cell) var(--cell) var(--cell) var(--cell) var(--cell)"
+  },
+  "layouts": [],
+  "conditions": {
+    "front": {
+      "on": true,
+      "hard": true
+    },
+    "focus": {
+      "on": true,
+      "hard": false
+    },
+    "tall": {
+      "on": true,
+      "hard": false
+    },
+    "genderPair": {
+      "on": true,
+      "hard": false
+    },
+    "pairs": {
+      "on": true
+    },
+    "avoidPartnerN": 3,
+    "avoidSeat": true
+  },
+  "current": {
+    "seats": {
+      "0-0": "s11",
+      "0-1": "s24",
+      "0-3": "s03",
+      "0-4": "s06",
+      "0-6": "s17",
+      "0-7": "s01",
+      "1-0": "s04",
+      "1-1": "s18",
+      "1-3": "s15",
+      "1-4": "s22",
+      "1-6": "s16",
+      "1-7": "s19",
+      "2-0": "s20",
+      "2-1": "s23",
+      "2-3": "s05",
+      "2-4": "s07",
+      "2-6": "s12",
+      "2-7": "s09",
+      "3-0": "s13",
+      "3-1": "s14",
+      "3-3": "s08",
+      "3-4": "s02",
+      "3-6": "s21",
+      "3-7": "s10"
+    },
+    "locked": [],
+    "unplaced": [
+      "smvmlpyupc1o8",
+      "smvmlpyupuydu",
+      "smvmlpyupzs4l",
+      "smvmlpyup3xbi"
+    ],
+    "confirmedId": null,
+    "showUnplaced": false
+  },
+  "currentGroups": {
+    "id": "gmvmlpu1b",
+    "date": "",
+    "memo": "",
+    "groupCount": 6,
+    "groups": [
+      {
+        "idx": 0,
+        "name": "빨강모둠",
+        "color": "#E25555",
+        "members": [
+          {
+            "studentId": "s02",
+            "role": "이끔이"
+          },
+          {
+            "studentId": "s01",
+            "role": "기록이"
+          },
+          {
+            "studentId": "s03",
+            "role": "나눔이"
+          },
+          {
+            "studentId": "s21",
+            "role": "지킴이"
+          }
+        ]
+      },
+      {
+        "idx": 1,
+        "name": "주황모둠",
+        "color": "#F59E0B",
+        "members": [
+          {
+            "studentId": "s12",
+            "role": "나눔이"
+          },
+          {
+            "studentId": "s07",
+            "role": "이끔이"
+          },
+          {
+            "studentId": "s06",
+            "role": "기록이"
+          },
+          {
+            "studentId": "s16",
+            "role": "지킴이"
+          }
+        ]
+      },
+      {
+        "idx": 2,
+        "name": "노랑모둠",
+        "color": "#EAC435",
+        "members": [
+          {
+            "studentId": "s08",
+            "role": "지킴이"
+          },
+          {
+            "studentId": "s10",
+            "role": "이끔이"
+          },
+          {
+            "studentId": "s11",
+            "role": "기록이"
+          },
+          {
+            "studentId": "s19",
+            "role": "나눔이"
+          }
+        ]
+      },
+      {
+        "idx": 3,
+        "name": "초록모둠",
+        "color": "#3BA55D",
+        "members": [
+          {
+            "studentId": "s17",
+            "role": "지킴이"
+          },
+          {
+            "studentId": "s14",
+            "role": "나눔이"
+          },
+          {
+            "studentId": "s20",
+            "role": "이끔이"
+          },
+          {
+            "studentId": "s04",
+            "role": "기록이"
+          }
+        ]
+      },
+      {
+        "idx": 4,
+        "name": "파랑모둠",
+        "color": "#3B82F6",
+        "members": [
+          {
+            "studentId": "s22",
+            "role": "나눔이"
+          },
+          {
+            "studentId": "s09",
+            "role": "기록이"
+          },
+          {
+            "studentId": "s13",
+            "role": "이끔이"
+          },
+          {
+            "studentId": "s24",
+            "role": "지킴이"
+          }
+        ]
+      },
+      {
+        "idx": 5,
+        "name": "보라모둠",
+        "color": "#8B5CF6",
+        "members": [
+          {
+            "studentId": "s18",
+            "role": "지킴이"
+          },
+          {
+            "studentId": "s05",
+            "role": "기록이"
+          },
+          {
+            "studentId": "s23",
+            "role": "나눔이"
+          },
+          {
+            "studentId": "s15",
+            "role": "이끔이"
+          }
+        ]
+      }
+    ]
+  },
+  "history": [
+    {
+      "id": "h1",
+      "date": "2026-03-02",
+      "memo": "1차(개학)",
+      "layoutSnapshot": {
+        "id": "Lmvmlpksn",
+        "name": "수업형",
+        "preset": "pair",
+        "params": {
+          "sections": 3,
+          "rows": 5,
+          "groups": 6,
+          "cols": 6,
+          "layers": 2
+        },
+        "rows": 5,
+        "cols": 8,
+        "cells": [
+          {
+            "r": 0,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 0
+          },
+          {
+            "r": 0,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 0
+          },
+          {
+            "r": 0,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 0,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 1
+          },
+          {
+            "r": 0,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 1
+          },
+          {
+            "r": 0,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 0,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 2
+          },
+          {
+            "r": 0,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 2
+          },
+          {
+            "r": 1,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 3
+          },
+          {
+            "r": 1,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 3
+          },
+          {
+            "r": 1,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 1,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 4
+          },
+          {
+            "r": 1,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 4
+          },
+          {
+            "r": 1,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 1,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 5
+          },
+          {
+            "r": 1,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 5
+          },
+          {
+            "r": 2,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 6
+          },
+          {
+            "r": 2,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 6
+          },
+          {
+            "r": 2,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 2,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 7
+          },
+          {
+            "r": 2,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 7
+          },
+          {
+            "r": 2,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 2,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 8
+          },
+          {
+            "r": 2,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 8
+          },
+          {
+            "r": 3,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 9
+          },
+          {
+            "r": 3,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 9
+          },
+          {
+            "r": 3,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 3,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 10
+          },
+          {
+            "r": 3,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 10
+          },
+          {
+            "r": 3,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 3,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 11
+          },
+          {
+            "r": 3,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 11
+          },
+          {
+            "r": 4,
+            "c": 0,
+            "desk": false,
+            "gap": false,
+            "pairGroup": 12
+          },
+          {
+            "r": 4,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 12
+          },
+          {
+            "r": 4,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 4,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 13
+          },
+          {
+            "r": 4,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 13
+          },
+          {
+            "r": 4,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 4,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 14
+          },
+          {
+            "r": 4,
+            "c": 7,
+            "desk": false,
+            "gap": false,
+            "pairGroup": 14
+          }
+        ],
+        "teacherSide": "top",
+        "colTpl": "var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell)",
+        "rowTpl": "var(--cell) var(--cell) var(--cell) var(--cell) var(--cell)"
+      },
+      "seats": {
+        "2-0": "s02",
+        "2-1": "s10",
+        "4-4": "s23",
+        "0-3": "s04",
+        "3-7": "s01",
+        "4-6": "s05",
+        "4-1": "s22",
+        "1-1": "s07",
+        "3-4": "s18",
+        "0-7": "s09",
+        "1-6": "s21",
+        "3-6": "s17",
+        "2-3": "s24",
+        "1-3": "s06",
+        "0-1": "s13",
+        "0-4": "s16",
+        "4-3": "s08",
+        "3-1": "s20",
+        "0-0": "s11",
+        "0-6": "s03",
+        "1-7": "s12",
+        "1-0": "s19",
+        "2-7": "s14",
+        "3-0": "s15"
+      },
+      "locked": [],
+      "conditionsSnapshot": {
+        "front": {
+          "on": true,
+          "hard": true
+        },
+        "focus": {
+          "on": true,
+          "hard": false
+        },
+        "tall": {
+          "on": true,
+          "hard": false
+        },
+        "genderPair": {
+          "on": true,
+          "hard": false
+        },
+        "pairs": {
+          "on": true
+        },
+        "avoidPartnerN": 3,
+        "avoidSeat": true
+      },
+      "report": {
+        "penalty": 2100,
+        "items": [
+          {
+            "type": "front",
+            "label": "앞자리 배려",
+            "hard": true,
+            "total": 3,
+            "ok": 2,
+            "violations": [
+              {
+                "students": [
+                  "s24"
+                ],
+                "cells": [
+                  "2-3"
+                ],
+                "reason": "노시은: 앞자리 배려 위반"
+              }
+            ]
+          },
+          {
+            "type": "focus",
+            "label": "집중 지원",
+            "hard": false,
+            "total": 2,
+            "ok": 1,
+            "violations": [
+              {
+                "students": [
+                  "s15"
+                ],
+                "cells": [
+                  "3-0"
+                ],
+                "reason": "황도현: 집중 지원 위반"
+              }
+            ]
+          },
+          {
+            "type": "tall",
+            "label": "키 큼 뒤쪽",
+            "hard": false,
+            "total": 3,
+            "ok": 3,
+            "violations": []
+          },
+          {
+            "type": "genderPair",
+            "label": "남녀 짝",
+            "hard": false,
+            "total": 9,
+            "ok": 7,
+            "violations": [
+              {
+                "students": [
+                  "s11",
+                  "s13"
+                ],
+                "cells": [
+                  "0-0",
+                  "0-1"
+                ],
+                "reason": "같은 성별 짝: 오지호-신준서"
+              },
+              {
+                "students": [
+                  "s19",
+                  "s07"
+                ],
+                "cells": [
+                  "1-0",
+                  "1-1"
+                ],
+                "reason": "같은 성별 짝: 홍태양-윤서준"
+              }
+            ],
+            "note": "6명 단독석(면제)"
+          },
+          {
+            "type": "apart",
+            "label": "분리 쌍",
+            "hard": true,
+            "total": 2,
+            "ok": 1,
+            "violations": [
+              {
+                "students": [
+                  "s04",
+                  "s06"
+                ],
+                "cells": [
+                  "0-3",
+                  "1-3"
+                ],
+                "reason": "분리 조건 위반: 최민준-강시우"
+              }
+            ]
+          },
+          {
+            "type": "together",
+            "label": "결합 쌍",
+            "hard": false,
+            "total": 1,
+            "ok": 0,
+            "violations": [
+              {
+                "students": [
+                  "s16",
+                  "s12"
+                ],
+                "cells": [
+                  "0-4",
+                  "1-7"
+                ],
+                "reason": "결합 조건 위반: 안지아-서아린"
+              }
+            ]
+          },
+          {
+            "type": "repeatPartner",
+            "label": "최근 3회 짝 회피",
+            "hard": false,
+            "total": 0,
+            "ok": 0,
+            "violations": [],
+            "na": true
+          },
+          {
+            "type": "repeatSeat",
+            "label": "같은 좌석 회피",
+            "hard": false,
+            "total": 0,
+            "ok": 0,
+            "violations": [],
+            "na": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "h2",
+      "date": "2026-04-06",
+      "memo": "2차",
+      "layoutSnapshot": {
+        "id": "Lmvmlpksn",
+        "name": "수업형",
+        "preset": "pair",
+        "params": {
+          "sections": 3,
+          "rows": 5,
+          "groups": 6,
+          "cols": 6,
+          "layers": 2
+        },
+        "rows": 5,
+        "cols": 8,
+        "cells": [
+          {
+            "r": 0,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 0
+          },
+          {
+            "r": 0,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 0
+          },
+          {
+            "r": 0,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 0,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 1
+          },
+          {
+            "r": 0,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 1
+          },
+          {
+            "r": 0,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 0,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 2
+          },
+          {
+            "r": 0,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 2
+          },
+          {
+            "r": 1,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 3
+          },
+          {
+            "r": 1,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 3
+          },
+          {
+            "r": 1,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 1,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 4
+          },
+          {
+            "r": 1,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 4
+          },
+          {
+            "r": 1,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 1,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 5
+          },
+          {
+            "r": 1,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 5
+          },
+          {
+            "r": 2,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 6
+          },
+          {
+            "r": 2,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 6
+          },
+          {
+            "r": 2,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 2,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 7
+          },
+          {
+            "r": 2,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 7
+          },
+          {
+            "r": 2,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 2,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 8
+          },
+          {
+            "r": 2,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 8
+          },
+          {
+            "r": 3,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 9
+          },
+          {
+            "r": 3,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 9
+          },
+          {
+            "r": 3,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 3,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 10
+          },
+          {
+            "r": 3,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 10
+          },
+          {
+            "r": 3,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 3,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 11
+          },
+          {
+            "r": 3,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 11
+          },
+          {
+            "r": 4,
+            "c": 0,
+            "desk": false,
+            "gap": false,
+            "pairGroup": 12
+          },
+          {
+            "r": 4,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 12
+          },
+          {
+            "r": 4,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 4,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 13
+          },
+          {
+            "r": 4,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 13
+          },
+          {
+            "r": 4,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 4,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 14
+          },
+          {
+            "r": 4,
+            "c": 7,
+            "desk": false,
+            "gap": false,
+            "pairGroup": 14
+          }
+        ],
+        "teacherSide": "top",
+        "colTpl": "var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell)",
+        "rowTpl": "var(--cell) var(--cell) var(--cell) var(--cell) var(--cell)"
+      },
+      "seats": {
+        "2-3": "s02",
+        "2-4": "s10",
+        "4-1": "s23",
+        "0-7": "s21",
+        "2-6": "s16",
+        "4-4": "s20",
+        "1-3": "s18",
+        "1-0": "s07",
+        "0-3": "s05",
+        "1-1": "s11",
+        "4-6": "s12",
+        "3-4": "s17",
+        "1-7": "s22",
+        "2-7": "s04",
+        "2-0": "s15",
+        "3-3": "s03",
+        "4-3": "s01",
+        "3-1": "s14",
+        "3-7": "s13",
+        "3-6": "s09",
+        "0-6": "s19",
+        "0-4": "s08",
+        "1-4": "s24",
+        "2-1": "s06"
+      },
+      "locked": [],
+      "conditionsSnapshot": {
+        "front": {
+          "on": true,
+          "hard": true
+        },
+        "focus": {
+          "on": true,
+          "hard": false
+        },
+        "tall": {
+          "on": true,
+          "hard": false
+        },
+        "genderPair": {
+          "on": true,
+          "hard": false
+        },
+        "pairs": {
+          "on": true
+        },
+        "avoidPartnerN": 3,
+        "avoidSeat": true
+      },
+      "report": {
+        "penalty": 3220,
+        "items": [
+          {
+            "type": "front",
+            "label": "앞자리 배려",
+            "hard": true,
+            "total": 3,
+            "ok": 0,
+            "violations": [
+              {
+                "students": [
+                  "s03"
+                ],
+                "cells": [
+                  "3-3"
+                ],
+                "reason": "박서아: 앞자리 배려 위반"
+              },
+              {
+                "students": [
+                  "s11"
+                ],
+                "cells": [
+                  "1-1"
+                ],
+                "reason": "오지호: 앞자리 배려 위반"
+              },
+              {
+                "students": [
+                  "s24"
+                ],
+                "cells": [
+                  "1-4"
+                ],
+                "reason": "노시은: 앞자리 배려 위반"
+              }
+            ]
+          },
+          {
+            "type": "focus",
+            "label": "집중 지원",
+            "hard": false,
+            "total": 2,
+            "ok": 0,
+            "violations": [
+              {
+                "students": [
+                  "s06"
+                ],
+                "cells": [
+                  "2-1"
+                ],
+                "reason": "강시우: 집중 지원 위반"
+              },
+              {
+                "students": [
+                  "s15"
+                ],
+                "cells": [
+                  "2-0"
+                ],
+                "reason": "황도현: 집중 지원 위반"
+              }
+            ]
+          },
+          {
+            "type": "tall",
+            "label": "키 큼 뒤쪽",
+            "hard": false,
+            "total": 3,
+            "ok": 1,
+            "violations": [
+              {
+                "students": [
+                  "s19"
+                ],
+                "cells": [
+                  "0-6"
+                ],
+                "reason": "홍태양: 키 큼 뒤쪽 위반"
+              },
+              {
+                "students": [
+                  "s21"
+                ],
+                "cells": [
+                  "0-7"
+                ],
+                "reason": "조현우: 키 큼 뒤쪽 위반"
+              }
+            ]
+          },
+          {
+            "type": "genderPair",
+            "label": "남녀 짝",
+            "hard": false,
+            "total": 10,
+            "ok": 3,
+            "violations": [
+              {
+                "students": [
+                  "s05",
+                  "s08"
+                ],
+                "cells": [
+                  "0-3",
+                  "0-4"
+                ],
+                "reason": "같은 성별 짝: 정하윤-장지우"
+              },
+              {
+                "students": [
+                  "s19",
+                  "s21"
+                ],
+                "cells": [
+                  "0-6",
+                  "0-7"
+                ],
+                "reason": "같은 성별 짝: 홍태양-조현우"
+              },
+              {
+                "students": [
+                  "s07",
+                  "s11"
+                ],
+                "cells": [
+                  "1-0",
+                  "1-1"
+                ],
+                "reason": "같은 성별 짝: 윤서준-오지호"
+              },
+              {
+                "students": [
+                  "s18",
+                  "s24"
+                ],
+                "cells": [
+                  "1-3",
+                  "1-4"
+                ],
+                "reason": "같은 성별 짝: 류채원-노시은"
+              },
+              {
+                "students": [
+                  "s15",
+                  "s06"
+                ],
+                "cells": [
+                  "2-0",
+                  "2-1"
+                ],
+                "reason": "같은 성별 짝: 황도현-강시우"
+              },
+              {
+                "students": [
+                  "s09",
+                  "s13"
+                ],
+                "cells": [
+                  "3-6",
+                  "3-7"
+                ],
+                "reason": "같은 성별 짝: 임예준-신준서"
+              },
+              {
+                "students": [
+                  "s01",
+                  "s20"
+                ],
+                "cells": [
+                  "4-3",
+                  "4-4"
+                ],
+                "reason": "같은 성별 짝: 김하늘-배소율"
+              }
+            ],
+            "note": "4명 단독석(면제)"
+          },
+          {
+            "type": "apart",
+            "label": "분리 쌍",
+            "hard": true,
+            "total": 2,
+            "ok": 2,
+            "violations": []
+          },
+          {
+            "type": "together",
+            "label": "결합 쌍",
+            "hard": false,
+            "total": 1,
+            "ok": 0,
+            "violations": [
+              {
+                "students": [
+                  "s16",
+                  "s12"
+                ],
+                "cells": [
+                  "2-6",
+                  "4-6"
+                ],
+                "reason": "결합 조건 위반: 안지아-서아린"
+              }
+            ]
+          },
+          {
+            "type": "repeatPartner",
+            "label": "최근 3회 짝 회피",
+            "hard": false,
+            "total": 0,
+            "ok": 0,
+            "violations": [],
+            "na": true
+          },
+          {
+            "type": "repeatSeat",
+            "label": "같은 좌석 회피",
+            "hard": false,
+            "total": 0,
+            "ok": 0,
+            "violations": [],
+            "na": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "h3",
+      "date": "2026-05-11",
+      "memo": "3차",
+      "layoutSnapshot": {
+        "id": "Lmvmlpksn",
+        "name": "수업형",
+        "preset": "pair",
+        "params": {
+          "sections": 3,
+          "rows": 5,
+          "groups": 6,
+          "cols": 6,
+          "layers": 2
+        },
+        "rows": 5,
+        "cols": 8,
+        "cells": [
+          {
+            "r": 0,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 0
+          },
+          {
+            "r": 0,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 0
+          },
+          {
+            "r": 0,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 0,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 1
+          },
+          {
+            "r": 0,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 1
+          },
+          {
+            "r": 0,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 0,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 2
+          },
+          {
+            "r": 0,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 2
+          },
+          {
+            "r": 1,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 3
+          },
+          {
+            "r": 1,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 3
+          },
+          {
+            "r": 1,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 1,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 4
+          },
+          {
+            "r": 1,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 4
+          },
+          {
+            "r": 1,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 1,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 5
+          },
+          {
+            "r": 1,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 5
+          },
+          {
+            "r": 2,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 6
+          },
+          {
+            "r": 2,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 6
+          },
+          {
+            "r": 2,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 2,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 7
+          },
+          {
+            "r": 2,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 7
+          },
+          {
+            "r": 2,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 2,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 8
+          },
+          {
+            "r": 2,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 8
+          },
+          {
+            "r": 3,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 9
+          },
+          {
+            "r": 3,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 9
+          },
+          {
+            "r": 3,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 3,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 10
+          },
+          {
+            "r": 3,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 10
+          },
+          {
+            "r": 3,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 3,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 11
+          },
+          {
+            "r": 3,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 11
+          },
+          {
+            "r": 4,
+            "c": 0,
+            "desk": false,
+            "gap": false,
+            "pairGroup": 12
+          },
+          {
+            "r": 4,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 12
+          },
+          {
+            "r": 4,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 4,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 13
+          },
+          {
+            "r": 4,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 13
+          },
+          {
+            "r": 4,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 4,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 14
+          },
+          {
+            "r": 4,
+            "c": 7,
+            "desk": false,
+            "gap": false,
+            "pairGroup": 14
+          }
+        ],
+        "teacherSide": "top",
+        "colTpl": "var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell)",
+        "rowTpl": "var(--cell) var(--cell) var(--cell) var(--cell) var(--cell)"
+      },
+      "seats": {
+        "2-1": "s02",
+        "2-0": "s10",
+        "3-0": "s23",
+        "0-6": "s08",
+        "1-1": "s15",
+        "0-3": "s13",
+        "1-6": "s03",
+        "0-0": "s20",
+        "3-1": "s22",
+        "4-6": "s05",
+        "1-4": "s07",
+        "0-4": "s09",
+        "0-1": "s21",
+        "3-6": "s04",
+        "1-0": "s18",
+        "2-7": "s19",
+        "3-7": "s24",
+        "0-7": "s14",
+        "1-7": "s12",
+        "2-6": "s06",
+        "4-3": "s17",
+        "1-3": "s11",
+        "4-1": "s01",
+        "3-3": "s16"
+      },
+      "locked": [],
+      "conditionsSnapshot": {
+        "front": {
+          "on": true,
+          "hard": true
+        },
+        "focus": {
+          "on": true,
+          "hard": false
+        },
+        "tall": {
+          "on": true,
+          "hard": false
+        },
+        "genderPair": {
+          "on": true,
+          "hard": false
+        },
+        "pairs": {
+          "on": true
+        },
+        "avoidPartnerN": 3,
+        "avoidSeat": true
+      },
+      "report": {
+        "penalty": 5150,
+        "items": [
+          {
+            "type": "front",
+            "label": "앞자리 배려",
+            "hard": true,
+            "total": 3,
+            "ok": 0,
+            "violations": [
+              {
+                "students": [
+                  "s03"
+                ],
+                "cells": [
+                  "1-6"
+                ],
+                "reason": "박서아: 앞자리 배려 위반"
+              },
+              {
+                "students": [
+                  "s11"
+                ],
+                "cells": [
+                  "1-3"
+                ],
+                "reason": "오지호: 앞자리 배려 위반"
+              },
+              {
+                "students": [
+                  "s24"
+                ],
+                "cells": [
+                  "3-7"
+                ],
+                "reason": "노시은: 앞자리 배려 위반"
+              }
+            ]
+          },
+          {
+            "type": "focus",
+            "label": "집중 지원",
+            "hard": false,
+            "total": 2,
+            "ok": 1,
+            "violations": [
+              {
+                "students": [
+                  "s06"
+                ],
+                "cells": [
+                  "2-6"
+                ],
+                "reason": "강시우: 집중 지원 위반"
+              }
+            ]
+          },
+          {
+            "type": "tall",
+            "label": "키 큼 뒤쪽",
+            "hard": false,
+            "total": 3,
+            "ok": 2,
+            "violations": [
+              {
+                "students": [
+                  "s21"
+                ],
+                "cells": [
+                  "0-1"
+                ],
+                "reason": "조현우: 키 큼 뒤쪽 위반"
+              }
+            ]
+          },
+          {
+            "type": "genderPair",
+            "label": "남녀 짝",
+            "hard": false,
+            "total": 10,
+            "ok": 5,
+            "violations": [
+              {
+                "students": [
+                  "s13",
+                  "s09"
+                ],
+                "cells": [
+                  "0-3",
+                  "0-4"
+                ],
+                "reason": "같은 성별 짝: 신준서-임예준"
+              },
+              {
+                "students": [
+                  "s08",
+                  "s14"
+                ],
+                "cells": [
+                  "0-6",
+                  "0-7"
+                ],
+                "reason": "같은 성별 짝: 장지우-권유나"
+              },
+              {
+                "students": [
+                  "s11",
+                  "s07"
+                ],
+                "cells": [
+                  "1-3",
+                  "1-4"
+                ],
+                "reason": "같은 성별 짝: 오지호-윤서준"
+              },
+              {
+                "students": [
+                  "s03",
+                  "s12"
+                ],
+                "cells": [
+                  "1-6",
+                  "1-7"
+                ],
+                "reason": "같은 성별 짝: 박서아-서아린"
+              },
+              {
+                "students": [
+                  "s06",
+                  "s19"
+                ],
+                "cells": [
+                  "2-6",
+                  "2-7"
+                ],
+                "reason": "같은 성별 짝: 강시우-홍태양"
+              }
+            ],
+            "note": "4명 단독석(면제)"
+          },
+          {
+            "type": "apart",
+            "label": "분리 쌍",
+            "hard": true,
+            "total": 2,
+            "ok": 0,
+            "violations": [
+              {
+                "students": [
+                  "s04",
+                  "s06"
+                ],
+                "cells": [
+                  "3-6",
+                  "2-6"
+                ],
+                "reason": "분리 조건 위반: 최민준-강시우"
+              },
+              {
+                "students": [
+                  "s08",
+                  "s14"
+                ],
+                "cells": [
+                  "0-6",
+                  "0-7"
+                ],
+                "reason": "분리 조건 위반: 장지우-권유나"
+              }
+            ]
+          },
+          {
+            "type": "together",
+            "label": "결합 쌍",
+            "hard": false,
+            "total": 1,
+            "ok": 0,
+            "violations": [
+              {
+                "students": [
+                  "s16",
+                  "s12"
+                ],
+                "cells": [
+                  "3-3",
+                  "1-7"
+                ],
+                "reason": "결합 조건 위반: 안지아-서아린"
+              }
+            ]
+          },
+          {
+            "type": "repeatPartner",
+            "label": "최근 3회 짝 회피",
+            "hard": false,
+            "total": 0,
+            "ok": 0,
+            "violations": [],
+            "na": true
+          },
+          {
+            "type": "repeatSeat",
+            "label": "같은 좌석 회피",
+            "hard": false,
+            "total": 0,
+            "ok": 0,
+            "violations": [],
+            "na": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "h4",
+      "date": "2026-09-07",
+      "memo": "2학기 1차",
+      "layoutSnapshot": {
+        "id": "Lmvmlpksn",
+        "name": "수업형",
+        "preset": "pair",
+        "params": {
+          "sections": 3,
+          "rows": 5,
+          "groups": 6,
+          "cols": 6,
+          "layers": 2
+        },
+        "rows": 5,
+        "cols": 8,
+        "cells": [
+          {
+            "r": 0,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 0
+          },
+          {
+            "r": 0,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 0
+          },
+          {
+            "r": 0,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 0,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 1
+          },
+          {
+            "r": 0,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 1
+          },
+          {
+            "r": 0,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 0,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 2
+          },
+          {
+            "r": 0,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 2
+          },
+          {
+            "r": 1,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 3
+          },
+          {
+            "r": 1,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 3
+          },
+          {
+            "r": 1,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 1,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 4
+          },
+          {
+            "r": 1,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 4
+          },
+          {
+            "r": 1,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 1,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 5
+          },
+          {
+            "r": 1,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 5
+          },
+          {
+            "r": 2,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 6
+          },
+          {
+            "r": 2,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 6
+          },
+          {
+            "r": 2,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 2,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 7
+          },
+          {
+            "r": 2,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 7
+          },
+          {
+            "r": 2,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 2,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 8
+          },
+          {
+            "r": 2,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 8
+          },
+          {
+            "r": 3,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 9
+          },
+          {
+            "r": 3,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 9
+          },
+          {
+            "r": 3,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 3,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 10
+          },
+          {
+            "r": 3,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 10
+          },
+          {
+            "r": 3,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 3,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 11
+          },
+          {
+            "r": 3,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 11
+          },
+          {
+            "r": 4,
+            "c": 0,
+            "desk": false,
+            "gap": false,
+            "pairGroup": 12
+          },
+          {
+            "r": 4,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 12
+          },
+          {
+            "r": 4,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 4,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 13
+          },
+          {
+            "r": 4,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 13
+          },
+          {
+            "r": 4,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 4,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 14
+          },
+          {
+            "r": 4,
+            "c": 7,
+            "desk": false,
+            "gap": false,
+            "pairGroup": 14
+          }
+        ],
+        "teacherSide": "top",
+        "colTpl": "var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell)",
+        "rowTpl": "var(--cell) var(--cell) var(--cell) var(--cell) var(--cell)"
+      },
+      "seats": {
+        "4-6": "s23",
+        "3-4": "s21",
+        "2-7": "s06",
+        "3-0": "s11",
+        "0-1": "s22",
+        "2-1": "s03",
+        "1-3": "s08",
+        "1-6": "s05",
+        "4-4": "s14",
+        "3-3": "s20",
+        "2-3": "s09",
+        "0-6": "s16",
+        "1-0": "s15",
+        "2-4": "s01",
+        "1-7": "s24",
+        "0-0": "s12",
+        "2-6": "s18",
+        "3-1": "s07",
+        "1-1": "s19",
+        "0-4": "s10",
+        "0-7": "s13",
+        "2-0": "s17",
+        "3-7": "s02",
+        "3-6": "s04"
+      },
+      "locked": [],
+      "conditionsSnapshot": {
+        "front": {
+          "on": true,
+          "hard": true
+        },
+        "focus": {
+          "on": true,
+          "hard": false
+        },
+        "tall": {
+          "on": true,
+          "hard": false
+        },
+        "genderPair": {
+          "on": true,
+          "hard": false
+        },
+        "pairs": {
+          "on": true
+        },
+        "avoidPartnerN": 3,
+        "avoidSeat": true
+      },
+      "report": {
+        "penalty": 3130,
+        "items": [
+          {
+            "type": "front",
+            "label": "앞자리 배려",
+            "hard": true,
+            "total": 3,
+            "ok": 0,
+            "violations": [
+              {
+                "students": [
+                  "s03"
+                ],
+                "cells": [
+                  "2-1"
+                ],
+                "reason": "박서아: 앞자리 배려 위반"
+              },
+              {
+                "students": [
+                  "s11"
+                ],
+                "cells": [
+                  "3-0"
+                ],
+                "reason": "오지호: 앞자리 배려 위반"
+              },
+              {
+                "students": [
+                  "s24"
+                ],
+                "cells": [
+                  "1-7"
+                ],
+                "reason": "노시은: 앞자리 배려 위반"
+              }
+            ]
+          },
+          {
+            "type": "focus",
+            "label": "집중 지원",
+            "hard": false,
+            "total": 2,
+            "ok": 1,
+            "violations": [
+              {
+                "students": [
+                  "s06"
+                ],
+                "cells": [
+                  "2-7"
+                ],
+                "reason": "강시우: 집중 지원 위반"
+              }
+            ]
+          },
+          {
+            "type": "tall",
+            "label": "키 큼 뒤쪽",
+            "hard": false,
+            "total": 3,
+            "ok": 3,
+            "violations": []
+          },
+          {
+            "type": "genderPair",
+            "label": "남녀 짝",
+            "hard": false,
+            "total": 10,
+            "ok": 5,
+            "violations": [
+              {
+                "students": [
+                  "s12",
+                  "s22"
+                ],
+                "cells": [
+                  "0-0",
+                  "0-1"
+                ],
+                "reason": "같은 성별 짝: 서아린-문다은"
+              },
+              {
+                "students": [
+                  "s15",
+                  "s19"
+                ],
+                "cells": [
+                  "1-0",
+                  "1-1"
+                ],
+                "reason": "같은 성별 짝: 황도현-홍태양"
+              },
+              {
+                "students": [
+                  "s05",
+                  "s24"
+                ],
+                "cells": [
+                  "1-6",
+                  "1-7"
+                ],
+                "reason": "같은 성별 짝: 정하윤-노시은"
+              },
+              {
+                "students": [
+                  "s11",
+                  "s07"
+                ],
+                "cells": [
+                  "3-0",
+                  "3-1"
+                ],
+                "reason": "같은 성별 짝: 오지호-윤서준"
+              },
+              {
+                "students": [
+                  "s04",
+                  "s02"
+                ],
+                "cells": [
+                  "3-6",
+                  "3-7"
+                ],
+                "reason": "같은 성별 짝: 최민준-이도윤"
+              }
+            ],
+            "note": "4명 단독석(면제)"
+          },
+          {
+            "type": "apart",
+            "label": "분리 쌍",
+            "hard": true,
+            "total": 2,
+            "ok": 2,
+            "violations": []
+          },
+          {
+            "type": "together",
+            "label": "결합 쌍",
+            "hard": false,
+            "total": 1,
+            "ok": 0,
+            "violations": [
+              {
+                "students": [
+                  "s16",
+                  "s12"
+                ],
+                "cells": [
+                  "0-6",
+                  "0-0"
+                ],
+                "reason": "결합 조건 위반: 안지아-서아린"
+              }
+            ]
+          },
+          {
+            "type": "repeatPartner",
+            "label": "최근 3회 짝 회피",
+            "hard": false,
+            "total": 0,
+            "ok": 0,
+            "violations": [],
+            "na": true
+          },
+          {
+            "type": "repeatSeat",
+            "label": "같은 좌석 회피",
+            "hard": false,
+            "total": 0,
+            "ok": 0,
+            "violations": [],
+            "na": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "hmvmlpunryv8e",
+      "date": "2026-10-25",
+      "memo": "5차",
+      "createdAt": "2026-10-24T16:16:36.471Z",
+      "layoutSnapshot": {
+        "id": "Lmvmlpksn",
+        "name": "수업형",
+        "preset": "pair",
+        "params": {
+          "sections": 3,
+          "rows": 5,
+          "groups": 6,
+          "cols": 6,
+          "layers": 2
+        },
+        "rows": 5,
+        "cols": 8,
+        "cells": [
+          {
+            "r": 0,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 0
+          },
+          {
+            "r": 0,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 0
+          },
+          {
+            "r": 0,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 0,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 1
+          },
+          {
+            "r": 0,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 1
+          },
+          {
+            "r": 0,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 0,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 2
+          },
+          {
+            "r": 0,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 2
+          },
+          {
+            "r": 1,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 3
+          },
+          {
+            "r": 1,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 3
+          },
+          {
+            "r": 1,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 1,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 4
+          },
+          {
+            "r": 1,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 4
+          },
+          {
+            "r": 1,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 1,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 5
+          },
+          {
+            "r": 1,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 5
+          },
+          {
+            "r": 2,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 6
+          },
+          {
+            "r": 2,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 6
+          },
+          {
+            "r": 2,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 2,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 7
+          },
+          {
+            "r": 2,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 7
+          },
+          {
+            "r": 2,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 2,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 8
+          },
+          {
+            "r": 2,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 8
+          },
+          {
+            "r": 3,
+            "c": 0,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 9
+          },
+          {
+            "r": 3,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 9
+          },
+          {
+            "r": 3,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 3,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 10
+          },
+          {
+            "r": 3,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 10
+          },
+          {
+            "r": 3,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 3,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 11
+          },
+          {
+            "r": 3,
+            "c": 7,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 11
+          },
+          {
+            "r": 4,
+            "c": 0,
+            "desk": false,
+            "gap": false,
+            "pairGroup": 12
+          },
+          {
+            "r": 4,
+            "c": 1,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 12
+          },
+          {
+            "r": 4,
+            "c": 2,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 4,
+            "c": 3,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 13
+          },
+          {
+            "r": 4,
+            "c": 4,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 13
+          },
+          {
+            "r": 4,
+            "c": 5,
+            "desk": false,
+            "gap": true,
+            "pairGroup": null
+          },
+          {
+            "r": 4,
+            "c": 6,
+            "desk": true,
+            "gap": false,
+            "pairGroup": 14
+          },
+          {
+            "r": 4,
+            "c": 7,
+            "desk": false,
+            "gap": false,
+            "pairGroup": 14
+          }
+        ],
+        "teacherSide": "top",
+        "colTpl": "var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell)",
+        "rowTpl": "var(--cell) var(--cell) var(--cell) var(--cell) var(--cell)"
+      },
+      "seats": {
+        "0-0": "s16",
+        "0-1": "s15",
+        "0-3": "s24",
+        "0-4": "s17",
+        "0-6": "s03",
+        "0-7": "s11",
+        "1-0": "s12",
+        "1-1": "s21",
+        "1-3": "s06",
+        "1-4": "s10",
+        "1-6": "s20",
+        "1-7": "s13",
+        "2-0": "s04",
+        "2-1": "s05",
+        "2-3": "s23",
+        "2-4": "s14",
+        "2-6": "s22",
+        "2-7": "s02",
+        "3-0": "s08",
+        "3-1": "s09",
+        "3-3": "s19",
+        "3-4": "s01",
+        "3-6": "s18",
+        "3-7": "s07"
+      },
+      "locked": [],
+      "conditionsSnapshot": {
+        "front": {
+          "on": true,
+          "hard": true
+        },
+        "focus": {
+          "on": true,
+          "hard": false
+        },
+        "tall": {
+          "on": true,
+          "hard": false
+        },
+        "genderPair": {
+          "on": true,
+          "hard": false
+        },
+        "pairs": {
+          "on": true
+        },
+        "avoidPartnerN": 3,
+        "avoidSeat": true
+      },
+      "report": {
+        "penalty": 0,
+        "items": [
+          {
+            "type": "front",
+            "label": "앞자리 배려",
+            "hard": true,
+            "total": 3,
+            "ok": 3,
+            "violations": []
+          },
+          {
+            "type": "focus",
+            "label": "집중 지원",
+            "hard": false,
+            "total": 2,
+            "ok": 2,
+            "violations": []
+          },
+          {
+            "type": "tall",
+            "label": "키 큼 뒤쪽",
+            "hard": false,
+            "total": 3,
+            "ok": 3,
+            "violations": []
+          },
+          {
+            "type": "genderPair",
+            "label": "남녀 짝",
+            "hard": false,
+            "total": 12,
+            "ok": 12,
+            "violations": []
+          },
+          {
+            "type": "apart",
+            "label": "분리 쌍",
+            "hard": true,
+            "total": 2,
+            "ok": 2,
+            "violations": []
+          },
+          {
+            "type": "together",
+            "label": "결합 쌍",
+            "hard": false,
+            "total": 1,
+            "ok": 1,
+            "violations": []
+          },
+          {
+            "type": "repeatPartner",
+            "label": "최근 3회 짝 회피",
+            "hard": false,
+            "total": 12,
+            "ok": 12,
+            "violations": [],
+            "na": false
+          },
+          {
+            "type": "repeatSeat",
+            "label": "같은 좌석 회피",
+            "hard": false,
+            "total": 24,
+            "ok": 24,
+            "violations": [],
+            "na": false
+          }
+        ]
+      }
+    }
+  ],
+  "groupHistory": [
+    {
+      "id": "g1",
+      "date": "2026-05-20",
+      "memo": "과학 실험",
+      "groupCount": 6,
+      "groups": [
+        {
+          "idx": 0,
+          "name": "빨강모둠",
+          "color": "#E25555",
+          "members": [
+            {
+              "studentId": "s14",
+              "role": "이끔이"
+            },
+            {
+              "studentId": "s12",
+              "role": "기록이"
+            },
+            {
+              "studentId": "s08",
+              "role": "나눔이"
+            },
+            {
+              "studentId": "s15",
+              "role": "지킴이"
+            }
+          ]
+        },
+        {
+          "idx": 1,
+          "name": "주황모둠",
+          "color": "#F59E0B",
+          "members": [
+            {
+              "studentId": "s17",
+              "role": "이끔이"
+            },
+            {
+              "studentId": "s18",
+              "role": "기록이"
+            },
+            {
+              "studentId": "s24",
+              "role": "나눔이"
+            },
+            {
+              "studentId": "s03",
+              "role": "지킴이"
+            }
+          ]
+        },
+        {
+          "idx": 2,
+          "name": "노랑모둠",
+          "color": "#EAC435",
+          "members": [
+            {
+              "studentId": "s04",
+              "role": "이끔이"
+            },
+            {
+              "studentId": "s07",
+              "role": "기록이"
+            },
+            {
+              "studentId": "s01",
+              "role": "나눔이"
+            },
+            {
+              "studentId": "s13",
+              "role": "지킴이"
+            }
+          ]
+        },
+        {
+          "idx": 3,
+          "name": "초록모둠",
+          "color": "#3BA55D",
+          "members": [
+            {
+              "studentId": "s19",
+              "role": "이끔이"
+            },
+            {
+              "studentId": "s23",
+              "role": "기록이"
+            },
+            {
+              "studentId": "s20",
+              "role": "나눔이"
+            },
+            {
+              "studentId": "s09",
+              "role": "지킴이"
+            }
+          ]
+        },
+        {
+          "idx": 4,
+          "name": "파랑모둠",
+          "color": "#3B82F6",
+          "members": [
+            {
+              "studentId": "s06",
+              "role": "이끔이"
+            },
+            {
+              "studentId": "s10",
+              "role": "기록이"
+            },
+            {
+              "studentId": "s05",
+              "role": "나눔이"
+            },
+            {
+              "studentId": "s02",
+              "role": "지킴이"
+            }
+          ]
+        },
+        {
+          "idx": 5,
+          "name": "보라모둠",
+          "color": "#8B5CF6",
+          "members": [
+            {
+              "studentId": "s22",
+              "role": "이끔이"
+            },
+            {
+              "studentId": "s16",
+              "role": "기록이"
+            },
+            {
+              "studentId": "s21",
+              "role": "나눔이"
+            },
+            {
+              "studentId": "s11",
+              "role": "지킴이"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "roles": [
+      "이끔이",
+      "기록이",
+      "나눔이",
+      "지킴이"
+    ],
+    "groupNames": [
+      "빨강모둠",
+      "주황모둠",
+      "노랑모둠",
+      "초록모둠",
+      "파랑모둠",
+      "보라모둠",
+      "하늘모둠",
+      "분홍모둠",
+      "갈색모둠",
+      "회색모둠"
+    ],
+    "groupColors": [
+      "#E25555",
+      "#F59E0B",
+      "#EAC435",
+      "#3BA55D",
+      "#3B82F6",
+      "#8B5CF6",
+      "#06B6D4",
+      "#EC4899",
+      "#A16207",
+      "#6B7280"
+    ],
+    "avoidN": 3,
+    "flipIntervalMs": 700,
+    "sound": false,
+    "print": {
+      "showNo": true,
+      "genderColor": true,
+      "title": true
+    },
+    "weights": {
+      "hard": 1000,
+      "apart": 50,
+      "together": 50,
+      "front": 40,
+      "focus": 30,
+      "tall": 20,
+      "gender": 10,
+      "repeatPartner": 15,
+      "repeatSeat": 5
+    }
+  }
+}

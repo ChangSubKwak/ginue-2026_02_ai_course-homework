@@ -1,0 +1,20 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/01_교과교육지원_분수교구함/index.html",
+  "test": "debug-qa.js",
+  "passed": [
+    "debug"
+  ],
+  "failed": [],
+  "logs": [
+    "c5-08: {\"pts\":2,\"labels\":[\"1/4\",\"0.3\"],\"ticks\":21,\"circleHidden\":true,\"chain\":\"1/4vs3/10 = 0.3\"}",
+    "empty list html: <li class=\"empty\">카드가 없어요.<br><button type=\"button\" class=\"chip-btn\" data-action=\"reset-samples\">샘플 복원</button></li>",
+    "modal count after click: 1 text=샘플 복원\n×\n\n내장 장면 12개·탐구 카드 24장·세트 2개를 원본으로 되살려요. 직접 만든 장면·카드는 그대로 유지됩니다.\n\n취소\n복원",
+    "after restore counts: {\"scenes\":12,\"cards\":24,\"cardSets\":2} listItems=24 toasts=[\"샘플 데이터를 복원했어요\"]"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "1 passed, 0 failed, 0 page errors, 0 console errors"
+}

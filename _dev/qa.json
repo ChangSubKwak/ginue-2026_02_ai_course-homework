@@ -1,0 +1,1478 @@
+{
+  "apps": [
+    {
+      "app": {
+        "app_name": "분수교구함",
+        "app_name_en": "fraction-kit",
+        "folder_slug": "01_교과교육지원_분수교구함",
+        "category_num": 1,
+        "category": "교과 교육지원 앱"
+      },
+      "code_lines": 2453,
+      "build": {
+        "files": [
+          {
+            "path": "index.html",
+            "lines": 234
+          },
+          {
+            "path": "css/style.css",
+            "lines": 476
+          },
+          {
+            "path": "js/data.js",
+            "lines": 92
+          },
+          {
+            "path": "js/fraction.js",
+            "lines": 72
+          },
+          {
+            "path": "js/render.js",
+            "lines": 177
+          },
+          {
+            "path": "js/ui.js",
+            "lines": 166
+          },
+          {
+            "path": "js/app.js",
+            "lines": 624
+          },
+          {
+            "path": "js/cards.js",
+            "lines": 230
+          },
+          {
+            "path": "js/scenes.js",
+            "lines": 269
+          },
+          {
+            "path": "README.md",
+            "lines": 87
+          }
+        ],
+        "features": [
+          {
+            "name": "3표상 연동 교구판(막대·원·수직선·기호)",
+            "priority": "must",
+            "status": "done",
+            "note": "슬라이더 1~24, 칸 클릭/드래그, 원 12등분 제한 캡션, 수직선 스냅, 가분수 단위 확장, 모델 표시·범위 선택"
+          },
+          {
+            "name": "같게 쪼개기·합치기 애니메이션",
+            "priority": "must",
+            "status": "done",
+            "note": "×2/×3 새 분할선 fadeIn, 합치기 ghost fadeOut, 사슬·라벨, 24 초과 비활성+툴팁, 기약분수 토스트"
+          },
+          {
+            "name": "비교·통분 보드",
+            "priority": "must",
+            "status": "done",
+            "note": "칩·키패드·분모±, 겹쳐 보기(반투명+빗금+차이), 3단계 다음/자동 재생/처음으로, 같은 분모 토스트"
+          },
+          {
+            "name": "덧셈·뺄셈 단계 시각화",
+            "priority": "must",
+            "status": "done",
+            "note": "통분→이동/지우기→결과(대분수, 번쩍임)→약분, A<B 자리 바꾸기 모달, 식 전개"
+          },
+          {
+            "name": "예측-확인 탐구 카드",
+            "priority": "must",
+            "status": "done",
+            "note": "24장·세트 2개, 커튼, 확인 시 유형별 자동 재생, 메시지·해설, 학급 집계(저장·강조), 이전/다음"
+          },
+          {
+            "name": "장면 보관함 + JSON 내보내기/가져오기",
+            "priority": "must",
+            "status": "done",
+            "note": "저장 모달, 썸네일 그리드, 검색·필터, 불러오기/이름/복제/삭제, 검증·원자적 병합, 요약 모달, 샘플 복원, 200개 제한"
+          },
+          {
+            "name": "활동지 생성·A4 인쇄",
+            "priority": "must",
+            "status": "done",
+            "note": "카드·장면·빠른 문항, 5유형 렌더, 설정, 순서/섞기, 쪽당 6문항 미리보기, 정답지 별도 페이지, @media print"
+          },
+          {
+            "name": "탐구 카드 편집·세트 관리",
+            "priority": "should",
+            "status": "done",
+            "note": "편집/새 카드 모달 인라인 유효성, 삭제 확인, 순서 ↑↓, 체크 → 세트 저장"
+          },
+          {
+            "name": "전자칠판 모드",
+            "priority": "should",
+            "status": "done",
+            "note": "data-board=on, 24px 기준 글꼴, 56px 버튼, 고대비, 전체화면(API 실패 시 CSS 대체), 커튼(카드 확인 시 자동 해제), 설정 저장. 제어 패널은 보조 행 숨김으로 축소(아이콘 바 대신)"
+          },
+          {
+            "name": "펜 주석 레이어(Canvas)",
+            "priority": "should",
+            "status": "done",
+            "note": "빨강/파랑/형광/지우개/모두 지우기/끄기, 정규화 좌표 보존·리사이즈 재그리기, 펜 중 SVG 조작 차단"
+          },
+          {
+            "name": "되돌리기/다시하기(50단계)",
+            "priority": "should",
+            "status": "done",
+            "note": "탭별 스택, 버튼+Ctrl+Z/Y/Shift+Z, 애니메이션 없이 렌더"
+          },
+          {
+            "name": "오개념 거울",
+            "priority": "should",
+            "status": "done",
+            "note": "교사 모드·결과 단계 이후 활성, 빨간 빗금 막대+공통 보조선, 차이 라벨, 음수 문구"
+          },
+          {
+            "name": "수직선 어림해서 찍기",
+            "priority": "should",
+            "status": "done",
+            "note": "목표 입력/무작위, 눈금 숨김, 탭 후 0.3초 정답 점, 거리 피드백, 다시/끝내기"
+          },
+          {
+            "name": "학년 프리셋",
+            "priority": "nice",
+            "status": "done",
+            "note": "슬라이더 상한, 3학년 덧셈뺄셈 탭 숨김, 소수 기본값, 카드 필터, 활동지 모델"
+          },
+          {
+            "name": "장면 그림(PNG) 저장",
+            "priority": "nice",
+            "status": "done",
+            "note": "작업 영역 SVG 직렬화→1600px Canvas→PNG, 펜 주석 합성 옵션, 실패 시 토스트"
+          }
+        ],
+        "self_check": {
+          "lint_issues": 0,
+          "pw_problems": [],
+          "page_errors": 0,
+          "console_errors": 0,
+          "acceptance_checked": 17,
+          "acceptance_test_module": "scratchpad/tests/fraction-kit/acceptance.js (76 checks passed)",
+          "should_test_module": "scratchpad/tests/fraction-kit/should.js (23 checks passed)",
+          "screenshots": [
+            "check-final/desktop-light.png",
+            "check-final/desktop-dark.png",
+            "check-final/mobile-light.png",
+            "out/compare.png",
+            "out/arith.png",
+            "out/mirror.png",
+            "out/cards.png",
+            "out/sheet.png",
+            "out/board.png",
+            "out/mobile-kit.png",
+            "out/scenes.png"
+          ]
+        },
+        "known_issues": [
+          "칠판 모드의 제어 패널은 스펙의 '세로 아이콘 바'가 아니라 보조 행(범위·모델 표시)을 숨긴 축소 패널로 구현",
+          "Ctrl+P는 브라우저 기본 인쇄를 쓰며 beforeprint에서 활동지 루트를 갱신하므로 문항 0개면 빈 페이지가 출력될 수 있음(앱 내 인쇄 버튼은 비활성)",
+          "localStorage 키는 공통 규약의 접두어를 따라 'edu.fraction-kit.v1.*'로 저장(스펙의 'fractionKit.v1.*' 대신)"
+        ]
+      },
+      "findings": {
+        "functional": {
+          "total": 11,
+          "critical": 0,
+          "major": 3,
+          "minor": 8,
+          "acceptance_fail": 1,
+          "summary": "분수교구함 기능 검증(Playwright·Edge headless). 테스트 모듈 6개(func-kit/boards/cards/scenes/shell/edge)에서 expect 496건 실행, 488 통과·8 실패(실패 8건은 모두 앱 결함으로 확인, 테스트 오류는 수정 후 재실행). 페이지 예외 0, 콘솔 오류 0, alert/confirm/prompt 0건. lint-app.js issues 0, pw-check.js problems 0(400px의 'elementsPastRightEdge' 2건은 overflow-x:auto 탭 내비게이션의 탭 칩으로 허용 범위). 수용 기준 17개 중 16개 통과, 1개 실패(AC10: 학급 집계에 두 자리 수를 키보드로 타이핑하면 자릿수가 뒤집혀 12→21이 됨).",
+          "top": [
+            {
+              "id": "F-01",
+              "severity": "major",
+              "title": "학급 집계 숫자 입력란에 두 자리 수를 타이핑하면 자릿수가 뒤집힘(15 → 51, 12 → 21)"
+            },
+            {
+              "id": "F-02",
+              "severity": "major",
+              "title": "비교·통분 탭을 거쳐 덧셈·뺄셈 탭으로 돌아오면 연산 탭의 A·B 입력이 비교 탭 값으로 무조건 덮어써짐"
+            },
+            {
+              "id": "F-03",
+              "severity": "major",
+              "title": "400px 폭에서 툴바 '더 보기(⋯)' 메뉴가 화면 왼쪽 밖으로 59px 잘려 항목 글자가 읽히지 않음"
+            }
+          ]
+        },
+        "code": {
+          "total": 24,
+          "critical": 2,
+          "major": 4,
+          "minor": 18,
+          "acceptance_fail": 0,
+          "summary": "분수교구함 소스 전체(index.html, css/style.css, js 7개, README.md, 2,340줄)를 읽고 lint(0건)·pw-check(콘솔 오류 0, 가로 스크롤 0)·Playwright 재현 모듈 2개(code-review.js 76체크, code-review-2.js 9체크)로 검증했다. 수용 기준 17개는 모두 통과했고 핵심 수 계산(소수 표기·통분·약분·대분수·차이)은 정확했다. 결함 24건: critical 2(가져오기 JSON의 id·chain.op가 innerHTML에 이스케이프 없이 삽입되는 XSS), major 4(덧셈·뺄셈 결과 막대 칸 클릭 시 TypeError 예외, 다크 테마에서 칠판 모드 고대비 팔레트가 CSS 우선순위에 밀려 미적용, 뺄셈 이동 애니메이션 중 ",
+          "top": [
+            {
+              "id": "C-01",
+              "severity": "critical",
+              "title": "가져온 JSON의 id 문자열이 이스케이프 없이 innerHTML 속성에 삽입되어 XSS 가능"
+            },
+            {
+              "id": "C-02",
+              "severity": "critical",
+              "title": "장면 chain[].op가 검증·이스케이프 없이 식 영역 innerHTML에 삽입되어 XSS 가능"
+            },
+            {
+              "id": "C-03",
+              "severity": "major",
+              "title": "덧셈·뺄셈 탭 0단계에서 결과 막대 칸을 클릭하면 TypeError(uncaught) 발생"
+            },
+            {
+              "id": "C-04",
+              "severity": "major",
+              "title": "다크 테마(OS 다크 또는 수동 다크)에서 칠판 모드의 고대비·흰 배경 팔레트가 적용되지 않음"
+            },
+            {
+              "id": "C-05",
+              "severity": "major",
+              "title": "뺄셈 이동 애니메이션 중 되돌리기·장면 불러오기를 하면 옛 상태가 다시 그려져 화면과 상태가 어긋남"
+            },
+            {
+              "id": "C-06",
+              "severity": "major",
+              "title": "어림 모드 중 ×2·×3·합치기를 누르면 목표 분수의 분모가 바뀐 분모와 어긋나 피드백이 틀림"
+            }
+          ]
+        },
+        "ux": {
+          "total": 22,
+          "critical": 0,
+          "major": 9,
+          "minor": 13,
+          "acceptance_fail": 0,
+          "summary": "분수교구함 UX·시각 리뷰. 데스크톱 1280(라이트·다크)·1920 칠판 모드·태블릿 820·모바일 400/360에서 6개 탭·모든 모달(도움말·장면 저장·이름 바꾸기·삭제·샘플 복원·키패드·카드 편집·새 카드·세트 저장·어림·뺄셈 순서·가져오기 결과·모두 지우기)·상태 변화(쪼개기 사슬, 가분수, 분모 13/24, 통분 3단계, 덧셈 4단계, 오개념 거울, 카드 예측→확인, 집계, 빈 상태, 오류 토스트, 인쇄 미디어)를 140장 촬영해 확인했다. lint 0건, pw-check 0건, 콘솔 오류 0건, 가로 스크롤 없음. 전반적으로 비교·통분과 덧셈·뺄셈 화면, 모달·토스트·빈 상태·다크 팔레트는 완성도가 높다. 결함은 critical 0 / major 9 / minor 13. 핵심 3건: (1) 교구",
+          "top": [
+            {
+              "id": "U-01",
+              "severity": "major",
+              "title": "막대·수직선 모델이 너무 작아 칸 번호·눈금 라벨을 읽을 수 없음(전자칠판 시연 부적합)"
+            },
+            {
+              "id": "U-02",
+              "severity": "major",
+              "title": "동치 사슬이 가로 한 줄('1/2 = 2/4 = 6/12')이 아니라 세로로 쌓이고 ×2/÷2 라벨이 11px"
+            },
+            {
+              "id": "U-03",
+              "severity": "major",
+              "title": "약분하면 유한소수인 분수(6/12, 3/6, 2/4 …)를 '≈0.500'으로 표시"
+            },
+            {
+              "id": "U-04",
+              "severity": "major",
+              "title": "장면 카드의 메모 첫 줄이 분수의 '/'에서 잘려 '7', '5', '2'만 표시됨"
+            },
+            {
+              "id": "U-05",
+              "severity": "major",
+              "title": "다크 테마에서 '칠판' 모드를 켜도 흰 배경 고대비 팔레트로 바뀌지 않음"
+            },
+            {
+              "id": "U-06",
+              "severity": "major",
+              "title": "400px에서 '⋯ 더 보기' 메뉴가 화면 왼쪽으로 59px 잘려 항목 글자가 보이지 않음"
+            },
+            {
+              "id": "U-07",
+              "severity": "major",
+              "title": "400px에서 막대·수직선 SVG가 viewBox 비율로 축소돼 칸 번호·A/B/결과 라벨·눈금 라벨이 7~9px"
+            },
+            {
+              "id": "U-08",
+              "severity": "major",
+              "title": "교사 모드 카드 목록이 체크박스+↑↓✎× 4개 버튼에 밀려 질문이 2줄 말줄임되고 한 화면에 3장만 보임"
+            }
+          ]
+        }
+      },
+      "findings_total": 57,
+      "findings_critical_major": 18,
+      "rounds": [],
+      "final_status": "unknown",
+      "live_link": "https://changsubkwak.github.io/ginue-2026_02_ai_course-homework/01_%EA%B5%90%EA%B3%BC%EA%B5%90%EC%9C%A1%EC%A7%80%EC%9B%90_%EB%B6%84%EC%88%98%EA%B5%90%EA%B5%AC%ED%95%A8/"
+    },
+    {
+      "app": {
+        "app_name": "기억상자",
+        "app_name_en": "memory-box",
+        "folder_slug": "02_학습지도_기억상자",
+        "category_num": 2,
+        "category": "학습지도용 앱"
+      },
+      "code_lines": 1566,
+      "build": {
+        "files": [
+          {
+            "path": "index.html",
+            "lines": 81
+          },
+          {
+            "path": "css/style.css",
+            "lines": 330
+          },
+          {
+            "path": "js/util.js",
+            "lines": 193
+          },
+          {
+            "path": "js/data.js",
+            "lines": 134
+          },
+          {
+            "path": "js/app.js",
+            "lines": 707
+          },
+          {
+            "path": "README.md",
+            "lines": 90
+          }
+        ],
+        "features": [
+          {
+            "name": "카드 등록(암기 카드·오답 카드)",
+            "priority": "must",
+            "status": "done",
+            "note": "유형 토글, 300자 카운터, 오답 시 내 답+원인 칩(미선택 시 저장 비활성), 저장하고 하나 더, 수정/삭제 모달, 중복 앞면 경고"
+          },
+          {
+            "name": "덱 관리와 CSV 가져오기·내보내기",
+            "priority": "must",
+            "status": "done",
+            "note": "과목 색 띠·상자 분포 미니 막대, CSV 드롭존→미리보기(총 행·건너뜀·중복·따옴표/UTF-8 경고)→일괄 생성, BOM CSV 내보내기, 검색·상자·유형 필터·정렬"
+          },
+          {
+            "name": "라이트너 간격 반복 스케줄러와 오늘 큐",
+            "priority": "must",
+            "status": "done",
+            "note": "1·2·4·7·15·30일, 밀림→낮은 상자→오래된 순, 홈 큐 버튼·상자 5개·목표 진행 바·스트릭, 빈 큐 시 내일 N장·미리 복습 5장"
+          },
+          {
+            "name": "복습 세션(확신도→뒤집기→자기 채점→상자 이동)",
+            "priority": "must",
+            "status": "done",
+            "note": "CSS 3D 플립, 미니 상자로 날아가는 400ms 애니메이션(reduce-motion 생략), 오답 틀림 시 원인 패널 필수, 키보드 1/2/3·Space·←/→·Esc, 카드별 즉시 저장+이어서 하기"
+          },
+          {
+            "name": "세션 요약: 4분면 피드백·코칭 한 줄·되새김 한 줄",
+            "priority": "must",
+            "status": "done",
+            "note": "2×2 표(칸 클릭 시 카드 목록), 상자 이동 요약, R1~R6 규칙 코칭, 80자 되새김 저장→기록 탭 맨 위"
+          },
+          {
+            "name": "기록 대시보드(잔디 달력·상자 분포·원인 도넛·망각 예측)",
+            "priority": "must",
+            "status": "done",
+            "note": "SVG 4종 직접 구현, 토글 시 두 번째 선+7일 뒤 N장, 요약 카드 4개, 되새김 20개"
+          },
+          {
+            "name": "프로필·저장·백업·샘플 데이터",
+            "priority": "must",
+            "status": "done",
+            "note": "프로필 칩 팝오버 전환, try/catch 저장+배너+메모리 모드, 백업/복원(덮어쓰기·프로필로 추가·먼저 백업), 요약 JSON, CSV 템플릿, 샘플 다시 넣기, 이름 입력 삭제, 용량 게이지"
+          },
+          {
+            "name": "인쇄: 암기카드 양면·다시풀기 학습지",
+            "priority": "should",
+            "status": "done",
+            "note": "2×4 양면(뒷면 행 반전, 빈 칸 유지, 글자 3단계 축소), 학습지+별지 정답표, 전용 미리보기·window.print·@media print"
+          },
+          {
+            "name": "시험 D-Day 계획",
+            "priority": "should",
+            "status": "done",
+            "note": "min=내일, 덱 다중 선택, i mod D 균등 분배(앞당기기만), 홈 D-n 배너, 계획 달력(완료 체크), 다시 생성, 시험 끝→틀린 문제 추가"
+          },
+          {
+            "name": "교사 모드: 학급 오답 집계",
+            "priority": "should",
+            "status": "done",
+            "note": "요약 JSON 다중 드롭(백업 자동 변환, 같은 이름 최신 교체, 파일별 실패 토스트), 단원×원인 표(셀 클릭 학생 이름), 복습 포인트 3장, 집중 지도 3유형, 집계 CSV, 템플릿, 샘플 학급 6명"
+          },
+          {
+            "name": "손그림 캔버스",
+            "priority": "should",
+            "status": "done",
+            "note": "320×200, 펜 2색·2굵기, 지우개, 되돌리기 10단계, 전체 지우기, Pointer Events, JPEG 0.6, 150장/4MB 경고·4.8MB 차단 모달"
+          },
+          {
+            "name": "복습 보조: 반복 오류 경고·스와이프·미리 복습",
+            "priority": "should",
+            "status": "done",
+            "note": "failReasons 최근 3개 동일 배지·필터·코칭 우선, 가로 60px 스와이프(세로 우세 무시), 내일·모레 낮은 상자 5장 미리 복습"
+          },
+          {
+            "name": "상자 간 드래그로 수동 조정",
+            "priority": "nice",
+            "status": "skipped",
+            "note": "코드량·터치 복잡도 고려해 제외(카드 수정 모달로 대체 가능)"
+          },
+          {
+            "name": "주간 리포트 카드",
+            "priority": "nice",
+            "status": "done",
+            "note": "A5 미리보기(월~일 장수, 정답률, 최다 원인, 새 숙달, 되새김), 보호자 확인 체크 저장(weeklyChecks)"
+          }
+        ],
+        "self_check": {
+          "lint_issues": 0,
+          "pw_problems": [],
+          "page_errors": 0,
+          "console_errors": 0,
+          "acceptance_checked": 15,
+          "acceptance_assertions": "58 passed / 0 failed (tests/memory-box/accept.js, final-accept.result.json)",
+          "visual_pass": "14 passed (tests/memory-box/visual.js): 데스크톱·400px 6개 화면+인쇄 미리보기+카드 모달 가로 스크롤 0, 스크린샷 26장 확인",
+          "screenshots": "tests/memory-box/final-check/{desktop-light,desktop-dark,mobile-light}.png, final-accept/*.png, final-visual/*.png"
+        },
+        "known_issues": [
+          "nice 기능 '상자 간 드래그로 수동 조정' 미구현",
+          "인쇄 미리보기 화면 폭이 400px이면 A4 페이지가 가로 축소 없이 화면 폭에 맞춰 잘려 보일 수 있음(인쇄 결과에는 영향 없음)",
+          "Google Fonts 오프라인 시 Gaegu 제목 글꼴이 시스템 글꼴로 대체됨(레이아웃 영향 없음)"
+        ]
+      },
+      "findings": {
+        "functional": {
+          "total": 16,
+          "critical": 3,
+          "major": 3,
+          "minor": 10,
+          "acceptance_fail": 0,
+          "summary": "기억상자(02_학습지도_기억상자)를 Playwright(pw-run.js) 모듈 6개(func-session / func-cards / func-history-exam-print / func-settings-data / func-robustness / func-responsive-theme, 총 450 expect: 422 통과·28 실패)로 직접 실행 검증했다. lint-app.js 0건, pw-check.js problems 0건(3개 뷰 스크린샷·콘솔 오류 0·가로 스크롤 0), alert/confirm/prompt dialog 0건. 스펙 acceptance_criteria 15개는 모두 통과(15 pass / 0 fail). 실패 28건은 모두 아래 결함 16건으로 귀결된다: critical 3(교",
+          "top": [
+            {
+              "id": "F-01",
+              "severity": "critical",
+              "title": "교사 모드에서 가져온 복습 요약 JSON의 stats 값이 이스케이프 없이 innerHTML에 들어가 스크립트가 실행된다(XSS)"
+            },
+            {
+              "id": "F-02",
+              "severity": "critical",
+              "title": "형식 검증이 type 문자열뿐이라 깨진 백업을 '덮어쓰기'하면 기존 프로필 데이터가 모두 삭제된 뒤 예외로 멈추고, 새로고침하면 카드 0장이 된다"
+            },
+            {
+              "id": "F-03",
+              "severity": "critical",
+              "title": "wrong이 배열이 아닌 요약 JSON 1개를 가져오면 교사 탭이 예외로 렌더되지 않아 영구히 빈 화면이 된다(지우기 버튼도 사라짐)"
+            },
+            {
+              "id": "F-04",
+              "severity": "major",
+              "title": "오늘 큐 정렬이 스펙과 반대 — 오늘 예정 카드가 먼저 나오고 가장 밀린 카드가 맨 뒤로 간다"
+            },
+            {
+              "id": "F-05",
+              "severity": "major",
+              "title": "복습 세션 진행 표시 '현재 / 전체'가 카드를 처리할 때마다 전체 수까지 늘어난다(1/11 → 3/12 → 5/13 → 7/14), 진행 바도 어긋남"
+            },
+            {
+              "id": "F-06",
+              "severity": "major",
+              "title": "상자 이동 애니메이션(420ms) 동안 →/← 키·스와이프가 막히지 않아, 화면에 나오지도 않은 다음 카드가 이전 확신도로 채점된다"
+            }
+          ]
+        },
+        "code": {
+          "total": 20,
+          "critical": 3,
+          "major": 2,
+          "minor": 15,
+          "acceptance_fail": 0,
+          "summary": "기억상자 소스 전체(index.html 80줄, css/style.css 329줄, js/util.js 192줄, js/data.js 133줄, js/app.js 706줄, README.md)를 정독하고 lint(0건)·스모크(0건)·pw-run 모듈 2개(결함 재현 7건, acceptance 15개 51 assertion 전부 통과)로 확인했다. 결함 20건: critical 3(형식 검증 없는 백업 덮어쓰기로 전체 카드 삭제, 형식 어긋난 교사 요약 파일로 교사 탭 영구 공백, 교사 요약 JSON stats 값 XSS), major 2(오늘 큐 정렬이 스펙과 반대로 '오늘 카드 → 밀린 카드' 순, 상자 이동 애니메이션 420ms 동안 키/스와이프 입력이 다음 카드를 보이지도 않은 채 채점), minor",
+          "top": [
+            {
+              "id": "C-01",
+              "severity": "critical",
+              "title": "백업 복원 형식 검증이 type 문자열뿐이라 깨진 백업을 '덮어쓰기'하면 기존 프로필 데이터가 모두 삭제된 뒤 예외로 중단된다"
+            },
+            {
+              "id": "C-02",
+              "severity": "critical",
+              "title": "교사 요약 JSON 가져오기에 구조 검증이 없어 wrong이 배열이 아닌 파일 1개로 교사 탭이 영구히 빈 화면이 된다"
+            },
+            {
+              "id": "C-03",
+              "severity": "critical",
+              "title": "교사 요약 JSON의 stats 값과 백업의 drawing 값이 이스케이프 없이 innerHTML/속성에 들어가 가져온 파일로 스크립트가 실행된다"
+            },
+            {
+              "id": "M-01",
+              "severity": "major",
+              "title": "오늘 큐 정렬이 스펙과 반대 — 오늘 카드가 먼저, 가장 밀린 카드가 맨 뒤로 온다"
+            },
+            {
+              "id": "M-02",
+              "severity": "major",
+              "title": "상자 이동 애니메이션 420ms 동안 ←/→ 키·스와이프가 막히지 않아 다음 카드가 화면에 나오기도 전에 이전 확신도로 채점된다(마지막 카드에서는 예외 추정)"
+            }
+          ]
+        },
+        "ux": {
+          "total": 25,
+          "critical": 0,
+          "major": 8,
+          "minor": 17,
+          "acceptance_fail": 0,
+          "summary": "기억상자 UX·시각 리뷰. lint 0건, pw-check 0건(콘솔 오류·가로 스크롤 없음). 이전 담당자의 ux-shots.js 결과(5개 뷰포트×모든 화면·모달·빈 상태·인쇄 미디어, 60 체크 통과, 201장)를 재활용하고 ux-shots2/3.js로 의심 지점을 수치 측정(대비·겹침·인쇄 폭·정렬)하며 23장을 추가 촬영해 총 224장을 직접 확인했다. 전반적 완성도는 높다: 첫 화면에서 '오늘 복습 11장' 버튼과 상자 5개로 앱의 목적이 바로 읽히고, 세션(확신도→뒤집기→채점→원인 태그), 요약 4분면, 기록 차트 4종, 인쇄물 2종, 교사 집계, 빈 상태 문구, 포커스 링, 다크 모드 토큰이 모두 갖춰져 있으며 크림색 공책·손글씨 분위기가 일관된다. 결함 25건: critical 0, majo",
+          "top": [
+            {
+              "id": "U-01",
+              "severity": "major",
+              "title": "저장 불가 배너의 '설정으로' 버튼이 52×94px로 찌그러져 글자가 세로로 한 글자씩 떨어진다"
+            },
+            {
+              "id": "U-02",
+              "severity": "major",
+              "title": "400px에서 인쇄 미리보기 페이지가 실제 A4(794px)/A5(559px) 폭으로 그려져 오른쪽 열·표가 잘리고 미리보기 안에서 가로 스크롤을 해야 한다"
+            },
+            {
+              "id": "U-03",
+              "severity": "major",
+              "title": "다크 모드에서 A5 주간 리포트의 요일 머리글(월~일)이 어두운 띠 위 검정 글자(대비 1.38)로 읽히지 않는다"
+            },
+            {
+              "id": "U-04",
+              "severity": "major",
+              "title": "'맞았어요/틀렸어요' 버튼의 흰 글자 대비가 라이트 3.54/4.36, 다크 2.19/2.82로 기준(4.5) 미달"
+            },
+            {
+              "id": "U-05",
+              "severity": "major",
+              "title": "12px 배지 글자 대비 부족: '같은 이유로 3번' 2.58, '오답'·'밀림 10/24' 3.52"
+            },
+            {
+              "id": "U-06",
+              "severity": "major",
+              "title": "400px 첫 화면에서 FAB(+)이 5상자 카드의 아래 22px('15일마다' 라벨)을 가린다"
+            },
+            {
+              "id": "U-07",
+              "severity": "major",
+              "title": "'되새김 한 줄' 목록이 날짜 역순이 아니다 — 샘플 5건은 오래된 순(10-19→10-23)으로 나열되고 새로 쓴 글만 맨 위에 온다"
+            },
+            {
+              "id": "U-08",
+              "severity": "major",
+              "title": "4분면 칸을 펼치면 같은 줄의 옆 칸이 364px로 늘어나며 숫자·라벨·설명이 위·가운데·아래로 흩어진다"
+            }
+          ]
+        }
+      },
+      "findings_total": 61,
+      "findings_critical_major": 19,
+      "rounds": [],
+      "final_status": "unknown",
+      "live_link": "https://changsubkwak.github.io/ginue-2026_02_ai_course-homework/02_%ED%95%99%EC%8A%B5%EC%A7%80%EB%8F%84_%EA%B8%B0%EC%96%B5%EC%83%81%EC%9E%90/"
+    },
+    {
+      "app": {
+        "app_name": "자리뚝딱",
+        "app_name_en": "jari-ttukttak",
+        "folder_slug": "03_업무자동화_자리뚝딱",
+        "category_num": 3,
+        "category": "학교 업무 자동화 앱"
+      },
+      "code_lines": 2118,
+      "build": {
+        "files": [
+          {
+            "path": "index.html",
+            "lines": 207
+          },
+          {
+            "path": "css/style.css",
+            "lines": 372
+          },
+          {
+            "path": "js/data.js",
+            "lines": 124
+          },
+          {
+            "path": "js/engine.js",
+            "lines": 345
+          },
+          {
+            "path": "js/ui.js",
+            "lines": 132
+          },
+          {
+            "path": "js/app.js",
+            "lines": 744
+          },
+          {
+            "path": "README.md",
+            "lines": 85
+          }
+        ],
+        "features": [
+          {
+            "name": "학급 명렬 관리",
+            "priority": "must",
+            "status": "done",
+            "note": "표 편집·태그 칩·비활성 토글·삭제 모달·붙여넣기/CSV 인식 미리보기(정상/경고/오류 행)·분리/결합 쌍(반드시/가능하면)·중복 번호 경고·자기 자신/중복 쌍 차단"
+          },
+          {
+            "name": "교실 레이아웃 프리셋·책상 편집",
+            "priority": "must",
+            "status": "done",
+            "note": "프리셋 4종+수치, 편집 모드 책상 켜기/끄기(점선), 교탁 위/아래, 책상/학생 카운터(부족 시 빨강+버튼 비활성), 레이아웃 변경 시 미배치 목록"
+          },
+          {
+            "name": "조건 설정과 자동 배치 엔진",
+            "priority": "must",
+            "status": "done",
+            "note": "조건 7종 하드/소프트, 패널티 언덕 오르기(2000회·30재시작·800ms), 충족 리포트 n/n·위반 k건, 빨간 테두리+툴팁, 완화 제안(앞 구역 책상 부족/고정 해제/성별 인원 차이), 다시 섞기+자물쇠 핀"
+          },
+          {
+            "name": "수동 조정과 실행 취소",
+            "priority": "must",
+            "status": "done",
+            "note": "Pointer Events 드래그 교환/이동(elementFromPoint), 탭-탭 교환, 즉시 재검사+위반 토스트, Undo/Redo 50단계 Ctrl+Z/Y, 배치 확정 모달(날짜·메모), 30건 초과 안내"
+          },
+          {
+            "name": "모둠 편성과 역할 로테이션",
+            "priority": "must",
+            "status": "done",
+            "note": "모둠 수/인원, 성별·수준·쌍·회피 N·역할 자동, 뱀 분배+교환 언덕 오르기, 역할 경험 최소 우선, 멤버 드래그/탭-탭, 역할 배지 클릭 변경, 이름 편집, 편차 경고 배지, 자리표에서 가져오기(4인 모둠형), 편성 확정·리포트"
+          },
+          {
+            "name": "발표 모드(TV·전자칠판)",
+            "priority": "must",
+            "status": "done",
+            "note": "Fullscreen API(거부 시 오버레이 폴백), '?' 뒷면 3D 플립 0.7초 간격(설정 가능), 좌석순/무작위, 시작/일시정지/다음/전체 공개, Web Audio 딩(기본 꺼짐), Space/Esc, 종료 후 상태 유지"
+          },
+          {
+            "name": "인쇄 출력 4종",
+            "priority": "must",
+            "status": "done",
+            "note": "게시용(칠판 위)·교사용(180° 회전, 칠판 아래)·모둠 명단표(2열)·접이식 명패(4개/장 자동 분할), 번호/성별 색/제목 옵션, A4 비율 미리보기, @page 방향 자동, window.print"
+          },
+          {
+            "name": "자동 저장·히스토리·백업",
+            "priority": "must",
+            "status": "done",
+            "note": "300ms 디바운스 localStorage(try/catch, 실패 시 노란 배너), 새로고침 복원, 히스토리 카드 미리보기/불러오기/삭제, JSON 내보내기(jari-ttukttak-YYYYMMDD.json)/가져오기(요약 모달, 손상 파일 거부), 전체 삭제 2단계, 샘플 다시 불러오기, 공용 PC 안내·용량 표시"
+          },
+          {
+            "name": "공정성 대시보드",
+            "priority": "should",
+            "status": "done",
+            "note": "n×n 짝·모둠 히트맵(SVG, DOM 툴팁 '짝 n회·모둠 m회'), 앞/중/뒤 누적 막대, 편중 주의 배지(뒤 70%↑·3회↑), 역할 경험 횟수 표, 기록 0건 안내"
+          },
+          {
+            "name": "자리표 PNG 저장",
+            "priority": "should",
+            "status": "done",
+            "note": "Canvas 2D 제목·날짜·칠판·격자·이름 → jari-YYYYMMDD.png"
+          },
+          {
+            "name": "첫 실행 가이드 투어",
+            "priority": "should",
+            "status": "done",
+            "note": "첫 방문 3단계 모달 + 다시 보지 않기, 각 탭 ? 도움말 모달, 툴바 전체 도움말"
+          },
+          {
+            "name": "레이아웃 복수 저장",
+            "priority": "nice",
+            "status": "done",
+            "note": "이름으로 최대 5개 저장·드롭다운 전환(전환 시 미배치)·삭제"
+          },
+          {
+            "name": "1인 1역 주간 로테이션표",
+            "priority": "nice",
+            "status": "skipped",
+            "note": "out_of_scope 안내대로 must/should 완성 우선, 규모 통제를 위해 미구현(README 향후 개선에 명시)"
+          }
+        ],
+        "self_check": {
+          "lint_issues": 0,
+          "pw_problems": [],
+          "page_errors": 0,
+          "console_errors": 0,
+          "console_warnings": 0,
+          "dialogs": 0,
+          "acceptance_checked": 15,
+          "acceptance_test_module": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\acceptance.js",
+          "acceptance_result": "64 passed, 0 failed, 0 page errors, 0 console errors (run3)",
+          "screenshots_reviewed": [
+            "check1/desktop-light.png",
+            "check1/desktop-dark.png",
+            "check1/mobile-light.png",
+            "run2/02-auto.png",
+            "run2/07-present.png",
+            "run2/08-groups.png",
+            "run2/09-fairness.png",
+            "run2/10-print-plates.png",
+            "run2/14-mobile-seats.png",
+            "run3/08-groups.png",
+            "run3/14-mobile-groups.png"
+          ],
+          "horizontal_scroll_400px": false
+        },
+        "known_issues": [
+          "ㄷ자형 프리셋은 교탁 위치와 무관하게 아래쪽이 가로 줄인 한 가지 모양으로 생성됨(교탁 아래 선택 시 모양은 유지, 앞/뒤 판정만 반전)",
+          "1인 1역 주간 로테이션표(nice) 미구현",
+          "Playwright 헤드리스 환경에서는 requestFullscreen이 거부되어 오버레이 폴백으로 검증함(실제 브라우저에서는 전체 화면)",
+          "좌석 카드 자물쇠 버튼은 셀 크기에 비례(최소 16px)하여 최소 확대 단계에서는 터치 타깃 44px 미만"
+        ]
+      },
+      "findings": {
+        "functional": {
+          "total": 9,
+          "critical": 0,
+          "major": 3,
+          "minor": 6,
+          "acceptance_fail": 1,
+          "summary": "자리뚝딱 기능 검증: 독립 작성한 Playwright 모듈 4개(func-*.js, expect 450건: 443 pass / 7 fail)로 수용 기준 15개와 공통 시나리오(입력 검증·XSS·새로고침 복원·백업·모달/키보드·400px·다크·발표 모드)를 실행 검증. lint-app 0건, pw-check 0건(콘솔 오류·페이지 예외·dialog 모두 0, 400px 가로 스크롤 없음). 수용 기준 14개 통과, 1개 실패(AC10 교사용 자리표: 180도 회전 격자의 grid-template-columns 문자열을 split(' ')로 뒤집으면서 calc() 토큰이 깨져 1열로 렌더됨). 결함 9건 = critical 0 · major 3(교사용 자리표 격자 깨짐, 전체 삭제 후 명렬 등록 시 모둠 '편",
+          "top": [
+            {
+              "id": "F-01",
+              "severity": "major",
+              "title": "교사용 자리표(180° 회전) 인쇄 미리보기가 1열 세로 나열로 깨짐"
+            },
+            {
+              "id": "F-02",
+              "severity": "major",
+              "title": "전체 데이터 삭제 후 명렬을 등록해도 모둠 탭 '편성' 버튼이 비활성으로 남음"
+            },
+            {
+              "id": "F-03",
+              "severity": "major",
+              "title": "ㄷ자형 프리셋은 최대 20책상이라 샘플 학급(활성 24명)을 배치할 수 없음"
+            }
+          ]
+        },
+        "code": {
+          "total": 15,
+          "critical": 2,
+          "major": 5,
+          "minor": 8,
+          "acceptance_fail": 1,
+          "summary": "자리뚝딱 전체 소스(index.html 206줄, style.css 371, app.js 743, engine.js 344, ui.js 131, data.js 123, README) 정독 + node 순수 함수 검증 + Playwright 3개 모듈(인수 기준 46건·결함 재현 10건) 수행. lint 0건, 스모크 콘솔 오류 0건, alert/confirm/prompt 미사용, XSS 이스케이프 누락 없음, 규약(토큰 3블록·safe-area·focus-visible·reduced-motion·ES모듈/외부 라이브러리 없음) 준수. 샘플 데이터는 공통 명단·스펙(태그·수준·쌍·히스토리 4건·짝 3회·편중 주의)과 일치. 결함 총 15건: critical 2(교사용 자리표 인쇄 격자 붕괴, 손상 JSON 가",
+          "top": [
+            {
+              "id": "C-01",
+              "severity": "critical",
+              "title": "교사용 자리표(180° 회전)의 격자 템플릿이 깨져 좌석이 한 열로 세로 나열됨"
+            },
+            {
+              "id": "C-02",
+              "severity": "critical",
+              "title": "JSON 가져오기 검증이 최상위 키만 확인해 항목이 손상된 파일이 통과 → 렌더 예외가 나고 그 상태가 localStorage에 저장되어 새로고침 후에도 앱이 반쯤 깨짐"
+            },
+            {
+              "id": "M-01",
+              "severity": "major",
+              "title": "자리표 PNG의 열·행 폭 배열이 통로 토큰 분해로 어긋나 특정 책상이 35% 폭으로 찌그러지고 캔버스에 큰 여백이 생김"
+            },
+            {
+              "id": "M-02",
+              "severity": "major",
+              "title": "배치(모둠) 확정 직후 현재 배치가 히스토리 속 자기 자신과 비교되어, 다음 재계산 때 '같은 좌석 회피 위반 24건·전 좌석 빨간 테두리', '반복 모둠 쌍 36건'으로 표시됨"
+            },
+            {
+              "id": "M-03",
+              "severity": "major",
+              "title": "'전체 데이터 삭제' 후 새로고침하면 빈 학급이 아니라 샘플 25명이 다시 나타남"
+            },
+            {
+              "id": "M-04",
+              "severity": "major",
+              "title": "'최근 N회 같은 짝 회피'의 집계 창이 N이 아니라 max(N, settings.avoidN)으로 결정됨"
+            },
+            {
+              "id": "M-05",
+              "severity": "major",
+              "title": "명렬에서 이름을 바꿔도 분리·결합 쌍 목록·쌍 선택 드롭다운·요약이 갱신되지 않음"
+            }
+          ]
+        },
+        "ux": {
+          "total": 21,
+          "critical": 1,
+          "major": 9,
+          "minor": 11,
+          "acceptance_fail": 0,
+          "summary": "자리뚝딱 UX·시각 리뷰. lint 0건, 콘솔 오류 0건, alert/confirm 0회. 95장 스크린샷(데스크톱 1280 라이트·다크, 태블릿 820, 모바일 400, 인쇄 미디어, 모달·오버레이·빈 상태) 확인 결과 critical 1건, major 9건, minor 11건. 가장 중요한 결함: (1) 교사용 자리표(180° 회전)가 격자가 아닌 세로 1열로 깨짐 — colTpl 문자열을 공백으로 split·reverse 하면서 calc() 토큰이 쪼개져 grid-template-columns가 무효가 됨(인쇄 미디어에서도 동일). (2) 히스토리 '배치 미리보기' 모달의 좌석표도 세로 1열 — `.seatmap-wrap.mini > *` 규칙이 .seat-grid의 display:grid를 inli",
+          "top": [
+            {
+              "id": "U-01",
+              "severity": "critical",
+              "title": "교사용(180° 회전) 자리표가 격자가 아니라 세로 1열로 렌더링됨"
+            },
+            {
+              "id": "U-02",
+              "severity": "major",
+              "title": "히스토리 '배치 미리보기' 모달의 좌석표도 세로 1열로 깨짐"
+            },
+            {
+              "id": "U-03",
+              "severity": "major",
+              "title": "'자리' 종류 배지가 좌석 카드 크기(약 84×66px)의 큰 박스로 렌더링됨"
+            },
+            {
+              "id": "U-04",
+              "severity": "major",
+              "title": "1280px에서 명렬 표가 카드 폭(662px)보다 넓어(724px) '활성' 토글이 반쯤 잘리고 삭제(🗑) 열이 아예 보이지 않음"
+            },
+            {
+              "id": "U-05",
+              "severity": "major",
+              "title": "ㄷ자형 프리셋은 최대 20석(가로 10 + 양옆 5×2)이라 24명 학급에서 항상 '책상 부족'으로 자동 배치가 불가"
+            },
+            {
+              "id": "U-06",
+              "severity": "major",
+              "title": "조건 라벨이 글자 중간에서 줄바꿈되고 체크박스가 라벨과 분리됨 ('집중 지원 교탁 근/접', '같은 성별 짝 회/피')"
+            },
+            {
+              "id": "U-07",
+              "severity": "major",
+              "title": "820px 이하에서 인쇄 종류 패널이 45vh로 접히며 '인쇄하기'·'닫기' 버튼과 옵션이 보이지 않음"
+            },
+            {
+              "id": "U-08",
+              "severity": "major",
+              "title": "모바일에서 '교실'·'조건' 패널이 펼쳐진 채 상단을 차지해 '자동 배치' 버튼과 좌석표가 첫 화면에서 약 1,100px 아래에 있음, 좌석표는 기본 줌(84px)이라 3.5열만 보임"
+            }
+          ]
+        }
+      },
+      "findings_total": 45,
+      "findings_critical_major": 20,
+      "rounds": [
+        {
+          "round": 1,
+          "fixed": 45,
+          "not_fixed": [],
+          "recheck": {
+            "lint_issues": 0,
+            "pw_problems": [],
+            "tests_summary": "acceptance 64/0 · func-roster 93/0 · func-seats 146/0 · func-groups-present-print 101/0 · func-storage-responsive 110/0 · code-01-accept 46/0 · code-02-bugs 10/0 · code-03-badge 2/0 · ux-shots 28/0 · fix-r1-verify 24/0 (passed/failed; 모든 모듈 pageErrors 0·consoleErrors 0·dialogs 0) · code-node-engine 정상 · pw-check problems 0(콘솔 오류·경고·페이지 예외·dialog 0, 3뷰 가로 스크롤 없음) · lint issues 0, 코드 2,112줄(README 제외)",
+            "results_dir": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r1"
+          },
+          "reverify_status": "fail",
+          "remaining_critical_major": [],
+          "new_critical_major": [
+            {
+              "id": "R-01",
+              "severity": "major",
+              "title": "핀 고정한 학생이 있으면 '다시 섞기'마다 그 학생의 짝 책상이 반드시 비워져 고정 학생이 혼자 앉고 뒷줄에 단독석이 1명 더 생김(U-10 수정의 회귀)",
+              "description": "Engine.reserveEmpty(engine.js 199~212)는 pairGroup별로 '고정되지 않은 책상'만 남긴 뒤 길이 1인 묶음을 '짝이 없는 외딴 책상'으로 간주해 가장 먼저 비운다. 그런데 2인 짝 묶음에서 한 학생을 핀 고정하면 남은 짝 책상 하나가 바로 이 '외딴 책상'으로 분류되어, 남는 책상(샘플 28석/24명 → 4개)이 있는 한 항상 첫 번째로 예약(빈 자리)된다. 결과: 고정 학생은 매번 혼자 앉고, 남은 예약 1석은 뒷줄 짝 책상 하나만 비워 뒷줄에도 단독석 1명이 생긴다(리포트 '2명 단독석(면제)'). 수정 전(빈 책상 무작위)에는 고정 학생이 대부분 짝을 유지했으므로 1라운드 수정으로 생긴 결정적(100%) 회귀이며, 스펙 user_flow·수용 기준 5('자물쇠 켜고 다시 섞기')의 시연에서 바로 드러난다. 핀 기능 자체(좌석 유지)와 모든 조건 충족 리포트는 정상.",
+              "evidence": "reverify.js 'R-pin': 0-0 학생 자물쇠 → 다시 섞기 3회 → 좌석은 3/3 유지(AC5 통과)이나 짝 책상 0-1이 3/3 비어 있음, 뒷줄 채움=[4-1 false, 4-3 false, 4-4 true, 4-6 false], 리포트 '남녀 짝 소프트 · 2명 단독석(면제) 11/11 충족'. 순수 엔진 node 재현: s01을 0-0에 고정하고 Engine.solve 10회 → 0-1 빈 책상 10/10. 스크린샷 reverify-r1/reverify/r-pin-shuffle.png(신준서 고정, 옆 책상 '—').",
+              "suggested_fix": "reserveEmpty에서 고정 책상이 포함된 pairGroup은 '외딴 책상' 후보에서 제외하고 예약 우선순위를 맨 뒤로 둔다. 예: const groups = Object.values(ctx.pgMembers).map(m => ({ free: m.filter(i => !fixed[i]), hasFixed: m.some(i => fixed[i]) })).filter(g => g.free.length); const singles = groups.filter(g => g.free.length === 1 && !g.hasFixed) …; const pairsG = groups.filter(g => g.free.length >= 2) …; 남는 예약이 있을 때만 hasFixed 묶음의 빈 책상을 마지막으로 사용. 테스트: 핀 1명 + 다시 섞기 N회 후 짝 책상이 채워지고 단독석 0명인지(28석/24명) 확인."
+            }
+          ],
+          "acceptance": {
+            "pass": 15,
+            "fail": 0,
+            "untested": 0
+          },
+          "tests_summary": "lint-app 0건(2,112줄). pw-check problems 0(콘솔 오류·경고·페이지 예외·실패 요청·dialog 0, 데스크톱 라이트/다크·모바일 400 가로 스크롤 없음; 스크린샷 3장 육안 확인). 기존 모듈 10개 재실행 624 passed / 0 failed — acceptance 64, code-01-accept 46, code-02-bugs 10, code-03-badge 2, func-roster 93, func-seats 146, func-groups-present-print 101, func-storag"
+        },
+        {
+          "round": 2,
+          "fixed": 4,
+          "not_fixed": [],
+          "recheck": {
+            "lint_issues": 0,
+            "pw_problems": [],
+            "tests_summary": "기존 모듈 11개 724 passed / 0 failed — acceptance 64/0 · code-01-accept 46/0 · code-02-bugs 10/0 · code-03-badge 2/0 · func-roster 93/0 · func-seats 146/0 · func-groups-present-print 101/0 · func-storage-responsive 110/0 · ux-shots 28/0 · fix-r1-verify 24/0 · reverify(reverify-r1/reverify.js) 100/0(R-01 expect 포함) + 신규 fix-r2-verify 28/0 → 총 752/0 (모든 모듈 pageErrors 0·consoleErrors 0·dialogs 0·fatal 없음). node: code-node-engine.js 정상(exit 0), fix-r2-node.js 8/0. lint-app issues 0(코드 2,118줄, README 제외). pw-check problems 0(콘솔 오류·경고·페이지 예외·실패 요청·dialog 0, 데스크톱 라이트/다크·모바일 400 가로 스크롤 없음; 스크린샷 3장 육안 확인).",
+            "results_dir": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2",
+            "summary_file": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\run-all.summary.txt",
+            "screenshots": [
+              "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\check\\desktop-light.png",
+              "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\check\\desktop-dark.png",
+              "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\check\\mobile-light.png",
+              "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r2-verify\\r2-pin-shuffle.png",
+              "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r2-verify\\r2-toast-top.png",
+              "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r2-verify\\r2-mobile-resized.png",
+              "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r2-verify\\r2-exam-fit.png"
+            ]
+          },
+          "reverify_status": null,
+          "remaining_critical_major": null,
+          "new_critical_major": null,
+          "acceptance": null,
+          "tests_summary": null
+        }
+      ],
+      "final_status": null,
+      "live_link": "https://changsubkwak.github.io/ginue-2026_02_ai_course-homework/03_%EC%97%85%EB%AC%B4%EC%9E%90%EB%8F%99%ED%99%94_%EC%9E%90%EB%A6%AC%EB%9A%9D%EB%94%B1/"
+    },
+    {
+      "app": {
+        "app_name": "특별실지기",
+        "app_name_en": "special-room-booking",
+        "folder_slug": "04_행정지원_특별실지기",
+        "category_num": 4,
+        "category": "학교 행정 지원 앱"
+      },
+      "code_lines": 2069,
+      "build": {
+        "files": [
+          {
+            "path": "index.html",
+            "lines": 72
+          },
+          {
+            "path": "css/style.css",
+            "lines": 360
+          },
+          {
+            "path": "js/data.js",
+            "lines": 108
+          },
+          {
+            "path": "js/core.js",
+            "lines": 395
+          },
+          {
+            "path": "js/board.js",
+            "lines": 432
+          },
+          {
+            "path": "js/views.js",
+            "lines": 580
+          },
+          {
+            "path": "README.md",
+            "lines": 85
+          }
+        ],
+        "features": [
+          {
+            "name": "주간 교시 격자 예약판",
+            "priority": "must",
+            "status": "done",
+            "note": "자원 칩·주 내비(◀▶/이번 주/날짜)·요일×교시 CSS Grid, 휴업 열·차단 빗금·오늘 강조, pointerdown/move/up 드래그 범위 선택(차단·예약 셀에서 멈춤+토스트), 범례·요약"
+          },
+          {
+            "name": "예약 모달과 실시간 충돌 검사·대안 추천",
+            "priority": "must",
+            "status": "done",
+            "note": "입력마다 checkConflict 재실행, 녹/적/황 검증 영역, 대안 칩 ≤3(같은 날 교시/같은 그룹 자원/다른 요일), 수량형 교시별 잔여 표시, 수정·삭제, 지난 예약 사용 여부 토글"
+          },
+          {
+            "name": "학사일정·행사 차단 연동",
+            "priority": "must",
+            "status": "done",
+            "note": "월간 달력+목록, 유형별 차단, 저장 전·후 영향 예약 수 표시, 충돌 목록 모달(수정/삭제), 격자 즉시 반영, 공휴일 기본 세트 추가"
+          },
+          {
+            "name": "정기 예약 일괄 생성과 시리즈 관리",
+            "priority": "must",
+            "status": "done",
+            "note": "미리보기 표(생성/휴업일 제외/차단 제외/충돌, 체크박스), 요약, seriesId 저장, 삭제 시 이 건만/이후 모두/전체 선택"
+          },
+          {
+            "name": "주간 이용 현황표 인쇄(A4 가로)",
+            "priority": "must",
+            "status": "done",
+            "note": "미리보기 모달(전체 자원/선택 자원), 학교명·제목·주차·기간·출력일·결재란, 자원당 1쪽, #print-root + @media print"
+          },
+          {
+            "name": "운영 실적 통계·형평성 히트맵·실적 보고 인쇄",
+            "priority": "must",
+            "status": "done",
+            "note": "기간(월/학기)·자원 필터, 요약 카드 4개, SVG 가동률 막대·학급×자원 히트맵('저조')·저조 학급 목록, DOM 툴팁, A4 세로 보고서 미리보기, 집계 CSV"
+          },
+          {
+            "name": "데이터 보관·JSON/CSV 입출력·새 학기 초기화·샘플 데이터",
+            "priority": "must",
+            "status": "done",
+            "note": "localStorage try/catch+메모리 모드 배너, JSON 내보내기/가져오기(파일·드롭존, 검증, 교체/병합), 예약 CSV(BOM), '초기화' 입력 확인, 샘플 복원, 온보딩"
+          },
+          {
+            "name": "자원·학급·교사 관리",
+            "priority": "must",
+            "status": "done",
+            "note": "자원 카드 추가·수정·활성 토글, 예약 있는 자원 삭제 차단 안내, 수량 감소·교시 해제 차단, 학급·교사 표 CRUD"
+          },
+          {
+            "name": "추가 통계 차트(학년별 막대·요일×교시 혼잡도)",
+            "priority": "should",
+            "status": "done",
+            "note": "computeStats 결과를 공유하는 SVG 렌더 2개, 실적 보고에 학년별 표 포함"
+          },
+          {
+            "name": "교시 구조·학교 정보·결재란 설정",
+            "priority": "should",
+            "status": "done",
+            "note": "교시 4~10개 라벨·시간 편집, 범위 밖 예약 있으면 축소 차단, 결재란 1~4칸, 학기 기간 변경"
+          },
+          {
+            "name": "사용 여부 체크와 미사용 알림",
+            "priority": "should",
+            "status": "done",
+            "note": "지난 예약 토글, '지난 예약 미확인 n건' 링크 → 일괄 체크 모달, 미사용률 반영"
+          },
+          {
+            "name": "모바일 요일 탭 보기",
+            "priority": "should",
+            "status": "done",
+            "note": "640px 미만 요일 탭 1열 격자, 터치 드래그 비활성·셀 탭 → select 범위, 칩·표·차트 컨테이너 스크롤"
+          },
+          {
+            "name": "예약 블록 드래그 이동",
+            "priority": "nice",
+            "status": "skipped",
+            "note": "코드량 관리를 위해 제외(블록 클릭 → 수정 모달에서 날짜·교시 변경으로 대체)"
+          },
+          {
+            "name": "학년 우선 요일 규칙 경고",
+            "priority": "nice",
+            "status": "done",
+            "note": "자원 설정의 우선 학년·요일 규칙 → 모달에 노란 경고(저장 허용). 셀 모서리 아이콘은 생략"
+          }
+        ],
+        "self_check": {
+          "lint_issues": 0,
+          "pw_problems": [],
+          "page_errors": 0,
+          "console_errors": 0,
+          "dialogs": 0,
+          "acceptance_checked": 13,
+          "acceptance_test": "acceptance.js → 56 passed / 0 failed (run2), views-check.js → 11 passed / 0 failed (run3)",
+          "screenshots_reviewed": [
+            "check1/desktop-light.png",
+            "check1/desktop-dark.png",
+            "check1/mobile-light.png",
+            "run2/03-conflict.png",
+            "run2/07-print-preview.png",
+            "run2/08-stats.png",
+            "run2/11-mobile.png",
+            "run3/desk-calendar.png",
+            "run3/desk-resources.png",
+            "run3/dark-board.png",
+            "run3/m-settings.png"
+          ]
+        },
+        "known_issues": [
+          "pw-check 모바일 뷰의 'elementsPastRightEdge'에 자원 칩이 잡히지만 가로 스크롤 컨테이너(.chips-row) 내부 요소라 페이지 가로 스크롤은 발생하지 않음(horizontalOverflow=false).",
+          "views-check.js 1회차 실행에서 Edge 헤드리스 렌더러가 일시적으로 crash했으나 재실행에서 전부 통과(앱 오류 아님).",
+          "예약 블록 드래그 이동(nice)과 우선 규칙 셀 모서리 아이콘은 미구현."
+        ]
+      },
+      "findings": {
+        "functional": {
+          "total": 6,
+          "critical": 0,
+          "major": 2,
+          "minor": 4,
+          "acceptance_fail": 0,
+          "summary": "특별실지기 기능 검증(Playwright+Edge, 독립 작성 func-*.js 5개 모듈, expect 368건: 359 통과 / 9 실패). 수용 기준 13개 전부 통과. lint-app 0건, pw-check problems 0건(모바일 칩 overflow는 .chips-row 내부 스크롤이라 페이지 가로 스크롤 없음 확인), 전 모듈 console error 0·dialog 0. 결함 6건 — major 2건: (1) 정기 예약 미리보기에서 체크박스를 토글하면 form의 input/change 핸들러(invalidate)가 미리보기 전체를 지워 '체크된 건만 생성'이 불가능, (2) meta·배열 구조는 맞지만 항목이 손상된 JSON(bookings에 null)을 '교체'하면 저장이 먼저 되고 reb",
+          "top": [
+            {
+              "id": "F-01",
+              "severity": "major",
+              "title": "정기 예약 미리보기에서 체크박스를 누르면 미리보기 표·요약이 통째로 사라지고 생성 버튼이 비활성화됨"
+            },
+            {
+              "id": "F-02",
+              "severity": "major",
+              "title": "스키마 검증을 통과하는 손상 JSON(배열 항목이 null)을 교체 가져오기하면 예외 발생·손상 데이터가 저장되어 새로고침 후 앱 전체가 백지(동작 불능)"
+            }
+          ]
+        },
+        "code": {
+          "total": 17,
+          "critical": 1,
+          "major": 2,
+          "minor": 14,
+          "acceptance_fail": 0,
+          "summary": "특별실지기 소스 전체(index.html 72줄, style.css 360줄, data.js 108줄, core.js 395줄, board.js 432줄, views.js 580줄, README) 정독 + lint(issues 0) + pw-check(problems 0, 콘솔 오류 0) + Playwright 수용 기준 13건 전부 통과(65 passed) + 결함 재현 모듈 실행. 아키텍처(SRB 네임스페이스·단일 checkConflict·Map 인덱스·Promise 모달)는 견고하고 alert/confirm/prompt·ES 모듈·fetch·외부 라이브러리 없음, 테마 3블록·safe-area·focus-visible·reduced-motion 규약 준수, CSV BOM·RFC4180 이스케이프 정상.",
+          "top": [
+            {
+              "id": "C-01",
+              "severity": "critical",
+              "title": "항목 필드가 빠진 JSON을 '교체'로 가져오면 저장된 뒤 렌더에서 TypeError → 새로고침해도 앱이 뜨지 않음"
+            },
+            {
+              "id": "C-02",
+              "severity": "major",
+              "title": "정기 예약 미리보기에서 체크박스를 누르면 input/change 이벤트가 invalidate()를 호출해 표 전체가 사라지고 '생성'이 비활성화됨"
+            },
+            {
+              "id": "C-03",
+              "severity": "major",
+              "title": "같은 자원·날짜·교시에 예약이 2건 이상이면(병합·충돌 행 강제 생성) 공간형 블록이 완전히 겹쳐 앞 예약이 보이지도 클릭되지도 않음"
+            }
+          ]
+        },
+        "ux": {
+          "total": 20,
+          "critical": 0,
+          "major": 6,
+          "minor": 14,
+          "acceptance_fail": 0,
+          "summary": "특별실지기 UX·시각 리뷰. 라이트/다크 1280px, 태블릿 820px, 모바일 400px, 인쇄 미디어로 모든 탭·모달(온보딩·예약 등록/수정/충돌/수량형/지난 예약·시리즈 삭제·정기 예약·미확인 예약·인쇄 미리보기 2종·일정·충돌 목록·자원/학급/교사·초기화·가져오기·도움말·빈 상태) 99장을 촬영해 확인했다. lint 0건, 콘솔 오류 0건, alert/confirm 0건, 400px 페이지 가로 스크롤 없음. 공문서풍 네이비·회백색 톤과 명조 제목, 격자 중심 레이아웃은 스펙의 분위기에 잘 맞고, 충돌 사유·대안 칩·휴업일 열·빗금 차단·충돌 배지·빈 상태 안내·토스트 피드백이 모두 동작한다. 결함은 critical 0 · major 6 · minor 14. 가장 큰 문제는 (1) 격자 블록·셀 글",
+          "top": [
+            {
+              "id": "U-01",
+              "severity": "major",
+              "title": "예약 블록·셀 글자가 11~12px로 전자칠판·TV 시연에 너무 작다"
+            },
+            {
+              "id": "U-02",
+              "severity": "major",
+              "title": "400px에서 검증 결과(예약 가능/불가 사유)와 대안 칩이 화면 아래로 밀려 보이지 않는다"
+            },
+            {
+              "id": "U-03",
+              "severity": "major",
+              "title": "모바일에서 표 셀이 한 글자씩 세로로 줄바꿈되어 읽을 수 없다(미확인 예약·충돌 목록·학급/교사 표)"
+            },
+            {
+              "id": "U-04",
+              "severity": "major",
+              "title": "게시용 주간표의 셀 글자가 10.5px(약 8pt)로 교무실 게시물로는 작다"
+            },
+            {
+              "id": "U-05",
+              "severity": "major",
+              "title": "수량형 예약 칩(.eq-chip)이 높이 약 22px로 터치 타깃이 작고 교사·태그 정보가 없다"
+            },
+            {
+              "id": "U-06",
+              "severity": "major",
+              "title": "400px에서 SVG 차트가 축소되어 자원명·수치 라벨이 약 7px로 읽히지 않는다"
+            }
+          ]
+        }
+      },
+      "findings_total": 43,
+      "findings_critical_major": 11,
+      "rounds": [
+        {
+          "round": 1,
+          "fixed": 41,
+          "not_fixed": [
+            {
+              "id": "C-17",
+              "why": "샘플의 사용 여부는 '오늘 이전 예약'에 결정적 패턴(15건 주기)으로 부여되므로 실행 날짜에 따라 집계가 달라지는 것은 '지난 예약 미확인·사용 여부 체크'를 어느 날짜에 실행해도 체험하게 하려는 의도적 설계다. README는 40/12/8 같은 수치를 적지 않고 시연 포인트만 설명하므로 문서 불일치는 없으며, 스펙의 수치는 설명용 예시로 본다. 9월 예약만 고정 분포로 바꾸면 10월 이후 실행 시 미확인 건이 수십 건으로 늘어 통계 체험이 나빠져 수정하지 않았다."
+            },
+            {
+              "id": "U-19",
+              "why": "정기 예약 모달의 태그를 칩으로 바꾸면 기존 기능 테스트(func-calendar-series.js 158행 select[name=\"tag\"] 조작)가 깨져 테스트 수정이 필요하고, 정기 예약 폼은 항목이 11개라 select가 더 짧게 들어간다. minor이고 두 컨트롤 모두 동작하므로 이번 라운드에서는 라벨만 유지하고 보류했다."
+            }
+          ],
+          "recheck": {
+            "lint_issues": 0,
+            "pw_problems": [],
+            "tests_summary": "acceptance.js 56/0 · views-check.js 11/0 · func-board.js 107/0 · func-calendar-series.js 75/0 · func-data-settings.js 72/0 · func-resources-stats.js 79/0 · func-responsive.js 36/0 · code-bugs.js 11/0 · code-acceptance.js 67/0 · ux-shots.js 15/0(스크린샷 96장) · ux-shots-2.js 9/0(70장) · probe-drag.js 1/0 · probe-mobile.js 3/0 — 전 모듈 page error 0·console error 0·dialog 0·FATAL 없음. 결과 폴더: tests/special-room-booking/r1-<모듈명>/, 스모크: tests/special-room-booking/fix-r1-smoke/(problems 0, 3개 뷰 스크린샷). 코드량 2,075줄(README 제외, lint totalCodeLines)."
+          },
+          "reverify_status": "pass",
+          "remaining_critical_major": [],
+          "new_critical_major": [],
+          "acceptance": {
+            "pass": 13,
+            "fail": 0,
+            "untested": 0
+          },
+          "tests_summary": "lint-app 0건(2,075줄). pw-check problems 0(콘솔 오류·페이지 예외·실패 요청·dialog 0, 3개 뷰 가로 스크롤 없음; 결과 reverify-r1-smoke/). 기존 모듈 10개 재실행(결과 reverify-r1-<모듈>/, 요약 reverify-r1-runs-summary.txt): func-board 107/0 · func-calendar-series 75/0 · func-data-settings 72/0 · func-resources-stats 79/0 · func-responsive 36/"
+        }
+      ],
+      "final_status": "pass",
+      "live_link": "https://changsubkwak.github.io/ginue-2026_02_ai_course-homework/04_%ED%96%89%EC%A0%95%EC%A7%80%EC%9B%90_%ED%8A%B9%EB%B3%84%EC%8B%A4%EC%A7%80%EA%B8%B0/"
+    },
+    {
+      "app": {
+        "app_name": "연산수호대",
+        "app_name_en": "math-guardians",
+        "folder_slug": "05_교육용게임_연산수호대",
+        "category_num": 5,
+        "category": "교육용 게임 앱"
+      },
+      "code_lines": 1674,
+      "build": {
+        "files": [
+          {
+            "path": "index.html",
+            "lines": 133
+          },
+          {
+            "path": "css/style.css",
+            "lines": 229
+          },
+          {
+            "path": "js/data.js",
+            "lines": 148
+          },
+          {
+            "path": "js/problems.js",
+            "lines": 176
+          },
+          {
+            "path": "js/audio.js",
+            "lines": 58
+          },
+          {
+            "path": "js/game.js",
+            "lines": 400
+          },
+          {
+            "path": "js/ui.js",
+            "lines": 450
+          },
+          {
+            "path": "js/app.js",
+            "lines": 88
+          },
+          {
+            "path": "README.md",
+            "lines": 84
+          }
+        ],
+        "features": [
+          {
+            "name": "실시간 디펜스 전투 루프(Canvas)",
+            "priority": "must",
+            "status": "done",
+            "note": "960×540 논리 해상도·DPR 1.5 상한, rAF dt≤50ms, 포탑 회전·포탄 180ms·파티클·플로팅 텍스트·흔들림 300ms·WAVE 배너, Esc/버튼 일시정지, visibilitychange 자동 일시정지"
+          },
+          {
+            "name": "학년·단원별 17개 스테이지 트리 + 규칙 기반 문제 생성기",
+            "priority": "must",
+            "status": "done",
+            "note": "A1 규칙 17종 구현, 중복 회피 10회, 잠금/전체 해금/비활성(회색+토스트), 스테이지마다 300회 생성 검증"
+          },
+          {
+            "name": "입력 패널과 자동 조준",
+            "priority": "must",
+            "status": "done",
+            "note": "number/decimal/choice3 패드(pointerdown·포커스 이동 없음), 물리 키보드, 6자리·'.' 1회·선행 0/'.' 보정, 가장 앞선 일치 몬스터 조준, 크로스헤어·선택지 갱신"
+          },
+          {
+            "name": "게임 메커니즘: 점수·콤보·HP·웨이브·보스·별·시간 제한",
+            "priority": "must",
+            "status": "done",
+            "note": "A4/A5 그대로: 웨이브 수·동시 상한·간격, 보스 방패 3(약점 큐 1개)·밀려남 15%·도달 HP−2 후 0.4 후퇴, 별 3/2/1, 무피해 +1000, 시간 제한 mm:ss"
+          },
+          {
+            "name": "오답 교정 카드 + 복수 몬스터 + 약점 큐",
+            "priority": "must",
+            "status": "done",
+            "note": "A10 모델 5종(dots/column/array/bar/text) DOM 애니메이션, 같은 입력 방식으로 재입력 시 닫힘·0.5초 재개, 복수 큐 due 2~4, 약점 큐 20% 출제, 미응답 상자 −1"
+          },
+          {
+            "name": "Web Audio 합성 효과음·연출·음소거",
+            "priority": "must",
+            "status": "done",
+            "note": "A11 9종 + 복수/별/배지 3종 추가, 첫 입력 시 AudioContext 생성·resume, 노드 16개 상한, 음소거 저장, 파티클 상한 120/40, 콤보 10 금빛 플래시, 보스 어두워짐, 점수 카운트업·별 팝인"
+          },
+          {
+            "name": "프로필(교실 모드)·기록·명예의 전당",
+            "priority": "must",
+            "status": "done",
+            "note": "드롭다운·새 프로필 모달(검증·중복 (2))·체험 모드, 기록 갱신 A5, 랭킹 3탭(점수/별/성장) 금은동·순차 등장·내 행 강조·비공개 모드(내 순위 n/N)"
+          },
+          {
+            "name": "샘플 데이터 시딩 + 저장/복원 + JSON 백업",
+            "priority": "must",
+            "status": "done",
+            "note": "24명 시딩(6명 기록), 루트 키 mathGuardians.v1 300ms 디바운스, 손상 시 .corrupt 보관, 저장 불가 경고 배지, JSON 백업/가져오기(검증·확인 모달)/샘플 초기화"
+          },
+          {
+            "name": "CSV 입출력(기록·약점 문제·명단)",
+            "priority": "should",
+            "status": "done",
+            "note": "A12 상태 머신 파서·BOM·따옴표 이스케이프, 명단 가져오기 건너뛴 행 수·40명 상한"
+          },
+          {
+            "name": "적응형 난이도 컨트롤러",
+            "priority": "should",
+            "status": "done",
+            "note": "A6 최근 10문항 기준 0.7~1.5, capAdjust, HUD ▲/▼ 1초, 설정에서 끄기"
+          },
+          {
+            "name": "선생님 설정 패널",
+            "priority": "should",
+            "status": "done",
+            "note": "활성 스테이지 격자(학년별 전체/해제), 속도·시간 제한·토글 7종·볼륨·PIN, 프로필 표 인라인 편집/삭제/추가/명단 CSV, 저장됨 토스트·마지막 저장 시각"
+          },
+          {
+            "name": "숙달 도감·배지·스킨 해금",
+            "priority": "should",
+            "status": "done",
+            "note": "72칸 히트맵·칸 툴팁, 약점 목록·진행 막대, 배지 10종(흑백+조건), 포탑 3·테마 4 해금(별 기준)·즉시 저장"
+          },
+          {
+            "name": "필살기(콤보 게이지)",
+            "priority": "should",
+            "status": "done",
+            "note": "콤보 10마다 1칸(최대 2), Space/HUD 버튼, 전체 섬광, 보스전은 방패 1개"
+          },
+          {
+            "name": "'다시 풀기' 복습 모드 + 인쇄용 기록표",
+            "priority": "should",
+            "status": "done",
+            "note": "틀린 문제 카드 재사용 복습(첫 시도 정답 상자 +1), 복습 완료 n/n 토스트, @media print 오늘의 기록표"
+          },
+          {
+            "name": "전체화면·큰 글씨·저사양·교사 PIN",
+            "priority": "nice",
+            "status": "done",
+            "note": "Fullscreen API(미지원 토스트), 라벨 28→34px·키패드 확대, 저사양(파티클 40·DPR 1·흔들림 끔·30fps 미만 3초 제안), 4자리 PIN 게이트"
+          }
+        ],
+        "self_check": {
+          "lint_issues": 0,
+          "pw_problems": [],
+          "page_errors": 0,
+          "console_errors": 0,
+          "acceptance_checked": 18,
+          "acceptance_tests": {
+            "acceptance.js": "55 passed, 0 failed",
+            "extras.js": "24 passed, 0 failed"
+          },
+          "screenshots_reviewed": [
+            "desktop-light",
+            "desktop-dark",
+            "mobile-light",
+            "game-wave1",
+            "card-array",
+            "revenge",
+            "boss",
+            "result",
+            "choice3",
+            "codex",
+            "hall",
+            "settings",
+            "mobile-game",
+            "card-s2-2",
+            "card-s5-2",
+            "card-dots-choice"
+          ]
+        },
+        "known_issues": [
+          "교정 카드 시각 모델은 애니메이션 동안(최대 1.5초) 입력이 잠기며, 그 사이 모델 일부(통분 막대·세로셈 윗자리)는 아직 표시되지 않은 상태로 보일 수 있음(의도된 단계 표시)",
+          "다음 스테이지 버튼은 같은 학년 안의 다음 스테이지만 가리킴(학년 마지막 스테이지 클리어 시 버튼 없음)",
+          "Google Fonts는 온라인일 때만 적용되며 오프라인에서는 시스템 한글 폰트 대체 스택으로 표시됨"
+        ]
+      },
+      "findings": {
+        "functional": {
+          "total": 14,
+          "critical": 0,
+          "major": 2,
+          "minor": 12,
+          "acceptance_fail": 1,
+          "summary": "연산수호대 기능 검증(Playwright 실행 기반). 독립 작성한 테스트 모듈 9개(func-*.js, 총 expect 약 440건)와 정적 생성기 검증(40건)을 실행했고, 모든 실행에서 page error 0·console error 0·dialog(alert/confirm/prompt) 0건, lint-app 이슈 0건, pw-check 문제 0건(가로 넘침 0)이었다. 핵심 루프(스폰→12.0초 도달→키패드 격파 +150→오답 교정 카드→복수 몬스터 2배→콤보 ×2/×3·필살기→10웨이브 보스 방패 3→별 3/2·+1,000→기록·해금·새로고침 유지)와 모드(느리게 16.0초, 3분 카운트다운·시간 종료, 게임 오버, 3지선다·조준선, 소수점 '10.60'→10.6, 저학년 3지선다, 체험 모드),",
+          "top": [
+            {
+              "id": "F-01",
+              "severity": "major",
+              "title": "교사 PIN 설정 후 PIN을 잊으면 해제 불가 — 게이트 안내문이 가리키는 '샘플 데이터로 초기화' 버튼이 게이트 뒤(#settings-body)에 숨겨짐"
+            },
+            {
+              "id": "F-02",
+              "severity": "major",
+              "title": "랭킹 비공개 모드에서 해당 스테이지 기록자가 10명을 넘으면 상위 10 밖 학생에게 '내 순위 -/10'과 '아직 기록이 없어요'가 표시됨"
+            }
+          ]
+        },
+        "code": {
+          "total": 26,
+          "critical": 1,
+          "major": 8,
+          "minor": 17,
+          "acceptance_fail": 0,
+          "summary": "연산수호대 소스 전체(1,682줄) 리뷰. lint 0건·스모크 0건(콘솔 오류·가로 스크롤 없음)이며 수용 기준 18개는 모두 통과(2개는 주의 사항 포함). 결함 26건: critical 1(JSON 가져오기 시 avatar/grade 등 프로필 필드가 innerHTML 속성에 이스케이프 없이 삽입되어 스크립트 실행 — 실측 재현), major 8(세로셈 교정 카드의 받아올림 1이 일의 자리 위에 찍히고 연쇄 받아내림에서 '-1' 표시, localStorage 차단 시 학년·랭킹 탭 전환 불능, 랭킹 비공개 시 11위 밖 학생은 '내 순위 -/10'과 빈 표, 교사 PIN 잠금 화면이 '샘플 초기화' 버튼을 숨겨 PIN 분실 시 해제 불가, 몬스터가 없을 때 발사가 오답으로 집계, 전체화면이 키패드를 제",
+          "top": [
+            {
+              "id": "C-01",
+              "severity": "critical",
+              "title": "JSON 가져오기로 들어온 프로필 필드(avatar·grade·classNo·number·id)가 innerHTML 속성에 이스케이프 없이 삽입되어 스크립트가 실행됨(XSS)"
+            },
+            {
+              "id": "M-01",
+              "severity": "major",
+              "title": "세로셈 모델의 받아올림 '1'이 윗자리(십의 자리)가 아니라 받아올림이 생긴 자리(일의 자리) 위에 표시됨"
+            },
+            {
+              "id": "M-02",
+              "severity": "major",
+              "title": "연쇄 받아내림(가운데 자리가 0)일 때 세로셈 모델이 십의 자리 위에 '-1'을 표시함"
+            },
+            {
+              "id": "M-03",
+              "severity": "major",
+              "title": "localStorage가 차단되면 학년 탭·명예의 전당 탭 전환이 전혀 동작하지 않음(상태를 uiPref에만 저장)"
+            },
+            {
+              "id": "M-04",
+              "severity": "major",
+              "title": "랭킹 비공개일 때 점수 상위 10위 밖 학생은 '내 순위 -/10'이 표시되고 내 기록 행도 사라짐"
+            },
+            {
+              "id": "M-05",
+              "severity": "major",
+              "title": "교사 PIN 잠금 화면이 '샘플 데이터로 초기화' 버튼까지 숨겨, 안내문과 달리 PIN을 잊으면 설정을 영구히 열 수 없음"
+            },
+            {
+              "id": "M-06",
+              "severity": "major",
+              "title": "화면에 살아 있는 몬스터가 없을 때 발사하면 교정 카드 없이 오답(wrong++)과 콤보 0으로 집계됨"
+            },
+            {
+              "id": "M-07",
+              "severity": "major",
+              "title": "전체화면이 #stage-wrap(캔버스+HUD)만 대상으로 해서 입력 패널이 사라짐 — 태블릿·전자칠판에서는 전체화면 중 입력 불가"
+            }
+          ]
+        },
+        "ux": {
+          "total": 27,
+          "critical": 0,
+          "major": 5,
+          "minor": 22,
+          "acceptance_fail": 0,
+          "summary": "데스크톱·태블릿에서는 핵심 루프(스테이지 선택→전투→교정 카드→결과→도감/랭킹)가 모두 보이고 사용 가능하며 다크 모드·인쇄·빈 상태·토스트도 정상이라 critical 결함은 없다. 그러나 major 5건: ①400px 폰에서 캔버스가 368×207px로 줄어 몬스터 문제 라벨이 약 10.7px(복수 태그 약 6px)로 읽히지 않고 HUD 2줄이 캔버스의 38%를 덮음, ②교정 카드 모달이 화면보다 커서 1366×768 노트북(크롬북)에서는 작은 묶음 모델(15÷3)에서도 '발사' 버튼이 잘리고 1280×800에서도 56÷7·9×9 급 모델에서 키패드 하단 행·발사 버튼이 모달 스크롤 안에 숨음, ③5-1처럼 라벨이 긴 스테이지에서 몬스터 2마리의 라벨이 겹쳐 뒤 문제가 가려짐, ④도감 히트맵·범례의 흰 글",
+          "top": [
+            {
+              "id": "U-01",
+              "severity": "major",
+              "title": "400px 폰에서 몬스터 문제 라벨이 약 10.7px로 축소되어 읽을 수 없고 HUD가 캔버스의 38%를 덮음"
+            },
+            {
+              "id": "U-02",
+              "severity": "major",
+              "title": "교정 카드 모달이 화면보다 커서 '발사'·선택지 버튼이 모달 스크롤 안에 잘림(1366×768에서는 작은 모델도 잘림)"
+            },
+            {
+              "id": "U-03",
+              "severity": "major",
+              "title": "라벨이 긴 스테이지(5-1 최대공약수·최소공배수 등)에서 몬스터 2마리의 라벨이 겹쳐 뒤 문제가 가려짐"
+            },
+            {
+              "id": "U-04",
+              "severity": "major",
+              "title": "구구단 히트맵 칸·범례의 흰 글자가 연두(상자 2)·주황(상자 1) 배경에서 대비 1.9:1·2.3:1로 읽기 어려움"
+            },
+            {
+              "id": "U-05",
+              "severity": "major",
+              "title": "미획득 배지 카드 전체에 opacity .55+grayscale이 걸려 배지 이름과 획득 조건 글자(11.5px)가 거의 보이지 않음"
+            }
+          ]
+        }
+      },
+      "findings_total": 67,
+      "findings_critical_major": 16,
+      "rounds": [],
+      "final_status": "unknown",
+      "live_link": "https://changsubkwak.github.io/ginue-2026_02_ai_course-homework/05_%EA%B5%90%EC%9C%A1%EC%9A%A9%EA%B2%8C%EC%9E%84_%EC%97%B0%EC%82%B0%EC%88%98%ED%98%B8%EB%8C%80/"
+    }
+  ],
+  "live_links": {
+    "fraction-kit": "https://changsubkwak.github.io/ginue-2026_02_ai_course-homework/01_%EA%B5%90%EA%B3%BC%EA%B5%90%EC%9C%A1%EC%A7%80%EC%9B%90_%EB%B6%84%EC%88%98%EA%B5%90%EA%B5%AC%ED%95%A8/",
+    "memory-box": "https://changsubkwak.github.io/ginue-2026_02_ai_course-homework/02_%ED%95%99%EC%8A%B5%EC%A7%80%EB%8F%84_%EA%B8%B0%EC%96%B5%EC%83%81%EC%9E%90/",
+    "jari-ttukttak": "https://changsubkwak.github.io/ginue-2026_02_ai_course-homework/03_%EC%97%85%EB%AC%B4%EC%9E%90%EB%8F%99%ED%99%94_%EC%9E%90%EB%A6%AC%EB%9A%9D%EB%94%B1/",
+    "special-room-booking": "https://changsubkwak.github.io/ginue-2026_02_ai_course-homework/04_%ED%96%89%EC%A0%95%EC%A7%80%EC%9B%90_%ED%8A%B9%EB%B3%84%EC%8B%A4%EC%A7%80%EA%B8%B0/",
+    "math-guardians": "https://changsubkwak.github.io/ginue-2026_02_ai_course-homework/05_%EA%B5%90%EC%9C%A1%EC%9A%A9%EA%B2%8C%EC%9E%84_%EC%97%B0%EC%82%B0%EC%88%98%ED%98%B8%EB%8C%80/"
+  },
+  "pages_base": "https://changsubkwak.github.io/ginue-2026_02_ai_course-homework"
+}

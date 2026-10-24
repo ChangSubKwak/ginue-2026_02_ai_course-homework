@@ -1,0 +1,22 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/04_행정지원_특별실지기/index.html",
+  "test": "probe.js",
+  "passed": [
+    "onboarding"
+  ],
+  "failed": [],
+  "logs": [
+    "loaded 특별실지기",
+    "vp 12",
+    "modal 1 32",
+    "shot 124"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "..\\tests\\special-room-booking\\run\\probe.png"
+  ],
+  "fatal": null,
+  "summary": "1 passed, 0 failed, 0 page errors, 0 console errors"
+}

@@ -1,0 +1,27 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/02_학습지도_기억상자/index.html",
+  "test": "ux-shots3.js",
+  "passed": [
+    "B6: 카드 모달 푸터가 화면 안(799/860)",
+    "A7: 덱 5개 선택 시 인쇄 제목과 학급 정보가 겹치지 않음(겹침 0px, 오른쪽 넘침 -38px)"
+  ],
+  "failed": [],
+  "logs": [
+    "[B7 deck head btns 400] [{\"t\":\"← 덱 목록\",\"x\":16,\"y\":-203,\"h\":36},{\"t\":\"+ 카드\",\"x\":16,\"y\":-96,\"h\":36},{\"t\":\"지금 복습\",\"x\":92,\"y\":-96,\"h\":36},{\"t\":\"내보내기(CSV)\",\"x\":185,\"y\":-96,\"h\":36},{\"t\":\"수정\",\"x\":310,\"y\":-96,\"h\":36},{\"t\":\"삭제\",\"x\":16,\"y\":-50,\"h\":36},{\"t\":\"파일 선택\",\"x\":159,\"y\":64,\"h\":36}]",
+    "[B6 card modal 400] {\"footBottom\":799,\"innerH\":860,\"modalH\":738,\"bodyScroll\":598,\"bodyClient\":598}",
+    "[B6 card modal wrong 400] {\"bodyScroll\":850,\"bodyClient\":688}",
+    "[B8 fab over badges 400] {\"fabLeft\":326,\"hit\":[]}",
+    "[A7 title all decks screen] {\"pageW\":794,\"bLeft\":281,\"bRight\":787,\"bH\":56,\"sLeft\":787,\"sRight\":999,\"sH\":56,\"pageRight\":1037,\"overlap\":0,\"titleLen\":74}",
+    "[A7 title all decks print] {\"pageW\":1280,\"bRight\":887,\"sLeft\":887,\"sRight\":1242,\"pageRight\":1280,\"bH\":56,\"sH\":56}",
+    "[A8 pcard text sizes] [{\"cls\":\"pc-text \",\"fs\":\"26.6667px\",\"t\":\"'금세'와 '금새' 중 맞는 것\",\"h\":185,\"sh\":185},{\"cls\":\"pc-text \",\"fs\":\"26.6667px\",\"t\":\"'며칠'과 '몇일' 중 맞는 것\",\"h\":185,\"sh\":185},{\"cls\":\"pc-text \",\"fs\":\"26.6667px\",\"t\":\"웬지 / 왠지 중 맞는 것\",\"h\":185,\"sh\":185},{\"cls\":\"pc-text s2\",\"fs\":\"20px\",\"t\":\"'할께요'와 '할게요' 중 맞는 것\",\"h\":185,\"sh\":185},{\"cls\":\"pc-text s2\",\"fs\":\"20px\",\"t\":\"'깨끗이'와 '깨끗히' 중 맞는 것\",\"h\":185,\"sh\":185},{\"cls\":\"pc-text s2\",\"fs\":\"20px\",\"t\":\"'오랜만에'와 '오랬만에' 중 맞는 것\",\"h\":185,\"sh\":185},{\"cls\":\"pc-text s2\",\"fs\":\"20px\",\"t\":\"'설레다'와 '설레이다' 중 맞는 것\",\"h\":185,\"sh\":185},{\"cls\":\"pc-text s2\",\"fs\":\"20px\",\"t\":\"'나 ___?'에 들어갈 말: 어떡해 / 어떻게\",\"h\":185,\"sh\":185}]",
+    "[C1 tablet home] {\".review-btn\":{\"font\":\"24px\",\"w\":410,\"h\":79,\"text\":\"오늘 복습 11장 (밀림 3장)\"},\".box b\":{\"font\":\"25.6px\",\"w\":25,\"h\":26,\"text\":\"14\"},\".box .box-gap\":{\"font\":\"11.52px\",\"w\":39,\"h\":17,\"text\":\"1일마다\"},\".tab[aria-selected=\\\"true\\\"]\":{\"font\":\"14.72px\",\"w\":126,\"h\":44,\"text\":\"🏠홈\"},\".tagline\":{\"font\":\"13.6px\",\"w\":294,\"h\":20,\"text\":\"잊기 직전에 다시 만나는 간격 반복 복습 ·\"}}",
+    "[C1 hero 820] {\"cols\":\"451.5px 322.5px\",\"tabsPos\":\"static\"}",
+    "SHOTS=[\"C:\\\\Users\\\\parad\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--workspace-ginue-2026-02-ai-course-homework\\\\1716854d-9f4f-4d06-ba55-fb3e97031963\\\\scratchpad\\\\tests\\\\memory-box\\\\shots2\\\\d2-print-title-all-decks.png\",\"C:\\\\Users\\\\parad\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--workspace-ginue-2026-02-ai-course-homework\\\\1716854d-9f4f-4d06-ba55-fb3e97031963\\\\scratchpad\\\\tests\\\\memory-box\\\\shots2\\\\d2-print-title-all-decks-media.png\",\"C:\\\\Users\\\\parad\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--workspace-ginue-2026-02-ai-course-homework\\\\1716854d-9f4f-4d06-ba55-fb3e97031963\\\\scratchpad\\\\tests\\\\memory-box\\\\shots2\\\\d2-print-cards-long-front.png\",\"C:\\\\Users\\\\parad\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--workspace-ginue-2026-02-ai-course-homework\\\\1716854d-9f4f-4d06-ba55-fb3e97031963\\\\scratchpad\\\\tests\\\\memory-box\\\\shots2\\\\t2-summary.png\",\"C:\\\\Users\\\\parad\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--workspace-ginue-2026-02-ai-course-homework\\\\1716854d-9f4f-4d06-ba55-fb3e97031963\\\\scratchpad\\\\tests\\\\memory-box\\\\shots2\\\\t2-weekly-report.png\"]"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "2 passed, 0 failed, 0 page errors, 0 console errors"
+}

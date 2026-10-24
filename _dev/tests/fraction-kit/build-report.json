@@ -1,0 +1,51 @@
+{
+  "app": "분수교구함 (fraction-kit)",
+  "folder": "D:\\workspace\\ginue-2026_02_ai_course-homework\\01_교과교육지원_분수교구함",
+  "files": [
+    { "path": "index.html", "lines": 234 },
+    { "path": "css/style.css", "lines": 476 },
+    { "path": "js/data.js", "lines": 92 },
+    { "path": "js/fraction.js", "lines": 72 },
+    { "path": "js/render.js", "lines": 177 },
+    { "path": "js/ui.js", "lines": 166 },
+    { "path": "js/app.js", "lines": 624 },
+    { "path": "js/cards.js", "lines": 230 },
+    { "path": "js/scenes.js", "lines": 269 },
+    { "path": "README.md", "lines": 87 }
+  ],
+  "total_code_lines": 2340,
+  "features": [
+    { "name": "3표상 연동 교구판(막대·원·수직선·기호)", "priority": "must", "status": "done", "note": "슬라이더 1~24, 칸 클릭/드래그, 원 12등분 제한 캡션, 수직선 스냅, 가분수 단위 확장, 모델 표시·범위 선택" },
+    { "name": "같게 쪼개기·합치기 애니메이션", "priority": "must", "status": "done", "note": "×2/×3 새 분할선 fadeIn, 합치기 ghost fadeOut, 사슬·라벨, 24 초과 비활성+툴팁, 기약분수 토스트" },
+    { "name": "비교·통분 보드", "priority": "must", "status": "done", "note": "칩·키패드·분모±, 겹쳐 보기(반투명+빗금+차이), 3단계 다음/자동 재생/처음으로, 같은 분모 토스트" },
+    { "name": "덧셈·뺄셈 단계 시각화", "priority": "must", "status": "done", "note": "통분→이동/지우기→결과(대분수, 번쩍임)→약분, A<B 자리 바꾸기 모달, 식 전개" },
+    { "name": "예측-확인 탐구 카드", "priority": "must", "status": "done", "note": "24장·세트 2개, 커튼, 확인 시 유형별 자동 재생, 메시지·해설, 학급 집계(저장·강조), 이전/다음" },
+    { "name": "장면 보관함 + JSON 내보내기/가져오기", "priority": "must", "status": "done", "note": "저장 모달, 썸네일 그리드, 검색·필터, 불러오기/이름/복제/삭제, 검증·원자적 병합, 요약 모달, 샘플 복원, 200개 제한" },
+    { "name": "활동지 생성·A4 인쇄", "priority": "must", "status": "done", "note": "카드·장면·빠른 문항, 5유형 렌더, 설정, 순서/섞기, 쪽당 6문항 미리보기, 정답지 별도 페이지, @media print" },
+    { "name": "탐구 카드 편집·세트 관리", "priority": "should", "status": "done", "note": "편집/새 카드 모달 인라인 유효성, 삭제 확인, 순서 ↑↓, 체크 → 세트 저장" },
+    { "name": "전자칠판 모드", "priority": "should", "status": "done", "note": "data-board=on, 24px 기준 글꼴, 56px 버튼, 고대비, 전체화면(API 실패 시 CSS 대체), 커튼(카드 확인 시 자동 해제), 설정 저장. 제어 패널은 보조 행 숨김으로 축소(아이콘 바 대신)" },
+    { "name": "펜 주석 레이어(Canvas)", "priority": "should", "status": "done", "note": "빨강/파랑/형광/지우개/모두 지우기/끄기, 정규화 좌표 보존·리사이즈 재그리기, 펜 중 SVG 조작 차단" },
+    { "name": "되돌리기/다시하기(50단계)", "priority": "should", "status": "done", "note": "탭별 스택, 버튼+Ctrl+Z/Y/Shift+Z, 애니메이션 없이 렌더" },
+    { "name": "오개념 거울", "priority": "should", "status": "done", "note": "교사 모드·결과 단계 이후 활성, 빨간 빗금 막대+공통 보조선, 차이 라벨, 음수 문구" },
+    { "name": "수직선 어림해서 찍기", "priority": "should", "status": "done", "note": "목표 입력/무작위, 눈금 숨김, 탭 후 0.3초 정답 점, 거리 피드백, 다시/끝내기" },
+    { "name": "학년 프리셋", "priority": "nice", "status": "done", "note": "슬라이더 상한, 3학년 덧셈뺄셈 탭 숨김, 소수 기본값, 카드 필터, 활동지 모델" },
+    { "name": "장면 그림(PNG) 저장", "priority": "nice", "status": "done", "note": "작업 영역 SVG 직렬화→1600px Canvas→PNG, 펜 주석 합성 옵션, 실패 시 토스트" }
+  ],
+  "self_check": {
+    "lint_issues": 0,
+    "pw_problems": [],
+    "page_errors": 0,
+    "console_errors": 0,
+    "acceptance_checked": 17,
+    "acceptance_test_module": "scratchpad/tests/fraction-kit/acceptance.js (76 checks passed)",
+    "should_test_module": "scratchpad/tests/fraction-kit/should.js (23 checks passed)",
+    "screenshots": ["check-final/desktop-light.png", "check-final/desktop-dark.png", "check-final/mobile-light.png", "out/compare.png", "out/arith.png", "out/mirror.png", "out/cards.png", "out/sheet.png", "out/board.png", "out/mobile-kit.png", "out/scenes.png"]
+  },
+  "debug_api": "window.__app = { version:'1.0.0', getState() → {tab, kit, compare, arith, currentCardId, currentSetId, loadedSceneId, worksheet, settings, counts, curtain, pen, estimate, undo}, actions: { setTab, kitSetD, kitSetN, kitSplit, kitMerge, undo, redo, compareSet, compareNext, compareStart, compareOverlay, arithSet, arithOp, arithNext, arithMirror, setCurtain, setPen, setBoard, setTeacher, setGrade, getDb, selectCard, predict, confirmCard, setTally, saveScene, loadScene, importJson, exportJson, resetSamples, sheetAddCard, sheetShuffle } }",
+  "known_issues": [
+    "칠판 모드의 제어 패널은 스펙의 '세로 아이콘 바'가 아니라 보조 행(범위·모델 표시)을 숨긴 축소 패널로 구현",
+    "Ctrl+P는 브라우저 기본 인쇄를 쓰며 beforeprint에서 활동지 루트를 갱신하므로 문항 0개면 빈 페이지가 출력될 수 있음(앱 내 인쇄 버튼은 비활성)",
+    "localStorage 키는 공통 규약의 접두어를 따라 'edu.fraction-kit.v1.*'로 저장(스펙의 'fractionKit.v1.*' 대신)"
+  ],
+  "notes": "코드량 2,340줄(HTML 234 / CSS 476 / JS 1,630). 모든 must·should·nice 기능 구현. 첫 실행 시 장면 'sc-b08 5-1 동치분수 찾기'(1/2)가 교구판에 로드되고 교사 메모가 표시됨."
+}

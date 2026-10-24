@@ -1,0 +1,31 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/04_행정지원_특별실지기/index.html",
+  "test": "reverify-r1-probe-chart.js",
+  "passed": [
+    "1280px: '자원별 가동률' 차트 내용이 카드 안에 보임(overflow 58px, 잘린 텍스트 없음, 잘린 막대 0)",
+    "1280px: '학급별 자원 이용 횟수 히트맵' 차트 내용이 카드 안에 보임(overflow 0px, 잘린 텍스트 없음, 잘린 막대 0)",
+    "1280px: '요일×교시 혼잡도' 차트 내용이 카드 안에 보임(overflow 0px, 잘린 텍스트 없음, 잘린 막대 0)",
+    "1920px: '자원별 가동률' 차트 내용이 카드 안에 보임(overflow 42px, 잘린 텍스트 없음, 잘린 막대 0)",
+    "1920px: '학급별 자원 이용 횟수 히트맵' 차트 내용이 카드 안에 보임(overflow 0px, 잘린 텍스트 없음, 잘린 막대 0)",
+    "1920px: '요일×교시 혼잡도' 차트 내용이 카드 안에 보임(overflow 0px, 잘린 텍스트 없음, 잘린 막대 0)",
+    "1024px: '자원별 가동률' 차트 내용이 카드 안에 보임(overflow 186px, 잘린 텍스트 없음, 잘린 막대 0)",
+    "1024px: '학급별 자원 이용 횟수 히트맵' 차트 내용이 카드 안에 보임(overflow 0px, 잘린 텍스트 없음, 잘린 막대 0)",
+    "1024px: '요일×교시 혼잡도' 차트 내용이 카드 안에 보임(overflow 0px, 잘린 텍스트 없음, 잘린 막대 0)"
+  ],
+  "failed": [
+    "1280px: '학년별 이용 횟수' 차트 내용이 카드 안에 보임(overflow 58px, 잘린 텍스트 105(+2px), 6학년(+11px), 잘린 막대 1)",
+    "1920px: '학년별 이용 횟수' 차트 내용이 카드 안에 보임(overflow 42px, 잘린 텍스트 없음, 잘린 막대 1)",
+    "1024px: '학년별 이용 횟수' 차트 내용이 카드 안에 보임(overflow 186px, 잘린 텍스트 38(+29px), 5학년(+41px), 105(+130px), 6학년(+139px), 잘린 막대 2)"
+  ],
+  "logs": [
+    "1280px: [{\"label\":\"자원별 가동률\",\"svgW\":640,\"wrapW\":582,\"overflow\":58,\"cutTexts\":[],\"cutBars\":0,\"minW\":\"640px\"},{\"label\":\"학년별 이용 횟수\",\"svgW\":640,\"wrapW\":582,\"overflow\":58,\"cutTexts\":[\"105(+2px)\",\"6학년(+11px)\"],\"cutBars\":1,\"minW\":\"640px\"},{\"label\":\"학급별 자원 이용 횟수 히트맵\",\"svgW\":644,\"wrapW\":1214,\"overflow\":0,\"cutTexts\":[],\"cutBars\":0,\"minW\":\"0px\"},{\"label\":\"요일×교시 혼잡도\",\"svgW\":390,\"wrapW\":1214,\"overflow\":0,\"cutTexts\":[],\"cutBars\":0,\"minW\":\"360px\"}]",
+    "1920px: [{\"label\":\"자원별 가동률\",\"svgW\":640,\"wrapW\":598,\"overflow\":42,\"cutTexts\":[],\"cutBars\":0,\"minW\":\"640px\"},{\"label\":\"학년별 이용 횟수\",\"svgW\":640,\"wrapW\":598,\"overflow\":42,\"cutTexts\":[],\"cutBars\":1,\"minW\":\"640px\"},{\"label\":\"학급별 자원 이용 횟수 히트맵\",\"svgW\":644,\"wrapW\":1246,\"overflow\":0,\"cutTexts\":[],\"cutBars\":0,\"minW\":\"0px\"},{\"label\":\"요일×교시 혼잡도\",\"svgW\":390,\"wrapW\":1246,\"overflow\":0,\"cutTexts\":[],\"cutBars\":0,\"minW\":\"360px\"}]",
+    "1024px: [{\"label\":\"자원별 가동률\",\"svgW\":640,\"wrapW\":454,\"overflow\":186,\"cutTexts\":[],\"cutBars\":0,\"minW\":\"640px\"},{\"label\":\"학년별 이용 횟수\",\"svgW\":640,\"wrapW\":454,\"overflow\":186,\"cutTexts\":[\"38(+29px)\",\"5학년(+41px)\",\"105(+130px)\",\"6학년(+139px)\"],\"cutBars\":2,\"minW\":\"640px\"},{\"label\":\"학급별 자원 이용 횟수 히트맵\",\"svgW\":644,\"wrapW\":958,\"overflow\":0,\"cutTexts\":[],\"cutBars\":0,\"minW\":\"0px\"},{\"label\":\"요일×교시 혼잡도\",\"svgW\":390,\"wrapW\":958,\"overflow\":0,\"cutTexts\":[],\"cutBars\":0,\"minW\":\"360px\"}]"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "9 passed, 3 failed, 0 page errors, 0 console errors"
+}

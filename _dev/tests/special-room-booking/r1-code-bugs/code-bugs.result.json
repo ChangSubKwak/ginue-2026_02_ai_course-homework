@@ -1,0 +1,36 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/04_행정지원_특별실지기/index.html",
+  "test": "code-bugs.js",
+  "passed": [
+    "결재란 담당/부장/교감 3칸 + 서명칸 3",
+    "isValidDate(2026-02-30)가 false (실제 false)",
+    "CSV 이스케이프: \"\\\"a,b\\\",\\\"c\\\"\\\"d\\\",\\\"e\\nf\\\",2026-10-01\"",
+    "끝<시작 교시 범위는 checkConflict에서 ok가 아니어야 함(실제 ok=false)",
+    "이후 모두 삭제 → dateTo 전날·남은 건수 일치",
+    "초과 예약(중복)은 충돌 배지 등으로 표시되어야 함(실제 겹친 블록 2, 배지 1, 완전 겹침 false)",
+    "병합 후 초과 예약 재검사 토스트: 샘플 데이터로 시작합니다. 격자를 드래그해 예약해 보세요. | 병합했습니다(예약 239건, 초과 예약 2건 확인 필요).",
+    "격자 밖에서 놓으면 선택 해제(모달 미표시)",
+    "터치 타깃 44px 이상(칩 44, btn-sm 44)",
+    "모달 안에서 Tab 포커스가 밖으로 나가지 않음",
+    "자원 비활성화 시 영향 예약 수 모달(실제 모달 1개, 토스트만)"
+  ],
+  "failed": [],
+  "logs": [
+    "approval={\"ths\":[\"결재\",\"담당\",\"부장\",\"교감\"],\"tds\":3}",
+    "pure={\"feb30\":false,\"bad\":false,\"weekLabel1130\":\"2026년 11월 6주\",\"weekLabel0928\":\"2026년 9월 5주\",\"mondaySat\":\"2026-10-26\",\"mondaySun\":\"2026-10-26\",\"mondayMon\":\"2026-10-26\",\"csv\":\"\\\"a,b\\\",\\\"c\\\"\\\"d\\\",\\\"e\\nf\\\",2026-10-01\",\"rangeLabel\":\"방과후1~방과후2\",\"rangeLabel2\":\"1~3교시\",\"conflictNull\":[\"자원을 선택하세요\"],\"revRange\":false}",
+    "series after={\"n\":9,\"dateTo\":\"2026-11-02\",\"left\":9} mid=2026-11-03",
+    "dup={\"n\":2,\"conflictBadge\":1,\"overlap\":false}",
+    "drag released outside grid → modal count=0",
+    "sizes={\"chip\":44,\"btnSm\":44,\"weekInput\":44,\"tab\":46}",
+    "broken import → {\"board\":9505,\"chips\":1}"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-code-bugs\\bug-dup-block.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\r1-code-bugs\\bug-broken-import.png"
+  ],
+  "fatal": null,
+  "summary": "11 passed, 0 failed, 0 page errors, 0 console errors"
+}

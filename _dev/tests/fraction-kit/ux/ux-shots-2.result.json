@@ -1,0 +1,42 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/01_교과교육지원_분수교구함/index.html",
+  "test": "ux-shots-2.js",
+  "passed": [
+    "3학년 프리셋에서 분모 슬라이더 max=10"
+  ],
+  "failed": [],
+  "logs": [
+    "elshot tests\\fraction-kit\\ux\\z-01-chain-zoom.png",
+    "elshot tests\\fraction-kit\\ux\\z-02-symbol-zoom.png",
+    "elshot tests\\fraction-kit\\ux\\z-03-bar-zoom.png",
+    "elshot tests\\fraction-kit\\ux\\z-04-line-zoom.png",
+    "MEASURE desktop1280-kit-6of12-chain {\"kitBar\":{\"w\":313,\"h\":25},\"kitCircle\":{\"w\":216,\"h\":216},\"kitLine\":{\"w\":313,\"h\":30},\"cellLabelH\":9,\"tickLabelH\":6,\"eqLabelFs\":\"11.2px\",\"abSvg\":{\"w\":0,\"h\":0},\"abRowLabelH\":null,\"abCellLabelH\":null,\"stageBar\":null,\"stageCellLabelH\":null,\"modelCardH\":[71,263,76],\"moreList\":{\"left\":964,\"right\":1164,\"vw\":1280},\"sliderMax\":\"24\"}",
+    "elshot tests\\fraction-kit\\ux\\z-05-symbol-6of12-decimal.png",
+    "MEASURE board1920-kit {\"kitBar\":{\"w\":567,\"h\":45},\"kitCircle\":{\"w\":398,\"h\":230},\"kitLine\":{\"w\":567,\"h\":54},\"cellLabelH\":21,\"tickLabelH\":12,\"eqLabelFs\":null,\"abSvg\":{\"w\":0,\"h\":0},\"abRowLabelH\":null,\"abCellLabelH\":null,\"stageBar\":null,\"stageCellLabelH\":null,\"modelCardH\":[102,287,111],\"moreList\":{\"left\":1580,\"right\":1780,\"vw\":1920},\"sliderMax\":\"24\"}",
+    "elshot tests\\fraction-kit\\ux\\z-06-board-bar-1920.png",
+    "elshot tests\\fraction-kit\\ux\\z-07-arith-bars-light.png",
+    "elshot tests\\fraction-kit\\ux\\z-08-arith-bars-dark.png",
+    "elshot tests\\fraction-kit\\ux\\z-10-sheet-a4-page1.png",
+    "elshot tests\\fraction-kit\\ux\\z-11-ws-item-zoom.png",
+    "MEASURE grade3 {\"kitBar\":{\"w\":313,\"h\":25},\"kitCircle\":{\"w\":216,\"h\":216},\"kitLine\":{\"w\":313,\"h\":30},\"cellLabelH\":9,\"tickLabelH\":6,\"eqLabelFs\":null,\"abSvg\":{\"w\":0,\"h\":0},\"abRowLabelH\":null,\"abCellLabelH\":0,\"stageBar\":null,\"stageCellLabelH\":null,\"modelCardH\":[71,263,76],\"moreList\":{\"left\":964,\"right\":1164,\"vw\":1280},\"sliderMax\":\"10\"}",
+    "MEASURE mobile-more-menu {\"kitBar\":{\"w\":0,\"h\":0},\"kitCircle\":{\"w\":0,\"h\":0},\"kitLine\":{\"w\":0,\"h\":0},\"cellLabelH\":0,\"tickLabelH\":0,\"eqLabelFs\":null,\"abSvg\":{\"w\":0,\"h\":0},\"abRowLabelH\":null,\"abCellLabelH\":0,\"stageBar\":null,\"stageCellLabelH\":null,\"modelCardH\":[0,0,0],\"moreList\":{\"left\":-59,\"right\":141,\"vw\":400},\"sliderMax\":\"24\"}",
+    "MEASURE mobile-card-stage-make {\"kitBar\":{\"w\":0,\"h\":0},\"kitCircle\":{\"w\":0,\"h\":0},\"kitLine\":{\"w\":0,\"h\":0},\"cellLabelH\":0,\"tickLabelH\":0,\"eqLabelFs\":null,\"abSvg\":{\"w\":0,\"h\":0},\"abRowLabelH\":null,\"abCellLabelH\":0,\"stageBar\":{\"w\":312,\"h\":25},\"stageCellLabelH\":9,\"modelCardH\":[0,0,0],\"moreList\":{\"left\":-59,\"right\":141,\"vw\":400},\"sliderMax\":\"24\"}",
+    "elshot tests\\fraction-kit\\ux\\z-15-mobile-card-stage.png",
+    "MEASURE mobile-arith {\"kitBar\":{\"w\":0,\"h\":0},\"kitCircle\":{\"w\":0,\"h\":0},\"kitLine\":{\"w\":0,\"h\":0},\"cellLabelH\":0,\"tickLabelH\":0,\"eqLabelFs\":null,\"abSvg\":{\"w\":368,\"h\":124},\"abRowLabelH\":9,\"abCellLabelH\":10,\"stageBar\":{\"w\":0,\"h\":0},\"stageCellLabelH\":0,\"modelCardH\":[0,0,0],\"moreList\":{\"left\":-59,\"right\":141,\"vw\":400},\"sliderMax\":\"24\"}",
+    "elshot tests\\fraction-kit\\ux\\z-16-mobile-arith-bars.png",
+    "MEASURE mobile-kit-line {\"kitBar\":{\"w\":0,\"h\":0},\"kitCircle\":{\"w\":0,\"h\":0},\"kitLine\":{\"w\":342,\"h\":33},\"cellLabelH\":0,\"tickLabelH\":7,\"eqLabelFs\":null,\"abSvg\":{\"w\":0,\"h\":0},\"abRowLabelH\":null,\"abCellLabelH\":0,\"stageBar\":{\"w\":0,\"h\":0},\"stageCellLabelH\":0,\"modelCardH\":[0,0,79],\"moreList\":{\"left\":-59,\"right\":141,\"vw\":400},\"sliderMax\":\"24\"}",
+    "elshot tests\\fraction-kit\\ux\\z-17-mobile-line.png"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "tests\\fraction-kit\\ux\\00-probe2.png",
+    "tests\\fraction-kit\\ux\\z-09-sheet-dark-a4.png",
+    "tests\\fraction-kit\\ux\\z-12-scenes-empty-state.png",
+    "tests\\fraction-kit\\ux\\z-13-sheet-tablet-items.png",
+    "tests\\fraction-kit\\ux\\z-14-sheet-mobile-items.png"
+  ],
+  "fatal": null,
+  "summary": "1 passed, 0 failed, 0 page errors, 0 console errors"
+}

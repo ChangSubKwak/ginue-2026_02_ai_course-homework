@@ -1,0 +1,43 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/02_학습지도_기억상자/index.html",
+  "test": "code-01-bugs.js",
+  "passed": [
+    "큐에 밀린 카드와 오늘 카드 모두 존재"
+  ],
+  "failed": [
+    "[B1] 밀린 카드가 오늘 카드보다 앞에 정렬됨 (스펙: 밀린 카드 먼저)",
+    "[B2] 기록 탭 재방문 시 클릭 리스너가 중복 등록되지 않음 (실측 3회)",
+    "[B3] 애니메이션 중 → 두 번 눌러도 1장만 채점됨 (실측 2장)",
+    "[B4] 헤더 없는 1001행 CSV는 1,000장만 추가됨 (실측 1001장)",
+    "[B5] 교사 요약 JSON stats 값이 이스케이프됨 (onerror 실행 여부 1)",
+    "[B6] 형식이 어긋난 요약 파일을 넣어도 교사 탭이 렌더됨 (새로고침 후 길이 0)",
+    "[B7] 형식이 어긋난 백업으로 덮어쓰기 시 기존 데이터가 보존됨 (전 1073 → 후 0)"
+  ],
+  "logs": [
+    "queue dues: 2026-10-24,2026-10-24,2026-10-24,2026-10-24,2026-10-24,2026-10-24,2026-10-24,2026-10-24,2026-10-23,2026-10-22,2026-10-21",
+    "view-history click listeners added after 3 visits: 3",
+    "results after double ArrowRight on card 1: 2 (session alive)",
+    "csv modal: 감지된 열: 앞면, 뒷면, 힌트, 유형, 원인 · 총 1001행 · 건너뜀 0행 · 중복 0행  #\t앞면\t뒷면\t힌트\t유형\t원인 1\tq0\ta0\t\t암기\t 2\tq1\ta1\t\t암기\t 3\tq2\ta2\t\t암기\t 4\tq3\ta3\t\t암기\t 5\tq4\ta4\t\t암기\t",
+    "csv added: 1001",
+    "teacher bad import errors: [\"import: s.wrong.forEach is not a function\"]",
+    "teacher view html length after bad import: 2800",
+    "setView teacher threw: page.evaluate: TypeError: s.wrong.forEach is not a function\n    at file:///D:/workspace/ginue-2026_02_ai_course-homework/02_%ED%95%99%EC%8A%B5%EC%A7%80%EB%8F%84_%EA%B8%B0%EC%96%B5%EC%83%81%EC%9E%90/js/app.js:550:15\n    at Array.forEach (<anonymous>)\n    at teacherAgg (file:///D:/workspace/ginue-2026_02_ai_course-homework/02_%ED%95%99%EC%8A%B5%EC%A7%80%EB%8F%84_%EA%B8%B0%EC%96%B5%EC%83%81%EC%9E%90/js/app.js:548:27)\n    at views.teacher (file:///D:/workspace/ginue-2026_02_ai_course-homework/02_%ED%95%99%EC%8A%B5%EC%A7%80%EB%8F%84_%EA%B8%B0%EC%96%B5%EC%83%81%EC%9E%90/js/app.js:558:29)\n    at render (file:///D:/workspace/ginue-2026_02_ai_course-homework/02_%ED%95%99%EC%8A%B5%EC%A7%80%EB%8F%84_%EA%B8%B0%EC%96%B5%EC%83%81%EC%9E%90/js/app.js:101:22)\n    at Object.setView (file:///D:/workspace/ginue-2026_02_ai_course-homework/02_%ED%95%99%EC%8A%B5%EC%A7%80%EB%8F%84_%EA%B8%B0%EC%96%B5%EC%83%81%EC%9E%90/js/app.js:88:114)\n    at eval (eval at evaluate (:290:30), <anonymous>:1:28)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+    "teacher view html length after reload: 0",
+    "cards before bad restore: 1073",
+    "restore modal shown: 1",
+    "restore errors: [\"restore: Cannot read properties of undefined (reading 'some')\"]",
+    "cards after bad restore + reload: 0"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: net::ERR_FILE_NOT_FOUND"
+  ],
+  "dialogs": [],
+  "screenshots": [
+    "out-bugs\\teacher-xss.png",
+    "out-bugs\\teacher-after-bad-import.png",
+    "out-bugs\\after-bad-restore.png"
+  ],
+  "fatal": null,
+  "summary": "1 passed, 7 failed, 0 page errors, 1 console errors"
+}

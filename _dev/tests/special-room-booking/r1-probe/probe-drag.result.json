@@ -1,0 +1,21 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/04_행정지원_특별실지기/index.html",
+  "test": "probe-drag.js",
+  "passed": [],
+  "failed": [
+    "drag → modal"
+  ],
+  "logs": [
+    "sel=2",
+    "after shot sel=0 b={\"x\":107,\"y\":460.453125,\"width\":229,\"height\":58}",
+    "up=[{\"x\":221.5,\"y\":489.453125,\"el\":\"cell free\",\"sw\":1280,\"sh\":800}]",
+    "events=[\"pointerup:cell free\"]",
+    "modal=0 toast=[\"샘플 데이터로 시작합니다. 격자를 드래그해 예약해 보세요.\",\"격자 밖에서 놓아 선택을 취소했습니다.\"]"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "0 passed, 1 failed, 0 page errors, 0 console errors"
+}

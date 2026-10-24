@@ -1,0 +1,46 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/03_업무자동화_자리뚝딱/index.html",
+  "test": "fix-r1-verify.js",
+  "passed": [
+    "구버전 템플릿 토큰이 로드 시 정규화됨",
+    "구버전 데이터 로드 후 화면 격자 8열: 8",
+    "교사용 인쇄 8열 + 칠판 아래: {\"n\":8,\"boardBelow\":true}",
+    "빈 책상이 키보드 포커스 가능(tabindex=0)",
+    "Enter 선택 후 포커스가 카드에 유지",
+    "빈 책상에서 Enter → 선택한 학생 이동",
+    "자물쇠 버튼 바깥 5px 클릭으로 고정(확장 히트 영역)",
+    "48px 셀에서 카드 중앙 클릭 = 탭 선택(자물쇠 아님)",
+    "맞춤 버튼 → 확대값 계산",
+    "다른 탭에서 Ctrl+Z 무시",
+    "자리 배치 탭에서 Ctrl+Z 동작",
+    "탭 → 키로 다음 탭(모둠) 이동 + aria-controls",
+    "편성 확정 직후 반복 모둠 쌍 0건(자기 자신 제외)",
+    "역할 이름 변경이 과거 모둠 기록에 전파",
+    "beforeprint → 인쇄 패널 자동 열림",
+    "afterprint → 자동 열린 패널 닫힘",
+    "히스토리 카드에 레이아웃명(수업형) 표시",
+    "터치 탭으로 히트맵 툴팁 표시·유지",
+    "히스토리 자리 배지가 작은 알약 크기: 20",
+    "모바일 첫 로드: 교실·조건 패널 접힘",
+    "모바일 첫 로드: 좌석표 자동 축소(48px)·가로 스크롤 없음",
+    "모바일 첫 화면에 자동 배치 버튼 보임(top 398)",
+    "모바일 인쇄 패널: 인쇄하기 버튼이 보임 {\"top\":53,\"bottom\":93,\"ih\":800}",
+    "모바일 인쇄 패널 스크롤 후에도 인쇄하기 버튼 고정 노출"
+  ],
+  "failed": [],
+  "logs": [
+    "normalized colTpl: var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell) calc(var(--cell)*0.35) var(--cell) var(--cell)",
+    "fit zoom at 1280: 88",
+    "mobile first load: {\"open\":[false,false],\"cell\":\"48px\",\"sw\":367,\"cw\":366,\"docSw\":400,\"autoTop\":398}"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r1-verify\\v1-history.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r1-verify\\v2-mobile-seats-first.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r1-verify\\v3-mobile-print.png"
+  ],
+  "fatal": null,
+  "summary": "24 passed, 0 failed, 0 page errors, 0 console errors"
+}

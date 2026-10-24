@@ -1,0 +1,61 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "code-misc.pw.js",
+  "passed": [
+    "도움말 모달 6단계",
+    "Esc로 도움말 닫힘",
+    "테마 토글 → data-theme=dark, edu.math-guardians.theme 저장",
+    "이름 1자 → 인라인 오류, 모달 유지",
+    "중복 이름 → '김하늘(2)' 생성·활성화",
+    "명단 CSV: 헤더·빈 줄·따옴표·중복(3)·불량 행 처리 → 5명 추가, 2행 건너뜀",
+    "40명 상한에서 중단 + 안내 토스트",
+    "0명 추가 → 안내 모달",
+    "기록 CSV: 파일명·BOM·헤더 15열·CRLF",
+    "약점 CSV: 파일명·헤더 8열",
+    "CSV 쉼표·따옴표 포함 필드 큰따옴표 이스케이프",
+    "JSON 백업: 파일명·schemaVersion 1·프로필 40",
+    "삭제 확인 모달(빨간 확인 버튼)",
+    "취소 시 삭제 안 됨",
+    "활성 프로필 삭제 → 첫 프로필(이도윤)로 전환",
+    "모든 스테이지 비활성 → 안내 카드",
+    "비활성 스테이지: 회색 카드 + 토스트, 시작 안 됨",
+    "체험하기 → 게스트",
+    "게스트 결과 화면에 '프로필 만들어 기록 저장하기' 버튼",
+    "게스트 판은 프로필에 기록되지 않음",
+    "시간 제한 도달 → 시간 종료 결과(별 0)",
+    "키패드 pointerdown → 즉시 입력, 포커스 이동 없음",
+    "Esc → 일시정지 모달",
+    "계속하기 → 재개",
+    "탭 숨김(visibilitychange) → 자동 일시정지 모달",
+    "그만하기 → 중단 결과",
+    "인쇄: 기록표만 표시, 게임 UI 숨김",
+    "오늘 플레이한 판이 기록표에 행으로 표시"
+  ],
+  "failed": [
+    "게스트 랭킹: 체험 모드 안내"
+  ],
+  "logs": [
+    "new profile: current=김하늘(2) count=25 toast=\"'김하늘(2)' 프로필을 만들었어요\"",
+    "roster import: count=30 toast=\"5명 추가, 2행 건너뜀\" tail=백건우|구하린|김,하늘|홍길동|김하늘(3)",
+    "imported profile sample: {\"grade\":5,\"classNo\":2,\"number\":25,\"avatar\":0}",
+    "cap: count=40 toasts=[\"5명 추가, 2행 건너뜀\",\"프로필 상한 40명에 도달해 중단했습니다\",\"10명 추가, 0행 건너뜀\"]",
+    "records csv: math-guardians-records-20261025.csv lines=38 head=\"﻿프로필,학년,반,번호,스테이지,최고점수,별,최대콤보,플레이수,클리어수,정답수,오답수,미응답수,평균반응시간(초),최근플레이\" row1=\"김하늘,5,2,1,1-1 9까지의 덧셈,6200,2,9,3,2,81,6,3,2.8,2026-10-13T06:10:00.000Z\"",
+    "weak csv: math-guardians-weakfacts-20261025.csv lines=31 head=\"﻿프로필,스테이지,문제,정답,정답수,오답수,상자,마지막시도\" row1=\"김하늘,2-3,6 × 9,54,3,2,1,2026-10-23T06:10:00.000Z\"",
+    "csv escaped row: \"김,\"\"하늘\"\"\",5,2,1,1-1 9까지의 덧셈,6200,2,9,3,2,81,6,3,2.8,2026-10-13T06:10:00.000Z",
+    "json: math-guardians-backup-20261025.json schema=1 profiles=40",
+    "after delete active: count=23 current=이도윤",
+    "disabled stage: class=\"stage-card disabled\" toast=\"선생님이 닫아 둔 스테이지입니다\" view=home",
+    "timeout: view=result head=\"⏰ 시간 종료\" stars=0",
+    "keypad pointerdown: {\"disp\":\"7\",\"focusTag\":\"BODY\",\"focusCls\":\"in-game\"}",
+    "print: {\"printed\":1,\"root\":\"block\",\"main\":\"none\",\"header\":\"none\",\"text\":\"연산수호대 오늘의 기록표가온초등학교 5학년 2반 · 2026-10-25 번호이름스테이지점수별정답률틀린 문제1김하늘1-1 9까지의 덧셈0☆☆☆0%1김하늘1-1 9까지의 덧셈0☆☆☆0%\"}",
+    "print rows=2 row=\"1김하늘1-1 9까지의 덧셈0☆☆☆0%\""
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\math-guardians\\code-out\\code-misc-end.png"
+  ],
+  "fatal": null,
+  "summary": "28 passed, 1 failed, 0 page errors, 0 console errors"
+}

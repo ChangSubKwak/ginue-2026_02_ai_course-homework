@@ -1,0 +1,39 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/02_학습지도_기억상자/index.html",
+  "test": "func-cards.js",
+  "passed": [
+    "덱 목록 5개",
+    "덱 카드에 카드 수·상자 분포 미니 막대",
+    "덱 카드에 오늘 예정 장수",
+    "덱 모달 열림",
+    "덱 이름 빈값 → 저장 비활성",
+    "덱 이름 공백만 → 저장 비활성",
+    "덱 이름 입력 → 저장 활성",
+    "XSS: 덱 이름의 <img onerror> 실행·렌더 안 됨",
+    "빈 덱은 \"지금 복습\" 비활성",
+    "카드 모달 열림",
+    "앞/뒷면 빈값 → 저장·저장하고 하나 더 비활성",
+    "암기 유형: 원인 칩·내 답 숨김",
+    "앞면만 입력 → 저장 비활성",
+    "앞·뒷면 입력 → 저장 활성",
+    "앞면 300자 제한",
+    "글자 수 카운터 300/300",
+    "오답 유형: 원인 칩·내 답 표시",
+    "원인 칩 5개",
+    "오답 유형 원인 미선택 → 저장 비활성",
+    "원인 선택 → 저장 활성"
+  ],
+  "failed": [
+    "새 덱 저장(6개)·과목 과학",
+    "저장 후 덱 상세로 이동(드롭존 표시)"
+  ],
+  "logs": [],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "tests\\memory-box\\qa-cards\\c01-decks.png"
+  ],
+  "fatal": "TypeError: Cannot read properties of undefined (reading 'id') |     at module.exports (C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\func-cards.js:64:40) |     at async C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tools\\pw-run.js:46:5",
+  "summary": "20 passed, 2 failed, 0 page errors, 0 console errors, FATAL"
+}

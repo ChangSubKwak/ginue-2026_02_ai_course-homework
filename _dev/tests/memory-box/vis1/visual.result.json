@@ -1,0 +1,42 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/02_학습지도_기억상자/index.html",
+  "test": "visual.js",
+  "passed": [
+    "d cards 가로 스크롤 없음 []",
+    "d history 가로 스크롤 없음 []",
+    "d exam 가로 스크롤 없음 []",
+    "d print 가로 스크롤 없음 []",
+    "d teacher 가로 스크롤 없음 []",
+    "d settings 가로 스크롤 없음 []",
+    "d 카드 모달 가로 스크롤 없음",
+    "m cards 가로 스크롤 없음 []",
+    "m history 가로 스크롤 없음 []",
+    "m exam 가로 스크롤 없음 []",
+    "m print 가로 스크롤 없음 []",
+    "m teacher 가로 스크롤 없음 [\"TABLE.tbl r=541\",\"THEAD. r=541\",\"TR. r=541\",\"TH.num r=409\",\"TH.num r=468\",\"TH. r=541\"]",
+    "m settings 가로 스크롤 없음 [\"TABLE.tbl r=481\",\"TBODY. r=481\",\"TR. r=481\",\"TH.num r=413\",\"TH.num r=481\",\"TR. r=481\"]"
+  ],
+  "failed": [],
+  "logs": [],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "..\\tests\\memory-box\\vis1\\d-cards.png",
+    "..\\tests\\memory-box\\vis1\\d-history.png",
+    "..\\tests\\memory-box\\vis1\\d-exam.png",
+    "..\\tests\\memory-box\\vis1\\d-print.png",
+    "..\\tests\\memory-box\\vis1\\d-teacher.png",
+    "..\\tests\\memory-box\\vis1\\d-settings.png",
+    "..\\tests\\memory-box\\vis1\\d-print-preview.png",
+    "..\\tests\\memory-box\\vis1\\d-card-modal.png",
+    "..\\tests\\memory-box\\vis1\\m-cards.png",
+    "..\\tests\\memory-box\\vis1\\m-history.png",
+    "..\\tests\\memory-box\\vis1\\m-exam.png",
+    "..\\tests\\memory-box\\vis1\\m-print.png",
+    "..\\tests\\memory-box\\vis1\\m-teacher.png",
+    "..\\tests\\memory-box\\vis1\\m-settings.png"
+  ],
+  "fatal": "page.click: Timeout 30000ms exceeded. | Call log: | \u001b[2m  - waiting for locator('[data-action=\"print-preview\"]')\u001b[22m | \u001b[2m    - locator resolved to <button disabled data-action=\"print-preview\" class=\"btn btn-primary btn-lg\">미리보기 (0장)</button>\u001b[22m",
+  "summary": "13 passed, 0 failed, 0 page errors, 0 console errors, FATAL"
+}

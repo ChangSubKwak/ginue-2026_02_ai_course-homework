@@ -1,0 +1,52 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/03_업무자동화_자리뚝딱/index.html",
+  "test": "fix-r2-verify.js",
+  "passed": [
+    "R-01 전제: 핀 없는 자동 배치는 뒷줄 4석(4-1·4-3·4-4·4-6)을 비움",
+    "R-01 0-0 학생 자물쇠 켜짐",
+    "R-01/AC5 고정 학생 좌석 5회 유지 (5/5)",
+    "R-01 고정 학생의 옆자리(0-1)가 다시 섞기마다 채워짐 (5/5)",
+    "R-01 빈 책상은 여전히 뒷줄 4석·단독석 표기 없음 (뒷줄 5/5, 단독석 0회)",
+    "R-01 고정 상태에서도 남녀 짝 12/12 충족: 12/12 충족",
+    "R-01 3-0에 학생 있음(전제)",
+    "R-01 3-0 고정: 옆자리 3-1 채움·뒷줄 4석 비움 (3/3)",
+    "R-01 자물쇠 모두 해제",
+    "R-04 1280px 토스트 컨테이너가 상단 12px에 위치",
+    "R-04 토스트가 좌석표 격자(top 358)·리포트(top 203) 위쪽에 머무름(toast bottom 54)",
+    "R-04 토스트 가로 중앙·클릭 통과(pointer-events none)",
+    "R-04 토스트 아래의 도움말 버튼 클릭 가능",
+    "도움말 모달 표시",
+    "자리 배치 도움말에 자동 맞춤·핀 옆자리 설명 포함",
+    "R-02 전제: 슬라이더를 만지지 않아 자동 맞춤 상태",
+    "R-02 1280→400 리사이즈만으로 교실·조건 패널이 접힘",
+    "R-02 리사이즈만으로 좌석표 자동 축소(48px)·가로 넘침 없음 (367/366)",
+    "R-04 400px에서는 토스트가 하단 탭 바 위(84px)에 위치",
+    "R-02 400→1280 복귀 시 패널 펼침·확대 재맞춤(zoom 88)",
+    "R-02 900px에서도 좌석표가 폭 안에 들어옴(zoom 76)",
+    "R-03 슬라이더 조작 → 수동 상태(60)",
+    "R-03 수동 확대값은 400px 리사이즈에도 유지(60px)",
+    "R-02 수동 확대 상태에서도 400px이면 패널은 접힘",
+    "R-03 수동 확대값은 1280px 복귀에도 유지",
+    "R-03 프리셋 변경 → 자동 맞춤 상태로 전환(zoom 104)",
+    "R-03 프리셋 변경 후 좌석표가 폭 안에 들어옴",
+    "R-03 '맞춤' 버튼 → 자동 맞춤 상태(zoom 104)"
+  ],
+  "failed": [],
+  "logs": [
+    "toast desktop: {\"top\":\"12px\",\"rootTop\":12,\"toastBottom\":54,\"gridTop\":358,\"repTop\":203,\"cx\":640,\"pe\":\"none\",\"text\":\"모든 조건을 충족하는 배치를 찾았습니다\"}",
+    "after resize to 400: {\"open\":[false,false],\"cell\":\"48px\",\"zoomInput\":\"48\",\"sw\":367,\"cw\":366,\"docSw\":400,\"toastGap\":84,\"toastBottomCss\":\"84px\"} openBefore=[true,true]",
+    "after resize back to 1280: {\"open\":[true,true],\"zoom\":88,\"cell\":\"88px\",\"fits\":true}",
+    "after resize to 900: {\"zoom\":76,\"fits\":true,\"sw\":610,\"cw\":610}"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r2-verify\\r2-pin-shuffle.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r2-verify\\r2-toast-top.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r2-verify\\r2-mobile-resized.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r2-verify\\r2-exam-fit.png"
+  ],
+  "fatal": null,
+  "summary": "28 passed, 0 failed, 0 page errors, 0 console errors"
+}

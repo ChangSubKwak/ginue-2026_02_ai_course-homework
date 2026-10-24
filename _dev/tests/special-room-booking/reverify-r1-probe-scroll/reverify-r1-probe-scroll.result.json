@@ -1,0 +1,23 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/04_행정지원_특별실지기/index.html",
+  "test": "reverify-r1-probe-scroll.js",
+  "passed": [
+    "데스크톱: 미확인 예약 모달 표 가로 스크롤 0 (0)",
+    "모바일 400px: 충돌 예약 목록 모달 표 가로 스크롤 0 (scrollLeft=0, active=BUTTON.btn btn-sm[b_s170])",
+    "표를 왼쪽으로 되돌릴 수 있음"
+  ],
+  "failed": [
+    "모바일 400px: 미확인 예약 모달이 열릴 때 표가 왼쪽 끝에서 시작(날짜·자원 열 보임) (scrollLeft=191, active=BUTTON.btn btn-sm[true])"
+  ],
+  "logs": [
+    "desktop unchecked {\"scrollLeft\":0,\"scrollW\":722,\"clientW\":722,\"active\":\"BUTTON.btn btn-sm[true]\",\"inBody\":true,\"firstTdLeft\":279,\"wrapLeft\":279}",
+    "mobile unchecked {\"scrollLeft\":191,\"scrollW\":553,\"clientW\":362,\"active\":\"BUTTON.btn btn-sm[true]\",\"inBody\":true,\"firstTdLeft\":-172,\"wrapLeft\":19}",
+    "mobile affected {\"scrollLeft\":0,\"scrollW\":411,\"clientW\":362,\"active\":\"BUTTON.btn btn-sm[b_s170]\",\"inBody\":true,\"firstTdLeft\":19,\"wrapLeft\":19}"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "3 passed, 1 failed, 0 page errors, 0 console errors"
+}

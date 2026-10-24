@@ -1,0 +1,107 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/04_행정지원_특별실지기/index.html",
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "dialogs": [],
+  "views": {
+    "desktop-light": {
+      "title": "특별실지기",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 1280,
+      "scrollWidth": 1280,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [],
+      "headings": [
+        "H1: 특별실지기",
+        "H2: 과학실1",
+        "H2: 특별실지기에 오신 것을 환영합니다",
+        "H3: 공용 PC 운영",
+        "H3: JSON 공유 드라이브"
+      ],
+      "buttons": 64,
+      "inputs": 1,
+      "textLength": 927,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Gothic+A1:wght@400;500;700&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(242, 243, 245)",
+      "bodyColor": "rgb(27, 34, 48)",
+      "rootDataTheme": null,
+      "firstText": "특별실지기 학교 공유 자원 주간 예약판 · 충돌 검사 · 운영 실적 보고 가온초등학교 · 2026학년도 2학기 저장됨 예약판 학사일정 특별실·기자재 통계 설정 과학실1 과학실2 컴퓨터실 강당 시청각실 영어체험실 음악실 태블릿 세트 ×2 이동식 빔프로젝터 ×3 과학 탐구 교구 세트 ×4 ◀ 이번 주 ▶ 2026년 10월 5주 10/26~10/30 정기 예약 인쇄 과학실1 공간형 · 수용 30명 · 담당 류은채 실험 후 기구 세척·환기, 약품은 전담 교사 입회하에 사용 교시 월 10/26 화 10/27 수 10/28 목 10/29 금 10/30 1교시 09:00~09:40 2교시 09:50~10:30 3교시 10:40~11:20 4교시 11:30~12:10 5교시 13:10~13:50 6교시 14:00~14:4",
+      "screenshot": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\reverify-r1-smoke\\desktop-light.png"
+    },
+    "desktop-dark": {
+      "title": "특별실지기",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 1280,
+      "scrollWidth": 1280,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [],
+      "headings": [
+        "H1: 특별실지기",
+        "H2: 과학실1",
+        "H2: 특별실지기에 오신 것을 환영합니다",
+        "H3: 공용 PC 운영",
+        "H3: JSON 공유 드라이브"
+      ],
+      "buttons": 64,
+      "inputs": 1,
+      "textLength": 927,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Gothic+A1:wght@400;500;700&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(18, 22, 29)",
+      "bodyColor": "rgb(230, 234, 240)",
+      "rootDataTheme": null,
+      "firstText": "특별실지기 학교 공유 자원 주간 예약판 · 충돌 검사 · 운영 실적 보고 가온초등학교 · 2026학년도 2학기 저장됨 예약판 학사일정 특별실·기자재 통계 설정 과학실1 과학실2 컴퓨터실 강당 시청각실 영어체험실 음악실 태블릿 세트 ×2 이동식 빔프로젝터 ×3 과학 탐구 교구 세트 ×4 ◀ 이번 주 ▶ 2026년 10월 5주 10/26~10/30 정기 예약 인쇄 과학실1 공간형 · 수용 30명 · 담당 류은채 실험 후 기구 세척·환기, 약품은 전담 교사 입회하에 사용 교시 월 10/26 화 10/27 수 10/28 목 10/29 금 10/30 1교시 09:00~09:40 2교시 09:50~10:30 3교시 10:40~11:20 4교시 11:30~12:10 5교시 13:10~13:50 6교시 14:00~14:4",
+      "screenshot": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\reverify-r1-smoke\\desktop-dark.png"
+    },
+    "mobile-light": {
+      "title": "특별실지기",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 400,
+      "scrollWidth": 400,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [
+        "button right=421",
+        "button.chip right=408",
+        "button.chip right=517",
+        "i right=441",
+        "button.chip right=641",
+        "i right=550",
+        "button.chip right=736",
+        "i right=674"
+      ],
+      "headings": [
+        "H1: 특별실지기",
+        "H2: 과학실1",
+        "H2: 특별실지기에 오신 것을 환영합니다",
+        "H3: 공용 PC 운영",
+        "H3: JSON 공유 드라이브"
+      ],
+      "buttons": 40,
+      "inputs": 1,
+      "textLength": 834,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Gothic+A1:wght@400;500;700&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(242, 243, 245)",
+      "bodyColor": "rgb(27, 34, 48)",
+      "rootDataTheme": null,
+      "firstText": "특별실지기 저장됨 예약판 학사일정 특별실·기자재 통계 설정 과학실1 과학실2 컴퓨터실 강당 시청각실 영어체험실 음악실 태블릿 세트 ×2 이동식 빔프로젝터 ×3 과학 탐구 교구 세트 ×4 ◀ 이번 주 ▶ 2026년 10월 5주 10/26~10/30 정기 예약 인쇄 과학실1 공간형 · 수용 30명 · 담당 류은채 실험 후 기구 세척·환기, 약품은 전담 교사 입회하에 사용 월 10/26 화 10/27 수 10/28 목 10/29 금 10/30 교시 월 10/26 1교시 09:00~09:40 2교시 09:50~10:30 3교시 10:40~11:20 4교시 11:30~12:10 5교시 13:10~13:50 6교시 14:00~14:40 방과후1 14:50~15:30 방과후2 15:40~16:20 이번 주 예약 3건 ·",
+      "screenshot": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\reverify-r1-smoke\\mobile-light.png"
+    }
+  },
+  "problems": []
+}

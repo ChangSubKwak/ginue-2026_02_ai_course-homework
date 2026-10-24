@@ -1,0 +1,89 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/02_학습지도_기억상자/index.html",
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "dialogs": [],
+  "views": {
+    "desktop-light": {
+      "title": "기억상자",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 1280,
+      "scrollWidth": 1280,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [],
+      "headings": [
+        "H1: 기억상자",
+        "H2: 상자 5개 — 맞히면 다음 상자로, 틀리면 1상자로"
+      ],
+      "buttons": 21,
+      "inputs": 0,
+      "textLength": 422,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(246, 241, 230)",
+      "bodyColor": "rgb(45, 40, 56)",
+      "rootDataTheme": null,
+      "firstText": "기억상자 잊기 직전에 다시 만나는 간격 반복 복습 · 오답 노트 🐳 김하늘 ▾ 🌙 ? 🏠 홈 🗂️ 카드 📈 기록 📅 시험 🖨️ 인쇄 ⚙️ 설정 D-12 수학 5단원 단원평가 오늘 계획 3장 · 10/30(금) 계획 보기 오늘 복습 11장 (밀림 3장) 카드를 보고 ‘얼마나 확실한지’ 먼저 고른 다음 뒤집어요. 하루 목표 0/10장 0% 🔥 6일 연속 복습 중이에요 카드 72장 · 덱 5개 · 숙달 3장 상자 5개 — 맞히면 다음 상자로, 틀리면 1상자로 14 1상자 1일마다 18 2상자 2일마다 16 3상자 4일마다 14 4상자 7일마다 10 5상자 15일마다 바이브코딩으로 만드는 교육용 앱 · 기억상자 · 2026 · 내장된 데이터는 모두 가상의 샘플입니다 + 샘플 데이터가 준비되었어요. 모",
+      "screenshot": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\smoke\\desktop-light.png"
+    },
+    "desktop-dark": {
+      "title": "기억상자",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 1280,
+      "scrollWidth": 1280,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [],
+      "headings": [
+        "H1: 기억상자",
+        "H2: 상자 5개 — 맞히면 다음 상자로, 틀리면 1상자로"
+      ],
+      "buttons": 21,
+      "inputs": 0,
+      "textLength": 422,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(28, 26, 35)",
+      "bodyColor": "rgb(239, 234, 247)",
+      "rootDataTheme": null,
+      "firstText": "기억상자 잊기 직전에 다시 만나는 간격 반복 복습 · 오답 노트 🐳 김하늘 ▾ ☀️ ? 🏠 홈 🗂️ 카드 📈 기록 📅 시험 🖨️ 인쇄 ⚙️ 설정 D-12 수학 5단원 단원평가 오늘 계획 3장 · 10/30(금) 계획 보기 오늘 복습 11장 (밀림 3장) 카드를 보고 ‘얼마나 확실한지’ 먼저 고른 다음 뒤집어요. 하루 목표 0/10장 0% 🔥 6일 연속 복습 중이에요 카드 72장 · 덱 5개 · 숙달 3장 상자 5개 — 맞히면 다음 상자로, 틀리면 1상자로 14 1상자 1일마다 18 2상자 2일마다 16 3상자 4일마다 14 4상자 7일마다 10 5상자 15일마다 바이브코딩으로 만드는 교육용 앱 · 기억상자 · 2026 · 내장된 데이터는 모두 가상의 샘플입니다 + 샘플 데이터가 준비되었어요. 모",
+      "screenshot": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\smoke\\desktop-dark.png"
+    },
+    "mobile-light": {
+      "title": "기억상자",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 400,
+      "scrollWidth": 400,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [],
+      "headings": [
+        "H1: 기억상자",
+        "H2: 상자 5개 — 맞히면 다음 상자로, 틀리면 1상자로"
+      ],
+      "buttons": 21,
+      "inputs": 0,
+      "textLength": 389,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Gothic:wght@400;700;800&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(246, 241, 230)",
+      "bodyColor": "rgb(45, 40, 56)",
+      "rootDataTheme": null,
+      "firstText": "기억상자 🐳 김하늘 ▾ 🌙 ? 🏠 홈 🗂️ 카드 📈 기록 📅 시험 🖨️ 인쇄 ⚙️ 설정 D-12 수학 5단원 단원평가 오늘 계획 3장 · 10/30(금) 계획 보기 오늘 복습 11장 (밀림 3장) 카드를 보고 ‘얼마나 확실한지’ 먼저 고른 다음 뒤집어요. 하루 목표 0/10장 0% 🔥 6일 연속 복습 중이에요 카드 72장 · 덱 5개 · 숙달 3장 상자 5개 — 맞히면 다음 상자로, 틀리면 1상자로 14 1상자 1일마다 18 2상자 2일마다 16 3상자 4일마다 14 4상자 7일마다 10 5상자 15일마다 바이브코딩으로 만드는 교육용 앱 · 기억상자 · 2026 · 내장된 데이터는 모두 가상의 샘플입니다 + 샘플 데이터가 준비되었어요. 모든 기록은 이 기기에만 저장돼요.",
+      "screenshot": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\smoke\\mobile-light.png"
+    }
+  },
+  "problems": []
+}

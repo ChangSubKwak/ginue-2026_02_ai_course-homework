@@ -1,0 +1,14 @@
+{
+  "dir": "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱",
+  "totalCodeLines": 1924,
+  "files": {
+    "css/style.css": 372,
+    "index.html": 207,
+    "js/app.js": 744,
+    "js/data.js": 124,
+    "js/engine.js": 345,
+    "js/ui.js": 132,
+    "README.md": 85
+  },
+  "issues": []
+}

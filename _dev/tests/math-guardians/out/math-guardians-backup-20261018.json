@@ -1,0 +1,4121 @@
+{
+ "schemaVersion": 1,
+ "seededAt": "2026-10-18T00:36:41.206Z",
+ "savedAt": "2026-10-18T00:39:46.694Z",
+ "activeProfileId": "p_sample02",
+ "settings": {
+  "activeStageIds": [
+   "s1-1",
+   "s1-2",
+   "s1-3",
+   "s2-1",
+   "s2-2",
+   "s2-3",
+   "s3-1",
+   "s3-2",
+   "s3-3",
+   "s3-4",
+   "s4-1",
+   "s4-2",
+   "s4-3",
+   "s5-1",
+   "s5-2",
+   "s5-3",
+   "s6-1",
+   "s6-2",
+   "s6-3"
+  ],
+  "speedPreset": "normal",
+  "timeLimitMin": 0,
+  "rankingPublic": true,
+  "unlockAll": true,
+  "adaptive": true,
+  "lowGradeChoice": false,
+  "volume": 0.4,
+  "muted": false,
+  "lowSpec": false,
+  "bigText": false,
+  "teacherPin": null,
+  "classLabel": "5학년 2반"
+ },
+ "profiles": [
+  {
+   "id": "p_sample01",
+   "name": "김하늘",
+   "grade": 5,
+   "classNo": 2,
+   "number": 1,
+   "avatar": 1,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "gold",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 804,
+    "totalCorrect": 707,
+    "revengeKills": 1,
+    "bossKills": 7,
+    "threeStarClears": 1
+   },
+   "badges": [
+    {
+     "id": "first_kill",
+     "at": "2026-10-06T06:10:00.000Z"
+    },
+    {
+     "id": "combo10",
+     "at": "2026-10-10T06:10:00.000Z"
+    },
+    {
+     "id": "perfect",
+     "at": "2026-10-10T06:10:00.000Z"
+    },
+    {
+     "id": "combo20",
+     "at": "2026-10-18T00:37:53.509Z"
+    }
+   ],
+   "playDates": [
+    "2026-10-06",
+    "2026-10-07",
+    "2026-10-08",
+    "2026-10-10",
+    "2026-10-11",
+    "2026-10-15",
+    "2026-10-16",
+    "2026-10-17",
+    "2026-10-18"
+   ],
+   "stageRecords": {
+    "s1-1": {
+     "stageId": "s1-1",
+     "bestScore": 6200,
+     "bestStars": 2,
+     "bestCombo": 9,
+     "plays": 6,
+     "clears": 2,
+     "correct": 81,
+     "wrong": 6,
+     "reached": 7,
+     "avgMs": 2800,
+     "lastPlayedAt": "2026-10-18T00:39:34.759Z"
+    },
+    "s1-2": {
+     "stageId": "s1-2",
+     "bestScore": 5900,
+     "bestStars": 2,
+     "bestCombo": 8,
+     "plays": 2,
+     "clears": 1,
+     "correct": 53,
+     "wrong": 5,
+     "reached": 2,
+     "avgMs": 3000,
+     "lastPlayedAt": "2026-10-07T06:10:00.000Z"
+    },
+    "s1-3": {
+     "stageId": "s1-3",
+     "bestScore": 7400,
+     "bestStars": 2,
+     "bestCombo": 10,
+     "plays": 2,
+     "clears": 1,
+     "correct": 52,
+     "wrong": 6,
+     "reached": 2,
+     "avgMs": 3600,
+     "lastPlayedAt": "2026-10-08T06:10:00.000Z"
+    },
+    "s2-1": {
+     "stageId": "s2-1",
+     "bestScore": 11200,
+     "bestStars": 3,
+     "bestCombo": 12,
+     "plays": 3,
+     "clears": 2,
+     "correct": 86,
+     "wrong": 3,
+     "reached": 1,
+     "avgMs": 3400,
+     "lastPlayedAt": "2026-10-10T06:10:00.000Z"
+    },
+    "s2-2": {
+     "stageId": "s2-2",
+     "bestScore": 9800,
+     "bestStars": 2,
+     "bestCombo": 11,
+     "plays": 4,
+     "clears": 3,
+     "correct": 102,
+     "wrong": 13,
+     "reached": 5,
+     "avgMs": 3900,
+     "lastPlayedAt": "2026-10-11T06:10:00.000Z"
+    },
+    "s2-3": {
+     "stageId": "s2-3",
+     "bestScore": 24350,
+     "bestStars": 2,
+     "bestCombo": 46,
+     "plays": 7,
+     "clears": 6,
+     "correct": 209,
+     "wrong": 14,
+     "reached": 6,
+     "avgMs": 2090,
+     "lastPlayedAt": "2026-10-18T00:38:41.211Z"
+    },
+    "s3-1": {
+     "stageId": "s3-1",
+     "bestScore": 14200,
+     "bestStars": 2,
+     "bestCombo": 12,
+     "plays": 3,
+     "clears": 2,
+     "correct": 76,
+     "wrong": 10,
+     "reached": 4,
+     "avgMs": 4200,
+     "lastPlayedAt": "2026-10-15T06:10:00.000Z"
+    },
+    "s3-2": {
+     "stageId": "s3-2",
+     "bestScore": 8900,
+     "bestStars": 1,
+     "bestCombo": 7,
+     "plays": 2,
+     "clears": 1,
+     "correct": 47,
+     "wrong": 9,
+     "reached": 4,
+     "avgMs": 3800,
+     "lastPlayedAt": "2026-10-17T06:10:00.000Z"
+    },
+    "s4-2": {
+     "stageId": "s4-2",
+     "bestScore": 150,
+     "bestStars": 0,
+     "bestCombo": 1,
+     "plays": 1,
+     "clears": 0,
+     "correct": 1,
+     "wrong": 0,
+     "reached": 0,
+     "avgMs": 583,
+     "lastPlayedAt": "2026-10-18T00:39:37.445Z"
+    }
+   },
+   "facts": {
+    "6×9": {
+     "key": "6×9",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 9
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 2,
+     "lastAt": "2026-10-18T00:37:07.242Z",
+     "masteredAt": "2026-10-18T00:37:07.242Z",
+     "answer": "54",
+     "question": "6 × 9"
+    },
+    "7×6": {
+     "key": "7×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 6
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 2,
+     "lastAt": "2026-10-18T00:37:55.592Z",
+     "masteredAt": "2026-10-18T00:37:32.675Z",
+     "answer": "42",
+     "question": "7 × 6"
+    },
+    "7×8": {
+     "key": "7×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 8
+     },
+     "box": 3,
+     "hit": 6,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:37:27.942Z",
+     "masteredAt": "2026-10-09T06:10:00.000Z",
+     "answer": "56",
+     "question": "7 × 8"
+    },
+    "8×8": {
+     "key": "8×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 8
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-16T06:10:00.000Z",
+     "masteredAt": "2026-10-09T06:10:00.000Z",
+     "answer": "64",
+     "question": "8 × 8"
+    },
+    "9×9": {
+     "key": "9×9",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 9
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-16T06:10:00.000Z",
+     "masteredAt": "2026-10-09T06:10:00.000Z",
+     "answer": "81",
+     "question": "9 × 9"
+    },
+    "56÷7": {
+     "key": "56÷7",
+     "stageId": "s3-2",
+     "p": {
+      "op": "div",
+      "a": 56,
+      "b": 7
+     },
+     "box": 0,
+     "hit": 1,
+     "miss": 2,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "8",
+     "question": "56 ÷ 7"
+    },
+    "63÷9": {
+     "key": "63÷9",
+     "stageId": "s3-2",
+     "p": {
+      "op": "div",
+      "a": 63,
+      "b": 9
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "7",
+     "question": "63 ÷ 9"
+    },
+    "9×1": {
+     "key": "9×1",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 1
+     },
+     "box": 2,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-18T00:38:29.826Z",
+     "masteredAt": "2026-10-18T00:38:29.826Z",
+     "answer": "9",
+     "question": "9 × 1"
+    },
+    "5×6": {
+     "key": "5×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 6
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:36:57.142Z",
+     "masteredAt": null,
+     "answer": "30",
+     "question": "5 × 6"
+    },
+    "9×8": {
+     "key": "9×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 8
+     },
+     "box": 2,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-18T00:37:37.809Z",
+     "masteredAt": "2026-10-18T00:37:37.809Z",
+     "answer": "72",
+     "question": "9 × 8"
+    },
+    "5×8": {
+     "key": "5×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 8
+     },
+     "box": 2,
+     "hit": 2,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:36.309Z",
+     "masteredAt": "2026-10-18T00:38:36.309Z",
+     "answer": "40",
+     "question": "5 × 8"
+    },
+    "8×9": {
+     "key": "8×9",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 9
+     },
+     "box": 2,
+     "hit": 2,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:25.425Z",
+     "masteredAt": "2026-10-18T00:38:25.425Z",
+     "answer": "72",
+     "question": "8 × 9"
+    },
+    "7×7": {
+     "key": "7×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 7
+     },
+     "box": 2,
+     "hit": 2,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:37:51.409Z",
+     "masteredAt": "2026-10-18T00:37:51.409Z",
+     "answer": "49",
+     "question": "7 × 7"
+    },
+    "8×6": {
+     "key": "8×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 6
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:37:17.975Z",
+     "masteredAt": null,
+     "answer": "48",
+     "question": "8 × 6"
+    },
+    "9×3": {
+     "key": "9×3",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 3
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:37:20.525Z",
+     "masteredAt": null,
+     "answer": "27",
+     "question": "9 × 3"
+    },
+    "3×3": {
+     "key": "3×3",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 3
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:37:22.842Z",
+     "masteredAt": null,
+     "answer": "9",
+     "question": "3 × 3"
+    },
+    "2×5": {
+     "key": "2×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 2,
+      "b": 5
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:37:25.609Z",
+     "masteredAt": null,
+     "answer": "10",
+     "question": "2 × 5"
+    },
+    "3×4": {
+     "key": "3×4",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 4
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:37:35.009Z",
+     "masteredAt": null,
+     "answer": "12",
+     "question": "3 × 4"
+    },
+    "3×2": {
+     "key": "3×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 2
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:37:40.109Z",
+     "masteredAt": null,
+     "answer": "6",
+     "question": "3 × 2"
+    },
+    "6×4": {
+     "key": "6×4",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 4
+     },
+     "box": 2,
+     "hit": 2,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:18.275Z",
+     "masteredAt": "2026-10-18T00:38:18.275Z",
+     "answer": "24",
+     "question": "6 × 4"
+    },
+    "5×2": {
+     "key": "5×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 2
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:37:44.509Z",
+     "masteredAt": null,
+     "answer": "10",
+     "question": "5 × 2"
+    },
+    "5×7": {
+     "key": "5×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 7
+     },
+     "box": 2,
+     "hit": 2,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:33.059Z",
+     "masteredAt": "2026-10-18T00:38:33.059Z",
+     "answer": "35",
+     "question": "5 × 7"
+    },
+    "7×4": {
+     "key": "7×4",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 4
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:37:49.342Z",
+     "masteredAt": null,
+     "answer": "28",
+     "question": "7 × 4"
+    },
+    "4×2": {
+     "key": "4×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 2
+     },
+     "box": 2,
+     "hit": 2,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:37.909Z",
+     "masteredAt": "2026-10-18T00:38:37.909Z",
+     "answer": "8",
+     "question": "4 × 2"
+    },
+    "4×7": {
+     "key": "4×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 7
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:37:57.675Z",
+     "masteredAt": null,
+     "answer": "28",
+     "question": "4 × 7"
+    },
+    "3×9": {
+     "key": "3×9",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 9
+     },
+     "box": 2,
+     "hit": 2,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:14.825Z",
+     "masteredAt": "2026-10-18T00:38:14.825Z",
+     "answer": "27",
+     "question": "3 × 9"
+    },
+    "5×5": {
+     "key": "5×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 5
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:02.559Z",
+     "masteredAt": null,
+     "answer": "25",
+     "question": "5 × 5"
+    },
+    "3×7": {
+     "key": "3×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 7
+     },
+     "box": 2,
+     "hit": 2,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:16.659Z",
+     "masteredAt": "2026-10-18T00:38:16.659Z",
+     "answer": "21",
+     "question": "3 × 7"
+    },
+    "9×7": {
+     "key": "9×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 7
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:08.359Z",
+     "masteredAt": null,
+     "answer": "63",
+     "question": "9 × 7"
+    },
+    "5×1": {
+     "key": "5×1",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 1
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:10.192Z",
+     "masteredAt": null,
+     "answer": "5",
+     "question": "5 × 1"
+    },
+    "6×5": {
+     "key": "6×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 5
+     },
+     "box": 2,
+     "hit": 2,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:23.592Z",
+     "masteredAt": "2026-10-18T00:38:23.592Z",
+     "answer": "30",
+     "question": "6 × 5"
+    },
+    "6×7": {
+     "key": "6×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 7
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:20.125Z",
+     "masteredAt": null,
+     "answer": "42",
+     "question": "6 × 7"
+    },
+    "4×6": {
+     "key": "4×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 6
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:21.975Z",
+     "masteredAt": null,
+     "answer": "24",
+     "question": "4 × 6"
+    },
+    "9×2": {
+     "key": "9×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 2
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:28.209Z",
+     "masteredAt": null,
+     "answer": "18",
+     "question": "9 × 2"
+    },
+    "6×1": {
+     "key": "6×1",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 1
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:31.425Z",
+     "masteredAt": null,
+     "answer": "6",
+     "question": "6 × 1"
+    },
+    "6×6": {
+     "key": "6×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 6
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:34.692Z",
+     "masteredAt": null,
+     "answer": "36",
+     "question": "6 × 6"
+    },
+    "8×2": {
+     "key": "8×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 2
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:40.742Z",
+     "masteredAt": null,
+     "answer": "16",
+     "question": "8 × 2"
+    },
+    "3×5": {
+     "key": "3×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 5
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:40.976Z",
+     "masteredAt": null,
+     "answer": "15",
+     "question": "3 × 5"
+    },
+    "4×4": {
+     "key": "4×4",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 4
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:38:41.209Z",
+     "masteredAt": null,
+     "answer": "16",
+     "question": "4 × 4"
+    },
+    "4+1": {
+     "key": "4+1",
+     "stageId": "s1-1",
+     "p": {
+      "op": "add",
+      "a": 4,
+      "b": 1
+     },
+     "box": 0,
+     "hit": 0,
+     "miss": 1,
+     "lastAt": "2026-10-18T00:38:55.813Z",
+     "masteredAt": null,
+     "answer": "5",
+     "question": "4 + 1"
+    },
+    "5+1": {
+     "key": "5+1",
+     "stageId": "s1-1",
+     "p": {
+      "op": "add",
+      "a": 5,
+      "b": 1
+     },
+     "box": 0,
+     "hit": 0,
+     "miss": 1,
+     "lastAt": "2026-10-18T00:39:05.043Z",
+     "masteredAt": null,
+     "answer": "6",
+     "question": "5 + 1"
+    },
+    "7+1": {
+     "key": "7+1",
+     "stageId": "s1-1",
+     "p": {
+      "op": "add",
+      "a": 7,
+      "b": 1
+     },
+     "box": 0,
+     "hit": 0,
+     "miss": 1,
+     "lastAt": "2026-10-18T00:39:14.275Z",
+     "masteredAt": null,
+     "answer": "8",
+     "question": "7 + 1"
+    },
+    "7+2": {
+     "key": "7+2",
+     "stageId": "s1-1",
+     "p": {
+      "op": "add",
+      "a": 7,
+      "b": 2
+     },
+     "box": 0,
+     "hit": 0,
+     "miss": 1,
+     "lastAt": "2026-10-18T00:39:32.142Z",
+     "masteredAt": null,
+     "answer": "9",
+     "question": "7 + 2"
+    },
+    "2/5−1/5": {
+     "key": "2/5−1/5",
+     "stageId": "s4-2",
+     "p": {
+      "op": "fsub",
+      "n1": 2,
+      "d1": 5,
+      "n2": 1,
+      "d2": 5,
+      "keep": true
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:39:37.209Z",
+     "masteredAt": null,
+     "answer": "1/5",
+     "question": "2/5 − 1/5"
+    },
+    "9.6−7": {
+     "key": "9.6−7",
+     "stageId": "s4-3",
+     "p": {
+      "op": "dsub",
+      "a": 96,
+      "b": 70,
+      "k": 1
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 0,
+     "lastAt": "2026-10-18T00:39:39.559Z",
+     "masteredAt": null,
+     "answer": "2.6",
+     "question": "9.6 − 7"
+    }
+   },
+   "history": [
+    {
+     "stageId": "s4-2",
+     "score": 150,
+     "stars": 0,
+     "correct": 1,
+     "wrong": 0,
+     "reached": 0,
+     "maxCombo": 1,
+     "avgMs": 583,
+     "revengeKills": 0,
+     "wrongKeys": [],
+     "endedBy": "quit",
+     "playedAt": "2026-10-18T00:39:37.445Z"
+    },
+    {
+     "stageId": "s1-1",
+     "score": 0,
+     "stars": 0,
+     "correct": 0,
+     "wrong": 0,
+     "reached": 0,
+     "maxCombo": 0,
+     "avgMs": 0,
+     "revengeKills": 0,
+     "wrongKeys": [],
+     "endedBy": "timeout",
+     "playedAt": "2026-10-18T00:39:34.759Z"
+    },
+    {
+     "stageId": "s1-1",
+     "score": 0,
+     "stars": 0,
+     "correct": 0,
+     "wrong": 0,
+     "reached": 1,
+     "maxCombo": 0,
+     "avgMs": 0,
+     "revengeKills": 0,
+     "wrongKeys": [
+      "7+2"
+     ],
+     "endedBy": "quit",
+     "playedAt": "2026-10-18T00:39:32.149Z"
+    },
+    {
+     "stageId": "s1-1",
+     "score": 0,
+     "stars": 0,
+     "correct": 0,
+     "wrong": 0,
+     "reached": 3,
+     "maxCombo": 0,
+     "avgMs": 0,
+     "revengeKills": 0,
+     "wrongKeys": [
+      "4+1",
+      "5+1",
+      "7+1"
+     ],
+     "endedBy": "gameover",
+     "playedAt": "2026-10-18T00:39:14.275Z"
+    },
+    {
+     "stageId": "s2-3",
+     "score": 24350,
+     "stars": 2,
+     "correct": 47,
+     "wrong": 1,
+     "reached": 1,
+     "maxCombo": 46,
+     "avgMs": 332,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "9×1",
+      "9×8"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-18T00:38:41.211Z"
+    },
+    {
+     "stageId": "s3-2",
+     "score": 8900,
+     "stars": 1,
+     "correct": 36,
+     "wrong": 6,
+     "reached": 2,
+     "maxCombo": 7,
+     "avgMs": 3800,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "56÷7",
+      "63÷9"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-17T06:10:00.000Z"
+    },
+    {
+     "stageId": "s2-3",
+     "score": 19800,
+     "stars": 2,
+     "correct": 44,
+     "wrong": 4,
+     "reached": 1,
+     "maxCombo": 14,
+     "avgMs": 2600,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "6×9",
+      "7×6"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-16T06:10:00.000Z"
+    },
+    {
+     "stageId": "s3-1",
+     "score": 14200,
+     "stars": 2,
+     "correct": 40,
+     "wrong": 5,
+     "reached": 0,
+     "maxCombo": 12,
+     "avgMs": 4200,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "534−278"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-15T06:10:00.000Z"
+    }
+   ]
+  },
+  {
+   "id": "p_sample02",
+   "name": "이도윤",
+   "grade": 5,
+   "classNo": 2,
+   "number": 2,
+   "avatar": 2,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 391,
+    "totalCorrect": 296,
+    "revengeKills": 0,
+    "bossKills": 6,
+    "threeStarClears": 0
+   },
+   "badges": [
+    {
+     "id": "first_kill",
+     "at": "2026-10-09T06:10:00.000Z"
+    }
+   ],
+   "playDates": [
+    "2026-10-09",
+    "2026-10-12",
+    "2026-10-14",
+    "2026-10-17",
+    "2026-10-18"
+   ],
+   "stageRecords": {
+    "s1-1": {
+     "stageId": "s1-1",
+     "bestScore": 4100,
+     "bestStars": 1,
+     "bestCombo": 6,
+     "plays": 2,
+     "clears": 1,
+     "correct": 24,
+     "wrong": 5,
+     "reached": 2,
+     "avgMs": 3300,
+     "lastPlayedAt": "2026-10-18T00:39:44.588Z"
+    },
+    "s2-1": {
+     "stageId": "s2-1",
+     "bestScore": 8700,
+     "bestStars": 2,
+     "bestCombo": 9,
+     "plays": 3,
+     "clears": 2,
+     "correct": 75,
+     "wrong": 11,
+     "reached": 4,
+     "avgMs": 4100,
+     "lastPlayedAt": "2026-10-12T06:10:00.000Z"
+    },
+    "s2-2": {
+     "stageId": "s2-2",
+     "bestScore": 7300,
+     "bestStars": 1,
+     "bestCombo": 6,
+     "plays": 4,
+     "clears": 3,
+     "correct": 89,
+     "wrong": 22,
+     "reached": 9,
+     "avgMs": 4600,
+     "lastPlayedAt": "2026-10-14T06:10:00.000Z"
+    },
+    "s2-3": {
+     "stageId": "s2-3",
+     "bestScore": 9600,
+     "bestStars": 1,
+     "bestCombo": 8,
+     "plays": 5,
+     "clears": 4,
+     "correct": 108,
+     "wrong": 29,
+     "reached": 13,
+     "avgMs": 4800,
+     "lastPlayedAt": "2026-10-17T06:10:00.000Z"
+    }
+   },
+   "facts": {
+    "8×7": {
+     "key": "8×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 7
+     },
+     "box": 0,
+     "hit": 1,
+     "miss": 3,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "56",
+     "question": "8 × 7"
+    },
+    "8×6": {
+     "key": "8×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 6
+     },
+     "box": 0,
+     "hit": 1,
+     "miss": 2,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "48",
+     "question": "8 × 6"
+    },
+    "9×8": {
+     "key": "9×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 8
+     },
+     "box": 0,
+     "hit": 0,
+     "miss": 2,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "72",
+     "question": "9 × 8"
+    },
+    "6×7": {
+     "key": "6×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 7
+     },
+     "box": 0,
+     "hit": 1,
+     "miss": 2,
+     "lastAt": "2026-10-13T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "42",
+     "question": "6 × 7"
+    },
+    "62−27": {
+     "key": "62−27",
+     "stageId": "s2-2",
+     "p": {
+      "op": "sub",
+      "a": 62,
+      "b": 27
+     },
+     "box": 0,
+     "hit": 0,
+     "miss": 2,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "35",
+     "question": "62 − 27"
+    },
+    "81−36": {
+     "key": "81−36",
+     "stageId": "s2-2",
+     "p": {
+      "op": "sub",
+      "a": 81,
+      "b": 36
+     },
+     "box": 0,
+     "hit": 1,
+     "miss": 2,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "45",
+     "question": "81 − 36"
+    },
+    "53−18": {
+     "key": "53−18",
+     "stageId": "s2-2",
+     "p": {
+      "op": "sub",
+      "a": 53,
+      "b": 18
+     },
+     "box": 0,
+     "hit": 1,
+     "miss": 1,
+     "lastAt": "2026-10-13T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "35",
+     "question": "53 − 18"
+    },
+    "2×5": {
+     "key": "2×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 2,
+      "b": 5
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": "2026-10-09T06:10:00.000Z",
+     "answer": "10",
+     "question": "2 × 5"
+    },
+    "3×4": {
+     "key": "3×4",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 4
+     },
+     "box": 3,
+     "hit": 3,
+     "miss": 0,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": "2026-10-09T06:10:00.000Z",
+     "answer": "12",
+     "question": "3 × 4"
+    },
+    "5×5": {
+     "key": "5×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 5
+     },
+     "box": 2,
+     "hit": 2,
+     "miss": 0,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": "2026-10-09T06:10:00.000Z",
+     "answer": "25",
+     "question": "5 × 5"
+    },
+    "4×6": {
+     "key": "4×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 6
+     },
+     "box": 2,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": "2026-10-09T06:10:00.000Z",
+     "answer": "24",
+     "question": "4 × 6"
+    },
+    "9×2": {
+     "key": "9×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 2
+     },
+     "box": 2,
+     "hit": 2,
+     "miss": 0,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": "2026-10-09T06:10:00.000Z",
+     "answer": "18",
+     "question": "9 × 2"
+    },
+    "5+1": {
+     "key": "5+1",
+     "stageId": "s1-1",
+     "p": {
+      "op": "add",
+      "a": 5,
+      "b": 1
+     },
+     "box": 1,
+     "hit": 0,
+     "miss": 1,
+     "lastAt": "2026-10-18T00:39:46.387Z",
+     "masteredAt": null,
+     "answer": "6",
+     "question": "5 + 1"
+    }
+   },
+   "history": [
+    {
+     "stageId": "s1-1",
+     "score": 0,
+     "stars": 0,
+     "correct": 0,
+     "wrong": 1,
+     "reached": 0,
+     "maxCombo": 0,
+     "avgMs": 0,
+     "revengeKills": 0,
+     "wrongKeys": [
+      "5+1"
+     ],
+     "endedBy": "quit",
+     "playedAt": "2026-10-18T00:39:44.588Z"
+    },
+    {
+     "stageId": "s2-3",
+     "score": 9600,
+     "stars": 1,
+     "correct": 34,
+     "wrong": 9,
+     "reached": 4,
+     "maxCombo": 8,
+     "avgMs": 4800,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "8×7",
+      "8×6",
+      "9×8"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-17T06:10:00.000Z"
+    },
+    {
+     "stageId": "s2-2",
+     "score": 7300,
+     "stars": 1,
+     "correct": 33,
+     "wrong": 8,
+     "reached": 3,
+     "maxCombo": 6,
+     "avgMs": 4600,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "62−27",
+      "81−36"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-14T06:10:00.000Z"
+    },
+    {
+     "stageId": "s2-3",
+     "score": 7100,
+     "stars": 0,
+     "correct": 20,
+     "wrong": 7,
+     "reached": 3,
+     "maxCombo": 5,
+     "avgMs": 5100,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "8×7",
+      "6×7",
+      "53−18"
+     ],
+     "endedBy": "gameover",
+     "playedAt": "2026-10-13T06:10:00.000Z"
+    }
+   ]
+  },
+  {
+   "id": "p_sample03",
+   "name": "박서아",
+   "grade": 5,
+   "classNo": 2,
+   "number": 3,
+   "avatar": 3,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 510,
+    "totalCorrect": 457,
+    "revengeKills": 0,
+    "bossKills": 6,
+    "threeStarClears": 1
+   },
+   "badges": [
+    {
+     "id": "first_kill",
+     "at": "2026-10-10T06:10:00.000Z"
+    },
+    {
+     "id": "combo10",
+     "at": "2026-10-15T06:10:00.000Z"
+    },
+    {
+     "id": "streak7",
+     "at": "2026-10-17T06:10:00.000Z"
+    }
+   ],
+   "playDates": [
+    "2026-10-11",
+    "2026-10-12",
+    "2026-10-13",
+    "2026-10-14",
+    "2026-10-15",
+    "2026-10-16",
+    "2026-10-17"
+   ],
+   "stageRecords": {
+    "s1-1": {
+     "stageId": "s1-1",
+     "bestScore": 7000,
+     "bestStars": 3,
+     "bestCombo": 11,
+     "plays": 2,
+     "clears": 1,
+     "correct": 58,
+     "wrong": 1,
+     "reached": 1,
+     "avgMs": 2300,
+     "lastPlayedAt": "2026-10-10T06:10:00.000Z"
+    },
+    "s1-2": {
+     "stageId": "s1-2",
+     "bestScore": 5600,
+     "bestStars": 2,
+     "bestCombo": 9,
+     "plays": 2,
+     "clears": 1,
+     "correct": 54,
+     "wrong": 4,
+     "reached": 2,
+     "avgMs": 2500,
+     "lastPlayedAt": "2026-10-11T06:10:00.000Z"
+    },
+    "s1-3": {
+     "stageId": "s1-3",
+     "bestScore": 6900,
+     "bestStars": 2,
+     "bestCombo": 10,
+     "plays": 3,
+     "clears": 2,
+     "correct": 79,
+     "wrong": 8,
+     "reached": 3,
+     "avgMs": 3100,
+     "lastPlayedAt": "2026-10-12T06:10:00.000Z"
+    },
+    "s2-3": {
+     "stageId": "s2-3",
+     "bestScore": 15300,
+     "bestStars": 2,
+     "bestCombo": 12,
+     "plays": 6,
+     "clears": 5,
+     "correct": 162,
+     "wrong": 13,
+     "reached": 5,
+     "avgMs": 2900,
+     "lastPlayedAt": "2026-10-17T06:10:00.000Z"
+    },
+    "s3-2": {
+     "stageId": "s3-2",
+     "bestScore": 11800,
+     "bestStars": 2,
+     "bestCombo": 10,
+     "plays": 4,
+     "clears": 3,
+     "correct": 104,
+     "wrong": 11,
+     "reached": 5,
+     "avgMs": 3200,
+     "lastPlayedAt": "2026-10-16T06:10:00.000Z"
+    }
+   },
+   "facts": {
+    "2×2": {
+     "key": "2×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 2,
+      "b": 2
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": "2026-10-17T06:10:00.000Z",
+     "answer": "4",
+     "question": "2 × 2"
+    },
+    "2×5": {
+     "key": "2×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 2,
+      "b": 5
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-16T06:10:00.000Z",
+     "masteredAt": "2026-10-16T06:10:00.000Z",
+     "answer": "10",
+     "question": "2 × 5"
+    },
+    "2×8": {
+     "key": "2×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 2,
+      "b": 8
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-15T06:10:00.000Z",
+     "masteredAt": "2026-10-15T06:10:00.000Z",
+     "answer": "16",
+     "question": "2 × 8"
+    },
+    "3×2": {
+     "key": "3×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 2
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-14T06:10:00.000Z",
+     "answer": "6",
+     "question": "3 × 2"
+    },
+    "3×5": {
+     "key": "3×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 5
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-13T06:10:00.000Z",
+     "masteredAt": "2026-10-13T06:10:00.000Z",
+     "answer": "15",
+     "question": "3 × 5"
+    },
+    "3×8": {
+     "key": "3×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 8
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-12T06:10:00.000Z",
+     "masteredAt": "2026-10-12T06:10:00.000Z",
+     "answer": "24",
+     "question": "3 × 8"
+    },
+    "4×2": {
+     "key": "4×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 2
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": "2026-10-17T06:10:00.000Z",
+     "answer": "8",
+     "question": "4 × 2"
+    },
+    "4×5": {
+     "key": "4×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 5
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-16T06:10:00.000Z",
+     "masteredAt": "2026-10-16T06:10:00.000Z",
+     "answer": "20",
+     "question": "4 × 5"
+    },
+    "4×8": {
+     "key": "4×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 8
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-15T06:10:00.000Z",
+     "masteredAt": "2026-10-15T06:10:00.000Z",
+     "answer": "32",
+     "question": "4 × 8"
+    },
+    "5×2": {
+     "key": "5×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 2
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-14T06:10:00.000Z",
+     "answer": "10",
+     "question": "5 × 2"
+    },
+    "5×5": {
+     "key": "5×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 5
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-13T06:10:00.000Z",
+     "masteredAt": "2026-10-13T06:10:00.000Z",
+     "answer": "25",
+     "question": "5 × 5"
+    },
+    "5×8": {
+     "key": "5×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 8
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-12T06:10:00.000Z",
+     "masteredAt": "2026-10-12T06:10:00.000Z",
+     "answer": "40",
+     "question": "5 × 8"
+    },
+    "6×2": {
+     "key": "6×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 2
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": "2026-10-17T06:10:00.000Z",
+     "answer": "12",
+     "question": "6 × 2"
+    },
+    "6×5": {
+     "key": "6×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 5
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-16T06:10:00.000Z",
+     "masteredAt": "2026-10-16T06:10:00.000Z",
+     "answer": "30",
+     "question": "6 × 5"
+    },
+    "6×8": {
+     "key": "6×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 8
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-15T06:10:00.000Z",
+     "masteredAt": "2026-10-15T06:10:00.000Z",
+     "answer": "48",
+     "question": "6 × 8"
+    },
+    "7×2": {
+     "key": "7×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 2
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-14T06:10:00.000Z",
+     "answer": "14",
+     "question": "7 × 2"
+    },
+    "7×5": {
+     "key": "7×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 5
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-13T06:10:00.000Z",
+     "masteredAt": "2026-10-13T06:10:00.000Z",
+     "answer": "35",
+     "question": "7 × 5"
+    },
+    "7×8": {
+     "key": "7×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 8
+     },
+     "box": 2,
+     "hit": 3,
+     "miss": 1,
+     "lastAt": "2026-10-12T06:10:00.000Z",
+     "masteredAt": "2026-10-12T06:10:00.000Z",
+     "answer": "56",
+     "question": "7 × 8"
+    },
+    "7×9": {
+     "key": "7×9",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 9
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 2,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "63",
+     "question": "7 × 9"
+    },
+    "72÷8": {
+     "key": "72÷8",
+     "stageId": "s3-2",
+     "p": {
+      "op": "div",
+      "a": 72,
+      "b": 8
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-16T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "9",
+     "question": "72 ÷ 8"
+    }
+   },
+   "history": [
+    {
+     "stageId": "s2-3",
+     "score": 15300,
+     "stars": 2,
+     "correct": 42,
+     "wrong": 4,
+     "reached": 1,
+     "maxCombo": 12,
+     "avgMs": 2900,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "7×9"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-17T06:10:00.000Z"
+    },
+    {
+     "stageId": "s3-2",
+     "score": 11800,
+     "stars": 2,
+     "correct": 40,
+     "wrong": 5,
+     "reached": 1,
+     "maxCombo": 10,
+     "avgMs": 3200,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "72÷8"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-16T06:10:00.000Z"
+    },
+    {
+     "stageId": "s2-3",
+     "score": 13100,
+     "stars": 2,
+     "correct": 41,
+     "wrong": 6,
+     "reached": 0,
+     "maxCombo": 9,
+     "avgMs": 3100,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "7×9",
+      "8×6"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-15T06:10:00.000Z"
+    }
+   ]
+  },
+  {
+   "id": "p_sample04",
+   "name": "최민준",
+   "grade": 5,
+   "classNo": 2,
+   "number": 4,
+   "avatar": 4,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "gold",
+   "theme": "desert",
+   "counters": {
+    "totalProblems": 810,
+    "totalCorrect": 740,
+    "revengeKills": 6,
+    "bossKills": 7,
+    "threeStarClears": 4
+   },
+   "badges": [
+    {
+     "id": "first_kill",
+     "at": "2026-10-04T06:10:00.000Z"
+    },
+    {
+     "id": "combo10",
+     "at": "2026-10-09T06:10:00.000Z"
+    },
+    {
+     "id": "combo20",
+     "at": "2026-10-14T06:10:00.000Z"
+    },
+    {
+     "id": "perfect",
+     "at": "2026-10-15T06:10:00.000Z"
+    }
+   ],
+   "playDates": [
+    "2026-10-04",
+    "2026-10-05",
+    "2026-10-06",
+    "2026-10-07",
+    "2026-10-08",
+    "2026-10-13",
+    "2026-10-15",
+    "2026-10-16",
+    "2026-10-17"
+   ],
+   "stageRecords": {
+    "s1-1": {
+     "stageId": "s1-1",
+     "bestScore": 6800,
+     "bestStars": 2,
+     "bestCombo": 10,
+     "plays": 2,
+     "clears": 1,
+     "correct": 55,
+     "wrong": 4,
+     "reached": 1,
+     "avgMs": 2200,
+     "lastPlayedAt": "2026-10-04T06:10:00.000Z"
+    },
+    "s1-2": {
+     "stageId": "s1-2",
+     "bestScore": 6100,
+     "bestStars": 2,
+     "bestCombo": 9,
+     "plays": 1,
+     "clears": 1,
+     "correct": 27,
+     "wrong": 2,
+     "reached": 1,
+     "avgMs": 2400,
+     "lastPlayedAt": "2026-10-05T06:10:00.000Z"
+    },
+    "s1-3": {
+     "stageId": "s1-3",
+     "bestScore": 7600,
+     "bestStars": 2,
+     "bestCombo": 10,
+     "plays": 2,
+     "clears": 1,
+     "correct": 54,
+     "wrong": 4,
+     "reached": 2,
+     "avgMs": 2900,
+     "lastPlayedAt": "2026-10-06T06:10:00.000Z"
+    },
+    "s2-1": {
+     "stageId": "s2-1",
+     "bestScore": 10900,
+     "bestStars": 2,
+     "bestCombo": 12,
+     "plays": 2,
+     "clears": 1,
+     "correct": 54,
+     "wrong": 4,
+     "reached": 2,
+     "avgMs": 3000,
+     "lastPlayedAt": "2026-10-07T06:10:00.000Z"
+    },
+    "s2-2": {
+     "stageId": "s2-2",
+     "bestScore": 9900,
+     "bestStars": 2,
+     "bestCombo": 11,
+     "plays": 2,
+     "clears": 1,
+     "correct": 53,
+     "wrong": 5,
+     "reached": 2,
+     "avgMs": 3300,
+     "lastPlayedAt": "2026-10-08T06:10:00.000Z"
+    },
+    "s2-3": {
+     "stageId": "s2-3",
+     "bestScore": 28400,
+     "bestStars": 3,
+     "bestCombo": 31,
+     "plays": 9,
+     "clears": 8,
+     "correct": 265,
+     "wrong": 4,
+     "reached": 1,
+     "avgMs": 2100,
+     "lastPlayedAt": "2026-10-17T06:10:00.000Z"
+    },
+    "s3-1": {
+     "stageId": "s3-1",
+     "bestScore": 21700,
+     "bestStars": 3,
+     "bestCombo": 19,
+     "plays": 4,
+     "clears": 3,
+     "correct": 115,
+     "wrong": 4,
+     "reached": 1,
+     "avgMs": 3500,
+     "lastPlayedAt": "2026-10-15T06:10:00.000Z"
+    },
+    "s3-2": {
+     "stageId": "s3-2",
+     "bestScore": 9100,
+     "bestStars": 1,
+     "bestCombo": 8,
+     "plays": 2,
+     "clears": 1,
+     "correct": 48,
+     "wrong": 8,
+     "reached": 4,
+     "avgMs": 3700,
+     "lastPlayedAt": "2026-10-13T06:10:00.000Z"
+    },
+    "s3-3": {
+     "stageId": "s3-3",
+     "bestScore": 12100,
+     "bestStars": 2,
+     "bestCombo": 11,
+     "plays": 3,
+     "clears": 2,
+     "correct": 77,
+     "wrong": 9,
+     "reached": 4,
+     "avgMs": 4300,
+     "lastPlayedAt": "2026-10-16T06:10:00.000Z"
+    }
+   },
+   "facts": {
+    "47×8": {
+     "key": "47×8",
+     "stageId": "s3-3",
+     "p": {
+      "op": "mul",
+      "a": 47,
+      "b": 8
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 2,
+     "lastAt": "2026-10-16T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "376",
+     "question": "47 × 8"
+    },
+    "68×7": {
+     "key": "68×7",
+     "stageId": "s3-3",
+     "p": {
+      "op": "mul",
+      "a": 68,
+      "b": 7
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 1,
+     "lastAt": "2026-10-16T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "476",
+     "question": "68 × 7"
+    },
+    "7×8": {
+     "key": "7×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 8
+     },
+     "box": 3,
+     "hit": 6,
+     "miss": 0,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": "2026-10-06T06:10:00.000Z",
+     "answer": "56",
+     "question": "7 × 8"
+    },
+    "9×6": {
+     "key": "9×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 6
+     },
+     "box": 3,
+     "hit": 5,
+     "miss": 0,
+     "lastAt": "2026-10-17T06:10:00.000Z",
+     "masteredAt": "2026-10-06T06:10:00.000Z",
+     "answer": "54",
+     "question": "9 × 6"
+    }
+   },
+   "history": [
+    {
+     "stageId": "s2-3",
+     "score": 28400,
+     "stars": 3,
+     "correct": 50,
+     "wrong": 0,
+     "reached": 0,
+     "maxCombo": 31,
+     "avgMs": 2100,
+     "revengeKills": 0,
+     "wrongKeys": [],
+     "endedBy": "clear",
+     "playedAt": "2026-10-17T06:10:00.000Z"
+    },
+    {
+     "stageId": "s3-3",
+     "score": 12100,
+     "stars": 2,
+     "correct": 43,
+     "wrong": 5,
+     "reached": 1,
+     "maxCombo": 11,
+     "avgMs": 4300,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "47×8",
+      "68×7"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-16T06:10:00.000Z"
+    },
+    {
+     "stageId": "s3-1",
+     "score": 21700,
+     "stars": 3,
+     "correct": 49,
+     "wrong": 1,
+     "reached": 0,
+     "maxCombo": 19,
+     "avgMs": 3500,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "615−287"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-15T06:10:00.000Z"
+    }
+   ]
+  },
+  {
+   "id": "p_sample05",
+   "name": "정하윤",
+   "grade": 5,
+   "classNo": 2,
+   "number": 5,
+   "avatar": 5,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 960,
+    "totalCorrect": 880,
+    "revengeKills": 9,
+    "bossKills": 11,
+    "threeStarClears": 6
+   },
+   "badges": [
+    {
+     "id": "first_kill",
+     "at": "2026-09-28T06:10:00.000Z"
+    },
+    {
+     "id": "combo10",
+     "at": "2026-10-03T06:10:00.000Z"
+    },
+    {
+     "id": "perfect",
+     "at": "2026-10-03T06:10:00.000Z"
+    },
+    {
+     "id": "stars3x5",
+     "at": "2026-10-12T06:10:00.000Z"
+    },
+    {
+     "id": "boss10",
+     "at": "2026-10-14T06:10:00.000Z"
+    }
+   ],
+   "playDates": [
+    "2026-09-28",
+    "2026-09-29",
+    "2026-09-30",
+    "2026-10-03",
+    "2026-10-05",
+    "2026-10-09",
+    "2026-10-10",
+    "2026-10-12",
+    "2026-10-14",
+    "2026-10-16"
+   ],
+   "stageRecords": {
+    "s1-1": {
+     "stageId": "s1-1",
+     "bestScore": 6400,
+     "bestStars": 2,
+     "bestCombo": 9,
+     "plays": 2,
+     "clears": 1,
+     "correct": 54,
+     "wrong": 4,
+     "reached": 2,
+     "avgMs": 2500,
+     "lastPlayedAt": "2026-09-28T06:10:00.000Z"
+    },
+    "s1-2": {
+     "stageId": "s1-2",
+     "bestScore": 6000,
+     "bestStars": 2,
+     "bestCombo": 8,
+     "plays": 2,
+     "clears": 1,
+     "correct": 54,
+     "wrong": 4,
+     "reached": 2,
+     "avgMs": 2600,
+     "lastPlayedAt": "2026-09-29T06:10:00.000Z"
+    },
+    "s1-3": {
+     "stageId": "s1-3",
+     "bestScore": 8100,
+     "bestStars": 3,
+     "bestCombo": 11,
+     "plays": 2,
+     "clears": 1,
+     "correct": 58,
+     "wrong": 1,
+     "reached": 1,
+     "avgMs": 2900,
+     "lastPlayedAt": "2026-09-30T06:10:00.000Z"
+    },
+    "s2-1": {
+     "stageId": "s2-1",
+     "bestScore": 12900,
+     "bestStars": 3,
+     "bestCombo": 15,
+     "plays": 3,
+     "clears": 2,
+     "correct": 87,
+     "wrong": 2,
+     "reached": 1,
+     "avgMs": 3000,
+     "lastPlayedAt": "2026-10-03T06:10:00.000Z"
+    },
+    "s2-2": {
+     "stageId": "s2-2",
+     "bestScore": 12200,
+     "bestStars": 3,
+     "bestCombo": 14,
+     "plays": 3,
+     "clears": 2,
+     "correct": 86,
+     "wrong": 3,
+     "reached": 1,
+     "avgMs": 3200,
+     "lastPlayedAt": "2026-10-05T06:10:00.000Z"
+    },
+    "s2-3": {
+     "stageId": "s2-3",
+     "bestScore": 24150,
+     "bestStars": 3,
+     "bestCombo": 22,
+     "plays": 8,
+     "clears": 7,
+     "correct": 233,
+     "wrong": 5,
+     "reached": 2,
+     "avgMs": 2300,
+     "lastPlayedAt": "2026-10-14T06:10:00.000Z"
+    },
+    "s3-1": {
+     "stageId": "s3-1",
+     "bestScore": 9900,
+     "bestStars": 1,
+     "bestCombo": 8,
+     "plays": 2,
+     "clears": 1,
+     "correct": 48,
+     "wrong": 8,
+     "reached": 4,
+     "avgMs": 4000,
+     "lastPlayedAt": "2026-10-09T06:10:00.000Z"
+    },
+    "s3-2": {
+     "stageId": "s3-2",
+     "bestScore": 20500,
+     "bestStars": 3,
+     "bestCombo": 18,
+     "plays": 5,
+     "clears": 4,
+     "correct": 144,
+     "wrong": 4,
+     "reached": 2,
+     "avgMs": 2700,
+     "lastPlayedAt": "2026-10-12T06:10:00.000Z"
+    },
+    "s3-3": {
+     "stageId": "s3-3",
+     "bestScore": 9400,
+     "bestStars": 1,
+     "bestCombo": 8,
+     "plays": 2,
+     "clears": 1,
+     "correct": 47,
+     "wrong": 9,
+     "reached": 4,
+     "avgMs": 4400,
+     "lastPlayedAt": "2026-10-10T06:10:00.000Z"
+    },
+    "s3-4": {
+     "stageId": "s3-4",
+     "bestScore": 13600,
+     "bestStars": 2,
+     "bestCombo": 12,
+     "plays": 3,
+     "clears": 2,
+     "correct": 77,
+     "wrong": 9,
+     "reached": 4,
+     "avgMs": 4100,
+     "lastPlayedAt": "2026-10-16T06:10:00.000Z"
+    }
+   },
+   "facts": {
+    "2×1": {
+     "key": "2×1",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 2,
+      "b": 1
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-06T06:10:00.000Z",
+     "answer": "2",
+     "question": "2 × 1"
+    },
+    "2×2": {
+     "key": "2×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 2,
+      "b": 2
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-05T06:10:00.000Z",
+     "answer": "4",
+     "question": "2 × 2"
+    },
+    "2×3": {
+     "key": "2×3",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 2,
+      "b": 3
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-04T06:10:00.000Z",
+     "answer": "6",
+     "question": "2 × 3"
+    },
+    "2×4": {
+     "key": "2×4",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 2,
+      "b": 4
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-03T06:10:00.000Z",
+     "answer": "8",
+     "question": "2 × 4"
+    },
+    "2×5": {
+     "key": "2×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 2,
+      "b": 5
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-02T06:10:00.000Z",
+     "answer": "10",
+     "question": "2 × 5"
+    },
+    "2×6": {
+     "key": "2×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 2,
+      "b": 6
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "12",
+     "question": "2 × 6"
+    },
+    "2×7": {
+     "key": "2×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 2,
+      "b": 7
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-30T06:10:00.000Z",
+     "answer": "14",
+     "question": "2 × 7"
+    },
+    "2×8": {
+     "key": "2×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 2,
+      "b": 8
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-29T06:10:00.000Z",
+     "answer": "16",
+     "question": "2 × 8"
+    },
+    "2×9": {
+     "key": "2×9",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 2,
+      "b": 9
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-28T06:10:00.000Z",
+     "answer": "18",
+     "question": "2 × 9"
+    },
+    "3×1": {
+     "key": "3×1",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 1
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-06T06:10:00.000Z",
+     "answer": "3",
+     "question": "3 × 1"
+    },
+    "3×2": {
+     "key": "3×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 2
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-05T06:10:00.000Z",
+     "answer": "6",
+     "question": "3 × 2"
+    },
+    "3×3": {
+     "key": "3×3",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 3
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "9",
+     "question": "3 × 3"
+    },
+    "3×4": {
+     "key": "3×4",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 4
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-03T06:10:00.000Z",
+     "answer": "12",
+     "question": "3 × 4"
+    },
+    "3×5": {
+     "key": "3×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 5
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-02T06:10:00.000Z",
+     "answer": "15",
+     "question": "3 × 5"
+    },
+    "3×6": {
+     "key": "3×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 6
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-01T06:10:00.000Z",
+     "answer": "18",
+     "question": "3 × 6"
+    },
+    "3×7": {
+     "key": "3×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 7
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-30T06:10:00.000Z",
+     "answer": "21",
+     "question": "3 × 7"
+    },
+    "3×8": {
+     "key": "3×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 8
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-29T06:10:00.000Z",
+     "answer": "24",
+     "question": "3 × 8"
+    },
+    "3×9": {
+     "key": "3×9",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 3,
+      "b": 9
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "27",
+     "question": "3 × 9"
+    },
+    "4×1": {
+     "key": "4×1",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 1
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-06T06:10:00.000Z",
+     "answer": "4",
+     "question": "4 × 1"
+    },
+    "4×2": {
+     "key": "4×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 2
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-05T06:10:00.000Z",
+     "answer": "8",
+     "question": "4 × 2"
+    },
+    "4×3": {
+     "key": "4×3",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 3
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-04T06:10:00.000Z",
+     "answer": "12",
+     "question": "4 × 3"
+    },
+    "4×4": {
+     "key": "4×4",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 4
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-03T06:10:00.000Z",
+     "answer": "16",
+     "question": "4 × 4"
+    },
+    "4×5": {
+     "key": "4×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 5
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-02T06:10:00.000Z",
+     "answer": "20",
+     "question": "4 × 5"
+    },
+    "4×6": {
+     "key": "4×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 6
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "24",
+     "question": "4 × 6"
+    },
+    "4×7": {
+     "key": "4×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 7
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-30T06:10:00.000Z",
+     "answer": "28",
+     "question": "4 × 7"
+    },
+    "4×8": {
+     "key": "4×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 8
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-29T06:10:00.000Z",
+     "answer": "32",
+     "question": "4 × 8"
+    },
+    "4×9": {
+     "key": "4×9",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 4,
+      "b": 9
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-28T06:10:00.000Z",
+     "answer": "36",
+     "question": "4 × 9"
+    },
+    "5×1": {
+     "key": "5×1",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 1
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-06T06:10:00.000Z",
+     "answer": "5",
+     "question": "5 × 1"
+    },
+    "5×2": {
+     "key": "5×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 2
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-05T06:10:00.000Z",
+     "answer": "10",
+     "question": "5 × 2"
+    },
+    "5×3": {
+     "key": "5×3",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 3
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "15",
+     "question": "5 × 3"
+    },
+    "5×4": {
+     "key": "5×4",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 4
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-03T06:10:00.000Z",
+     "answer": "20",
+     "question": "5 × 4"
+    },
+    "5×5": {
+     "key": "5×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 5
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-02T06:10:00.000Z",
+     "answer": "25",
+     "question": "5 × 5"
+    },
+    "5×6": {
+     "key": "5×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 6
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-01T06:10:00.000Z",
+     "answer": "30",
+     "question": "5 × 6"
+    },
+    "5×7": {
+     "key": "5×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 7
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-30T06:10:00.000Z",
+     "answer": "35",
+     "question": "5 × 7"
+    },
+    "5×8": {
+     "key": "5×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 8
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-29T06:10:00.000Z",
+     "answer": "40",
+     "question": "5 × 8"
+    },
+    "5×9": {
+     "key": "5×9",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 5,
+      "b": 9
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "45",
+     "question": "5 × 9"
+    },
+    "6×1": {
+     "key": "6×1",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 1
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-06T06:10:00.000Z",
+     "answer": "6",
+     "question": "6 × 1"
+    },
+    "6×2": {
+     "key": "6×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 2
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-05T06:10:00.000Z",
+     "answer": "12",
+     "question": "6 × 2"
+    },
+    "6×3": {
+     "key": "6×3",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 3
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-04T06:10:00.000Z",
+     "answer": "18",
+     "question": "6 × 3"
+    },
+    "6×4": {
+     "key": "6×4",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 4
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-03T06:10:00.000Z",
+     "answer": "24",
+     "question": "6 × 4"
+    },
+    "6×5": {
+     "key": "6×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 5
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-02T06:10:00.000Z",
+     "answer": "30",
+     "question": "6 × 5"
+    },
+    "6×6": {
+     "key": "6×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 6
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "36",
+     "question": "6 × 6"
+    },
+    "6×7": {
+     "key": "6×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 7
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-30T06:10:00.000Z",
+     "answer": "42",
+     "question": "6 × 7"
+    },
+    "6×8": {
+     "key": "6×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 8
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-29T06:10:00.000Z",
+     "answer": "48",
+     "question": "6 × 8"
+    },
+    "6×9": {
+     "key": "6×9",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 6,
+      "b": 9
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-28T06:10:00.000Z",
+     "answer": "54",
+     "question": "6 × 9"
+    },
+    "7×1": {
+     "key": "7×1",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 1
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-06T06:10:00.000Z",
+     "answer": "7",
+     "question": "7 × 1"
+    },
+    "7×2": {
+     "key": "7×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 2
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-05T06:10:00.000Z",
+     "answer": "14",
+     "question": "7 × 2"
+    },
+    "7×3": {
+     "key": "7×3",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 3
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "21",
+     "question": "7 × 3"
+    },
+    "7×4": {
+     "key": "7×4",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 4
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-03T06:10:00.000Z",
+     "answer": "28",
+     "question": "7 × 4"
+    },
+    "7×5": {
+     "key": "7×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 5
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-02T06:10:00.000Z",
+     "answer": "35",
+     "question": "7 × 5"
+    },
+    "7×6": {
+     "key": "7×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 6
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-01T06:10:00.000Z",
+     "answer": "42",
+     "question": "7 × 6"
+    },
+    "7×7": {
+     "key": "7×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 7
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-30T06:10:00.000Z",
+     "answer": "49",
+     "question": "7 × 7"
+    },
+    "7×8": {
+     "key": "7×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 8
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-29T06:10:00.000Z",
+     "answer": "56",
+     "question": "7 × 8"
+    },
+    "7×9": {
+     "key": "7×9",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 7,
+      "b": 9
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "63",
+     "question": "7 × 9"
+    },
+    "8×1": {
+     "key": "8×1",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 1
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-06T06:10:00.000Z",
+     "answer": "8",
+     "question": "8 × 1"
+    },
+    "8×2": {
+     "key": "8×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 2
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-05T06:10:00.000Z",
+     "answer": "16",
+     "question": "8 × 2"
+    },
+    "8×3": {
+     "key": "8×3",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 3
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-04T06:10:00.000Z",
+     "answer": "24",
+     "question": "8 × 3"
+    },
+    "8×4": {
+     "key": "8×4",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 4
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-03T06:10:00.000Z",
+     "answer": "32",
+     "question": "8 × 4"
+    },
+    "8×5": {
+     "key": "8×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 5
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-02T06:10:00.000Z",
+     "answer": "40",
+     "question": "8 × 5"
+    },
+    "8×6": {
+     "key": "8×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 6
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "48",
+     "question": "8 × 6"
+    },
+    "8×7": {
+     "key": "8×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 7
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-30T06:10:00.000Z",
+     "answer": "56",
+     "question": "8 × 7"
+    },
+    "8×8": {
+     "key": "8×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 8
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-29T06:10:00.000Z",
+     "answer": "64",
+     "question": "8 × 8"
+    },
+    "8×9": {
+     "key": "8×9",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 8,
+      "b": 9
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-28T06:10:00.000Z",
+     "answer": "72",
+     "question": "8 × 9"
+    },
+    "9×1": {
+     "key": "9×1",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 1
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-06T06:10:00.000Z",
+     "answer": "9",
+     "question": "9 × 1"
+    },
+    "9×2": {
+     "key": "9×2",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 2
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-05T06:10:00.000Z",
+     "answer": "18",
+     "question": "9 × 2"
+    },
+    "9×3": {
+     "key": "9×3",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 3
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "27",
+     "question": "9 × 3"
+    },
+    "9×4": {
+     "key": "9×4",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 4
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-03T06:10:00.000Z",
+     "answer": "36",
+     "question": "9 × 4"
+    },
+    "9×5": {
+     "key": "9×5",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 5
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-02T06:10:00.000Z",
+     "answer": "45",
+     "question": "9 × 5"
+    },
+    "9×6": {
+     "key": "9×6",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 6
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-10-01T06:10:00.000Z",
+     "answer": "54",
+     "question": "9 × 6"
+    },
+    "9×7": {
+     "key": "9×7",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 7
+     },
+     "box": 2,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-30T06:10:00.000Z",
+     "answer": "63",
+     "question": "9 × 7"
+    },
+    "9×8": {
+     "key": "9×8",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 8
+     },
+     "box": 3,
+     "hit": 4,
+     "miss": 0,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": "2026-09-29T06:10:00.000Z",
+     "answer": "72",
+     "question": "9 × 8"
+    },
+    "9×9": {
+     "key": "9×9",
+     "stageId": "s2-3",
+     "p": {
+      "op": "mul",
+      "a": 9,
+      "b": 9
+     },
+     "box": 1,
+     "hit": 2,
+     "miss": 1,
+     "lastAt": "2026-10-14T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "81",
+     "question": "9 × 9"
+    },
+    "59÷7 나머지": {
+     "key": "59÷7 나머지",
+     "stageId": "s3-4",
+     "p": {
+      "op": "divr",
+      "a": 59,
+      "b": 7
+     },
+     "box": 0,
+     "hit": 1,
+     "miss": 2,
+     "lastAt": "2026-10-16T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "3",
+     "question": "59 ÷ 7의 나머지"
+    }
+   },
+   "history": [
+    {
+     "stageId": "s3-4",
+     "score": 13600,
+     "stars": 2,
+     "correct": 44,
+     "wrong": 4,
+     "reached": 1,
+     "maxCombo": 12,
+     "avgMs": 4100,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "59÷7 나머지"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-16T06:10:00.000Z"
+    },
+    {
+     "stageId": "s2-3",
+     "score": 24150,
+     "stars": 3,
+     "correct": 50,
+     "wrong": 1,
+     "reached": 0,
+     "maxCombo": 22,
+     "avgMs": 2300,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "9×7"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-14T06:10:00.000Z"
+    },
+    {
+     "stageId": "s3-2",
+     "score": 20500,
+     "stars": 3,
+     "correct": 49,
+     "wrong": 2,
+     "reached": 0,
+     "maxCombo": 18,
+     "avgMs": 2700,
+     "revengeKills": 0,
+     "wrongKeys": [],
+     "endedBy": "clear",
+     "playedAt": "2026-10-12T06:10:00.000Z"
+    },
+    {
+     "stageId": "s3-3",
+     "score": 9400,
+     "stars": 1,
+     "correct": 38,
+     "wrong": 8,
+     "reached": 2,
+     "maxCombo": 8,
+     "avgMs": 4400,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "76×9"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-10T06:10:00.000Z"
+    }
+   ]
+  },
+  {
+   "id": "p_sample06",
+   "name": "강시우",
+   "grade": 5,
+   "classNo": 2,
+   "number": 6,
+   "avatar": 6,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample07",
+   "name": "윤서준",
+   "grade": 5,
+   "classNo": 2,
+   "number": 7,
+   "avatar": 7,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample08",
+   "name": "장지우",
+   "grade": 5,
+   "classNo": 2,
+   "number": 8,
+   "avatar": 0,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample09",
+   "name": "임예준",
+   "grade": 5,
+   "classNo": 2,
+   "number": 9,
+   "avatar": 1,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample10",
+   "name": "한수아",
+   "grade": 5,
+   "classNo": 2,
+   "number": 10,
+   "avatar": 7,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 30,
+    "totalCorrect": 23,
+    "revengeKills": 0,
+    "bossKills": 1,
+    "threeStarClears": 0
+   },
+   "badges": [
+    {
+     "id": "first_kill",
+     "at": "2026-10-15T06:10:00.000Z"
+    }
+   ],
+   "playDates": [
+    "2026-10-15"
+   ],
+   "stageRecords": {
+    "s1-1": {
+     "stageId": "s1-1",
+     "bestScore": 3200,
+     "bestStars": 1,
+     "bestCombo": 5,
+     "plays": 1,
+     "clears": 1,
+     "correct": 23,
+     "wrong": 5,
+     "reached": 2,
+     "avgMs": 4600,
+     "lastPlayedAt": "2026-10-15T06:10:00.000Z"
+    }
+   },
+   "facts": {
+    "4+5": {
+     "key": "4+5",
+     "stageId": "s1-1",
+     "p": {
+      "op": "add",
+      "a": 4,
+      "b": 5
+     },
+     "box": 0,
+     "hit": 1,
+     "miss": 2,
+     "lastAt": "2026-10-15T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "9",
+     "question": "4 + 5"
+    },
+    "3+6": {
+     "key": "3+6",
+     "stageId": "s1-1",
+     "p": {
+      "op": "add",
+      "a": 3,
+      "b": 6
+     },
+     "box": 1,
+     "hit": 1,
+     "miss": 1,
+     "lastAt": "2026-10-15T06:10:00.000Z",
+     "masteredAt": null,
+     "answer": "9",
+     "question": "3 + 6"
+    }
+   },
+   "history": [
+    {
+     "stageId": "s1-1",
+     "score": 3200,
+     "stars": 1,
+     "correct": 30,
+     "wrong": 7,
+     "reached": 3,
+     "maxCombo": 5,
+     "avgMs": 4600,
+     "revengeKills": 1,
+     "wrongKeys": [
+      "4+5",
+      "3+6"
+     ],
+     "endedBy": "clear",
+     "playedAt": "2026-10-15T06:10:00.000Z"
+    }
+   ]
+  },
+  {
+   "id": "p_sample11",
+   "name": "오지호",
+   "grade": 5,
+   "classNo": 2,
+   "number": 11,
+   "avatar": 3,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample12",
+   "name": "서아린",
+   "grade": 5,
+   "classNo": 2,
+   "number": 12,
+   "avatar": 4,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample13",
+   "name": "신준서",
+   "grade": 5,
+   "classNo": 2,
+   "number": 13,
+   "avatar": 5,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample14",
+   "name": "권유나",
+   "grade": 5,
+   "classNo": 2,
+   "number": 14,
+   "avatar": 6,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample15",
+   "name": "황도현",
+   "grade": 5,
+   "classNo": 2,
+   "number": 15,
+   "avatar": 7,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample16",
+   "name": "안지아",
+   "grade": 5,
+   "classNo": 2,
+   "number": 16,
+   "avatar": 0,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample17",
+   "name": "송민재",
+   "grade": 5,
+   "classNo": 2,
+   "number": 17,
+   "avatar": 1,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample18",
+   "name": "류채원",
+   "grade": 5,
+   "classNo": 2,
+   "number": 18,
+   "avatar": 2,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample19",
+   "name": "홍태양",
+   "grade": 5,
+   "classNo": 2,
+   "number": 19,
+   "avatar": 3,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample20",
+   "name": "배소율",
+   "grade": 5,
+   "classNo": 2,
+   "number": 20,
+   "avatar": 4,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample21",
+   "name": "조현우",
+   "grade": 5,
+   "classNo": 2,
+   "number": 21,
+   "avatar": 5,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample22",
+   "name": "문다은",
+   "grade": 5,
+   "classNo": 2,
+   "number": 22,
+   "avatar": 6,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample23",
+   "name": "양은우",
+   "grade": 5,
+   "classNo": 2,
+   "number": 23,
+   "avatar": 7,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  },
+  {
+   "id": "p_sample24",
+   "name": "노시은",
+   "grade": 5,
+   "classNo": 2,
+   "number": 24,
+   "avatar": 0,
+   "createdAt": "2026-09-18T06:10:00.000Z",
+   "skin": "basic",
+   "theme": "meadow",
+   "counters": {
+    "totalProblems": 0,
+    "totalCorrect": 0,
+    "revengeKills": 0,
+    "bossKills": 0,
+    "threeStarClears": 0
+   },
+   "badges": [],
+   "playDates": [],
+   "stageRecords": {},
+   "facts": {},
+   "history": []
+  }
+ ]
+}

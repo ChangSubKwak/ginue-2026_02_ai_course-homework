@@ -1,0 +1,46 @@
+{
+  "app": "기억상자 (memory-box)",
+  "folder": "D:\\workspace\\ginue-2026_02_ai_course-homework\\02_학습지도_기억상자",
+  "files": [
+    { "path": "index.html", "lines": 81 },
+    { "path": "css/style.css", "lines": 330 },
+    { "path": "js/util.js", "lines": 193 },
+    { "path": "js/data.js", "lines": 134 },
+    { "path": "js/app.js", "lines": 707 },
+    { "path": "README.md", "lines": 90 }
+  ],
+  "total_code_lines": 1445,
+  "features": [
+    { "name": "카드 등록(암기 카드·오답 카드)", "priority": "must", "status": "done", "note": "유형 토글, 300자 카운터, 오답 시 내 답+원인 칩(미선택 시 저장 비활성), 저장하고 하나 더, 수정/삭제 모달, 중복 앞면 경고" },
+    { "name": "덱 관리와 CSV 가져오기·내보내기", "priority": "must", "status": "done", "note": "과목 색 띠·상자 분포 미니 막대, CSV 드롭존→미리보기(총 행·건너뜀·중복·따옴표/UTF-8 경고)→일괄 생성, BOM CSV 내보내기, 검색·상자·유형 필터·정렬" },
+    { "name": "라이트너 간격 반복 스케줄러와 오늘 큐", "priority": "must", "status": "done", "note": "1·2·4·7·15·30일, 밀림→낮은 상자→오래된 순, 홈 큐 버튼·상자 5개·목표 진행 바·스트릭, 빈 큐 시 내일 N장·미리 복습 5장" },
+    { "name": "복습 세션(확신도→뒤집기→자기 채점→상자 이동)", "priority": "must", "status": "done", "note": "CSS 3D 플립, 미니 상자로 날아가는 400ms 애니메이션(reduce-motion 생략), 오답 틀림 시 원인 패널 필수, 키보드 1/2/3·Space·←/→·Esc, 카드별 즉시 저장+이어서 하기" },
+    { "name": "세션 요약: 4분면 피드백·코칭 한 줄·되새김 한 줄", "priority": "must", "status": "done", "note": "2×2 표(칸 클릭 시 카드 목록), 상자 이동 요약, R1~R6 규칙 코칭, 80자 되새김 저장→기록 탭 맨 위" },
+    { "name": "기록 대시보드(잔디 달력·상자 분포·원인 도넛·망각 예측)", "priority": "must", "status": "done", "note": "SVG 4종 직접 구현, 토글 시 두 번째 선+7일 뒤 N장, 요약 카드 4개, 되새김 20개" },
+    { "name": "프로필·저장·백업·샘플 데이터", "priority": "must", "status": "done", "note": "프로필 칩 팝오버 전환, try/catch 저장+배너+메모리 모드, 백업/복원(덮어쓰기·프로필로 추가·먼저 백업), 요약 JSON, CSV 템플릿, 샘플 다시 넣기, 이름 입력 삭제, 용량 게이지" },
+    { "name": "인쇄: 암기카드 양면·다시풀기 학습지", "priority": "should", "status": "done", "note": "2×4 양면(뒷면 행 반전, 빈 칸 유지, 글자 3단계 축소), 학습지+별지 정답표, 전용 미리보기·window.print·@media print" },
+    { "name": "시험 D-Day 계획", "priority": "should", "status": "done", "note": "min=내일, 덱 다중 선택, i mod D 균등 분배(앞당기기만), 홈 D-n 배너, 계획 달력(완료 체크), 다시 생성, 시험 끝→틀린 문제 추가" },
+    { "name": "교사 모드: 학급 오답 집계", "priority": "should", "status": "done", "note": "요약 JSON 다중 드롭(백업 자동 변환, 같은 이름 최신 교체, 파일별 실패 토스트), 단원×원인 표(셀 클릭 학생 이름), 복습 포인트 3장, 집중 지도 3유형, 집계 CSV, 템플릿, 샘플 학급 6명" },
+    { "name": "손그림 캔버스", "priority": "should", "status": "done", "note": "320×200, 펜 2색·2굵기, 지우개, 되돌리기 10단계, 전체 지우기, Pointer Events, JPEG 0.6, 150장/4MB 경고·4.8MB 차단 모달" },
+    { "name": "복습 보조: 반복 오류 경고·스와이프·미리 복습", "priority": "should", "status": "done", "note": "failReasons 최근 3개 동일 배지·필터·코칭 우선, 가로 60px 스와이프(세로 우세 무시), 내일·모레 낮은 상자 5장 미리 복습" },
+    { "name": "상자 간 드래그로 수동 조정", "priority": "nice", "status": "skipped", "note": "코드량·터치 복잡도 고려해 제외(카드 수정 모달로 대체 가능)" },
+    { "name": "주간 리포트 카드", "priority": "nice", "status": "done", "note": "A5 미리보기(월~일 장수, 정답률, 최다 원인, 새 숙달, 되새김), 보호자 확인 체크 저장(weeklyChecks)" }
+  ],
+  "self_check": {
+    "lint_issues": 0,
+    "pw_problems": [],
+    "page_errors": 0,
+    "console_errors": 0,
+    "acceptance_checked": 15,
+    "acceptance_assertions": "58 passed / 0 failed (tests/memory-box/accept.js, final-accept.result.json)",
+    "visual_pass": "14 passed (tests/memory-box/visual.js): 데스크톱·400px 6개 화면+인쇄 미리보기+카드 모달 가로 스크롤 0, 스크린샷 26장 확인",
+    "screenshots": "tests/memory-box/final-check/{desktop-light,desktop-dark,mobile-light}.png, final-accept/*.png, final-visual/*.png"
+  },
+  "debug_api": "window.__app = { version:'1.0.0', getState() → {view, today, profile, meta, data, teacher, session, queue, overdue, streak, boxCounts, forecast} 읽기 전용 스냅샷, actions:{ setView, startSession(kind, ids, resume), chooseConf, flip, grade(ok), pickReason, endSession, switchProfile(id), openCardModal, openDeckModal, importCsvText(text, deckId), importTeacherFiles, restoreFromFile, loadTeacherSample, setDailyGoal(n), applyGrade(cardId, ok, c, reason), resample, render } }",
+  "known_issues": [
+    "nice 기능 '상자 간 드래그로 수동 조정' 미구현",
+    "인쇄 미리보기 화면 폭이 400px이면 A4 페이지가 가로 축소 없이 화면 폭에 맞춰 잘려 보일 수 있음(인쇄 결과에는 영향 없음)",
+    "Google Fonts 오프라인 시 Gaegu 제목 글꼴이 시스템 글꼴로 대체됨(레이아웃 영향 없음)"
+  ],
+  "notes": "저장 키는 공통 규약 접두사 edu.memory-box. + 스펙 키(v1.meta / v1.profile.<id> / v1.teacher), 테마는 edu.memory-box.theme. 샘플 생성기는 시험 재분배 후 오늘 큐를 정확히 11장(밀림 3장)으로 보정하며 스트릭 6·D-12가 날짜와 무관하게 재현됨. 테스트 중 발견·수정: 탭 클릭 미배선, 스트릭 샘플 날짜(오늘-7 비움), 교사 샘플 upsert 필드명, 설정 간격표 400px 오버플로."
+}

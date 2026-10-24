@@ -1,0 +1,47 @@
+{
+  "fixed": [
+    {
+      "id": "R-01",
+      "how": "engine.js Engine.reserveEmpty를 pairGroup별 { free(고정되지 않은 책상), hasFixed(고정 학생 포함 여부) }로 재분류. 예약 우선순위: ① 짝 책상이 꺼져 1석만 남은 '외딴 책상'(고정 없음) → ② 양쪽 모두 빈 짝 책상을 뒷줄·양끝부터 통째로 → ③ 홀수 여분이면 1석 → ④ 그래도 남을 때만 고정 학생의 옆자리(마지막 수단). 핀 고정 학생의 옆자리가 '외딴 책상'으로 오인되어 매번 비워지던 회귀가 사라짐. 검증: fix-r2-node.js 8/8(핀 없음·0-0·3-0·4-3 고정 각 10회 모두 옆자리 채움·뒷줄 4석 비움·단독석 0, 27석/24명·30석/23명 홀수 여분, 13개 짝 묶음 전부 고정 시 fallback으로 24명 전원 배치, ㄷ자형), fix-r2-verify.js(0-0 고정 후 다시 섞기 5회: 좌석 유지 5/5·옆자리 0-1 채움 5/5·뒷줄 4석 비움·남녀 짝 12/12 충족·단독석 표기 없음, 3-0 고정 3/3), reverify-r1/reverify.js R-pin expect 통과(100/100)."
+    },
+    {
+      "id": "R-02",
+      "how": "app.js bind()에 matchMedia('(max-width: 600px)') change 리스너 추가: 경계를 넘으면 교실·조건 <details> 패널을 접거나(좁아질 때) 펼치고(넓어질 때), 자동 맞춤 상태(ui.zoomManual=false)면 fitZoom()으로 좌석표를 폭에 다시 맞춤. resize에는 150ms 디바운스 refitOnResize를 두어 자동 맞춤 상태에서 좌석표가 폭을 넘칠 때만 다시 맞춤. 확대값 반영은 새 applyZoom()(--cell·슬라이더만 갱신)으로 처리해 패널을 재렌더하지 않음(태블릿 화면 키보드로 인한 resize에서도 입력 포커스 유지). 검증: 1280→400 리사이즈만으로 패널 접힘·48px·좌석표 가로 넘침 없음(367/366)·문서 가로 스크롤 없음, 400→1280 복귀 시 패널 펼침·88px 재맞춤, 900px에서 76px로 맞춤, 수동 확대 상태에서도 패널은 접힘."
+    },
+    {
+      "id": "R-03",
+      "how": "동작 기준을 확정하고 코드·문서를 일치시킴: fitZoom() 호출(레이아웃 프리셋·수치 변경, 히스토리 불러오기, '맞춤' 버튼, 좁은 화면 전환)은 항상 ui.zoomManual=false(자동 맞춤 상태)로 전환하고, 슬라이더 조작만 수동 상태로 만들며 수동 값은 리사이즈·새로고침에서 유지(R-02 리스너도 존중). 레이아웃이 바뀌면 격자 폭이 달라지므로 자동 맞춤이 자연스럽다고 판단(재검증 보고서도 수용 가능으로 봄). README(주요 기능·사용 방법 2단계)와 자리 배치 탭 도움말에 '레이아웃을 바꾸면 좌석표 확대가 화면 폭에 맞춰지고 슬라이더 값은 맞춤을 누를 때까지 유지' 명시. 검증: 60으로 수동 → 400/1280 리사이즈에도 60 유지, 프리셋 변경 → 자동 맞춤(104)·zoomManual false, '맞춤' 버튼 동일."
+    },
+    {
+      "id": "R-04",
+      "how": "style.css #toast-root를 상단 중앙(top 12px)으로 옮겨 좌석표 뒷줄·우측 리포트와 겹치지 않게 함(헤더 영역만 2.5초 가림, pointer-events:none이라 그 아래 버튼 클릭은 통과). 600px 이하에서는 기존대로 하단 고정 탭 바 위 84px(top:auto) 유지, 토스트 등장 애니메이션 방향도 위치에 맞춤. 검증: 1280px에서 토스트 bottom 54px < 좌석표 격자 top 358·리포트 top 203, 가로 중앙(640), 토스트 표시 중 도움말 버튼 클릭 가능, 400px에서 bottom 84px(func-storage-responsive '400px 토스트 84px' 통과)."
+    }
+  ],
+  "not_fixed": [],
+  "files_changed": [
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱\\js\\engine.js",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱\\js\\app.js",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱\\css\\style.css",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱\\js\\data.js",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱\\README.md",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2-node.js (신규: 빈 책상 예약 규칙 엔진 단위 검증)",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2-verify.js (신규: R-01~R-04 브라우저 검증 모듈)"
+  ],
+  "recheck": {
+    "lint_issues": 0,
+    "pw_problems": [],
+    "tests_summary": "기존 모듈 11개 724 passed / 0 failed — acceptance 64/0 · code-01-accept 46/0 · code-02-bugs 10/0 · code-03-badge 2/0 · func-roster 93/0 · func-seats 146/0 · func-groups-present-print 101/0 · func-storage-responsive 110/0 · ux-shots 28/0 · fix-r1-verify 24/0 · reverify(reverify-r1/reverify.js) 100/0(R-01 expect 포함) + 신규 fix-r2-verify 28/0 → 총 752/0 (모든 모듈 pageErrors 0·consoleErrors 0·dialogs 0·fatal 없음). node: code-node-engine.js 정상(exit 0), fix-r2-node.js 8/0. lint-app issues 0(코드 2,118줄, README 제외). pw-check problems 0(콘솔 오류·경고·페이지 예외·실패 요청·dialog 0, 데스크톱 라이트/다크·모바일 400 가로 스크롤 없음; 스크린샷 3장 육안 확인).",
+    "results_dir": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2",
+    "summary_file": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\run-all.summary.txt",
+    "screenshots": [
+      "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\check\\desktop-light.png",
+      "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\check\\desktop-dark.png",
+      "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\check\\mobile-light.png",
+      "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r2-verify\\r2-pin-shuffle.png",
+      "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r2-verify\\r2-toast-top.png",
+      "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r2-verify\\r2-mobile-resized.png",
+      "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\fix-r2\\fix-r2-verify\\r2-exam-fit.png"
+    ]
+  },
+  "notes": "① 2라운드 대상은 reverify-r1.json의 신규 발견 4건(R-01 major, R-02~R-04 minor)이며 4건 모두 수정. 1라운드 결함 목록(F-01~09, C-01/02, M-01~05, m-01~08, U-01~21)은 재검증에서 모두 fixed 판정이었고, 이번 전체 재실행(기존 모듈 11개 724 expect)에서도 회귀 없음을 확인. ② R-01은 reserveEmpty 한 함수만 바꿨고 핀이 없는 경우의 결과(뒷줄 4석 비움)는 그대로라 U-10 수정 효과는 유지됨. 고정 학생의 옆자리는 다른 모든 후보가 소진됐을 때만 비우므로 '다시 섞기'에서 고정 학생이 혼자 남는 일이 없음. ③ R-03은 '레이아웃 변경 시 자동 맞춤'을 유지하되 상태 플래그(ui.zoomManual)를 fitZoom 안에서 일관되게 해제하고 README·도움말에 명시하는 쪽을 택함(재검증 보고서가 제시한 두 대안 중 하나). ④ R-04는 데스크톱만 상단 중앙으로 옮기고 400px은 기존 테스트가 요구하는 하단 84px를 유지. ⑤ 기존 테스트 모듈은 수정하지 않았고, 새 모듈 2개(fix-r2-node.js·fix-r2-verify.js)를 tests/jari-ttukttak 아래에만 추가. ⑥ 새 기능 추가 없음(applyZoom·리사이즈 리스너는 지적 대응). 코드량 2,118줄(HTML 208·CSS 410·JS 1,500), README 갱신(주요 기능·화면 구성·사용 방법·개발 과정 8항)."
+}

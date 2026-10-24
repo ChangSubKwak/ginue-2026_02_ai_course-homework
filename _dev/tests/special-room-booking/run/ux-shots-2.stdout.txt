@@ -1,0 +1,26 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/04_행정지원_특별실지기/index.html",
+  "test": "ux-shots-2.js",
+  "passed": [
+    "충돌 시 저장 버튼 disabled",
+    "대안 칩 1~3개: 3",
+    "대안 칩 클릭 후 예약 가능",
+    "지난 예약 모달에 사용 여부 토글",
+    "정기 예약 미리보기에 추석(9/24) 휴업일 제외 행",
+    "인쇄 미리보기에 결재란",
+    "이용 저조 학급 목록에 5-3",
+    "JSON 가져오기 교체/병합 모달",
+    "테마 토글 클릭 → dark: dark"
+  ],
+  "failed": [],
+  "logs": [
+    "conf={\"date\":\"2026-10-20\",\"pStart\":1,\"pEnd\":2}",
+    "shots=70"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "9 passed, 0 failed, 0 page errors, 0 console errors"
+}

@@ -1,0 +1,38 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/01_교과교육지원_분수교구함/index.html",
+  "test": "code-review-2.js",
+  "passed": [
+    "A=B 뺄셈 결과 0/5, 오류 없음",
+    "6/2+6/2 식 12/2 = 6",
+    "비교 탭의 A·B가 덧셈·뺄셈 탭으로 이어짐",
+    "카드 삭제 반영",
+    "추가 테스트 중 페이지 오류 없음"
+  ],
+  "failed": [
+    "D 가져온 chain.op 라벨이 이스케이프 없이 삽입되지 않음 (img=1, ran=true)",
+    "D 가져온 장면의 models가 모두 false여도 모델이 최소 1개 표시 (실제 0)",
+    "D 현재 탭을 다시 눌러도 펜 주석 유지 (실제 1→0)",
+    "D 현재 카드 삭제 시 삭제 토스트 표시"
+  ],
+  "logs": [
+    "chain.op xss: {\"r\":{\"scenes\":1,\"cards\":0,\"sets\":0,\"skipped\":[]},\"x2\":{\"img\":1,\"ran\":true,\"html\":\"<span class=\\\"term\\\">1/2</span><span class=\\\"eq\\\"><span class=\\\"eq-label\\\"><img src=\\\"x\\\" onerror=\\\"window.__xss2=1\\\"></span>=</span><span class=\\\"term\\\">2/4</span>\"}}",
+    "models all false → visible models: 0",
+    "400px overflow buttons: [{\"t\":\"장면 보관함\",\"p\":\"tabs\",\"r\":495},{\"t\":\"활동지\",\"p\":\"tabs\",\"r\":572}]",
+    "A=B 뺄셈: step=3 formula=2/5 − 2/5 = 0/5",
+    "6/2+6/2: moving={\"n\":6,\"maxX\":841.3333333333333,\"tr\":\"translate(248.94642618475382 27.22851536395745)\"} formula=6/2 + 6/2 resultCells=6/6",
+    "6/2+6/2 step3 formula=6/2 + 6/2 = 12/2 = 6",
+    "same-tab click: strokes 1 → 0",
+    "kit-d stepper disabled at bounds: {\"minus\":false,\"plus\":false}",
+    "delete current card: toasts=[] cards=23 current=c3-02",
+    "choice textContent: [\"56\",\"25\",\"15\"]",
+    "errors: []"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: net::ERR_FILE_NOT_FOUND"
+  ],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "5 passed, 4 failed, 0 page errors, 1 console errors"
+}

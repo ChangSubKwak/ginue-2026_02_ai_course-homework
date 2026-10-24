@@ -1,0 +1,17 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/01_교과교육지원_분수교구함/index.html",
+  "test": "debug-menu.js",
+  "passed": [
+    "debug"
+  ],
+  "failed": [],
+  "logs": [
+    "{\"menu\":[-59,141,200],\"summary\":[97,141],\"cw\":400,\"sw\":400,\"firstBtn\":-50}"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "1 passed, 0 failed, 0 page errors, 0 console errors"
+}

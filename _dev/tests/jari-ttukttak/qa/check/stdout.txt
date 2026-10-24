@@ -1,0 +1,46 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/03_업무자동화_자리뚝딱/index.html",
+  "problems": [],
+  "title": "자리뚝딱",
+  "headings": [
+    "H1: 자리뚝딱",
+    "H2: 학급 명렬",
+    "H3: 학생 목록",
+    "H3: 붙여넣기 등록",
+    "H3: 분리·결합 쌍",
+    "H2: 자리 배치",
+    "H3: 미배치 학생 칩을 탭한 뒤 빈 책상을 탭하면 배치됩니다",
+    "H3: 충족 리포트",
+    "H2: 모둠 편성",
+    "H2: 히스토리",
+    "H2: 공정성 대시보드",
+    "H3: 짝·모둠 공동 횟수 히트맵"
+  ],
+  "buttons": 209,
+  "inputs": 192,
+  "pageErrors": [],
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "failedRequests": [],
+  "dialogs": [],
+  "overflowElements": {
+    "desktop-light": [],
+    "desktop-dark": [],
+    "mobile-light": [
+      "table.tbl.roster right=737",
+      "thead right=737",
+      "tr right=737",
+      "th right=629",
+      "th right=689",
+      "th right=737",
+      "tbody right=737",
+      "tr right=737"
+    ]
+  },
+  "screenshots": [
+    "qa\\check\\desktop-light.png",
+    "qa\\check\\desktop-dark.png",
+    "qa\\check\\mobile-light.png"
+  ],
+  "firstText": "자리뚝딱 조건만 체크하면 자리표·모둠·역할이 뚝딱 가온초등학교 5학년 2반 저장됨 🖨 인쇄 ▶ 발표 모드 🌙 ? 👥 명렬 🪑 자리 배치 🧩 모둠 📚 히스토리 ⚙️ 설정 학급 명렬 활성 24명 (남 12·여 12) 앞자리 필요 3 집중 지원 2 키 큼 3 비활성 1명 ? 학생 목록 ＋ 학생 추가 번호 이름 성별 수준 배려 태그 활성 미지정 남 여 - 하 중 상 앞자리 필요 집중 지원 키 큼 🗑 미지정 남 여 - 하 중 상 앞자리 필요 집중 지원 키 큼 🗑 미지정 남 여 - 하 중 상 앞자리 필요 집중 지원 키 큼 🗑 미지정 남 여 - 하 중 상 앞자리 필요 집중 지원 키 큼 🗑 미지정 남 여 - 하 중 상 앞자리 필요 집중 지원 키 큼 🗑 미지정 남 여 - 하 중 상 앞자리 필요 집중 지원"
+}

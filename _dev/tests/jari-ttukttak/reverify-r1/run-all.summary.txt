@@ -1,0 +1,31 @@
+=== acceptance
+exit=0
+passed 64 failed 0 pageErrors 0 consoleErrors 0 dialogs 0 fatal null
+=== code-01-accept
+exit=0
+passed 46 failed 0 pageErrors 0 consoleErrors 0 dialogs 0 fatal null
+=== code-02-bugs
+exit=0
+passed 10 failed 0 pageErrors 0 consoleErrors 0 dialogs 0 fatal null
+=== code-03-badge
+exit=0
+passed 2 failed 0 pageErrors 0 consoleErrors 0 dialogs 0 fatal null
+=== func-roster
+exit=0
+passed 93 failed 0 pageErrors 0 consoleErrors 0 dialogs 0 fatal null
+=== func-seats
+exit=0
+passed 146 failed 0 pageErrors 0 consoleErrors 0 dialogs 0 fatal null
+=== func-groups-present-print
+exit=0
+passed 101 failed 0 pageErrors 0 consoleErrors 0 dialogs 0 fatal null
+=== func-storage-responsive
+exit=0
+passed 110 failed 0 pageErrors 0 consoleErrors 0 dialogs 0 fatal null
+=== ux-shots
+exit=0
+passed 28 failed 0 pageErrors 0 consoleErrors 0 dialogs 0 fatal null
+=== fix-r1-verify
+exit=0
+passed 24 failed 0 pageErrors 0 consoleErrors 0 dialogs 0 fatal null
+=== ALL DONE

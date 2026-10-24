@@ -1,0 +1,48 @@
+{
+  "app": "special-room-booking",
+  "app_name": "특별실지기",
+  "folder": "D:\\workspace\\ginue-2026_02_ai_course-homework\\04_행정지원_특별실지기",
+  "files": [
+    { "path": "index.html", "lines": 72 },
+    { "path": "css/style.css", "lines": 360 },
+    { "path": "js/data.js", "lines": 108 },
+    { "path": "js/core.js", "lines": 395 },
+    { "path": "js/board.js", "lines": 432 },
+    { "path": "js/views.js", "lines": 580 },
+    { "path": "README.md", "lines": 85 }
+  ],
+  "total_code_lines": 1947,
+  "features": [
+    { "name": "주간 교시 격자 예약판", "priority": "must", "status": "done", "note": "자원 칩·주 내비(◀▶/이번 주/날짜)·요일×교시 CSS Grid, 휴업 열·차단 빗금·오늘 강조, pointerdown/move/up 드래그 범위 선택(차단·예약 셀에서 멈춤+토스트), 범례·요약" },
+    { "name": "예약 모달과 실시간 충돌 검사·대안 추천", "priority": "must", "status": "done", "note": "입력마다 checkConflict 재실행, 녹/적/황 검증 영역, 대안 칩 ≤3(같은 날 교시/같은 그룹 자원/다른 요일), 수량형 교시별 잔여 표시, 수정·삭제, 지난 예약 사용 여부 토글" },
+    { "name": "학사일정·행사 차단 연동", "priority": "must", "status": "done", "note": "월간 달력+목록, 유형별 차단, 저장 전·후 영향 예약 수 표시, 충돌 목록 모달(수정/삭제), 격자 즉시 반영, 공휴일 기본 세트 추가" },
+    { "name": "정기 예약 일괄 생성과 시리즈 관리", "priority": "must", "status": "done", "note": "미리보기 표(생성/휴업일 제외/차단 제외/충돌, 체크박스), 요약, seriesId 저장, 삭제 시 이 건만/이후 모두/전체 선택" },
+    { "name": "주간 이용 현황표 인쇄(A4 가로)", "priority": "must", "status": "done", "note": "미리보기 모달(전체 자원/선택 자원), 학교명·제목·주차·기간·출력일·결재란, 자원당 1쪽, #print-root + @media print" },
+    { "name": "운영 실적 통계·형평성 히트맵·실적 보고 인쇄", "priority": "must", "status": "done", "note": "기간(월/학기)·자원 필터, 요약 카드 4개, SVG 가동률 막대·학급×자원 히트맵('저조')·저조 학급 목록, DOM 툴팁, A4 세로 보고서 미리보기, 집계 CSV" },
+    { "name": "데이터 보관·JSON/CSV 입출력·새 학기 초기화·샘플 데이터", "priority": "must", "status": "done", "note": "localStorage try/catch+메모리 모드 배너, JSON 내보내기/가져오기(파일·드롭존, 검증, 교체/병합), 예약 CSV(BOM), '초기화' 입력 확인, 샘플 복원, 온보딩" },
+    { "name": "자원·학급·교사 관리", "priority": "must", "status": "done", "note": "자원 카드 추가·수정·활성 토글, 예약 있는 자원 삭제 차단 안내, 수량 감소·교시 해제 차단, 학급·교사 표 CRUD" },
+    { "name": "추가 통계 차트(학년별 막대·요일×교시 혼잡도)", "priority": "should", "status": "done", "note": "computeStats 결과를 공유하는 SVG 렌더 2개, 실적 보고에 학년별 표 포함" },
+    { "name": "교시 구조·학교 정보·결재란 설정", "priority": "should", "status": "done", "note": "교시 4~10개 라벨·시간 편집, 범위 밖 예약 있으면 축소 차단, 결재란 1~4칸, 학기 기간 변경" },
+    { "name": "사용 여부 체크와 미사용 알림", "priority": "should", "status": "done", "note": "지난 예약 토글, '지난 예약 미확인 n건' 링크 → 일괄 체크 모달, 미사용률 반영" },
+    { "name": "모바일 요일 탭 보기", "priority": "should", "status": "done", "note": "640px 미만 요일 탭 1열 격자, 터치 드래그 비활성·셀 탭 → select 범위, 칩·표·차트 컨테이너 스크롤" },
+    { "name": "예약 블록 드래그 이동", "priority": "nice", "status": "skipped", "note": "코드량 관리를 위해 제외(블록 클릭 → 수정 모달에서 날짜·교시 변경으로 대체)" },
+    { "name": "학년 우선 요일 규칙 경고", "priority": "nice", "status": "done", "note": "자원 설정의 우선 학년·요일 규칙 → 모달에 노란 경고(저장 허용). 셀 모서리 아이콘은 생략" }
+  ],
+  "self_check": {
+    "lint_issues": 0,
+    "pw_problems": [],
+    "page_errors": 0,
+    "console_errors": 0,
+    "dialogs": 0,
+    "acceptance_checked": 13,
+    "acceptance_test": "acceptance.js → 56 passed / 0 failed (run2), views-check.js → 11 passed / 0 failed (run3)",
+    "screenshots_reviewed": ["check1/desktop-light.png", "check1/desktop-dark.png", "check1/mobile-light.png", "run2/03-conflict.png", "run2/07-print-preview.png", "run2/08-stats.png", "run2/11-mobile.png", "run3/desk-calendar.png", "run3/desk-resources.png", "run3/dark-board.png", "run3/m-settings.png"]
+  },
+  "debug_api": "window.__app = { version, getState() → {data, ui, memoryMode} 깊은 복사, actions: { selectTab, selectResource, goWeek, checkConflict, suggestAlternatives, expandSeries, computeStats, statsRange, addBooking, deleteBooking, openBookingModal, openSeriesModal, loadSample, resetSemester, importData, exportJson, setTheme } }",
+  "known_issues": [
+    "pw-check 모바일 뷰의 'elementsPastRightEdge'에 자원 칩이 잡히지만 가로 스크롤 컨테이너(.chips-row) 내부 요소라 페이지 가로 스크롤은 발생하지 않음(horizontalOverflow=false).",
+    "views-check.js 1회차 실행에서 Edge 헤드리스 렌더러가 일시적으로 crash했으나 재실행에서 전부 통과(앱 오류 아님).",
+    "예약 블록 드래그 이동(nice)과 우선 규칙 셀 모서리 아이콘은 미구현."
+  ],
+  "notes": "총 코드 1,947줄(HTML+CSS+JS). 샘플은 data.js의 정의를 core.js buildSampleData()가 실제 checkConflict/expandSeries로 전개(시리즈 10개 ≈ 160건 + 고정 단건 11건 + 시드 난수 단건 ≈ 70건 = 약 240건). 구글 폰트는 시스템 폰트 폴백 포함."
+}

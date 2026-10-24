@@ -1,0 +1,42 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/01_교과교육지원_분수교구함/index.html",
+  "test": "ux-shots-2.js",
+  "passed": [
+    "3학년 프리셋에서 분모 슬라이더 max=10"
+  ],
+  "failed": [],
+  "logs": [
+    "elshot C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-01-chain-zoom.png",
+    "elshot C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-02-symbol-zoom.png",
+    "elshot C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-03-bar-zoom.png",
+    "elshot C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-04-line-zoom.png",
+    "MEASURE desktop1280-kit-6of12-chain {\"kitBar\":{\"w\":548,\"h\":66},\"kitCircle\":{\"w\":332,\"h\":230},\"kitLine\":{\"w\":548,\"h\":53},\"cellLabelH\":24,\"tickLabelH\":19,\"eqLabelFs\":null,\"abSvg\":{\"w\":0,\"h\":0},\"abRowLabelH\":null,\"abCellLabelH\":null,\"stageBar\":null,\"stageCellLabelH\":null,\"modelCardH\":[139,276,126],\"moreList\":{\"left\":964,\"right\":1164,\"vw\":1280},\"sliderMax\":\"24\"}",
+    "elshot C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-05-symbol-6of12-decimal.png",
+    "MEASURE board1920-kit {\"kitBar\":{\"w\":587,\"h\":70},\"kitCircle\":{\"w\":357,\"h\":357},\"kitLine\":{\"w\":587,\"h\":56},\"cellLabelH\":31,\"tickLabelH\":20,\"eqLabelFs\":null,\"abSvg\":{\"w\":0,\"h\":0},\"abRowLabelH\":null,\"abCellLabelH\":null,\"stageBar\":null,\"stageCellLabelH\":null,\"modelCardH\":[414,414,414],\"moreList\":{\"left\":1580,\"right\":1780,\"vw\":1920},\"sliderMax\":\"24\"}",
+    "elshot C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-06-board-bar-1920.png",
+    "elshot C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-07-arith-bars-light.png",
+    "elshot C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-08-arith-bars-dark.png",
+    "elshot C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-10-sheet-a4-page1.png",
+    "elshot C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-11-ws-item-zoom.png",
+    "MEASURE grade3 {\"kitBar\":{\"w\":548,\"h\":66},\"kitCircle\":{\"w\":332,\"h\":230},\"kitLine\":{\"w\":548,\"h\":53},\"cellLabelH\":24,\"tickLabelH\":19,\"eqLabelFs\":null,\"abSvg\":{\"w\":0,\"h\":0},\"abRowLabelH\":null,\"abCellLabelH\":0,\"stageBar\":null,\"stageCellLabelH\":null,\"modelCardH\":[139,276,126],\"moreList\":{\"left\":964,\"right\":1164,\"vw\":1280},\"sliderMax\":\"10\"}",
+    "MEASURE mobile-more-menu {\"kitBar\":{\"w\":0,\"h\":0},\"kitCircle\":{\"w\":0,\"h\":0},\"kitLine\":{\"w\":0,\"h\":0},\"cellLabelH\":0,\"tickLabelH\":0,\"eqLabelFs\":null,\"abSvg\":{\"w\":0,\"h\":0},\"abRowLabelH\":null,\"abCellLabelH\":0,\"stageBar\":null,\"stageCellLabelH\":null,\"modelCardH\":[0,0,0],\"moreList\":{\"left\":184,\"right\":384,\"vw\":400},\"sliderMax\":\"24\"}",
+    "MEASURE mobile-card-stage-make {\"kitBar\":{\"w\":0,\"h\":0},\"kitCircle\":{\"w\":0,\"h\":0},\"kitLine\":{\"w\":0,\"h\":0},\"cellLabelH\":0,\"tickLabelH\":0,\"eqLabelFs\":null,\"abSvg\":{\"w\":0,\"h\":0},\"abRowLabelH\":null,\"abCellLabelH\":0,\"stageBar\":{\"w\":312,\"h\":50},\"stageCellLabelH\":18,\"modelCardH\":[0,0,0],\"moreList\":{\"left\":-59,\"right\":141,\"vw\":400},\"sliderMax\":\"24\"}",
+    "elshot C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-15-mobile-card-stage.png",
+    "MEASURE mobile-arith {\"kitBar\":{\"w\":0,\"h\":0},\"kitCircle\":{\"w\":0,\"h\":0},\"kitLine\":{\"w\":0,\"h\":0},\"cellLabelH\":0,\"tickLabelH\":0,\"eqLabelFs\":null,\"abSvg\":{\"w\":368,\"h\":177},\"abRowLabelH\":19,\"abCellLabelH\":21,\"stageBar\":{\"w\":0,\"h\":0},\"stageCellLabelH\":0,\"modelCardH\":[0,0,0],\"moreList\":{\"left\":-59,\"right\":141,\"vw\":400},\"sliderMax\":\"24\"}",
+    "elshot C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-16-mobile-arith-bars.png",
+    "MEASURE mobile-kit-line {\"kitBar\":{\"w\":0,\"h\":0},\"kitCircle\":{\"w\":0,\"h\":0},\"kitLine\":{\"w\":342,\"h\":33},\"cellLabelH\":0,\"tickLabelH\":15,\"eqLabelFs\":null,\"abSvg\":{\"w\":0,\"h\":0},\"abRowLabelH\":null,\"abCellLabelH\":0,\"stageBar\":{\"w\":0,\"h\":0},\"stageCellLabelH\":0,\"modelCardH\":[0,0,79],\"moreList\":{\"left\":-59,\"right\":141,\"vw\":400},\"sliderMax\":\"24\"}",
+    "elshot C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-17-mobile-line.png"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\00-probe2.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-09-sheet-dark-a4.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-12-scenes-empty-state.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-13-sheet-tablet-items.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\ux-shots-2\\z-14-sheet-mobile-items.png"
+  ],
+  "fatal": null,
+  "summary": "1 passed, 0 failed, 0 page errors, 0 console errors"
+}

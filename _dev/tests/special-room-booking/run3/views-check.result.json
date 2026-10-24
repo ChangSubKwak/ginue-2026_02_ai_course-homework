@@ -1,0 +1,39 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/04_행정지원_특별실지기/index.html",
+  "test": "views-check.js",
+  "passed": [
+    "400px board 가로 스크롤 없음",
+    "400px calendar 가로 스크롤 없음",
+    "400px resources 가로 스크롤 없음",
+    "400px stats 가로 스크롤 없음",
+    "400px settings 가로 스크롤 없음",
+    "400px 모달 가로 스크롤 없음",
+    "교시 축소 차단 안내",
+    "CSV 파일명 special-room-booking_bookings_20261018.csv",
+    "빈 상태 안내 카드",
+    "통계 빈 상태",
+    "자원 추가 후 격자"
+  ],
+  "failed": [],
+  "logs": [],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "..\\tests\\special-room-booking\\run3\\desk-calendar.png",
+    "..\\tests\\special-room-booking\\run3\\desk-resources.png",
+    "..\\tests\\special-room-booking\\run3\\desk-stats.png",
+    "..\\tests\\special-room-booking\\run3\\desk-settings.png",
+    "..\\tests\\special-room-booking\\run3\\m-board.png",
+    "..\\tests\\special-room-booking\\run3\\m-calendar.png",
+    "..\\tests\\special-room-booking\\run3\\m-resources.png",
+    "..\\tests\\special-room-booking\\run3\\m-stats.png",
+    "..\\tests\\special-room-booking\\run3\\m-settings.png",
+    "..\\tests\\special-room-booking\\run3\\m-modal.png",
+    "..\\tests\\special-room-booking\\run3\\dark-board.png",
+    "..\\tests\\special-room-booking\\run3\\dark-stats.png",
+    "..\\tests\\special-room-booking\\run3\\empty-board.png"
+  ],
+  "fatal": null,
+  "summary": "11 passed, 0 failed, 0 page errors, 0 console errors"
+}

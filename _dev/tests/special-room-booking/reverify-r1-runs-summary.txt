@@ -1,0 +1,30 @@
+## func-board exit=0 time=37s
+  "fatal": null,
+  "summary": "107 passed, 0 failed, 0 page errors, 0 console errors"
+## func-calendar-series exit=0 time=28s
+  "fatal": null,
+  "summary": "75 passed, 0 failed, 0 page errors, 0 console errors"
+## func-data-settings exit=0 time=36s
+  "fatal": null,
+  "summary": "72 passed, 0 failed, 0 page errors, 0 console errors"
+## func-resources-stats exit=0 time=29s
+  "fatal": null,
+  "summary": "79 passed, 0 failed, 0 page errors, 0 console errors"
+## func-responsive exit=0 time=22s
+  "fatal": null,
+  "summary": "36 passed, 0 failed, 0 page errors, 0 console errors"
+## code-bugs exit=0 time=9s
+  "fatal": null,
+  "summary": "11 passed, 0 failed, 0 page errors, 0 console errors"
+## code-acceptance exit=0 time=28s
+  "fatal": null,
+  "summary": "67 passed, 0 failed, 0 page errors, 0 console errors"
+## ux-shots exit=0 time=82s
+  "fatal": null,
+  "summary": "15 passed, 0 failed, 0 page errors, 0 console errors"
+## acceptance exit=0 time=29s
+  "fatal": null,
+  "summary": "56 passed, 0 failed, 0 page errors, 0 console errors"
+## views-check exit=0 time=12s
+  "fatal": null,
+  "summary": "11 passed, 0 failed, 0 page errors, 0 console errors"

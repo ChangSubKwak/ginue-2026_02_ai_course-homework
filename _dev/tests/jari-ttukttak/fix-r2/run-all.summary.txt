@@ -1,0 +1,13 @@
+acceptance: 64 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+code-01-accept: 46 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+code-02-bugs: 10 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+code-03-badge: 2 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+func-roster: 93 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+func-seats: 146 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+func-groups-present-print: 101 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+func-storage-responsive: 110 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+ux-shots: 28 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+fix-r1-verify: 24 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+reverify: 100 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+fix-r2-verify: 28 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+TOTAL 752 passed / 0 failed, modules with problems: 0

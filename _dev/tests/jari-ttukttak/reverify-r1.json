@@ -1,0 +1,78 @@
+{
+  "status": "fail",
+  "remaining": [],
+  "verified_fixed": [
+    { "id": "C-01 / F-01 / U-01", "severity": "critical", "verdict": "fixed", "evidence": "reverify.js AC10: 교사용 선택 시 inline grid-template-columns='var(--cell) var(--cell) calc(var(--cell)*0.35) …'(8트랙 보존), computed 8열×5행, 서로 다른 행 top 5개, 칠판 띠가 격자 뒤(아래), 0-0 학생이 우하단(게시용에서는 좌상단), 격자 702×512px 가로형. 인쇄 미디어 에뮬레이션에서도 8열·헤더/탭 숨김. 스크린샷 reverify-r1/reverify/r-print-teacher.png, r-print-teacher-media.png, ux-shots/d-light-71-print-teacher.png, d-print-76-teacher-media.png. engine.js tplTracks 정규식(/calc\\((?:[^()]|\\([^()]*\\))*\\)|var\\(--cell\\)|\\S+/g)이 var(--cell) 중첩 괄호를 올바르게 처리함(node: colTpl 트랙 8개, reverse 후 동일 토큰)." },
+    { "id": "C-02", "severity": "critical", "verdict": "fixed", "evidence": "reverify.js: history 항목에 layoutSnapshot이 없는 JSON → '가져오기 실패 / 파일 구조가 맞지 않습니다: history 항목 오류(layoutSnapshot/seats)' 모달, 상태·localStorage 불변. 구조 검사는 통과하지만 렌더에서 예외가 나는 파일(conditions.front=null) → '백업 가져오기' 확인 후 '가져오기 실패' 모달, 화면·상태가 기존 데이터(학생 3명)로 복귀, 저장 안 됨, pageErrors 0. applyRoot가 renderAll 성공 후에만 saveNow 호출(app.js 639~649)." },
+    { "id": "M-01", "severity": "major", "verdict": "fixed", "evidence": "reverify.js: toBlob 후킹으로 캔버스 확인 — 894×814px(8트랙 기준 정확히 일치: 6×110+2×38.5+7×11=814 폭), 통로 열(x=301) 흰색, c=4·c=7 책상 중심 픽셀이 성별 채움색(219,234,254)/(252,231,243). 다운로드 파일명 jari-20261025.png." },
+    { "id": "M-02", "severity": "major", "verdict": "fixed", "evidence": "reverify.js: 배치 확정 직후 current.confirmedId=새 기록 id, 리포트 '같은 좌석 회피 24/24 충족' 유지(위반 24건 아님), 조건 하드/소프트 토글 후 재계산에서도 전원 위반 없음, 자동 배치 시 confirmedId 해제. 모둠: 편성 확정 직후·모둠 이름 변경 재렌더 후 '반복 모둠 쌍 0건'. code-02-bugs B2 통과." },
+    { "id": "M-03 / F-04", "severity": "major", "verdict": "fixed", "evidence": "reverify.js: 2단계 삭제 후 학생 0·저장 키 null → 새로고침 후에도 빈 학급(ui.wiped). 이후 명렬 3명 등록 → 새로고침 후 3명 유지(saveNow가 wiped 해제). '샘플 다시 불러오기' 25명 복원. func-storage-responsive·code-02 B3 통과." },
+    { "id": "M-04", "severity": "major", "verdict": "fixed", "evidence": "node 직접 검증(engine.prepare, avoidSeat=true, settings.avoidN=3): avoidPartnerN=1 → 이도윤-한수아 partner=0, N=2 → 1, N=3 → 2(최근 N건만 집계), 좌석 이력은 3건 유지. engine.js 108행에서 recentStats를 두 창으로 분리 호출." },
+    { "id": "M-05", "severity": "major", "verdict": "fixed", "evidence": "reverify.js: s04 이름을 '최민준B'로 바꾸고 change → #pair-list·#pair-a 옵션에 즉시 반영. app.js 741행 renderPairs()+renderSeats()." },
+    { "id": "F-02", "severity": "major", "verdict": "fixed", "evidence": "reverify.js: 전체 삭제 → 붙여넣기 3명 등록 → 모둠 탭 '편성' 활성 → 클릭 시 '모둠 수를 학생 수(3)로 줄였습니다' 후 3모둠 생성. renderHeader가 #btn-make-groups.disabled 갱신(app.js 210)." },
+    { "id": "F-03 / U-05", "severity": "major", "verdict": "fixed", "evidence": "reverify.js: ㄷ자형 선택 시 기본 6×5×2겹=32책상(파라미터 cols 6~12·rows 2~6·layers 1~2), 자동 배치 활성·24명(테스트 시점 28명) 배치 성공, 가로 12(44석)에서도 1280px 컨테이너에 자동 맞춤. ux-shots: 10×5×2겹 40석(d-light-19-seats-preset-u.png)." },
+    { "id": "U-02", "severity": "major", "verdict": "fixed", "evidence": "reverify.js: 히스토리 카드 → 배치 미리보기 모달 .seatmap-wrap.mini .seat-grid display:grid, 8열×5행, 행 top 5개. 스크린샷 reverify/r-hist-preview-modal.png, ux-shots/d-light-52-modal-hist-seat.png." },
+    { "id": "U-03", "severity": "major", "verdict": "fixed", "evidence": "reverify.js: 기록 카드 .badge.kind-seat 37×20px(알약). ux-shots/d-light-50-history.png에서 '자리'·'모둠' 배지 크기 동일." },
+    { "id": "U-04", "severity": "major", "verdict": "fixed", "evidence": "ux-shots: 1280px 명렬 표 695px = 래퍼 695px(넘침 없음). pw-check desktop-light.png에서 활성 토글·🗑 삭제 열까지 카드 안에 표시." },
+    { "id": "U-06", "severity": "major", "verdict": "fixed", "evidence": "reverify.js: 조건 라벨 7개 모두 한 줄 높이(20px, 글자 중간 줄바꿈 없음), 체크박스+라벨/설명, 하드/소프트는 아래 줄 오른쪽. ux-shots/d-light-12-seats-auto.png 육안 확인." },
+    { "id": "U-07", "severity": "major", "verdict": "fixed", "evidence": "reverify.js: 400px 인쇄 패널에서 '인쇄하기'(y=53)·'닫기' 버튼 첫 화면 노출, 종류 패널을 500px 스크롤해도 sticky로 계속 노출. ux-shots/t-820-70-print.png, m-400-70-print.png 확인." },
+    { "id": "U-08", "severity": "major", "verdict": "fixed", "evidence": "reverify.js: 400px 첫 로드(zoomManual=false) → 교실·조건 패널 접힘, '자동 배치' 버튼 top 398px(첫 화면), 좌석표 48px 자동 축소(scrollW 367/366), 가로 스크롤 없음, 탭 바 하단 고정. 단 리사이즈만으로는 적용되지 않음(R-02, minor)." },
+    { "id": "U-09", "severity": "major", "verdict": "fixed", "evidence": "reverify.js: 히트맵 라벨 11px(--fg), 셀 21px, .table-wrap 가로 스크롤, 'TOP 5' 목록 1위 '이도윤-한수아 짝 3회·모둠 1회'. ux-shots/d-light-50-history.png에서 라벨 판독 가능. ui.js 80행 터치 pointerdown 툴팁." },
+    { "id": "U-10", "severity": "major", "verdict": "fixed (핀 없는 경우)", "evidence": "reverify.js: 자동 배치 후 빈 책상 4개가 모두 뒷줄(4-1·4-3·4-4·4-6), 남녀 짝 12/12 충족·단독석 표기 없음. 단 핀 고정 학생이 있으면 그 짝 책상이 우선 비워져 단독석 2명이 생김(R-01)." }
+  ],
+  "new_findings": [
+    {
+      "id": "R-01",
+      "severity": "major",
+      "title": "핀 고정한 학생이 있으면 '다시 섞기'마다 그 학생의 짝 책상이 반드시 비워져 고정 학생이 혼자 앉고 뒷줄에 단독석이 1명 더 생김(U-10 수정의 회귀)",
+      "description": "Engine.reserveEmpty(engine.js 199~212)는 pairGroup별로 '고정되지 않은 책상'만 남긴 뒤 길이 1인 묶음을 '짝이 없는 외딴 책상'으로 간주해 가장 먼저 비운다. 그런데 2인 짝 묶음에서 한 학생을 핀 고정하면 남은 짝 책상 하나가 바로 이 '외딴 책상'으로 분류되어, 남는 책상(샘플 28석/24명 → 4개)이 있는 한 항상 첫 번째로 예약(빈 자리)된다. 결과: 고정 학생은 매번 혼자 앉고, 남은 예약 1석은 뒷줄 짝 책상 하나만 비워 뒷줄에도 단독석 1명이 생긴다(리포트 '2명 단독석(면제)'). 수정 전(빈 책상 무작위)에는 고정 학생이 대부분 짝을 유지했으므로 1라운드 수정으로 생긴 결정적(100%) 회귀이며, 스펙 user_flow·수용 기준 5('자물쇠 켜고 다시 섞기')의 시연에서 바로 드러난다. 핀 기능 자체(좌석 유지)와 모든 조건 충족 리포트는 정상.",
+      "evidence": "reverify.js 'R-pin': 0-0 학생 자물쇠 → 다시 섞기 3회 → 좌석은 3/3 유지(AC5 통과)이나 짝 책상 0-1이 3/3 비어 있음, 뒷줄 채움=[4-1 false, 4-3 false, 4-4 true, 4-6 false], 리포트 '남녀 짝 소프트 · 2명 단독석(면제) 11/11 충족'. 순수 엔진 node 재현: s01을 0-0에 고정하고 Engine.solve 10회 → 0-1 빈 책상 10/10. 스크린샷 reverify-r1/reverify/r-pin-shuffle.png(신준서 고정, 옆 책상 '—').",
+      "suggested_fix": "reserveEmpty에서 고정 책상이 포함된 pairGroup은 '외딴 책상' 후보에서 제외하고 예약 우선순위를 맨 뒤로 둔다. 예: const groups = Object.values(ctx.pgMembers).map(m => ({ free: m.filter(i => !fixed[i]), hasFixed: m.some(i => fixed[i]) })).filter(g => g.free.length); const singles = groups.filter(g => g.free.length === 1 && !g.hasFixed) …; const pairsG = groups.filter(g => g.free.length >= 2) …; 남는 예약이 있을 때만 hasFixed 묶음의 빈 책상을 마지막으로 사용. 테스트: 핀 1명 + 다시 섞기 N회 후 짝 책상이 채워지고 단독석 0명인지(28석/24명) 확인."
+    },
+    {
+      "id": "R-02",
+      "severity": "minor",
+      "title": "창 폭을 600px 이하로 줄이거나 기기를 회전해도(새로고침 없이) 패널 접힘·좌석표 자동 축소가 적용되지 않음",
+      "description": "U-08 대응(init의 matchMedia 검사, app.js 827)은 첫 로드 때만 실행된다. ux-shots처럼 1280→400으로 리사이즈만 하면 교실·조건 패널이 펼쳐진 채 남고 좌석표는 84px(래퍼 366/격자 640px)로 가로 내부 스크롤이 필요하다('맞춤' 버튼으로 수동 해결 가능). 태블릿 회전·창 크기 조절 시 체감되는 수준이며 핵심 동작에는 영향 없음.",
+      "evidence": "ux-shots 로그 'mobile seatmap: {wrapW:366, scrollW:640, cell:84px}', 스크린샷 reverify-r1/ux-shots/m-400-12-seats.png(패널 펼침). 새로고침 후에는 정상(reverify.js: 패널 접힘·48px).",
+      "suggested_fix": "resize 리스너(app.js 799)에서 matchMedia(MOBILE_MQ) 전환 시 ui.zoomManual이 아니면 fitZoom()+renderSeats()를 호출하고 패널을 접는다(또는 matchMedia(MOBILE_MQ).addEventListener('change', …))."
+    },
+    {
+      "id": "R-03",
+      "severity": "minor",
+      "title": "레이아웃 프리셋·수치 변경 시 fitZoom()이 수동 확대값(ui.zoomManual)을 무시하고 항상 덮어씀",
+      "description": "setLayout(app.js 154~158)과 rebuildLayout은 ui.zoomManual 여부와 무관하게 fitZoom()을 호출한다. 수정 보고서의 '슬라이더를 움직이면 수동 값 유지'는 init 경로에만 적용된다. 레이아웃이 바뀌면 자동 맞춤이 오히려 자연스러울 수 있어 동작 자체는 수용 가능하나 보고서 설명과 다름.",
+      "evidence": "소스 app.js 157행 fitZoom() 무조건 호출, 171행에서 ui.zoom 덮어씀. reverify.js F-03: 슬라이더 조작 후 프리셋 변경 시 zoom 104로 재계산됨.",
+      "suggested_fix": "동작을 유지하려면 README·도움말에 '레이아웃을 바꾸면 확대가 화면 폭에 맞춰집니다'를 명시하거나, fitZoom 호출 전 if (ui.zoomManual) return; 분기를 두고 '맞춤' 버튼에서만 해제."
+    },
+    {
+      "id": "R-04",
+      "severity": "minor",
+      "title": "하단 중앙 토스트가 1280×800에서 좌석표 뒷줄 카드를 2.5초간 가림",
+      "description": "토스트 위치를 우하단에서 하단 중앙으로 옮기면서 충족 리포트는 가리지 않게 됐으나, 자동 배치 직후 '모든 조건을 충족하는 배치를 찾았습니다' 토스트가 좌석표 마지막 줄(빈 책상·뒷줄 카드) 위에 겹친다. 자동 소멸되므로 조작은 가능.",
+      "evidence": "ux-shots/d-light-12-seats-auto.png, reverify/r-seats-auto.png, r-pin-shuffle.png(뒷줄 4-3·4-4 카드가 토스트에 가려짐).",
+      "suggested_fix": "#toast-root를 상단 중앙(헤더 아래) 또는 좌석표 카드 바깥(리포트 열 아래)으로 옮기거나 bottom 값을 좌석표 아래 여백(범례 아래)으로 조정."
+    }
+  ],
+  "acceptance_results": [
+    { "criterion": "index.html을 file://로 더블클릭해 열면 콘솔 에러 없이 '가온초등학교 5학년 2반' 명렬 25명(비활성 1명 회색)과 히스토리 4건이 보인다.", "status": "pass", "note": "pw-check 3뷰 콘솔 오류·페이지 예외·실패 요청 0. reverify.js: 명렬 25행·is-inactive 1행(opacity .5), 히스토리 자리 4건+모둠 1건, 학급명 표시." },
+    { "criterion": "자리 배치 탭에서 '자동 배치'를 누르면 1초 이내에 24개 좌석 카드가 채워지고 충족 리포트에 '분리 쌍 2/2 충족', '앞자리 배려 3/3 충족'이 초록으로 표시된다.", "status": "pass", "note": "reverify.js: 108ms에 24장, '분리 쌍 2/2 충족'·'앞자리 배려 3/3 충족' st-ok, 값 색 rgb(46,139,87)=--ok. 빈 책상 4개는 뒷줄에 모임(단독석 0)." },
+    { "criterion": "명렬 탭에서 '앞자리 필요' 태그를 학생 7명으로 늘리고(앞 구역 책상 6개) 하드 조건으로 자동 배치하면 위반 좌석 1개가 빨간 테두리로 표시되고 리포트에 '앞 구역 책상 부족' 완화 제안이 나타난다.", "status": "pass", "note": "reverify.js: front 대상 7·충족 6·위반 1, .seat.viol 1개(테두리 rgb(210,63,63)), 제안 \"앞 구역 책상 부족(7>6): 분단 수를 늘리거나 '앞자리 배려'를 소프트로 바꾸세요.\"" },
+    { "criterion": "좌석 카드 하나를 다른 카드 위로 드래그(또는 두 카드를 차례로 탭)하면 두 학생이 교환되고, 분리 쌍을 인접시키면 '분리 조건 위반: 최민준-강시우' 토스트와 빨간 테두리가 즉시 뜨며 Ctrl+Z로 원래대로 돌아간다.", "status": "pass", "note": "reverify.js: 탭-탭(첫 탭 하이라이트) 교환, 토스트 'toast-warn 분리 조건 위반: 최민준-강시우', .seat.viol 2개, Ctrl+Z 원복·위반 0, Ctrl+Y 재실행. Pointer 드래그 교환은 acceptance.js·func-seats.js·code-01에서 통과." },
+    { "criterion": "좌석 카드의 자물쇠를 켜고 '다시 섞기'를 3회 눌러도 해당 학생의 좌석은 바뀌지 않는다.", "status": "pass", "note": "reverify.js: 0-0 학생 고정 후 3회 섞기 좌석 3/3 유지. 단 고정 학생의 짝 책상이 매번 비워져 혼자 앉음(R-01 major)." },
+    { "criterion": "프리셋을 '2인 짝 분단형 2분단×5열'(20책상)로 바꾸면 카운터가 빨간 '책상 20 / 학생 24'으로 바뀌고 자동 배치 버튼이 비활성화된다.", "status": "pass", "note": "acceptance.js·func-seats·ux-shots: '책상 20 / 학생 24' rgb(210,63,63)·disabled. reverify.js(테스트 중 4명 추가 상태): '책상 20 / 학생 28' is-short·disabled, 미배치 28명 표시." },
+    { "criterion": "'발표 모드'를 누르면 전체 화면(또는 오버레이)에 모든 카드가 '?'로 가려지고 '시작' 후 0.7초 간격으로 카드가 뒤집히며 이름이 나타나고, Space로 다음 카드, Esc로 종료된다.", "status": "pass", "note": "reverify.js: 헤드리스 Edge에서 fullscreenElement 진입, 28장 모두 '?' 뒷면, 시작 직후 1장 → 1.6초 후 3장, 일시정지, Space +1, 진행 표시 k/n, Esc 종료 후 배치 유지. 400px: 셀 64px·이름 16.6px·하단 바 노출." },
+    { "criterion": "모둠 탭에서 '모둠 수 6' + 성별 균형 + 역할 자동을 체크하고 '편성'하면 6개 모둠 카드(각 4명)가 표시되고 각 모둠에 이끔이·기록이·나눔이·지킴이 배지가 1개씩 있다.", "status": "pass", "note": "reverify.js: 6카드×4명, 각 카드 역할 '기록이,나눔이,이끔이,지킴이' 1개씩. 편성 확정 후 반복 모둠 쌍 0건(자기 비교 없음)." },
+    { "criterion": "'배치 확정'에서 메모 '5차'를 입력하면 히스토리 탭 맨 위에 오늘 날짜 '5차' 카드가 생기고, 히트맵에서 이도윤-한수아 셀에 호버하면 '짝 3회'가 툴팁으로 보인다.", "status": "pass", "note": "reverify.js: 모달 날짜 기본 2026-10-25, 맨 위 카드 '자리 2026-10-25 5차 수업형(2인 짝 분단형) · 24명 · 위반 0', 히트맵 호버 툴팁 '이도윤-한수아: 짝 3회·모둠 1회'." },
+    { "criterion": "인쇄 미리보기에서 '교사용 자리표'를 선택하면 게시용과 비교해 격자가 180도 회전되어 칠판 띠가 아래에 있고, '책상 명패'를 선택하면 6페이지(4개/장)로 분할된다.", "status": "pass", "note": "reverify.js: 게시용 8×5·칠판 위·0-0 학생 좌상단 ↔ 교사용 8×5(행 5개)·칠판 아래·같은 학생 우하단, 인쇄 미디어에서도 동일. 명패 6페이지×4개, @page A4 portrait. 1라운드의 1열 붕괴(C-01) 해소 확인." },
+    { "criterion": "학생 명렬에 입력한 뒤 새로고침하면 변경 내용과 미확정 현재 배치가 그대로 복원된다.", "status": "pass", "note": "reverify.js: 이름 '김하늘R'·학생 29명·current.seats 동일 복원, Undo 스택만 초기화." },
+    { "criterion": "설정 탭 'JSON 내보내기'로 받은 파일을 '전체 데이터 삭제' 후 '가져오기'하면 요약 모달(학생 25명, 배치 4건)이 뜨고 확인 시 명렬·히스토리가 복원된다.", "status": "pass", "note": "reverify.js: jari-ttukttak-20261025.json 다운로드, 2단계 삭제, 요약 모달 '학생 29명 / 배치 5건 · 모둠 2건'(테스트 중 4명 추가·1건 확정 상태), 확인 후 명렬·히스토리 5건·현재 배치 복원. 깨끗한 상태의 '학생 25명·배치 4건'은 acceptance.js·func-storage-responsive에서 통과. 손상 파일·렌더 예외 파일은 실패 모달 + 기존 데이터 유지(C-02)." },
+    { "criterion": "명렬 탭 붙여넣기 영역에 '1\\t김가상\\t남' 형식 3행과 성별이 빠진 1행을 넣고 '인식'하면 미리보기에 3행 정상·1행 '성별 미지정' 경고가 표시되고 '추가' 시 4명이 늘어난다.", "status": "pass", "note": "reverify.js: st-ok 3·st-warn 1('성별 미지정'), 추가 후 25→29명, 중복 번호 경고 아이콘 표시." },
+    { "criterion": "브라우저 폭을 400px로 줄이면 가로 스크롤 없이 탭 바가 하단으로 이동하고 좌석표는 축소 슬라이더·내부 스크롤로 전체를 볼 수 있으며 탭-탭 교환이 동작한다.", "status": "pass", "note": "reverify.js(400px 새로고침): documentElement.scrollWidth 400, 탭 바 fixed/bottom 0, 패널 접힘, 좌석표 48px 자동 축소(367/366), 탭-탭 교환 성공, 인쇄·발표 오버레이도 가로 스크롤 없음. pw-check mobile-light 가로 넘침 없음(명렬 표는 .table-wrap 내부 스크롤)." },
+    { "criterion": "앱 전체에서 alert/confirm/prompt가 한 번도 호출되지 않고 모든 확인은 모달, 알림은 토스트로 표시된다.", "status": "pass", "note": "lint 0건(alert/confirm/prompt 미사용), pw-check 3뷰 + 11개 모듈(624+100 expect) 전부 dialogs 0. 삭제·초기화·덮어쓰기·확정·가져오기 실패가 모두 role=dialog 모달, 검증·안내는 토스트." }
+  ],
+  "lint_issues": 0,
+  "pw_problems": [],
+  "tests_summary": "lint-app 0건(2,112줄). pw-check problems 0(콘솔 오류·경고·페이지 예외·실패 요청·dialog 0, 데스크톱 라이트/다크·모바일 400 가로 스크롤 없음; 스크린샷 3장 육안 확인). 기존 모듈 10개 재실행 624 passed / 0 failed — acceptance 64, code-01-accept 46, code-02-bugs 10, code-03-badge 2, func-roster 93, func-seats 146, func-groups-present-print 101, func-storage-responsive 110, ux-shots 28, fix-r1-verify 24 (모두 pageErrors 0·consoleErrors 0·dialogs 0). code-node-engine 정상. 독립 작성 reverify.js(reverify-r1/reverify.js) 100 expect: 99 passed / 1 failed(R-01 핀 고정 학생 짝 책상 비움), pageErrors 0·dialogs 0. 결과: reverify-r1/run-all.summary.txt, reverify-r1/<모듈>/<모듈>.result.json, reverify-r1/reverify2/reverify.result.json, 스크린샷 reverify-r1/check, reverify-r1/ux-shots, reverify-r1/reverify.",
+  "notes": "① 1라운드 결함 목록의 critical 2건·major 15건(중복 포함 C-01/F-01/U-01, C-02, M-01~M-05, F-02, F-03/U-05, U-02~U-04, U-06~U-10)은 모두 소스·브라우저로 직접 확인해 해결됨(verified_fixed 참조). 수정 보고서의 주장과 어긋난 항목은 없었음. ② 다만 U-10 수정(Engine.reserveEmpty)이 핀 고정 학생의 짝 책상을 '외딴 책상'으로 오인해 항상 비우는 결정적 회귀(R-01, major)를 만들었고 이 때문에 status=fail. 수정은 reserveEmpty 한 함수(고정 책상이 포함된 pairGroup 제외)로 끝나며 기존 테스트는 영향 없음. ③ 그 외 신규 발견은 minor 3건(리사이즈 시 모바일 접힘 미적용, 수동 확대값 덮어씀, 토스트가 뒷줄 카드 가림)으로 차단 사유 아님. ④ 수용 기준 15건 전부 pass(AC5는 좌석 유지 자체는 충족하나 R-01 참고). ⑤ 테스트 모듈 변경 사항: 수정 담당자가 code-01-accept.js AC9를 '배지 존재 고정'에서 '구역 누적 수치와 일치'로 바꾼 것은 엔진이 뒷줄부터 비우는 현재 동작에서 타당함(초기 상태 배지는 code-03-badge·ux-shots·reverify에서 확인). ⑥ 400px에서 명렬 표는 .table-wrap 내부 가로 스크롤(허용 규약)이며 문서 가로 스크롤은 없음. ⑦ 앱 소스는 수정하지 않았고 테스트·결과 파일은 모두 tests/jari-ttukttak/reverify-r1 아래에만 저장함."
+}

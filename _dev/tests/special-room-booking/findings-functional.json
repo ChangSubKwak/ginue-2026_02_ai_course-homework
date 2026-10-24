@@ -1,0 +1,130 @@
+{
+  "summary": "특별실지기 기능 검증(Playwright+Edge, 독립 작성 func-*.js 5개 모듈, expect 368건: 359 통과 / 9 실패). 수용 기준 13개 전부 통과. lint-app 0건, pw-check problems 0건(모바일 칩 overflow는 .chips-row 내부 스크롤이라 페이지 가로 스크롤 없음 확인), 전 모듈 console error 0·dialog 0. 결함 6건 — major 2건: (1) 정기 예약 미리보기에서 체크박스를 토글하면 form의 input/change 핸들러(invalidate)가 미리보기 전체를 지워 '체크된 건만 생성'이 불가능, (2) meta·배열 구조는 맞지만 항목이 손상된 JSON(bookings에 null)을 '교체'하면 저장이 먼저 되고 rebuildIndex에서 TypeError → 새로고침 후 앱이 백지로 동작 불능(localStorage 수동 삭제 전까지), 기존 데이터도 이미 덮어써져 손실. minor 4건: 예약 블록 위를 지나는 드래그에 토스트 없음, 모달 포커스 트랩 없음, 온보딩 ESC/닫기가 묵시적 '샘플로 시작', 교시 축소 시 행사·시리즈 교시 미정리(코드 검토). 그 외 드래그 범위 선택·충돌 검사·대안 칩·수량형 잔여·학사일정 차단·시리즈 삭제 범위·인쇄(@media print)·통계 SVG/히트맵/저조 학급·CSV BOM·초기화/가져오기/병합·400px 요일 탭·다크 모드·XSS 이스케이프·새로고침 복원·메모리 모드 모두 정상.",
+  "findings": [
+    {
+      "id": "F-01",
+      "severity": "major",
+      "area": "functional",
+      "title": "정기 예약 미리보기에서 체크박스를 누르면 미리보기 표·요약이 통째로 사라지고 생성 버튼이 비활성화됨",
+      "description": "openSeriesModal의 form(body)에 'input'·'change' 리스너로 invalidate()가 걸려 있는데, 미리보기 표의 체크박스(input[data-row])도 같은 form 안에 있어 체크/해제 시 input·change 이벤트가 버블링되어 invalidate()가 실행된다. 그 결과 rows=[]·.preview 비움·createBtn.disabled=true가 되어 '충돌 행은 기본 해제, 체크된 건만 생성'이라는 스펙 동작(ok 행 일부 제외, 충돌 행 수동 포함)이 불가능하다. 미리보기를 다시 눌러야 하며 체크 상태는 항상 초기값으로 돌아간다.",
+      "evidence": "func-calendar-series.js: 미리보기(18행) 후 첫 ok 행 체크박스를 마우스 클릭 → .preview tbody tr 0행, .validate='조건을 입력하고 미리보기를 눌러…', 생성 disabled (실패 3건: '체크박스 토글 후에도 미리보기 표 유지', '체크 해제 시 요약 건수 감소', '충돌 행 수동 체크 시 미리보기 유지'). 스크린샷 C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-calendar\\series-01b-after-uncheck.png (표가 사라진 상태). 재현: 예약판 → 정기 예약 → 조건 입력 → 미리보기 → 아무 체크박스 클릭.",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\04_행정지원_특별실지기\\js\\board.js",
+      "line": 336,
+      "suggested_fix": "invalidate 리스너에서 미리보기 내부 이벤트를 무시: body.addEventListener('input', e => { if (e.target.closest('.preview')) return; invalidate(); }); change 리스너도 동일하게 처리(또는 .preview를 form 밖(modal-body 형제)으로 분리). 체크박스는 기존 click 핸들러(rows[i].checked 갱신 + summarize)만 타도록 한다."
+    },
+    {
+      "id": "F-02",
+      "severity": "major",
+      "area": "data",
+      "title": "스키마 검증을 통과하는 손상 JSON(배열 항목이 null)을 교체 가져오기하면 예외 발생·손상 데이터가 저장되어 새로고침 후 앱 전체가 백지(동작 불능)",
+      "description": "validateImport는 meta.app과 컬렉션이 배열인지만 확인하고 항목 내용을 검증하지 않는다. bookings:[null,{id:'x'}] 같은 파일을 '교체'하면 importData가 state.data를 바꾼 뒤 S.save()를 호출하는데, save()는 storage.set(손상 데이터 저장)을 먼저 하고 rebuildIndex()→indexAdd(null)에서 'Cannot read properties of null (reading resourceId)' TypeError를 던진다. render()는 실행되지 않아 화면은 이전 상태로 남고 사용자 피드백 토스트도 없다. 새로고침하면 init()이 저장된 손상 데이터를 다시 읽어 rebuildIndex에서 같은 예외로 중단되어 탭·예약판·window.__app 전부 동작하지 않는다(헤더만 보이는 빈 화면). 교체 시점에 기존 데이터는 이미 덮어써져 있어 복구 수단은 개발자 도구에서 localStorage 삭제뿐이다. 공유 드라이브 JSON을 손으로 편집하다 생길 수 있는 상황이라 실제 운영에서 발생 가능하다.",
+      "evidence": "func-data-settings.js: corrupt.json 드롭 → 교체 → pageerror 'Cannot read properties of null (reading 'resourceId')' 2회(교체 직후·새로고침 후), localStorage srb.v1.data.bookings=[null,{id:'x'}] 저장 확인(saved='2:null'), 토스트 없음, reload 후 window.__app 미정의·예약판 innerHTML 비어 있음 (실패 3건). 스크린샷 C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-data\\data-04-after-corrupt-reload.png (백지 화면). 재현: 설정 → 드롭존에 {meta:{app:'special-room-booking',version:1},settings:{periods:[…]},resources:[],classes:[],teachers:[],events:[],series:[],bookings:[null]} 저장한 파일 드롭 → 교체 → F5.",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\04_행정지원_특별실지기\\js\\core.js",
+      "line": 296,
+      "suggested_fix": "validateImport에서 각 컬렉션 항목이 객체이고 필수 키(id; bookings는 resourceId·date·periodStart·periodEnd 숫자)를 갖는지 검사해 불량 항목이 있으면 거부(또는 제거 후 '불량 n건 제외' 토스트). 추가 방어: importData에서 교체 전 이전 state.data를 보관하고 save/render를 try/catch로 감싸 실패 시 롤백+오류 토스트; init()의 저장 데이터 로드도 try/catch로 감싸 실패 시 손상 데이터를 srb.v1.data.backup으로 옮기고 샘플/빈 상태로 기동하며 안내 모달 표시(views.js 549~552, 483~485도 함께 수정)."
+    },
+    {
+      "id": "F-03",
+      "severity": "minor",
+      "area": "ui",
+      "title": "드래그가 기존 예약 블록(공간형)을 지날 때 선택은 멈추지만 안내 토스트가 뜨지 않음",
+      "description": "onPointerMove는 document.elementFromPoint로 찾은 요소의 closest('.cell')을 사용하는데, 공간형 예약 블록(.block, z-index 1)은 셀의 자식이 아니라 그리드의 형제 요소라 블록 위에서는 c가 null이 되어 함수가 조기 반환한다. 그래서 '예약·차단된 교시를 지나 선택할 수 없습니다' 토스트가 예약 블록을 지날 때는 한 번도 나오지 않는다(차단·휴업·사용 불가 셀을 지날 때는 정상). 선택 범위가 직전 유효 범위에서 멈추는 동작 자체는 맞다.",
+      "evidence": "func-board.js: 과학실1 빈 셀 k→k+2(블록) 드래그 시 .cell.sel 2칸 유지(통과)·토스트 0건(실패 '예약 블록을 지나는 드래그 시 안내 토스트 표시'); 강당 10/19 4교시→6교시(행사 차단) 드래그는 1칸 유지+토스트 1건(통과).",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\04_행정지원_특별실지기\\js\\board.js",
+      "line": 132,
+      "suggested_fix": "onPointerMove에서 el.closest('.cell')이 없으면 el.closest('.block')을 확인해 같은 열(data-day가 아닌 style grid-column 또는 블록에 data-day/data-date 부여)이면 '예약 셀을 지남'으로 취급해 warned 토스트를 띄우거나, 블록에도 data-day·data-period(시작 교시)를 넣어 셀과 같은 분기로 처리한다."
+    },
+    {
+      "id": "F-04",
+      "severity": "minor",
+      "area": "a11y",
+      "title": "모달에 포커스 트랩이 없어 Tab 키로 배경(탭·격자)으로 포커스가 빠져나감",
+      "description": "openModal은 첫 요소 포커스·ESC 닫기·포커스 복귀는 구현했지만 Tab 순환을 막지 않는다. aria-modal='true'가 선언되어 있어도 키보드 사용자는 Tab을 여러 번 누르면 어두운 배경 뒤의 탭 버튼·격자 셀로 포커스가 이동한다(전자칠판·키보드 사용자 혼란).",
+      "evidence": "func-responsive.js: 예약 모달을 열고 Tab 40회 → document.activeElement.closest('.modal')이 null이 되는 시점 발생(실패 '모달 내 Tab 순환(포커스 트랩)').",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\04_행정지원_특별실지기\\js\\core.js",
+      "line": 105,
+      "suggested_fix": "onKey에 Tab 처리 추가: 모달 내 포커스 가능 요소 목록(button, input, select, textarea, [tabindex]:not([tabindex='-1']))을 구해 마지막에서 Tab→첫 요소, 첫 요소에서 Shift+Tab→마지막 요소로 순환시키고 e.preventDefault(). 또는 모달이 열릴 때 .page에 inert 속성을 부여한다."
+    },
+    {
+      "id": "F-05",
+      "severity": "minor",
+      "area": "spec-gap",
+      "title": "온보딩 모달을 ESC·✕·배경 클릭으로 닫으면 선택 없이 '샘플로 시작'으로 확정되고 onboarded가 저장됨",
+      "description": "showOnboarding의 m.done.then에서 결과가 'empty'가 아니면 모두 'sample'로 처리한다. 스펙은 첫 실행 시 '샘플로 시작 / 빈 상태로 시작'을 고르는 흐름인데, 실수로 ESC를 누르면 안내를 읽기도 전에 샘플 220건이 확정되고 모달은 다시 뜨지 않는다. 빈 상태로 시작하려던 담당자는 설정 탭의 '새 학기 초기화'로 예약을 지워도 자원·명단은 가온초 샘플이 남는다.",
+      "evidence": "func-responsive.js: localStorage.clear 후 reload → 온보딩 표시 → Escape → 모달 0, srb.v1.onboarded={done:true,mode:'sample'}, resources 10 (실패 '온보딩에서 ESC/닫기 시 선택 없이 진행하지 않음').",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\04_행정지원_특별실지기\\js\\views.js",
+      "line": 507,
+      "suggested_fix": "m.done.then(v => { if (!v) { showOnboarding(); return; } … }) 처럼 선택 없이 닫히면 다시 띄우거나(onKey ESC 무시 옵션), 닫힘을 '샘플로 시작'이 아닌 '미결정'으로 두어 onboarded를 저장하지 않고 다음 실행에 다시 묻는다."
+    },
+    {
+      "id": "F-06",
+      "severity": "minor",
+      "area": "logic",
+      "title": "교시 개수를 줄일 때 예약만 검사하고 행사 차단 교시(blockPeriods)·정기 예약 정의(series)의 범위 밖 교시는 정리하지 않음",
+      "description": "periods 폼 저장 시 bookings.periodEnd > n만 차단하고, 자원 availablePeriods는 정리하지만 events[].blockPeriods 배열(예: 운동회 연습 [5,6]을 4교시로 줄이면 존재하지 않는 5·6 유지)과 series.periodStart/End는 그대로 남는다. 목록에는 '5교시,6교시' 라벨이 periodLabel 폴백으로 계속 표시되고, 이후 교시를 다시 늘리면 의도치 않은 차단이 되살아난다. 또한 차단 메시지가 '7교시 이후에 예약 n건' 처럼 라벨(방과후1)이 아닌 숫자로 표기된다.",
+      "evidence": "코드 검토(views.js 428~440: hit 계산이 bookings만 대상, events/series 미처리). 테스트에서는 6교시 축소 차단(방과후2 예약 1건 안내)과 6→10 확장은 정상 통과.",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\04_행정지원_특별실지기\\js\\views.js",
+      "line": 430,
+      "suggested_fix": "축소 시 events의 blockPeriods를 p<=n으로 필터(빈 배열이면 'all' 또는 삭제 안내), series는 periodEnd>n인 정의 수를 함께 세어 차단하거나 dateTo를 오늘 전날로 마감. 안내 문구는 `${S.periodLabel(n+1)} 이후` 형식으로 라벨 사용."
+    }
+  ],
+  "acceptance_results": [
+    { "criterion": "index.html을 file://로 열면 온보딩 모달이 뜨고 '샘플로 시작'을 클릭하면 예약판에 자원 칩 10개와 월~금 × 8교시 격자가 표시되며 예약 블록이 1개 이상 보인다.", "status": "pass", "note": "온보딩 모달(샘플/빈 상태 선택+운영 안내) → 칩 10개, 격자 5열×8행(40칸), 블록 다수, 샘플 예약 247건. out-board/board-01-initial.png" },
+    { "criterion": "자원 칩 '과학실1'을 선택하고 빈 셀에서 아래로 한 칸 드래그해 놓으면 예약 모달이 열리고 시작·끝 교시 select가 드래그한 범위로 채워져 있다; 학급 '5-2'를 선택하면 교사 칸에 담임 '이가람'이 자동 입력되고 저장 후 해당 셀에 '5-2 이가람' 블록이 생기며 토스트가 나타난다.", "status": "pass", "note": "실제 마우스 pointerdown/move/up 드래그: 하이라이트 2칸 → 모달 pStart/pEnd=범위·날짜 채움 → 5-2 선택 시 teacherId=이가람 → 저장 후 span 2 블록 '5-2 이가람 실험' + 토스트 '예약되었습니다'. 토스트는 3.2초 후 자동 소멸." },
+    { "criterion": "이미 블록이 있는 셀과 같은 자원·날짜·교시로 예약 모달을 열어 저장을 시도하면 저장 버튼이 disabled 상태이고 빨간 사유 문구와 대안 칩이 1~3개 표시되며, 칩을 클릭하면 폼 값이 바뀌고 검증 영역이 녹색 '예약 가능'으로 변한다.", "status": "pass", "note": "저장 disabled, 사유 '1교시: 5-2 이가람 사용 중 / 2교시: …', 대안 3개(같은 날 3~4교시·과학실2 같은 교시·수요일 같은 교시). 칩 클릭 → 폼 변경·녹색·저장 활성. out-board/board-05-conflict.png" },
+    { "criterion": "'태블릿 세트'(보유 2) 자원에서 같은 날·같은 교시에 수량 1 예약 2건을 저장하면 셀에 '2/2'가 표시되고, 세 번째 예약 모달에서는 '잔여 0' 사유로 저장이 차단된다.", "status": "pass", "note": "두 건 저장 후 셀 '2/2 사용 중' + 칩 2개, 세 번째 모달 '3교시: 잔여 0'·저장 disabled. 수량 0/-5/9/1.7 → 1/1/2/1 클램프, 수량 2 예약 시 칩 '×2'. 샘플 10/20 3교시 2/2도 확인." },
+    { "criterion": "학사일정 탭에서 10/19~10/22 '운동회 연습' 행사를 강당·5~6교시 차단으로 저장하면 영향 예약 건수가 표시되고, 예약판 강당 탭의 해당 날짜 5~6교시 셀이 빗금+사유로 바뀌며 그 셀을 클릭해도 예약 모달에서 저장이 차단된다.", "status": "pass", "note": "샘플 행사 삭제 후 동일 조건 재등록: 저장 전 '기존 예약 1건과 충돌', 저장 후 모달 '목록 보기' → 충돌 목록 1건(4-1) → 수정 모달에 '행사 차단' 사유+대안 → 이동 저장 후 목록 0건. 격자 8칸 빗금(repeating-linear-gradient)+'■ 운동회 연습', 모달 저장 차단. out-calendar/cal-03-blocked-grid.png" },
+    { "criterion": "'정기 예약'에서 과학실2·매주 목·1~2교시·6-1·9/1~12/31을 입력하고 미리보기를 열면 날짜 행 목록에 추석(9/24) 행이 '휴업일 제외'로 표시되고, 생성 후 10월 어느 주로 이동해도 목요일 1~2교시에 6-1 블록이 있으며, 그 블록 삭제 시 '이 건만/이후 모두/시리즈 전체' 선택 모달이 뜬다.", "status": "pass", "note": "미리보기 18행, 9/24 '휴업일 제외(추석 연휴)', 12/31 '차단 제외(겨울방학식)', 요약 '16건 생성 · 1건 휴업일 제외 · 1건 차단 제외 · 0건 충돌'. 생성 후 10/12·10/19·10/26 주 목요일 1~2교시 '6-1 국태민 · 정기' 블록. 삭제 → 범위 모달, 이 건만/이후 모두(dateTo 갱신)/전체(series 제거) 모두 정상. 단, 미리보기 체크박스 토글은 F-01 결함." },
+    { "criterion": "예약판의 '인쇄' 버튼을 누르면 미리보기 모달에 학교명·'주간 이용 현황표'·주차 기간·자원별 요일×교시 표·결재란 3칸(담당/부장/교감)이 렌더되고, 브라우저 인쇄 미리보기(@media print)에서는 앱 UI가 숨겨지고 이 서식만 보인다.", "status": "pass", "note": "자원당 1쪽(활성 9개=9쪽), 헤더 '가온초등학교 / 2026학년도 2학기 특별실 주간 이용 현황표 / 2026년 10월 4주 (10/19~10/23) / 출력일', 결재란 결재·담당·부장·교감, 5열×8행 표, 차단 셀 '■ 운동회 연습'. 브라우저 인쇄 → window.print 호출·#print-root 채움, emulateMedia print에서 .page/#modal-root/#toast-root display:none, #print-root block, @page landscape. out-stats/print-01-weekly.png, print-02-media-print.png" },
+    { "criterion": "통계 탭에서 기간을 '학기 전체'로 두면 SVG 요소로 자원별 가동률 가로 막대와 학급×자원 히트맵이 그려지고(should 구현 시 학년별 막대·요일×교시 히트맵 추가) '이용 저조 학급' 목록에 '5-3'이 포함된다.", "status": "pass", "note": "SVG 4종(가동률 막대 10, 히트맵 18×10, 학년별 막대, 혼잡도 5×8), '저조' 표시, 저조 목록에 '5-3 — 과학실1 2회(5학년 평균 12회)'. 수치 검증: 수업일 83일, 과학실1 가용 574=82×7(12/31 전체 차단 제외) 가동률 라벨 일치, KPI 4개 = computeStats. DOM 툴팁·월 선택·자원 필터·새로고침 복원·CSV(BOM)·실적 보고(A4 세로) 정상. out-stats/stats-01-semester.png" },
+    { "criterion": "설정 탭 'JSON 내보내기'를 누르면 .json 파일이 다운로드되고, '새 학기 초기화'에 '초기화'를 입력해 실행하면 예약판이 비고 자원 칩은 유지되며, 내보낸 파일을 드롭존에 드래그해 '교체'하면 예약 건수가 초기화 전과 동일하게 복원된다.", "status": "pass", "note": "special-room-booking_YYYYMMDD.json 다운로드(meta/settings/6 컬렉션), '초기화' 입력 전 버튼 비활성, 실행 후 예약·시리즈·일정 0/자원 10·학급 18·교사 23 유지, 예약판 '예약 0건'+칩 10. DataTransfer 드롭 → 검증 모달(예약 247건) → 교체 → 247건 복원. 손상/빈/다른 앱/배열 누락 파일은 토스트+데이터 유지, 병합(최신 우선·설정 유지·초과 재검사) 정상. 단, 항목 손상 파일은 F-02." },
+    { "criterion": "자원 '컴퓨터실'을 선택하고 다음 주로 이동한 뒤 새로고침하면 같은 자원·같은 주가 선택된 상태로 복원된다.", "status": "pass", "note": "reload 후 selectedResourceId=r_com, weekStart 동일, 칩 on·날짜 input·제목 '컴퓨터실' 복원, 온보딩 재표시 없음. srb.v1.ui 손상 시에도 데이터·격자 유지." },
+    { "criterion": "브라우저 폭을 400px로 줄이면 격자가 요일 탭 5개와 한 열로 바뀌고 페이지에 가로 스크롤바가 생기지 않으며, 셀을 탭하면 모달이 열려 교시 범위를 select로 지정할 수 있다.", "status": "pass", "note": "요일 탭 5개(요일+날짜), 1열 8칸, documentElement.scrollWidth<=clientWidth(예약판·학사일정·자원·통계·설정·모달 열림 상태 모두), 칩은 .chips-row 내부 스크롤, 셀 탭 → 전체 폭 시트 모달 → pEnd select로 2교시 지정 → 저장 블록. CDP 터치 드래그 시 선택 하이라이트 없음(터치 드래그 비활성). out-responsive/m-01-board.png, m-02-modal.png" },
+    { "criterion": "지난 날짜의 예약 블록을 열면 '실제 사용함/사용 안 함' 토글이 있고 '사용 안 함'을 선택·저장하면 통계 탭의 미사용률 값이 증가한다.", "status": "pass", "note": "과거 블록(.block.past) 모달에 미확인/실제 사용함/사용 안 함 세그먼트, '사용 안 함' 저장 → used=false, unusedRate 증가(computeStats·KPI 카드 일치), 블록 '미사용' 배지. '지난 예약 미확인 n건' 링크 → 일괄 체크 모달 정상." },
+    { "criterion": "앱 전체에서 alert/confirm/prompt가 호출되지 않고(삭제·초기화·가져오기 모두 인앱 모달), 모든 알림은 토스트 영역에 표시된 뒤 자동으로 사라진다.", "status": "pass", "note": "5개 모듈+pw-check 전체 dialogs 0건(예약·일정·자원·학급·교사 삭제, 초기화, 가져오기, 샘플 복원 모두 인앱 모달). 토스트 #toast-root 표시 후 3.2초 내 0건. console error 0, pageerror는 F-02 손상 JSON 시나리오에서만 2건." }
+  ],
+  "test_files": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\func-board.js",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\func-calendar-series.js",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\func-resources-stats.js",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\func-data-settings.js",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\func-responsive.js",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\_helpers.js",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\_run.js"
+  ],
+  "test_runs": {
+    "func-board.js": "106 passed, 1 failed (F-03), 0 page errors, 0 console errors — out-board/func-board.result.json",
+    "func-calendar-series.js": "72 passed, 3 failed (F-01), 0 page errors — out-calendar/func-calendar-series.result.json",
+    "func-resources-stats.js": "78 passed, 0 failed, 0 page errors — out-stats/func-resources-stats.result.json",
+    "func-data-settings.js": "69 passed, 3 failed (F-02), 2 page errors (F-02 재현) — out-data/func-data-settings.result.json",
+    "func-responsive.js": "34 passed, 2 failed (F-04, F-05), 0 page errors — out-responsive/func-responsive.result.json",
+    "lint-app.js": "issues 0 (총 1,953줄)",
+    "pw-check.js": "problems 0, consoleErrors 0, pageErrors 0, failedRequests 0, dialogs 0; mobile overflowElements는 .chips-row 내부 칩(페이지 가로 스크롤 없음) — qa-check/report.json"
+  },
+  "screenshots": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-calendar\\series-01b-after-uncheck.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-data\\data-04-after-corrupt-reload.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-board\\board-01-initial.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-board\\board-03-drag.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-board\\board-05-conflict.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-board\\board-06-equipment.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-calendar\\cal-01-event-modal.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-calendar\\cal-03-blocked-grid.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-calendar\\series-01-preview.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-calendar\\series-03-delete-scope.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-stats\\stats-01-semester.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-stats\\stats-02-report.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-stats\\print-01-weekly.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-stats\\print-02-media-print.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-data\\data-02-import-modal.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-data\\data-06-empty.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-data\\data-07-memory-mode.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-responsive\\m-01-board.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-responsive\\m-02-modal.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-responsive\\dark-board.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\out-responsive\\dark-stats.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\qa-check\\desktop-light.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\qa-check\\desktop-dark.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\qa-check\\mobile-light.png"
+  ]
+}

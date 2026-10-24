@@ -1,0 +1,17 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/01_교과교육지원_분수교구함/index.html",
+  "test": "debug-ac5.js",
+  "passed": [
+    "x"
+  ],
+  "failed": [],
+  "logs": [
+    "{\"st\":{\"n\":7,\"d\":4,\"lineRange\":\"auto\",\"models\":{\"bar\":true,\"circle\":true,\"line\":true},\"showDecimal\":true,\"chain\":[{\"n\":7,\"d\":4,\"op\":\"start\"}]},\"frames\":2,\"cf\":0,\"ints\":[\"0\",\"1\",\"2\"],\"vb\":\"0 0 1000 80\"}"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "1 passed, 0 failed, 0 page errors, 0 console errors"
+}

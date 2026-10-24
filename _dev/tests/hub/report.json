@@ -1,0 +1,104 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/index.html",
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "dialogs": [],
+  "views": {
+    "desktop-light": {
+      "title": "교육용 앱 다섯 가지",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 1280,
+      "scrollWidth": 1280,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [],
+      "headings": [
+        "H1: 교육용 앱 다섯 가지",
+        "H2: 분수교구함",
+        "H2: 기억상자",
+        "H2: 자리뚝딱",
+        "H2: 특별실지기",
+        "H2: 연산수호대",
+        "H3: 다섯 앱이 공유하는 규약"
+      ],
+      "buttons": 1,
+      "inputs": 0,
+      "textLength": 1461,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(246, 245, 241)",
+      "bodyColor": "rgb(29, 33, 39)",
+      "rootDataTheme": null,
+      "firstText": "바이브코딩으로 만드는 교육용 앱 개발 · 과제 제출물 교육용 앱 다섯 가지 같은 가상 학급 ‘가온초등학교 5학년 2반’을 다섯 가지 각도에서 비추는 웹앱 모음입니다. 수업 시간의 교구, 방과 후 자기주도 복습, 담임의 학급 운영, 학교 공유 자원 행정, 그리고 연산 훈련 게임까지 한 사람이 AI와 함께 만들었습니다. 설치 없이 index.html 더블클릭으로 실행 순수 HTML · CSS · JavaScript, 외부 라이브러리 없음 데이터는 브라우저(localStorage)에만 저장, JSON 백업 지원 내장 학생·교사 이름은 모두 가상 1 교과 교육지원 앱 분수교구함 막대·원·수직선이 한 몸처럼 움직이는 분수 조작 교구. 쪼개고, 겹치고, 통분하며 분수를 ‘보는’ 수업. 대상 3~5학년 수학 수업(전자칠",
+      "screenshot": "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\hub\\desktop-light.png"
+    },
+    "desktop-dark": {
+      "title": "교육용 앱 다섯 가지",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 1280,
+      "scrollWidth": 1280,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [],
+      "headings": [
+        "H1: 교육용 앱 다섯 가지",
+        "H2: 분수교구함",
+        "H2: 기억상자",
+        "H2: 자리뚝딱",
+        "H2: 특별실지기",
+        "H2: 연산수호대",
+        "H3: 다섯 앱이 공유하는 규약"
+      ],
+      "buttons": 1,
+      "inputs": 0,
+      "textLength": 1461,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(21, 24, 29)",
+      "bodyColor": "rgb(232, 234, 238)",
+      "rootDataTheme": null,
+      "firstText": "바이브코딩으로 만드는 교육용 앱 개발 · 과제 제출물 교육용 앱 다섯 가지 같은 가상 학급 ‘가온초등학교 5학년 2반’을 다섯 가지 각도에서 비추는 웹앱 모음입니다. 수업 시간의 교구, 방과 후 자기주도 복습, 담임의 학급 운영, 학교 공유 자원 행정, 그리고 연산 훈련 게임까지 한 사람이 AI와 함께 만들었습니다. 설치 없이 index.html 더블클릭으로 실행 순수 HTML · CSS · JavaScript, 외부 라이브러리 없음 데이터는 브라우저(localStorage)에만 저장, JSON 백업 지원 내장 학생·교사 이름은 모두 가상 1 교과 교육지원 앱 분수교구함 막대·원·수직선이 한 몸처럼 움직이는 분수 조작 교구. 쪼개고, 겹치고, 통분하며 분수를 ‘보는’ 수업. 대상 3~5학년 수학 수업(전자칠",
+      "screenshot": "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\hub\\desktop-dark.png"
+    },
+    "mobile-light": {
+      "title": "교육용 앱 다섯 가지",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 400,
+      "scrollWidth": 400,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [],
+      "headings": [
+        "H1: 교육용 앱 다섯 가지",
+        "H2: 분수교구함",
+        "H2: 기억상자",
+        "H2: 자리뚝딱",
+        "H2: 특별실지기",
+        "H2: 연산수호대",
+        "H3: 다섯 앱이 공유하는 규약"
+      ],
+      "buttons": 1,
+      "inputs": 0,
+      "textLength": 1461,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(246, 245, 241)",
+      "bodyColor": "rgb(29, 33, 39)",
+      "rootDataTheme": null,
+      "firstText": "바이브코딩으로 만드는 교육용 앱 개발 · 과제 제출물 교육용 앱 다섯 가지 같은 가상 학급 ‘가온초등학교 5학년 2반’을 다섯 가지 각도에서 비추는 웹앱 모음입니다. 수업 시간의 교구, 방과 후 자기주도 복습, 담임의 학급 운영, 학교 공유 자원 행정, 그리고 연산 훈련 게임까지 한 사람이 AI와 함께 만들었습니다. 설치 없이 index.html 더블클릭으로 실행 순수 HTML · CSS · JavaScript, 외부 라이브러리 없음 데이터는 브라우저(localStorage)에만 저장, JSON 백업 지원 내장 학생·교사 이름은 모두 가상 1 교과 교육지원 앱 분수교구함 막대·원·수직선이 한 몸처럼 움직이는 분수 조작 교구. 쪼개고, 겹치고, 통분하며 분수를 ‘보는’ 수업. 대상 3~5학년 수학 수업(전자칠",
+      "screenshot": "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\hub\\mobile-light.png"
+    }
+  },
+  "problems": []
+}

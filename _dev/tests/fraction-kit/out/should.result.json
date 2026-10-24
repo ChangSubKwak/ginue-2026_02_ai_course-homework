@@ -1,0 +1,40 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/01_교과교육지원_분수교구함/index.html",
+  "test": "should.js",
+  "passed": [
+    "어림 모드 시작(목표 5/8)",
+    "어림 모드: 분수 눈금 숨김",
+    "어림 피드백: 정확해요!",
+    "정답 초록 점 표시",
+    "어림 끝내기",
+    "키패드 1/6 유효",
+    "키패드 입력 반영 1/6",
+    "키패드 분모 15 오류",
+    "새 카드: 빈 질문 → 저장 비활성",
+    "새 카드: 유효 → 저장 활성",
+    "새 카드 저장(25장)",
+    "세트 저장(3개)",
+    "카드 삭제",
+    "3학년 프리셋 {\"max\":\"10\",\"arithHidden\":true,\"grade\":\"3\"}",
+    "복제 → 13",
+    "이름 바꾸기",
+    "삭제 → 12",
+    "샘플 복원: 내장 복구 + 사용자 항목 유지 {\"scenes\":13,\"cards\":25,\"cardSets\":3}",
+    "테마 토글 dark",
+    "도움말 모달",
+    "PNG 다이얼로그",
+    "비교 자동 재생 완료",
+    "덧셈 자동 재생 4단계 완료(step=4)"
+  ],
+  "failed": [],
+  "logs": [],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "..\\tests\\fraction-kit\\out\\scenes.png",
+    "..\\tests\\fraction-kit\\out\\arith-auto.png"
+  ],
+  "fatal": null,
+  "summary": "23 passed, 0 failed, 0 page errors, 0 console errors"
+}

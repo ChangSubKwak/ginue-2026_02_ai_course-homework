@@ -1,0 +1,49 @@
+{
+  "app": "연산수호대 (math-guardians)",
+  "folder": "D:\\workspace\\ginue-2026_02_ai_course-homework\\05_교육용게임_연산수호대",
+  "files": [
+    { "path": "index.html", "lines": 133 },
+    { "path": "css/style.css", "lines": 229 },
+    { "path": "js/data.js", "lines": 148 },
+    { "path": "js/problems.js", "lines": 176 },
+    { "path": "js/audio.js", "lines": 58 },
+    { "path": "js/game.js", "lines": 400 },
+    { "path": "js/ui.js", "lines": 450 },
+    { "path": "js/app.js", "lines": 88 },
+    { "path": "README.md", "lines": 84 }
+  ],
+  "total_code_lines": 1682,
+  "features": [
+    { "name": "실시간 디펜스 전투 루프(Canvas)", "priority": "must", "status": "done", "note": "960×540 논리 해상도·DPR 1.5 상한, rAF dt≤50ms, 포탑 회전·포탄 180ms·파티클·플로팅 텍스트·흔들림 300ms·WAVE 배너, Esc/버튼 일시정지, visibilitychange 자동 일시정지" },
+    { "name": "학년·단원별 17개 스테이지 트리 + 규칙 기반 문제 생성기", "priority": "must", "status": "done", "note": "A1 규칙 17종 구현, 중복 회피 10회, 잠금/전체 해금/비활성(회색+토스트), 스테이지마다 300회 생성 검증" },
+    { "name": "입력 패널과 자동 조준", "priority": "must", "status": "done", "note": "number/decimal/choice3 패드(pointerdown·포커스 이동 없음), 물리 키보드, 6자리·'.' 1회·선행 0/'.' 보정, 가장 앞선 일치 몬스터 조준, 크로스헤어·선택지 갱신" },
+    { "name": "게임 메커니즘: 점수·콤보·HP·웨이브·보스·별·시간 제한", "priority": "must", "status": "done", "note": "A4/A5 그대로: 웨이브 수·동시 상한·간격, 보스 방패 3(약점 큐 1개)·밀려남 15%·도달 HP−2 후 0.4 후퇴, 별 3/2/1, 무피해 +1000, 시간 제한 mm:ss" },
+    { "name": "오답 교정 카드 + 복수 몬스터 + 약점 큐", "priority": "must", "status": "done", "note": "A10 모델 5종(dots/column/array/bar/text) DOM 애니메이션, 같은 입력 방식으로 재입력 시 닫힘·0.5초 재개, 복수 큐 due 2~4, 약점 큐 20% 출제, 미응답 상자 −1" },
+    { "name": "Web Audio 합성 효과음·연출·음소거", "priority": "must", "status": "done", "note": "A11 9종 + 복수/별/배지 3종 추가, 첫 입력 시 AudioContext 생성·resume, 노드 16개 상한, 음소거 저장, 파티클 상한 120/40, 콤보 10 금빛 플래시, 보스 어두워짐, 점수 카운트업·별 팝인" },
+    { "name": "프로필(교실 모드)·기록·명예의 전당", "priority": "must", "status": "done", "note": "드롭다운·새 프로필 모달(검증·중복 (2))·체험 모드, 기록 갱신 A5, 랭킹 3탭(점수/별/성장) 금은동·순차 등장·내 행 강조·비공개 모드(내 순위 n/N)" },
+    { "name": "샘플 데이터 시딩 + 저장/복원 + JSON 백업", "priority": "must", "status": "done", "note": "24명 시딩(6명 기록), 루트 키 mathGuardians.v1 300ms 디바운스, 손상 시 .corrupt 보관, 저장 불가 경고 배지, JSON 백업/가져오기(검증·확인 모달)/샘플 초기화" },
+    { "name": "CSV 입출력(기록·약점 문제·명단)", "priority": "should", "status": "done", "note": "A12 상태 머신 파서·BOM·따옴표 이스케이프, 명단 가져오기 건너뛴 행 수·40명 상한" },
+    { "name": "적응형 난이도 컨트롤러", "priority": "should", "status": "done", "note": "A6 최근 10문항 기준 0.7~1.5, capAdjust, HUD ▲/▼ 1초, 설정에서 끄기" },
+    { "name": "선생님 설정 패널", "priority": "should", "status": "done", "note": "활성 스테이지 격자(학년별 전체/해제), 속도·시간 제한·토글 7종·볼륨·PIN, 프로필 표 인라인 편집/삭제/추가/명단 CSV, 저장됨 토스트·마지막 저장 시각" },
+    { "name": "숙달 도감·배지·스킨 해금", "priority": "should", "status": "done", "note": "72칸 히트맵·칸 툴팁, 약점 목록·진행 막대, 배지 10종(흑백+조건), 포탑 3·테마 4 해금(별 기준)·즉시 저장" },
+    { "name": "필살기(콤보 게이지)", "priority": "should", "status": "done", "note": "콤보 10마다 1칸(최대 2), Space/HUD 버튼, 전체 섬광, 보스전은 방패 1개" },
+    { "name": "'다시 풀기' 복습 모드 + 인쇄용 기록표", "priority": "should", "status": "done", "note": "틀린 문제 카드 재사용 복습(첫 시도 정답 상자 +1), 복습 완료 n/n 토스트, @media print 오늘의 기록표" },
+    { "name": "전체화면·큰 글씨·저사양·교사 PIN", "priority": "nice", "status": "done", "note": "Fullscreen API(미지원 토스트), 라벨 28→34px·키패드 확대, 저사양(파티클 40·DPR 1·흔들림 끔·30fps 미만 3초 제안), 4자리 PIN 게이트" }
+  ],
+  "self_check": {
+    "lint_issues": 0,
+    "pw_problems": [],
+    "page_errors": 0,
+    "console_errors": 0,
+    "acceptance_checked": 18,
+    "acceptance_tests": { "acceptance.js": "55 passed, 0 failed", "extras.js": "24 passed, 0 failed" },
+    "screenshots_reviewed": ["desktop-light", "desktop-dark", "mobile-light", "game-wave1", "card-array", "revenge", "boss", "result", "choice3", "codex", "hall", "settings", "mobile-game", "card-s2-2", "card-s5-2", "card-dots-choice"]
+  },
+  "debug_api": "window.__app = { version, getState() → {view, activeProfileId, guest, current, profiles[], settings, storageOk, muted, game(스테이지·웨이브·상태·점수·콤보·HP·몬스터 목록·복수 큐)}, actions: {showView, startStage, fire, choose, useSuper, pause, resume, quit, setActive, setGuest, setSetting, resetSample, importJson, importRoster, flushSave, toggleTheme, toast}, MG }",
+  "known_issues": [
+    "교정 카드 시각 모델은 애니메이션 동안(최대 1.5초) 입력이 잠기며, 그 사이 모델 일부(통분 막대·세로셈 윗자리)는 아직 표시되지 않은 상태로 보일 수 있음(의도된 단계 표시)",
+    "다음 스테이지 버튼은 같은 학년 안의 다음 스테이지만 가리킴(학년 마지막 스테이지 클리어 시 버튼 없음)",
+    "Google Fonts는 온라인일 때만 적용되며 오프라인에서는 시스템 한글 폰트 대체 스택으로 표시됨"
+  ],
+  "notes": "코드 1,682줄(README 제외). 모달·토스트는 공통 규약(우하단 토스트, showModal Promise)을 따름. 효과음은 사용자 첫 입력 후 재생. 테스트 파일은 scratchpad/tests/math-guardians에만 저장."
+}

@@ -1,0 +1,175 @@
+{
+  "summary": "자리뚝딱 기능 검증: 독립 작성한 Playwright 모듈 4개(func-*.js, expect 450건: 443 pass / 7 fail)로 수용 기준 15개와 공통 시나리오(입력 검증·XSS·새로고침 복원·백업·모달/키보드·400px·다크·발표 모드)를 실행 검증. lint-app 0건, pw-check 0건(콘솔 오류·페이지 예외·dialog 모두 0, 400px 가로 스크롤 없음). 수용 기준 14개 통과, 1개 실패(AC10 교사용 자리표: 180도 회전 격자의 grid-template-columns 문자열을 split(' ')로 뒤집으면서 calc() 토큰이 깨져 1열로 렌더됨). 결함 9건 = critical 0 · major 3(교사용 자리표 격자 깨짐, 전체 삭제 후 명렬 등록 시 모둠 '편성' 버튼 비활성 유지, ㄷ자형 프리셋 최대 20책상으로 24명 학급 배치 불가) · minor 6(전체 삭제 후 새로고침 시 샘플 복원, 투어 건너뛰기 후 매번 재표시, 키보드 선택 시 포커스 소실, 짝 회피 N 입력값 초기화, 자물쇠 터치 타깃 16~22px, 동일 토스트 누적). 자동 배치·충족 리포트·완화 제안·드래그/탭-탭·Undo/Redo·핀·발표 모드(실제 Fullscreen 진입 확인)·명패 6페이지·JSON 백업/복원·히트맵·편중 배지·모둠 편성/역할 로테이션은 모두 정상.",
+  "findings": [
+    {
+      "id": "F-01",
+      "severity": "major",
+      "area": "functional",
+      "title": "교사용 자리표(180° 회전) 인쇄 미리보기가 1열 세로 나열로 깨짐",
+      "description": "seatGridHtml()에서 rotate=true일 때 L.colTpl/L.rowTpl 문자열을 split(' ')로 나눠 reverse()하는데, 통로 트랙이 'calc(var(--cell) * 0.35)'라서 공백 기준 분리 시 'calc(var(--cell)', '*', '0.35)' 세 토큰으로 쪼개진다. 뒤집어 join하면 'var(--cell) var(--cell) 0.35) * calc(var(--cell) ...' 형태의 잘못된 CSS가 되어 브라우저가 grid-template-columns를 버리고(inline style 값 빈 문자열) 격자가 1열×40행으로 렌더된다. 2인 짝 분단형·4인 모둠형(행 템플릿에도 calc 있음) 모두 영향. 학생 게시용은 정상.",
+      "evidence": "func-groups-present-print.js '교사용 격자가 8열×5행으로 렌더됨' 실패 — 실제 1열×40행, style 속성 \"grid-template-columns:var(--cell) var(--cell) 0.35) * calc(var(--cell) var(--cell) var(--cell) 0.35) * calc(var(--cell) ...\". 스크린샷 C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\gpp\\23-print-teacher.png (세로 한 줄로 늘어선 좌석). 재현: 자동 배치 → 인쇄 → '교사용 자리표(180° 회전)' 선택.",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱\\js\\app.js",
+      "line": 251,
+      "suggested_fix": "템플릿을 문자열이 아닌 토큰 배열로 뒤집는다. 예: const toks = s => s.match(/calc\\([^)]*\\)|var\\(--cell\\)/g); const colTpl = rot ? toks(L.colTpl).reverse().join(' ') : L.colTpl; (rowTpl 동일). 또는 buildLayout에서 colTpl/rowTpl을 배열로도 보관해 reverse 후 join."
+    },
+    {
+      "id": "F-02",
+      "severity": "major",
+      "area": "functional",
+      "title": "전체 데이터 삭제 후 명렬을 등록해도 모둠 탭 '편성' 버튼이 비활성으로 남음",
+      "description": "'편성' 버튼의 disabled는 renderGroups() 안에서만 갱신되는데, 학생 추가(addStudent/addParsed/붙여넣기/CSV)·탭 전환(탭 클릭 핸들러는 renderHeader + history/seats만 재렌더)에서는 renderGroups()가 호출되지 않는다. 따라서 학생 0명 상태(전체 삭제 직후)에서 비활성화된 버튼이 학생을 등록한 뒤에도 계속 비활성이라, 스펙 user_flow '새 학급 세팅(전체 삭제 → 붙여넣기 → ...)' 직후 모둠 편성을 할 수 없다. 새로고침(renderAll) 전까지 지속.",
+      "evidence": "func-storage-responsive.js '전체 삭제 후 명렬 등록 시 모둠 \"편성\" 버튼이 다시 활성화됨' 실패(버튼 disabled 상태로 click 30초 타임아웃 → reload로 우회). 재현: 설정 → 전체 데이터 삭제(2단계) → 명렬 탭 붙여넣기 '1\\t가\\t남' 3행 → 인식 → 추가 → 모둠 탭 → '편성' 버튼 회색(비활성).",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱\\js\\app.js",
+      "line": 291,
+      "suggested_fix": "탭 클릭 핸들러(619행)에서 ui.tab === 'groups'일 때 renderGroups()를 호출하거나, 학생 수가 바뀌는 경로(addStudent·addParsed·deleteStudent·active 토글·applyRoot)에서 renderGroups()를 함께 호출한다. 간단히는 renderHeader()에서 #btn-make-groups.disabled = !activeStudents().length 를 같이 갱신."
+    },
+    {
+      "id": "F-03",
+      "severity": "major",
+      "area": "spec-gap",
+      "title": "ㄷ자형 프리셋은 최대 20책상이라 샘플 학급(활성 24명)을 배치할 수 없음",
+      "description": "buildLayout('u')는 마지막 행 전체 + 양쪽 끝 열 1개씩만 책상으로 만들고, 수치 범위가 가로 4~10·세로 2~5라서 최대 책상 수 = 10 + 2×5 = 20. 학생 24명(초등 일반 학급)에서는 항상 '책상 부족'으로 자동 배치 버튼이 비활성화되어 프리셋 자체를 쓸 수 없다. 스펙은 프리셋 4종을 must로 요구.",
+      "evidence": "func-seats.js 'ㄷ자형 최대 수치로 학생 24명 수용 가능(책상 20)' 실패. 재현: 자리 배치 → 교실 패널 'ㄷ자형' 선택 → 가로 10·세로 5 입력 → 카운터 '책상 20 / 학생 24' 빨강, 자동 배치 비활성.",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱\\js\\engine.js",
+      "line": 34,
+      "suggested_fix": "ㄷ자를 2겹(양쪽 2열 + 아래 2행)으로 생성하거나 '줄 두께' 파라미터를 추가하고, data.js presets.u의 가로 상한을 12 이상으로 올려 30명 내외까지 수용되게 한다. 최소한 샘플 24명이 들어가도록 기본값을 조정."
+    },
+    {
+      "id": "F-04",
+      "severity": "minor",
+      "area": "data",
+      "title": "'전체 데이터 삭제' 후 새로고침하면 샘플 학급 25명이 다시 나타남",
+      "description": "wipeAll()이 applyRoot(defaultRoot())로 빈 상태를 저장(saveNow)한 뒤 storage.remove('data')로 키를 지운다. init()은 저장 데이터가 없으면 첫 실행으로 간주해 sampleRoot()를 로드하므로, 삭제 직후 새로고침하면 빈 학급이 아니라 샘플 데이터가 복원된다(이후 어떤 변경이든 touch()가 일어나면 다시 빈 상태가 저장되는 비일관성). 사용자가 '삭제했는데 데이터가 돌아왔다'고 오인할 수 있다.",
+      "evidence": "func-storage-responsive.js '전체 삭제 후 새로고침해도 빈 상태 유지' 실패(로그 after wipe+reload students=25). 재현: 설정 → 전체 데이터 삭제 2단계 확인 → F5 → 명렬 25명·히스토리 4건 표시.",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱\\js\\app.js",
+      "line": 577,
+      "suggested_fix": "storage.remove('data')를 빼고 빈 Root를 저장 상태로 두거나, ui에 wiped 플래그를 저장해 init()에서 샘플 자동 로드를 건너뛴다(샘플은 '샘플 데이터 다시 불러오기' 버튼으로만)."
+    },
+    {
+      "id": "F-05",
+      "severity": "minor",
+      "area": "ui",
+      "title": "가이드 투어를 '건너뛰기'/Esc로 닫으면 새로고침할 때마다 다시 뜸",
+      "description": "runTour()는 '다시 보지 않기'를 체크했거나 3단계까지 완료했을 때만 ui.tourDone=true를 저장한다. 건너뛰기·Esc·배경 클릭으로 닫으면 플래그가 남지 않아 매 방문마다 1단계 모달이 다시 열린다. 스펙은 '첫 방문(ui 플래그 없음) 시' 표시.",
+      "evidence": "func-storage-responsive.js '투어 건너뛰기 후 새로고침 시 재표시 안 됨' 실패(로그 tour after skip+reload: 1). 재현: 첫 실행 → 투어 1단계에서 Esc → F5 → 투어 재표시.",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱\\js\\app.js",
+      "line": 602,
+      "suggested_fix": "투어를 어떤 방식으로든 한 번 띄웠으면(또는 닫는 즉시) ui.tourDone=true를 저장하고, '다시 보지 않기'는 설명 문구를 '다음에 다시 보기'로 뒤집거나 제거한다."
+    },
+    {
+      "id": "F-06",
+      "severity": "minor",
+      "area": "a11y",
+      "title": "키보드(Enter)로 좌석 카드를 선택하면 포커스가 사라져 두 번째 카드를 다시 Tab으로 찾아야 함",
+      "description": "seatTap() → renderSeats()가 #seatmap.innerHTML을 통째로 교체하므로 Enter로 선택한 .seat-card(tabindex=0)가 DOM에서 제거되고 document.activeElement가 body로 떨어진다. 키보드 사용자는 선택 하이라이트는 보이지만 다음 카드로 이동하려면 처음부터 Tab을 반복해야 한다(카드 24개 + 자물쇠 24개).",
+      "evidence": "func-seats.js 'a11y: 키보드 선택 후 포커스가 카드에 유지' 실패(로그 activeElement after Enter: BODY). 재현: 자동 배치 → Tab으로 카드 포커스 → Enter → 포커스 링 사라짐.",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱\\js\\app.js",
+      "line": 718,
+      "suggested_fix": "renderSeats() 끝에서 직전 포커스 카드의 data-sid를 기억해 두었다가 $(`.seat-card[data-sid=\"${sid}\"]`).focus()로 복원하거나, tap-sel 토글은 전체 재렌더 대신 클래스만 토글한다."
+    },
+    {
+      "id": "F-07",
+      "severity": "minor",
+      "area": "ui",
+      "title": "'최근 N회 같은 짝 회피'를 끄면 입력해 둔 N이 기본값(3)으로 초기화됨",
+      "description": "체크 해제 시 conditions.avoidPartnerN=0으로 저장되고, 재렌더 시 입력값을 `C.avoidPartnerN || settings.avoidN`으로 채우므로 사용자가 바꾼 N(예: 5)이 사라지고 다시 체크하면 3이 된다. N 값과 on/off가 한 필드에 합쳐진 데이터 모델의 부작용.",
+      "evidence": "func-seats.js '짝 회피 재체크 → 입력값(5) 유지' 실패. 재현: 조건 패널 최근 N에 5 입력 → 체크 해제 → 다시 체크 → N이 3.",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱\\js\\app.js",
+      "line": 229,
+      "suggested_fix": "conditions에 avoidPartner{on, n} 형태로 분리하거나, 체크 해제 시 n은 ui/settings에 보존하고 on만 끈다."
+    },
+    {
+      "id": "F-08",
+      "severity": "minor",
+      "area": "a11y",
+      "title": "좌석 카드 자물쇠 버튼의 터치 타깃이 16~22px로 규약(44px) 미달",
+      "description": ".seat-card .lock 크기가 max(16px, --cell×0.26)이라 기본 확대(84px)에서 22px, 최소 확대(48px)·400px 화면에서 16px. 전자칠판·태블릿에서 핀 고정을 터치로 켜기 어렵다(빌더도 known_issues에 기재).",
+      "evidence": "func-seats.js 로그 'lock button width at 48px: 16', func-storage-responsive.js 로그 'lock button size at 48px cell: 16'.",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱\\css\\style.css",
+      "line": 199,
+      "suggested_fix": "자물쇠는 탭 타깃을 최소 32~44px로 두고(투명 패딩/::before 확장) 작은 셀에서는 카드 길게 누르기(long-press)나 선택 후 '고정' 버튼 같은 대체 경로를 제공."
+    },
+    {
+      "id": "F-09",
+      "severity": "minor",
+      "area": "ui",
+      "title": "같은 내용의 토스트가 누적되어 충족 리포트·완화 제안을 가림",
+      "description": "'다시 섞기'를 연달아 누르면 '모든 조건을 충족하는 배치를 찾았습니다' 토스트가 2.5초 동안 4~5개 쌓여 우측 리포트 패널(위반 행·완화 제안)을 덮는다. 토스트 영역이 리포트와 같은 우측에 있어 가독성이 떨어진다.",
+      "evidence": "스크린샷 C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\seats\\11-violation.png (토스트 6개가 리포트 위에 겹침). 재현: 다시 섞기 4회 연타.",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\03_업무자동화_자리뚝딱\\js\\ui.js",
+      "line": 23,
+      "suggested_fix": "showToast에서 같은 메시지가 이미 떠 있으면 타이머만 연장(중복 제거)하고 최대 3개로 제한하거나, 자리 배치 탭에서는 토스트 위치를 좌측 하단으로 옮긴다."
+    }
+  ],
+  "acceptance_results": [
+    { "criterion": "index.html을 file://로 더블클릭해 열면 콘솔 에러 없이 '가온초등학교 5학년 2반' 명렬 25명(비활성 1명 회색)과 히스토리 4건이 보인다.", "status": "pass", "note": "pw-check·4개 모듈 모두 콘솔 오류/페이지 예외 0. 명렬 25행, tr.is-inactive 1행(opacity .5), 히스토리 탭 자리 카드 4건+모둠 1건 날짜 역순." },
+    { "criterion": "자리 배치 탭에서 '자동 배치'를 누르면 1초 이내에 24개 좌석 카드가 채워지고 충족 리포트에 '분리 쌍 2/2 충족', '앞자리 배려 3/3 충족'이 초록으로 표시된다.", "status": "pass", "note": "클릭→24카드 117~128ms, 엔진 함수 5~9ms. 리포트 '분리 쌍 2/2 충족'·'앞자리 배려 3/3 충족' st-ok, 값 색 rgb(46,139,87)=--ok." },
+    { "criterion": "명렬 탭에서 '앞자리 필요' 태그를 학생 7명으로 늘리고(앞 구역 책상 6개) 하드 조건으로 자동 배치하면 위반 좌석 1개가 빨간 테두리로 표시되고 리포트에 '앞 구역 책상 부족' 완화 제안이 나타난다.", "status": "pass", "note": "front 7명 중 위반 1건, .seat.viol 1개(테두리 --danger), 완화 제안 \"앞 구역 책상 부족(7>6): 분단 수를 늘리거나 '앞자리 배려'를 소프트로 바꾸세요.\" 소프트 전환 시 제안 사라짐." },
+    { "criterion": "좌석 카드 하나를 다른 카드 위로 드래그(또는 두 카드를 차례로 탭)하면 두 학생이 교환되고, 분리 쌍을 인접시키면 '분리 조건 위반: 최민준-강시우' 토스트와 빨간 테두리가 즉시 뜨며 Ctrl+Z로 원래대로 돌아간다.", "status": "pass", "note": "탭-탭(하이라이트/재탭 해제/교환)·Pointer Events 드래그 교환·빈 책상 이동·꺼진 책상 무시 모두 정상. 토스트 '분리 조건 위반: 최민준-강시우'(toast-warn), viol 2개, 툴팁 이유, Ctrl+Z 복원·Ctrl+Y/Ctrl+Shift+Z 재실행, Undo 상한 50." },
+    { "criterion": "좌석 카드의 자물쇠를 켜고 '다시 섞기'를 3회 눌러도 해당 학생의 좌석은 바뀌지 않는다.", "status": "pass", "note": "s01 고정 후 3회 섞기 좌석 키 동일, 해제 후 섞기 시 배치 변경 확인. 단 자물쇠 터치 타깃 16~22px(F-08)." },
+    { "criterion": "프리셋을 '2인 짝 분단형 2분단×5열'(20책상)로 바꾸면 카운터가 빨간 '책상 20 / 학생 24'으로 바뀌고 자동 배치 버튼이 비활성화된다.", "status": "pass", "note": "카운터 '책상 20 / 학생 24' rgb(210,63,63), #btn-auto disabled + title 툴팁, 미배치 24명, Undo 초기화. 범위 밖 수치(9→4, 0→3) 보정." },
+    { "criterion": "'발표 모드'를 누르면 전체 화면(또는 오버레이)에 모든 카드가 '?'로 가려지고 '시작' 후 0.7초 간격으로 카드가 뒤집히며 이름이 나타나고, Space로 다음 카드, Esc로 종료된다.", "status": "pass", "note": "헤드리스 Edge에서 실제 fullscreenElement 진입. 24장 '?' 뒷면, 시작 직후 1장·1.6초 후 3장(앞줄 왼쪽부터), 일시정지/재개, Space·다음 한 장·전체 공개 24/24, 무작위 전환, Esc·종료 버튼 후 배치 유지." },
+    { "criterion": "모둠 탭에서 '모둠 수 6' + 성별 균형 + 역할 자동을 체크하고 '편성'하면 6개 모둠 카드(각 4명)가 표시되고 각 모둠에 이끔이·기록이·나눔이·지킴이 배지가 1개씩 있다.", "status": "pass", "note": "6카드×4명, 역할 4종 각 1개, 성별 균형 6/6, 분리 쌍 다른 모둠·결합 쌍 같은 모둠, 역할 로테이션(경험 많은 역할 회피 30회), 인원 모드 5→5·5·5·5·4, 편차 2 배지, 멤버 탭-탭/드래그, 자리표 가져오기." },
+    { "criterion": "'배치 확정'에서 메모 '5차'를 입력하면 히스토리 탭 맨 위에 오늘 날짜 '5차' 카드가 생기고, 히트맵에서 이도윤-한수아 셀에 호버하면 '짝 3회'가 툴팁으로 보인다.", "status": "pass", "note": "날짜 기본 오늘·빈 날짜 차단, 맨 위 카드 '2026-10-24 5차', 히트맵 rect 호버 툴팁 '이도윤-한수아: 짝 3회·모둠 1회', 셀 농도 비례, 양은우 편중 주의 배지(샘플 뒤 3/4), 기록 미리보기/불러오기/삭제/필터 정상." },
+    { "criterion": "인쇄 미리보기에서 '교사용 자리표'를 선택하면 게시용과 비교해 격자가 180도 회전되어 칠판 띠가 아래에 있고, '책상 명패'를 선택하면 6페이지(4개/장)로 분할된다.", "status": "fail", "note": "명패 6페이지×4개(접이식 상단 반전, @page portrait)·모둠표 2열·옵션 토글·@media print 숨김·page-break·window.print 호출은 정상. 그러나 교사용은 DOM 순서(칠판 띠 아래, 첫 셀 4-7)만 뒤집히고 grid-template-columns가 깨져 1열×40행 세로 나열로 렌더됨(F-01)." },
+    { "criterion": "학생 명렬에 입력한 뒤 새로고침하면 변경 내용과 미확정 현재 배치가 그대로 복원된다.", "status": "pass", "note": "이름·태그·현재 배치 24석·핀·조건(하드/소프트, 같은 좌석 회피 off)·확대 값·마지막 탭 복원, Undo 스택만 초기화. 저장 상태 점 '저장 중'→'저장됨'(300ms). 키 edu.jari-ttukttak.data/ui/theme." },
+    { "criterion": "설정 탭 'JSON 내보내기'로 받은 파일을 '전체 데이터 삭제' 후 '가져오기'하면 요약 모달(학생 25명, 배치 4건)이 뜨고 확인 시 명렬·히스토리가 복원된다.", "status": "pass", "note": "jari-ttukttak-YYYYMMDD.json(version 1), 2단계 삭제 모달, 요약 모달 '학생 25명 / 배치 4건 · 모둠 1건', 취소 시 미덮어쓰기, 확인 후 25명·4건·현재 배치 복원, 손상/version 2/필수 키 누락 파일은 실패 모달·기존 데이터 유지. 단 삭제 직후 새로고침 시 샘플 복원(F-04)." },
+    { "criterion": "명렬 탭 붙여넣기 영역에 '1\\t김가상\\t남' 형식 3행과 성별이 빠진 1행을 넣고 '인식'하면 미리보기에 3행 정상·1행 '성별 미지정' 경고가 표시되고 '추가' 시 4명이 늘어난다.", "status": "pass", "note": "정상 3(st-ok)·경고 1(st-warn '성별 미지정') 행 색 구분, 추가 후 +4명·textarea 비움. CSV(헤더·콤마·따옴표·'여자'·열 부족 오류·빈 줄)·BOM 파일 입력·60명 상한 토스트도 정상." },
+    { "criterion": "브라우저 폭을 400px로 줄이면 가로 스크롤 없이 탭 바가 하단으로 이동하고 좌석표는 축소 슬라이더·내부 스크롤로 전체를 볼 수 있으며 탭-탭 교환이 동작한다.", "status": "pass", "note": "5개 탭·발표·인쇄·모달 모두 scrollWidth ≤ clientWidth(400). 탭 바 position:fixed 하단(높이 ≥44), 패널 세로 스택, 좌석표 overflow:auto(48px 축소 시 379/366로 소폭 내부 스크롤), 탭-탭 교환 정상, 토스트 하단 바 위(84px)." },
+    { "criterion": "앱 전체에서 alert/confirm/prompt가 한 번도 호출되지 않고 모든 확인은 모달, 알림은 토스트로 표시된다.", "status": "pass", "note": "4개 모듈 + pw-check 3뷰에서 dialog 0건. 삭제·초기화·덮어쓰기·확정·30건 초과 모두 모달(role=dialog, 포커스 트랩, Esc·배경 클릭, 포커스 복귀), 검증 실패·안내는 토스트." }
+  ],
+  "static_checks": {
+    "lint": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\lint.txt — issues 0, 코드 1,924줄",
+    "pw_check": "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\check\\report.json — consoleErrors 0, consoleWarnings 0, pageErrors 0, failedRequests 0, dialogs 0, horizontalOverflow false(3뷰; 400px 명렬 표는 .table-wrap 내부 스크롤)",
+    "module_results": {
+      "func-roster.js": "93 passed, 0 failed",
+      "func-seats.js": "143 passed, 3 failed (F-06, F-03, F-07)",
+      "func-groups-present-print.js": "100 passed, 1 failed (F-01)",
+      "func-storage-responsive.js": "107 passed, 3 failed (F-05, F-04, F-02)"
+    }
+  },
+  "test_files": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\func-roster.js",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\func-seats.js",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\func-groups-present-print.js",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\func-storage-responsive.js"
+  ],
+  "result_files": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\roster\\func-roster.result.json",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\seats\\func-seats.result.json",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\gpp\\func-groups-present-print.result.json",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\storage\\func-storage-responsive.result.json"
+  ],
+  "screenshots": [
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\check\\desktop-light.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\check\\desktop-dark.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\check\\mobile-light.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\roster\\01-history.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\roster\\02-paste.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\roster\\03-roster-60.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\seats\\10-auto.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\seats\\11-violation.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\seats\\12-front-violation.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\seats\\13-short.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\seats\\14-heatmap.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\seats\\15-seats-final.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\gpp\\20-groups.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\gpp\\21-present-before.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\gpp\\22-present-after.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\gpp\\23-print-teacher.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\gpp\\24-print-plates.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\storage\\30-dark-seats.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\storage\\31-dark-history.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\storage\\32-dark-groups.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\storage\\33-dark-roster.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\storage\\34-dark-present.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\storage\\35-dark-print.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\storage\\36-empty.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\storage\\37-mobile-seats.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\storage\\38-mobile-present.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\storage\\39-mobile-groups.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\storage\\40-mobile-roster.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\storage\\41-mobile-history.png",
+    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\qa\\storage\\42-mobile-print.png"
+  ]
+}
