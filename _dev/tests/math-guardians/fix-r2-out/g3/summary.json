@@ -1,0 +1,42 @@
+{
+  "func-game-core": {
+    "passed": 96,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 68
+  },
+  "func-game-full": {
+    "passed": 34,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 114
+  },
+  "func-game-full2": {
+    "passed": 17,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 121
+  },
+  "func-game-modes": {
+    "passed": 57,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 89
+  }
+}

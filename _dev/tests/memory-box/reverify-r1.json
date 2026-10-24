@@ -1,0 +1,55 @@
+{
+  "status": "fail",
+  "remaining": [],
+  "verified_fixed": [
+    { "id": "F-01/C-03", "note": "normalizeSummary()가 stats를 Number()로 강제, 화면은 n() 숫자만 출력. stats·unit·fails에 <img onerror>/<svg onload>를 넣은 요약 파일을 가져와도 window.__xss* 미설정, 학생 이름·단원명은 문자 그대로 표시. drawing은 isDrawing() 통과 값만 src에 들어가고 escapeHtml 적용(app.js 225·342·542행). 단, 같은 '가져온 파일' 경로의 다른 필드(프로필 emoji·덱 color·id)는 정화되지 않아 R-01로 신규 보고." },
+    { "id": "F-02/C-01", "note": "backupProfiles()로 meta.profiles 배열·profiles[id] 객체 검사. {meta:{},profiles:{}}·profiles[id] 없음·version 2 모두 '복원 실패' 모달로 거부되고 새로고침 후 72장 유지. 덮어쓰기는 새 데이터를 storage.set한 뒤 남은 옛 키만 삭제(키 1개만 남음 확인), coerceProfileData로 cards:'x'·decks에 null·exams deckIds 비배열 등을 보정해 예외 없이 복원(reverify.js F-02 8건 통과)." },
+    { "id": "F-03/C-02", "note": "wrong:{}·wrong:'abc'·이름 없음 파일은 '형식이 맞지 않아요' 토스트 후 미저장. localStorage에 손상 항목(wrong:{}, null)을 직접 심고 새로고침해도 교사 탭이 렌더되고 '교사 데이터 지우기' 버튼 표시, 손상 항목은 필터됨. 샘플 학급 집계(분수 5명·17장·53%) 회귀 없음." },
+    { "id": "F-04/M-01", "note": "todayQueue 정렬이 diffDays(b.due,today)-diffDays(a.due,today). 초기 큐 due 순서 10-22,10-23,10-24 → 오늘×8(상자 2,2,2,3,3,4,5,5 오름차순)." },
+    { "id": "F-05", "note": "session.done + ids.length 기준. 1/11 → 2/11(바 9%) → 3/11, Esc·새로고침·이어서 하기 후에도 3/11." },
+    { "id": "F-06/M-02", "note": "finalizeGrade에서 busy=true·flipped=false 잠금, renderSession에서 해제. 3→Space→→→← 연타 직후 results 1·idx 1, 420ms 뒤 2번째 카드가 미채점 상태로 표시(busy false). 마지막 카드에서 연타+스와이프해도 history는 카드당 1건, 1장 세션 연타 후 예외 없이 종료(pageErrors 0)." },
+    { "id": "U-01", "note": "400px 저장 불가 배너의 '설정으로' 버튼 79×36px, white-space nowrap, 배너 flex-wrap(ux-shots ml-home-storage-banner.png)." },
+    { "id": "U-02/F-13", "note": "fitPrintPreview()가 #print-area zoom 0.473(A4)/0.672(A5) 적용, #print-view scrollWidth 400 = clientWidth, '화면에 맞게 축소해 보여 줘요' 안내 표시(r-u02-print-mobile.png, ml-weekly-report.png)." },
+    { "id": "U-03", "note": ".page에 종이 토큰 재정의. 다크 모드 주간 리포트 th 대비 16.16, td 18.88, h3 18.88(r-u03-weekly-dark.png, dd-weekly-report.png)." },
+    { "id": "U-04/F-09", "note": "--ok-fg/--danger-fg 토큰. 채점 버튼 대비 라이트 ok 4.98/danger 5.15, 다크 ok 7.87/danger 6.10." },
+    { "id": "U-05", "note": "--warn-ink/--danger-ink 토큰, .badge .8rem(12.8px). 라이트 배지 대비 repeat 6.05, wrong 5.54, late 5.54, 밀림 배지에 ⏰ 병기(dl-cards-deck-detail.png)." },
+    { "id": "U-06", "note": "400×860 첫 화면: 상자 3+2 두 줄, FAB 48px(334,738)이 상자 5개·푸터와 겹치지 않음(overlaps [], r-u06-mobile-home-viewport.png)." },
+    { "id": "U-07/F-10", "note": "sortedReflections()로 10-24,10-23,10-22,10-21,10-20 역순 표시, 주간 리포트도 같은 정렬." },
+    { "id": "U-08", "note": ".quad align-items:start + .quad-cell align-content:start. 칸 펼침 시 펼친 칸 93→140px, 옆 칸 93px 유지·숫자 top 11px 고정(r-u08-quad-expanded.png, dl-session-summary-expanded.png)." },
+    { "id": "minor(F-07,F-08,F-11,F-12,F-14,F-16,m-01~m-15,U-09~U-23,U-25)", "note": "소스·브라우저로 확인: F-11 헤더 없는 1,005행→총 1000행·1,000장 추가, 헤더 포함 1,002행→1000행+안내; F-12 일반 화면 print 매체에서 .app display:flex(버튼만 숨김); F-14 카드 탭 재클릭 시 덱 목록; F-16 pendingSession 결과가 있을 때 덱 복습 전 '하던 복습이 남아 있어요' 모달; m-04 홈 배너 '오늘 계획 3장'=due≤오늘 카드 3, 계획 달력 합 14=시험 전 due 카드 14; 모달 키 처리(document capture·스택)·BOM 상수·safeFileName·isoWeekKey는 diff로 확인. F-15·U-24는 미수정(minor, 보고서에 사유 기재)." }
+  ],
+  "new_findings": [
+    {
+      "id": "R-01",
+      "severity": "major",
+      "area": "보안(XSS)/복원",
+      "title": "C-03 정화가 drawing·stats에만 적용되어, 백업 JSON의 프로필 emoji·덱 color·덱/카드 id로 복원('프로필로 추가'·'덮어쓰기') 시 스크립트가 실행된다",
+      "description": "restoreFromFile → fixP(p)는 p.emoji를 검사 없이 유지하고, 헤더 프로필 칩(app.js 706행)·프로필 팝오버·설정 목록(635행)·전환 토스트(661행)에 `${x.emoji}`를 이스케이프 없이 innerHTML로 넣는다. coerceProfileData는 deck.color·deck.id·card.id를 보정하지 않는데 deckClass(d)='sc-'+d.color가 class=\"deck-card ${deckClass(d)}\"(156·174·341행)에, id가 data-id=\"${d.id}\"(156·175·185·503·524·635·706행)에 그대로 들어간다. 덱 color는 UI에서 바꿀 수 없어 오직 가져온 파일에서만 올 수 있는 값이다. 친구가 보낸(또는 변조된) 백업을 '프로필로 추가'하는 순간 설정 화면·덱 목록·세션 앞면에서 임의 코드가 실행되어 localStorage의 모든 프로필 데이터를 지우거나 바꿀 수 있다. C-03 수정 보고서의 '복원·가져오기 시점 정화'가 drawing 한 필드에만 적용된 부분 수정이다.",
+      "evidence": "reverify-r1/reverify.js 'R 신규' 3건 실패: emoji='<img src=x onerror=\"window.__xssEmoji=1\">', deck.color='x\"><img src=x onerror=\"window.__xssColor=1\"><i class=\"', deck.id='d2\"><img src=x onerror=\"window.__xssId=1\"><i x=\"'인 백업을 '프로필로 추가' → 설정 렌더 직후 __xssEmoji=1, 해당 프로필로 전환해 카드 탭을 열면 __xssColor=1·__xssId=1. 콘솔 'Failed to load resource: net::ERR_FILE_NOT_FOUND' ×3(주입된 img 로드). 스크린샷 reverify-r1/reverify-out/r-new-xss-backup.png(헤더 칩·토스트에 img 태그 원문, 덱 카드 안에 깨진 이미지 아이콘). 결과: reverify-r1/reverify-out/reverify.result.json",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\02_학습지도_기억상자\\js\\app.js",
+      "line": 14,
+      "suggested_fix": "(1) coerceProfileData에서 deck.color는 APP_DATA.SUBJECT_KEY 값 집합에 있을 때만 유지(아니면 삭제), deck/card/exam/session/reflection id는 /^[A-Za-z0-9_-]{1,40}$/ 불일치 시 새 id 발급(카드 deckId 매핑 유지). (2) fixP(p)에서 emoji는 APP_DATA.PROFILE_EMOJIS에 있을 때만 유지(아니면 '🐼'), id는 같은 정규식 검사. (3) 방어적으로 렌더에서도 emoji·deckClass·data-id를 escapeHtml로 감싼다(706·661·635·156·174·175·185·341·503·524행). (4) func-settings-data 또는 code-01-bugs에 '백업 emoji/color/id XSS 미실행' 테스트를 추가한다."
+    }
+  ],
+  "acceptance_results": [
+    { "criterion": "AC1 file://로 열면 김하늘·오늘 복습 11장·밀림 3장·스트릭 6·D-12 배너", "status": "pass", "note": "accept.js AC1 5건 통과, pw-check desktop-light.png에서 육안 확인(상자 14/18/16/14/10)." },
+    { "criterion": "AC2 세션 열림·확신도 전 뒤집기 disabled·확실해요 후 스페이스로 뒤집힘·틀렸어요/맞았어요 표시", "status": "pass", "note": "accept.js AC2 5건 통과; reverify.js F-06에서 키보드 3→Space 흐름 재확인." },
+    { "criterion": "AC3 2상자 확실→맞음 → 미니 상자 3 +1, 상자 3·오늘+4; 틀림 → 상자 1·오늘+1", "status": "pass", "note": "accept.js AC3 4건 통과." },
+    { "criterion": "AC4 오답 카드 틀림 → 원인 패널, 고르기 전 진행 안 됨, 고르면 목록 배지 변경", "status": "pass", "note": "accept.js AC4 4건 통과(→ 키로도 넘어가지 않음)." },
+    { "criterion": "AC5 11장 처리 후 요약 모달 4분면 합 11·코칭 1개·되새김 '테스트'가 기록 탭 맨 위", "status": "pass", "note": "accept.js AC5 4건 통과; 되새김 정렬(U-07) 수정 후에도 새 글이 맨 위." },
+    { "criterion": "AC6 Esc 종료 후 새로고침 → '이어서 하기(남은 N장)', 처리한 카드 상자 유지", "status": "pass", "note": "accept.js AC6 3건 통과; reverify.js에서 이어서 하기 진행 표시 3/11(F-05)." },
+    { "criterion": "AC7 새 덱 + 헤더 포함 3열 CSV 10행(따옴표 안 쉼표) → 총 10행, 덱 10장, 1상자 +10, 쉼표 행 보존", "status": "pass", "note": "accept.js AC7 5건 통과; F-11 1,000행 제한도 reverify.js로 확인." },
+    { "criterion": "AC8 하루 목표 5 → 새로고침 후 설정 값·홈 분모 5", "status": "pass", "note": "accept.js AC8 2건 통과." },
+    { "criterion": "AC9 '지금 복습 안 하면' 토글 → 두 번째 선 + '7일 뒤 N장', 끄면 사라짐; 잔디 셀 30개 이상", "status": "pass", "note": "accept.js AC9 4건 통과(U-15 조정 후에도 점선 path 1개·'7일 뒤' 표시)." },
+    { "criterion": "AC10 시험 오늘+10·영어 덱 → 홈 D-10, 계획 달력 10칸 합 ≥16, 덱 카드 due ≤ 시험 전날", "status": "pass", "note": "accept.js AC10 3건 통과; m-04 examPlanLive 변경 후 계획 합이 현재 due 기준과 일치함을 reverify.js로 확인." },
+    { "criterion": "AC11 교사 모드 → 샘플 학급 6명, 복습 포인트 1위 분수의 덧셈과 뺄셈·5명, 계산 실수형 박서아·한수아", "status": "pass", "note": "accept.js AC11 6건 통과; reverify.js C-02 회귀 검사(17장·53%) 통과." },
+    { "criterion": "AC12 이도윤 전환 → 큐 9·덱 2, 김하늘 복귀 → 11장·5덱", "status": "pass", "note": "accept.js AC12 3건 통과." },
+    { "criterion": "AC13 400px 가로 스크롤 없음·탭바로 모든 화면 이동·세션 버튼 모두 보임", "status": "pass", "note": "accept.js AC13 5건, reverify.js 교사 탭 포함 7개 탭 가로 스크롤 없음, pw-check mobile overflow 0." },
+    { "criterion": "AC14 localStorage.setItem 예외 → '저장이 되지 않아요' 배너, 복습·카드 추가 동작", "status": "pass", "note": "accept.js AC14 4건 통과; U-01 배너 버튼 400px 레이아웃 확인." },
+    { "criterion": "AC15 5상자 확실→맞음 → 5상자 유지·오늘+30·숙달 별", "status": "pass", "note": "accept.js AC15 2건 통과." }
+  ],
+  "lint_issues": 0,
+  "pw_problems": [],
+  "tests_summary": "기존 모듈 11개 전부 재실행(reverify-r1/run-mods.js → reverify-r1/<모듈>/): func-session 85/0, func-cards 84/0, func-history-exam-print 81/0, func-settings-data 99/0, func-robustness 49/0, func-responsive-theme 50/0, code-01-bugs 8/0, code-02-acceptance 51/0, ux-shots 60/0, accept 58/0, visual 14/0 — 합계 639 passed / 0 failed, pageErrors 0, consoleErrors 0, dialogs 0. 독립 재검증 모듈 reverify-r1/reverify.js: 50 passed / 3 failed(모두 R-01 백업 XSS), pageErrors 0, consoleErrors 3(주입한 img 로드 실패 = R-01 증거). lint-app.js issues 0(총 1,573줄). pw-check.js problems 0(desktop-light/dark·mobile-light 가로 스크롤 0, 콘솔 오류·경고 0, 스크린샷 reverify-r1/check/ 3장 육안 확인).",
+  "notes": "결함 목록의 critical 3건(F-01/C-03, F-02/C-01, F-03/C-02)과 major 11건(F-04/M-01, F-05, F-06/M-02, U-01~U-08)은 모두 소스와 브라우저에서 직접 재현·검증해 해결됨을 확인했고 회귀는 발견하지 못했다(639+50 통과). 그러나 C-03의 '가져온 파일로 스크립트 실행' 경로가 완전히 닫히지 않았다: 백업 JSON의 프로필 emoji·덱 color·id가 검증·이스케이프 없이 innerHTML/class/data-id 속성에 들어가 '프로필로 추가'만으로 코드가 실행된다(R-01, major). 이 1건 때문에 status=fail. 수정 범위는 coerceProfileData/fixP의 필드 검증 + 렌더 이스케이프로 작고, 기존 테스트 선택자에 영향이 없다. 미수정 minor 2건(F-15 더보기 탭, U-24 데스크톱 홈 여백)은 보고서 사유가 타당해 잔여 이슈로 세지 않았다. 앱 소스는 수정하지 않았고 커밋도 하지 않았다. 결과 폴더: _dev/tests/memory-box/reverify-r1/ (check/, <모듈>/, reverify-out/, run-all.log, reverify.js, dbg-print.js)."
+}

@@ -52,7 +52,7 @@ module.exports = async ({ page, expect, log, sleep }) => {
   await vp(1366, 768); await sleep(200);
   await act(`window.__app.actions.startStage('s3-2')`); await sleep(400);
   await waitFor(s => s.game && s.game.monsters.length && s.game.monsters[0].progress > 0.05);
-  await act(`window.__app.actions.fire('1')`); await sleep(1500);
+  await act(`window.__app.actions.fire('999')`); await sleep(1500); // fix-r1: '1'은 5÷5처럼 정답일 수 있어 확실히 틀린 값으로 교정 카드를 연다
   const cardFit = await page.evaluate(() => { const m = document.querySelector('.modal'); const f = document.querySelector('.modal .key-fire'); if (!m || !f) return null; const b = f.getBoundingClientRect();
     return { question: document.querySelector('.card-q').textContent, modalScrollH: m.scrollHeight, modalClientH: m.clientHeight, fireTop: Math.round(b.top), fireBottom: Math.round(b.bottom), viewportH: innerHeight, fireFullyVisible: b.bottom <= innerHeight && b.top >= 0 }; });
   log('card-fit-1366x768 ' + JSON.stringify(cardFit));

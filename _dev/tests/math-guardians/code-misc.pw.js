@@ -99,7 +99,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   const guestBtn = await page.locator('#result-view [data-action="new-profile"]').count();
   expect(guestBtn === 1 && (await state()).view === 'result', "게스트 결과 화면에 '프로필 만들어 기록 저장하기' 버튼");
   await act('showView', 'hall'); await sleep(100);
-  expect((await page.locator('#hall-view .empty').textContent().catch(() => '')).includes('체험 모드'), '게스트 랭킹: 체험 모드 안내');
+  expect((await page.locator('#hall-view .note, #hall-view .empty').first().textContent().catch(() => '')).includes('체험 모드'), '게스트 랭킹: 체험 모드 안내'); // fix-r1: 공개 랭킹에서는 표 위 안내문(.note)으로 표시
   expect((await state()).profiles.reduce((s, p) => s + p.records, 0) === recSum, '게스트 판은 프로필에 기록되지 않음');
 
   // 8. 시간 종료(3초 제한) → '시간 종료' 결과
@@ -136,7 +136,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   expect(pr.printed === 1 && pr.root === 'block' && pr.main === 'none' && pr.header === 'none', '인쇄: 기록표만 표시, 게임 UI 숨김');
   const rows = await page.locator('#print-root tbody tr').count(), rowTxt = rows ? (await page.locator('#print-root tbody tr').first().textContent()).replace(/\s+/g, ' ') : '';
   log(`print rows=${rows} row="${rowTxt}"`);
-  expect(rows >= 2 && /김하늘/.test(rowTxt) && /중단|시간 종료/.test(await page.locator('#print-root').textContent()) === false, '오늘 플레이한 판이 기록표에 행으로 표시');
+  expect(rows >= 2 && /김하늘/.test(rowTxt) && /결과/.test(await page.locator('#print-root thead').textContent()), '오늘 플레이한 판이 기록표에 행으로 표시(결과 열 포함)'); // fix-r1: 기록표에 '결과' 열(클리어/게임 오버/시간 종료/중단)이 추가됨
   await page.emulateMedia({ media: 'screen' });
   await shot('code-misc-end');
 };

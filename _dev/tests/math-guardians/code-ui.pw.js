@@ -26,8 +26,9 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   log('62−27 marks=' + JSON.stringify(col.sub2.marks) + ' res=' + JSON.stringify(col.sub2.res));
 
   // ---------- 2. 전체화면 대상에 입력 패널 포함 여부 ----------
-  const fsContains = await page.evaluate(() => document.getElementById('stage-wrap').contains(document.getElementById('input-panel')));
-  expect(fsContains, '전체화면 대상(#stage-wrap)이 입력 패널을 포함한다');
+  // 수정(fix-r1): 전체화면 대상은 #game-view(캔버스+HUD+입력 패널)로 바뀜 — 대상 요소가 입력 패널과 캔버스를 모두 포함하는지 확인
+  const fsContains = await page.evaluate(() => { const v = document.getElementById('game-view'); return v.contains(document.getElementById('input-panel')) && v.contains(document.getElementById('game-canvas')); });
+  expect(fsContains, '전체화면 대상(#game-view)이 캔버스와 입력 패널을 포함한다');
 
   // ---------- 3. 몬스터가 없는 순간(WAVE 배너 중) 발사 → 오답 집계? ----------
   await act('startStage', 's2-3'); await sleep(250);
@@ -101,7 +102,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
 
   // ---------- 6. 교사 PIN 잠금 → '샘플 데이터로 초기화' 접근 가능? ----------
   await act('setSetting', 'teacherPin', '1234'); await act('showView', 'settings'); await sleep(200);
-  const gateVisible = await page.locator('#pin-gate').isVisible(), resetVisible = await page.locator('[data-action="reset-sample"]').isVisible();
+  const gateVisible = await page.locator('#pin-gate').isVisible(), resetVisible = await page.locator('#pin-gate [data-action="reset-sample"]').isVisible(); // fix-r1: 게이트 안의 버튼(설정 본문에도 같은 버튼이 있으므로 범위 지정)
   log(`PIN gate visible=${gateVisible}, reset button visible=${resetVisible}`);
   expect(gateVisible && resetVisible, "PIN 잠금 화면에서도 안내문대로 '샘플 데이터로 초기화' 버튼에 접근할 수 있다");
   await shot('code-pin-gate');

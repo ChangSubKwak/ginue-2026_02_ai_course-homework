@@ -1,0 +1,101 @@
+{
+  "acceptance": {
+    "passed": 54,
+    "failed": 1,
+    "failedList": [
+      "복수 격파 점수 2배: +500 (콤보 3, 배율 1)"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 194
+  },
+  "extras": {
+    "passed": 16,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": "page.click: Timeout 30000ms exceeded. | Call log: | \u001b[2m  - waiting for locator('[data-view=\"codex\"]')\u001b[22m | \u001b[2m    - locator resolved to 3 elements. Proceeding with the first one: <button role=\"tab\" data-action=\"nav\" data-view=\"codex\" aria-selected=\"false\">📘 도감</button>\u001b[22m",
+    "secs": 50
+  },
+  "debug-mute": {
+    "passed": 1,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 4
+  },
+  "code-accept2.pw": {
+    "passed": 2,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": "page.click: Timeout 30000ms exceeded. | Call log: | \u001b[2m  - waiting for locator('[data-action=\"review\"]')\u001b[22m | \u001b[2m    - locator resolved to <button class=\"btn primary\" data-action=\"review\">🔁 다시 풀기</button>\u001b[22m",
+    "secs": 51
+  },
+  "code-blocked.pw": {
+    "passed": 7,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 7
+  },
+  "code-mobile.pw": {
+    "passed": 5,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 7
+  },
+  "code-boss.pw": {
+    "passed": 13,
+    "failed": 1,
+    "failedList": [
+      "보스 방패 1개는 약점 큐 사실(8−3 또는 9−4)에서 출제"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 115
+  },
+  "code-misc.pw": {
+    "passed": 27,
+    "failed": 2,
+    "failedList": [
+      "게스트 랭킹: 체험 모드 안내",
+      "오늘 플레이한 판이 기록표에 행으로 표시"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 49
+  },
+  "code-ui.pw": {
+    "passed": 12,
+    "failed": 1,
+    "failedList": [
+      "전체화면 대상(#stage-wrap)이 입력 패널을 포함한다"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": "locator.isVisible: Error: strict mode violation: locator('[data-action=\"reset-sample\"]') resolved to 2 elements: |     1) <button class=\"btn danger-outline\" data-action=\"reset-sample\">샘플 데이터로 초기화</button> aka getByRole('button', { name: '샘플 데이터로 초기화' }) |     2) <button class=\"btn danger-outline\" data-action=\"reset-sample\">샘플 데이터로 초기화</button> aka locator('#settings-body').getByText('샘플 데이터로 초기화') | ",
+    "secs": 23
+  }
+}

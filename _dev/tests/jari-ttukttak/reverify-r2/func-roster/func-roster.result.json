@@ -46,7 +46,7 @@
     "중복 번호(1) 경고 아이콘 2개 이상",
     "번호 999 → 99로 보정: 99",
     "중복 해소 후 경고 아이콘 없음",
-    "중복 이름 카드에 (번호) 병기: 김하늘(1),김하늘(2)",
+    "중복 이름 카드에 (번호) 병기: 김하늘(2),김하늘(1)",
     "이름 비우면 경고 토스트",
     "성별 미지정 변경",
     "요약 칩 성별 갱신(여 11)",
@@ -102,9 +102,9 @@
   "consoleErrors": [],
   "dialogs": [],
   "screenshots": [
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\func-roster\\01-history.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\func-roster\\02-paste.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\func-roster\\03-roster-60.png"
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\func-roster\\01-history.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\func-roster\\02-paste.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\func-roster\\03-roster-60.png"
   ],
   "fatal": null,
   "summary": "93 passed, 0 failed, 0 page errors, 0 console errors"

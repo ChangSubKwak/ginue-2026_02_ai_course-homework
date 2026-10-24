@@ -3,6 +3,8 @@
   "test": "func-edge.js",
   "passed": [
     "[스펙 reduce(0,d)→(0,d)] 0/6에서 합치기는 분모를 유지해야 함(실제 0/6)",
+    "슬라이더 키보드 → 분모 6",
+    "슬라이더 포커스 상태에서 Ctrl+Z 동작 (d=5)",
     "검색창 Ctrl+Z → 앱 오류 없음",
     "장면 \"4-2 분모가 같은 덧셈\"(2/5+2/5) 불러오기",
     "[결함 재현] 불러온 덧셈 장면(2/5+2/5)이 비교 탭을 거쳐 돌아오면 유지되어야 함(실제 2/5 + 2/5)",
@@ -19,13 +21,10 @@
     "정상화된 상태로 렌더 오류 없음",
     "뺄셈 카드 → 활동지 뺄셈 문항",
     "뺄셈 정답 7/12: 7/12",
-    "분수 쓰기 정답(기약·소수): 8/12 = 2/3 = ≈0.667",
+    "분수 쓰기 정답(기약·소수, \"= ≈\" 겹침 없음): 8/12 = 2/3 ≈ 0.667",
     "A<B 뺄셈 문항 정답 문구: 앞의 분수가 더 작아 뺄 수 없음"
   ],
-  "failed": [
-    "슬라이더 키보드 → 분모 6",
-    "슬라이더 포커스 상태에서 Ctrl+Z 동작 (d=3)"
-  ],
+  "failed": [],
   "logs": [
     "0/6 합치기 결과: {\"n\":0,\"d\":6,\"lineRange\":\"auto\",\"models\":{\"bar\":true,\"circle\":true,\"line\":true},\"showDecimal\":true,\"chain\":[{\"n\":0,\"d\":6,\"op\":\"start\"}]} toasts=[\"색칠된 칸이 없어요. 먼저 칸을 색칠해 보세요\"]",
     "장면 로드 후 compare 경유: arith={\"a\":{\"n\":2,\"d\":5},\"b\":{\"n\":2,\"d\":5},\"op\":\"+\",\"step\":0,\"mirror\":false}",
@@ -36,8 +35,8 @@
   "consoleErrors": [],
   "dialogs": [],
   "screenshots": [
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-edge\\edge-sheet.png"
+    "fix-r1\\func-edge\\edge-sheet.png"
   ],
   "fatal": null,
-  "summary": "19 passed, 2 failed, 0 page errors, 0 console errors"
+  "summary": "21 passed, 0 failed, 0 page errors, 0 console errors"
 }

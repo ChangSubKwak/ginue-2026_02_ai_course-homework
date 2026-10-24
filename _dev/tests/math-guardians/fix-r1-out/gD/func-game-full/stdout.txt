@@ -1,0 +1,57 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "func-game-full.js",
+  "passed": [
+    "새 프로필 풀런학생 생성",
+    "시작 전: 1-2 잠금, 1-1 최고 점수 없음",
+    "판 종료(ended) — 105s",
+    "웨이브 1~9 몬스터 수 [3,4,4,5,5,6,6,7,7] = [3,4,4,5,5,6,6,7,7]",
+    "AC7 10웨이브 보스 1마리·방패 3개 ({\"id\":48,\"key\":\"6+3\",\"text\":\"6 + 3\",\"answer\":9,\"answerText\":\"9\",\"progress\":0,\"spawnedAt\":104842,\"locked\":false,\"isBoss\":true,\"isRevenge\":false,\"shields\":3,\"choices\":null,\"correctIndex\":null})",
+    "보스 방패 문제 3개 차례로 출제 (6+3, 7+2, 5+2)",
+    "보스 방패 3개 문제가 서로 다름 (6+3, 7+2, 5+2)",
+    "동시 출현 상한 준수 {\"1\":1,\"2\":1,\"3\":1,\"4\":1,\"5\":1,\"6\":1,\"7\":1,\"8\":1,\"9\":1,\"10\":0}",
+    "HUD 웨이브 표기 (WAVE 8/10/WAVE 9/10/BOSS 10/10)",
+    "콤보 20 도달(×4 배율)",
+    "필살기 1회 사용",
+    "적응형 난이도 상승·HUD ▲ 표시 (max 1.5, '▲ 빨라짐')",
+    "보스 드럼·팡파르·웨이브 클리어 9회 효과음 (boss=1, fanfare=1, waveClear=9)",
+    "AC7 결과 헤더 '🎉 스테이지 클리어!'",
+    "AC7 정답률 100%·무피해 → 별 3개 팝인 (3)",
+    "보스 격파 500×배율(2000) + 무피해 클리어 +1,000 반영 (23400 → 26400)",
+    "'틀린 문제 없음! 완벽해요' 표시",
+    "새 획득 알림: 배지 4종·다음 스테이지 해금 (✨ 새 획득 🎯 배지 '첫 격파' 🔥 배지 '콤보 10' 💥 배지 '콤보 20' 🛡️ 배지 '철벽 수호' 🔓 다음 스테이지 1-2 9까지의 뺄셈 해금)",
+    "AC8 '다음 스테이지 ▶' 버튼 표시",
+    "별 팝인 효과음 3회·배지음 (badge,star)",
+    "배지 first_kill,combo10,combo20,perfect",
+    "'다음 스테이지' 버튼 → 1-2 게임이 바로 시작 (view=game)",
+    "AC8 스테이지 맵에서 1-2 잠금 해제",
+    "AC8 1-1 카드 최고 점수 최고 26,400·별 3",
+    "요약 카드 총 별 3·배지 4",
+    "AC8 새로고침 후에도 해금·최고 점수 유지",
+    "새로고침 후 배지 유지",
+    "점수 탭 기본 스테이지 = 최근 플레이 (s1-2)",
+    "1-1 랭킹 1위 풀런학생 26400 (🥇 풀 풀런학생 나 5학년 2반 30번 26,400점)",
+    "오늘의 기록표에 오늘 판 포함 (연산수호대 오늘의 기록표가온초등학교 5학년 2반 (담임 이가람) · 2026-10-25 · 인쇄 오전 07:19 번호이름스테이지결과점수별정답률최대 콤보틀린 문제30풀런학생1-2 9까지의 뺄셈중단0☆☆☆0%030풀런학)"
+  ],
+  "failed": [
+    "무결점: HP 3·정답 50·오답 0·미응답 0 (correct=49, wrong=0, reached=0)",
+    "통계 정답률 100% | 최대 콤보 49 | 평균 반응 0.2초 | 남은 HP ❤❤❤ | 복수 격파 0 | 문제 수 49",
+    "스테이지 기록 갱신 (best 26400, ★3, plays 1, avgMs 172)",
+    "history·playDates·counters 갱신"
+  ],
+  "logs": [
+    "플레이 105s, perWave={\"1\":3,\"2\":4,\"3\":4,\"4\":5,\"5\":5,\"6\":6,\"7\":6,\"8\":7,\"9\":7,\"10\":1}, maxLive={\"1\":1,\"2\":1,\"3\":1,\"4\":1,\"5\":1,\"6\":1,\"7\":1,\"8\":1,\"9\":1,\"10\":0}, adaptMax=1.5, adaptSeen='▲ 빨라짐', boss={\"id\":48,\"key\":\"6+3\",\"text\":\"6 + 3\",\"answer\":9,\"answerText\":\"9\",\"progress\":0,\"spawnedAt\":104842,\"locked\":false,\"isBoss\":true,\"isRevenge\":false,\"shields\":3,\"choices\":null,\"correctIndex\":null}, shields={\"1\":\"5+2\",\"2\":\"7+2\",\"3\":\"6+3\"}, banners=WAVE 1/10/WAVE 2/10/WAVE 3/10/WAVE 4/10/WAVE 5/10/WAVE 6/10/WAVE 7/10/WAVE 8/10/WAVE 9/10/BOSS 10/10",
+    "종료 점수 26400, maxCombo? combo=49",
+    "기록: {\"r\":{\"stageId\":\"s1-1\",\"bestScore\":26400,\"bestStars\":3,\"bestCombo\":49,\"plays\":1,\"clears\":1,\"correct\":49,\"wrong\":0,\"reached\":0,\"avgMs\":172,\"lastPlayedAt\":\"2026-10-24T22:19:14.966Z\"},\"badges\":[\"first_kill\",\"combo10\",\"combo20\",\"perfect\"],\"hist\":{\"stageId\":\"s1-1\",\"score\":26400,\"stars\":3,\"correct\":49,\"wrong\":0,\"reached\":0,\"maxCombo\":49,\"avgMs\":172,\"revengeKills\":0,\"wrongKeys\":[],\"endedBy\":\"clear\",\"playedAt\":\"2026-10-24T22:19:14.966Z\"},\"dates\":[\"2026-10-25\"],\"ct\":{\"totalProblems\":49,\"totalCorrect\":49,\"revengeKills\":0,\"bossKills\":1,\"threeStarClears\":1}}",
+    "다음 스테이지 버튼 후 view=game, stage=s1-2"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r1-out\\gD\\func-game-full\\result-clear-3stars.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r1-out\\gD\\func-game-full\\home-after-clear.png"
+  ],
+  "fatal": null,
+  "summary": "30 passed, 4 failed, 0 page errors, 0 console errors"
+}

@@ -37,9 +37,9 @@
   "consoleErrors": [],
   "dialogs": [],
   "screenshots": [
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\fix-r1-verify\\v1-history.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\fix-r1-verify\\v2-mobile-seats-first.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\fix-r1-verify\\v3-mobile-print.png"
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\fix-r1-verify\\v1-history.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\fix-r1-verify\\v2-mobile-seats-first.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\fix-r1-verify\\v3-mobile-print.png"
   ],
   "fatal": null,
   "summary": "24 passed, 0 failed, 0 page errors, 0 console errors"

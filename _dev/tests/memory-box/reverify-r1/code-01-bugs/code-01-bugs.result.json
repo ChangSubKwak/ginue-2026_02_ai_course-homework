@@ -1,0 +1,39 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/02_학습지도_기억상자/index.html",
+  "test": "code-01-bugs.js",
+  "passed": [
+    "큐에 밀린 카드와 오늘 카드 모두 존재",
+    "[B1] 밀린 카드가 오늘 카드보다 앞에 정렬됨 (스펙: 밀린 카드 먼저)",
+    "[B2] 기록 탭 재방문 시 클릭 리스너가 중복 등록되지 않음 (실측 0회)",
+    "[B3] 애니메이션 중 → 두 번 눌러도 1장만 채점됨 (실측 1장)",
+    "[B4] 헤더 없는 1001행 CSV는 1,000장만 추가됨 (실측 1000장)",
+    "[B5] 교사 요약 JSON stats 값이 이스케이프됨 (onerror 실행 여부 0)",
+    "[B6] 형식이 어긋난 요약 파일을 넣어도 교사 탭이 렌더됨 (새로고침 후 길이 2750)",
+    "[B7] 형식이 어긋난 백업으로 덮어쓰기 시 기존 데이터가 보존됨 (전 1072 → 후 1072)"
+  ],
+  "failed": [],
+  "logs": [
+    "queue dues: 2026-10-22,2026-10-23,2026-10-24,2026-10-25,2026-10-25,2026-10-25,2026-10-25,2026-10-25,2026-10-25,2026-10-25,2026-10-25",
+    "view-history click listeners added after 3 visits: 0",
+    "results after double ArrowRight on card 1: 1 (session alive)",
+    "csv modal: 감지된 열: 앞면, 뒷면, 힌트, 유형, 원인 · 총 1000행 · 건너뜀 0행 · 중복 0행  1000행을 넘어 앞 1000행만 가져와요.  #\t앞면\t뒷면\t힌트\t유형\t원인 1\tq0\ta0\t\t암기\t 2\tq1\ta1\t\t암기\t 3\tq2\ta2\t\t암기\t 4\tq3\ta3\t\t암기\t 5\tq4\ta4\t\t암기",
+    "csv added: 1000",
+    "teacher bad import errors: []",
+    "teacher view html length after bad import: 2759",
+    "teacher view html length after reload: 2750",
+    "cards before bad restore: 1072",
+    "restore modal shown: 0",
+    "restore errors: []",
+    "cards after bad restore + reload: 1072"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\reverify-r1\\code-01-bugs\\teacher-xss.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\reverify-r1\\code-01-bugs\\teacher-after-bad-import.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\reverify-r1\\code-01-bugs\\after-bad-restore.png"
+  ],
+  "fatal": null,
+  "summary": "8 passed, 0 failed, 0 page errors, 0 console errors"
+}

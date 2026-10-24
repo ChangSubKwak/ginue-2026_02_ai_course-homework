@@ -1,0 +1,14 @@
+{
+  "fix-r2-verify": {
+    "passed": 11,
+    "failed": 1,
+    "failedList": [
+      "R-03 범위 밖·비정수·분모 0 매개변수 사실 제외"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 163
+  }
+}

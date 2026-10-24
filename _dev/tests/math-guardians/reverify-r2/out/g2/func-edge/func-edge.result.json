@@ -1,0 +1,23 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "func-edge.js",
+  "passed": [
+    "프로필 0명 → 게스트 표시·드롭다운 안내",
+    "프로필 0명에서 새 프로필·체험하기 유도, 1-1 시작 가능",
+    "프로필 0명 랭킹 빈 상태 메시지 (🏆 명예의 전당 5학년 2반 점수 별 성장(7일) 1-1 9까지의 덧셈 1-2 9까지의 뺄셈 1-3 받아올림 없는 두 자리 덧셈·뺄셈 2-1 )",
+    "설정 프로필 표 0/40",
+    "facts 600개 초과 시 숙달(상자 3·오답 0) 항목부터 정리, 약점 사실은 유지 ({\"n\":600,\"weakKept\":true,\"lowKept\":61})",
+    "샘플 복원",
+    "새 프로필 모달에서 Enter 키로 만들기"
+  ],
+  "failed": [],
+  "logs": [
+    "같은 정답 몬스터 쌍이 90초 안에 나타나지 않음(확률적) — 미검증"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "7 passed, 0 failed, 0 page errors, 0 console errors"
+}

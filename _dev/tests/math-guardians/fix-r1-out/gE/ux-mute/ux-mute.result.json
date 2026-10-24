@@ -1,0 +1,21 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "ux-mute.js",
+  "passed": [
+    "80ms 뒤 새로고침해도 음소거 유지(pagehide flush)"
+  ],
+  "failed": [
+    "700ms 뒤 새로고침하면 음소거 유지"
+  ],
+  "logs": [
+    "reload 80ms after toggle → muted=true",
+    "reload 700ms after toggle → muted=false",
+    "save-status: 마지막 저장: 2026. 10. 25. 오전 7:23:24"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "1 passed, 1 failed, 0 page errors, 0 console errors"
+}

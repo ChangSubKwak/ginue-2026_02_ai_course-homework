@@ -1,20 +1,24 @@
-#!/bin/bash
-APP="D:/workspace/ginue-2026_02_ai_course-homework/03_업무자동화_자리뚝딱/index.html"
-TOOLS="C:/Users/parad/AppData/Local/Temp/claude/D--workspace-ginue-2026-02-ai-course-homework/1716854d-9f4f-4d06-ba55-fb3e97031963/scratchpad/tools"
-BASE="C:/Users/parad/AppData/Local/Temp/claude/D--workspace-ginue-2026-02-ai-course-homework/1716854d-9f4f-4d06-ba55-fb3e97031963/scratchpad/tests/jari-ttukttak"
-OUT="$BASE/reverify-r2"
-: > "$OUT/run-all.summary.txt"
-for m in acceptance.js code-01-accept.js code-02-bugs.js code-03-badge.js func-roster.js func-seats.js func-groups-present-print.js func-storage-responsive.js ux-shots.js fix-r1-verify.js fix-r2-verify.js reverify-r1/reverify.js; do
+#!/bin/sh
+# reverify-r2 러너: 기존 테스트 모듈 전부를 pw-run.js로 순차 실행하고 요약을 출력
+ROOT="D:/workspace/ginue-2026_02_ai_course-homework"
+APP="$ROOT/03_업무자동화_자리뚝딱/index.html"
+TD="$ROOT/_dev/tests/jari-ttukttak"
+OUT="$TD/reverify-r2"
+mkdir -p "$OUT"
+export PYTHONUTF8=1
+SUM="$OUT/run-all.summary.txt"
+: > "$SUM"
+for m in "$@"; do
   name=$(basename "$m" .js)
-  mkdir -p "$OUT/$name"
-  node "$TOOLS/pw-run.js" "$APP" "$BASE/$m" "$OUT/$name" > "$OUT/$name.log" 2>&1
+  echo "=== $name"
+  node "$ROOT/_dev/tools/pw-run.js" "$APP" "$TD/$m" "$OUT/$name" > "$OUT/$name.log" 2>&1
+  echo "exit=$?"
   node -e '
-    const r=require(process.argv[1]);
-    console.log(process.argv[2]+": "+r.passed.length+" passed / "+r.failed.length+" failed - pageErrors "+r.pageErrors.length+" - consoleErrors "+r.consoleErrors.length+" - dialogs "+r.dialogs.length+" - fatal "+(r.fatal?"YES":"none"));
-    if(r.failed.length) console.log("  FAILED: "+JSON.stringify(r.failed));
-    if(r.fatal) console.log("  FATAL: "+r.fatal);
-    if(r.pageErrors.length) console.log("  PAGEERR: "+JSON.stringify(r.pageErrors));
-    if(r.consoleErrors.length) console.log("  CONSOLE: "+JSON.stringify(r.consoleErrors));
-  ' "$OUT/$name/$name.result.json" "$name" >> "$OUT/run-all.summary.txt" 2>&1 || echo "$name: NO RESULT (see log)" >> "$OUT/run-all.summary.txt"
+    const fs=require("fs"); const log=fs.readFileSync(process.argv[1],"utf8"); const name=process.argv[2], sum=process.argv[3];
+    const i=log.lastIndexOf("\n{"); let j; try { j=JSON.parse(log.slice(i+1)); } catch(e) { console.log(log.slice(-1500)); fs.appendFileSync(sum, name+": PARSE FAIL\n"); process.exit(0); }
+    const line = name+": "+j.passed.length+" passed / "+j.failed.length+" failed · pageErrors "+j.pageErrors.length+" · consoleErrors "+j.consoleErrors.length+" · dialogs "+j.dialogs.length+" · fatal "+(j.fatal?"YES":"none");
+    console.log(line); fs.appendFileSync(sum, line+"\n");
+    j.failed.forEach(f=>{console.log("  FAIL:", f); fs.appendFileSync(sum, "  FAIL: "+f+"\n");}); j.pageErrors.forEach(f=>{console.log("  PAGEERR:", f); fs.appendFileSync(sum, "  PAGEERR: "+f+"\n");}); j.consoleErrors.forEach(f=>console.log("  CONSOLE:", f)); j.dialogs.forEach(f=>console.log("  DIALOG:", f)); if (j.fatal) { console.log("  FATAL:", j.fatal); fs.appendFileSync(sum, "  FATAL: "+j.fatal+"\n"); }
+  ' "$OUT/$name.log" "$name" "$SUM"
 done
-echo "DONE" >> "$OUT/run-all.summary.txt"
+echo "=== ALL DONE"

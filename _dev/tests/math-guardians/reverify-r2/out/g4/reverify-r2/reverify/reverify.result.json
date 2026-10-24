@@ -1,0 +1,54 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "reverify.js",
+  "passed": [
+    "R-03 새로고침 후 샘플 사실 보존(118개)",
+    "R-03 악성 p(1e12 gcd·9억 lcm 등) 포함 가져오기 732ms에 완료",
+    "R-03 악성 p 12종 모두 제외, 정상 사실 유지(leaked=)",
+    "R-03 divisors √n(완전제곱수 중복 없음·정렬) 36의 약수 1,2,3,4,6,9,12,18,36 / 24의 약수 1,2,3,4,6,8,12,24 → 공약수 중 최대 12",
+    "C-01 회귀 없음(flags= imgs=0)",
+    "M-08 회귀 없음 {\"bad\":[],\"cross\":[]}",
+    "M-06 몬스터 없을 때 발사 무시(wrong=0)",
+    "isLocked: 같은 정답 연타 시 두 번째는 무시(오답·중복 명중 없음)",
+    "오답 → 교정 카드(state=card)",
+    "교정 카드 중 필살기·발사 무시",
+    "카드 정답 입력 → 재개(state=resume)",
+    "보스 도달 wave=10",
+    "보스전 진입 시 게이지 ≥1 (2)",
+    "R-01 보스: 정답 발사 80ms 뒤 필살기 → 방패 3→1·locked=false·방패 점수 보존 (shields=1, locked=false)",
+    "R-01 남은 방패를 정답으로 깨고 클리어(state=ended)",
+    "보스 클리어 → 결과 화면(스테이지 클리어)",
+    "R-02 400px 5-1 웨이브 3 두 번째 스폰 시 첫 몬스터 진행도 0.356 (0.18~0.35+여유)",
+    "R-02 400px 5-1 웨이브 7 3마리 동시 출현(진행도 0.717/0.366/0.015)",
+    "U-01/AC16 400px: HUD 띠가 캔버스 위, 키 58px, scrollWidth 400",
+    "데스크톱 5-1 웨이브 7 3마리 스크린샷 확보"
+  ],
+  "failed": [
+    "R-03 17개 스테이지 생성기 사실 600/672 모두 cleanP 통과(과잉 거부 없음)",
+    "웨이브 중 시나리오 수행(twoShot=false, waveSuper=false)"
+  ],
+  "logs": [
+    "facts before=[7,12,20,4,73,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0] after=[7,12,20,4,73,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0]",
+    "import ms=732 gen kept 600/672 leaked=[] p1facts=12",
+    "codex weak rows 0",
+    "divisors {\"ms\":0.09999999962747097,\"sol\":\"36의 약수 1,2,3,4,6,9,12,18,36 / 24의 약수 1,2,3,4,6,8,12,24 → 공약수 중 최대 12\",\"ans\":12,\"lcm0\":0,\"g11\":\"1의 약수 1 / 1의 약수 1 → 공약수 중 최대 1\"}",
+    "xss {\"flags\":[],\"imgs\":0,\"p1\":[\"p_mvn1pnwehl71\",0,\"basic\"]}",
+    "double fire: mid locked=true → correct=1 wrong=0 monsters=0",
+    "boss reach=true wave=10 score=21550 hp=3 gauge=2 correct=46 wrong=1 secs=100",
+    "boss after fire(80ms)+super {\"shields\":1,\"locked\":false,\"state\":\"playing\",\"gained\":800,\"floats\":[\"+800 ×4\"]}",
+    "result {\"view\":\"result\",\"head\":\"🎉 스테이지 클리어!\",\"stars\":0,\"text\":\"2-3 곱셈구구🎉 스테이지 클리어!\\n      25,335🏆 최고 기록 갱신!★★★\\n      정답률98%최대 콤보47평균 반응0.3초남은 HP❤❤❤복수 격파1문제 수49\\n      ✨ 새 획득💥 배지 '콤보 20'\\n      틀린 문제 1개8 × 3 = 24 복수8 × 3 = 24 (8씩 3묶음)상자  2/3🔁 다시 풀기\\n      다시 도전다음 \"}",
+    "400px pacing wave=7 s3=[[\"14와 6의 최소공배수\",0.356],[\"15와 9의 최대공약수\",0.006]] s7=[[\"20과 26의 최대공약수\",0.717],[\"10과 2의 최소공배수\",0.366],[\"10과 15의 최대공약수\",0.015]] mob={\"canvasW\":368,\"hudBottom\":102,\"canvasTop\":102,\"panelTop\":321,\"vh\":800,\"sw\":400,\"keyH\":58} secs=72",
+    "1280 wave7 d7=[[\"20과 28의 최대공약수\",0.7],[\"6과 21의 최소공배수\",0.34],[\"12와 27의 최대공약수\",0]] secs=71"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\reverify-r2\\out\\g4\\reverify-r2\\reverify\\rv2-boss-result.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\reverify-r2\\out\\g4\\reverify-r2\\reverify\\rv2-400-wave3-two.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\reverify-r2\\out\\g4\\reverify-r2\\reverify\\rv2-400-wave7-three.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\reverify-r2\\out\\g4\\reverify-r2\\reverify\\rv2-1280-wave7-three.png"
+  ],
+  "fatal": null,
+  "summary": "20 passed, 2 failed, 0 page errors, 0 console errors"
+}

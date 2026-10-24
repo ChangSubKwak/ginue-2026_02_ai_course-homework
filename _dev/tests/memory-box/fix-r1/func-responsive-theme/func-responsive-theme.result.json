@@ -63,17 +63,17 @@
   "consoleErrors": [],
   "dialogs": [],
   "screenshots": [
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m01-home-400.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m02-deck-400.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m03-history-400.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m04-teacher-400.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m05-modal-400.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m06-session-front-400.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m07-session-back-400.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m08-print-400.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-responsive-theme\\t01-home-dark.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-responsive-theme\\t02-history-dark.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-responsive-theme\\t03-session-dark.png"
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m01-home-400.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m02-deck-400.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m03-history-400.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m04-teacher-400.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m05-modal-400.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m06-session-front-400.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m07-session-back-400.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-responsive-theme\\m08-print-400.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-responsive-theme\\t01-home-dark.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-responsive-theme\\t02-history-dark.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-responsive-theme\\t03-session-dark.png"
   ],
   "fatal": null,
   "summary": "50 passed, 0 failed, 0 page errors, 0 console errors"

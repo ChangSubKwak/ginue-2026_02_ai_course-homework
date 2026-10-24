@@ -110,8 +110,8 @@
   "consoleErrors": [],
   "dialogs": [],
   "screenshots": [
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-settings-data\\d01-teacher.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-settings-data\\d02-settings.png"
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-settings-data\\d01-teacher.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-settings-data\\d02-settings.png"
   ],
   "fatal": null,
   "summary": "99 passed, 0 failed, 0 page errors, 0 console errors"

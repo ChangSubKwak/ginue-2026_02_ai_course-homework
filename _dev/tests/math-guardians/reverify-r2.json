@@ -1,0 +1,71 @@
+{
+  "status": "pass",
+  "round": 2,
+  "verified_at": "2026-10-25",
+  "verdict_reason": "2라운드 수정 대상(신규 major R-01 보스전 필살기 소프트락, minor R-02·R-03)을 소스·브라우저로 직접 재확인해 모두 해결됨. 1라운드 critical 1·major 13은 기존 모듈 전체 재실행(24개 + fix-r2-verify)과 독립 모듈 스폿 체크(C-01·M-06·M-08·U-01·U-03·U-04·U-05·M-04·M-05)에서 회귀 없음. lint 0, pw-check problems 0(페이지 예외·콘솔 오류·가로 스크롤 0). 기존 모듈 1회 실행에서 code-boss 1건 실패가 있었으나 결정적 재현 모듈(boss-weak 2/0)과 단독 재실행으로 '약점 사실이 게임 중 정답 2회로 숙달(box≥2)되어 더 이상 약점이 아닌' 확률적 테스트 전제 문제(앱 결함 아님)로 판정. 잔여 critical/major 0. 신규 발견은 minor 1건(R2-01: 400px 폰에서 긴 라벨 3마리 동시 출현 시 가장 뒤 라벨 일부 가림 — R-02 스폰 상한 완화의 부수 효과)으로 pass 판정에는 영향 없음.",
+  "remaining": [],
+  "resolved_round2": [
+    { "id": "R-01", "severity": "major", "how_verified": "소스: game.js:97 isLocked(m)=G.projectiles.some(p=>p.target===m)로 locked 플래그 제거(fire 208·choose 214·getState 414 사용), useSuper(265-274)는 게이지 소모 전 비행 중 포탄을 hit()로 먼저 명중 처리. 브라우저(reverify-r2/reverify.js): 2-3 보스 방패 3 → 정답 발사 80ms 뒤 useSuper → shields 1·locked false·'+800 ×4' 플로팅(방패 점수 보존) → 다음 정답 발사로 클리어·결과 화면 '스테이지 클리어'(rv2-boss-result.png). 일반 웨이브(reverify-wave.js): 정답 발사 80ms 뒤 필살기 → 몬스터 2→0, 정답 +1·콤보 11→12·게이지 1→0, 플로팅 '+350 ×3','+100'. 추가: 같은 정답 연타 시 두 번째 무시(오답 0·중복 명중 0), 서로 다른 몬스터에 포탄 2발 동시 비행 시 둘 다 명중, 교정 카드 중 필살기·발사 무시(게이지 불변). fix-r2-verify 12/0, code-boss(필살기 전멸)·func-game-core AC6 통과." },
+    { "id": "R-02", "severity": "minor", "how_verified": "소스: game.js:6 SPAWN_MAX_PROGRESS=0.35, spawnClear(146) need=min(0.35×TRAVEL, max(0.18×TRAVEL, 라벨폭+68)). 실측: 5-1 웨이브 3 두 번째 스폰 시 첫 몬스터 진행도 400px 0.356(이전 ~0.63), 데스크톱 fix-r2-verify 0.343, ux-extra 0.412(폴링 지연 포함). 스크린샷 rv2-400-wave3-two.png(2마리 계단식, 모두 판독), rv2-1280-wave7-three.png(3마리 모두 판독). 단 400px 3마리 동시는 R2-01 참조." },
+    { "id": "R-03", "severity": "minor", "how_verified": "소스: app.js:20-27 cleanP가 p 값을 0~10000 정수/불리언만 허용·범위 밖이면 사실 전체 제외, build 결과 answer 유한·key/answerText에 NaN/undefined/Infinity 없음 검사; problems.js:21 divisors √n 탐색. 실측(reverify.js): 악성 p 12종({gcd,a:1e12}, {lcm,b:999999999}, 음수, 소수, 분모 0, ka/kb 누락 dmul, 문자열 값, 알 수 없는 op, 50자 op, pct n:0, fadd d1:0, p 없음) 포함 가져오기 732ms 완료·전부 제외·정상 사실(8×7, 62−27) 유지; 샘플 새로고침 전후 사실 수 118개 동일; 19개 스테이지 생성기 사실 523개 가져오기 523개 전부 보존(과잉 거부 없음, reverify-wave.js); divisors(36)=1,2,3,4,6,9,12,18,36(완전제곱수 중복 없음), gcd(36,24)=12, build 0.1ms." }
+  ],
+  "resolved_round1_regression_check": [
+    { "id": "C-01", "how": "reverify.js: id/name/avatar/skin/grade/fact key·answer·question/wrongKeys/classLabel 페이로드 가져오기 → window.__xss* 0, <img> 0, migrate 타입 강제(avatar 0, skin basic, id p_* 재발급). code-ui 32/0." },
+    { "id": "M-01/M-02", "how": "fix-r1-verify·code-misc·ux-shots(card-column) 통과; ui.js 미변경(07:42) — R2 변경 파일 아님." },
+    { "id": "M-03", "how": "code-blocked.pw 7/0." },
+    { "id": "M-04/F-02", "how": "func-home-data 147/0, code-mobile 5/0, 스크린샷 hall-private--desktop-light.png('내 순위 3/5' + 내 행 1개)." },
+    { "id": "M-05/F-01", "how": "ux-shots settings-pin-gate--desktop-light.png(게이트 안 'JSON 백업'·'샘플 데이터로 초기화' 버튼), acceptance 55/0." },
+    { "id": "M-06", "how": "reverify.js: 몬스터 없을 때 fire('12') → wrong 0·combo 0·state playing." },
+    { "id": "M-07", "how": "fix-r1-verify 통과(전체화면 대상 #game-view), ui.js 미변경." },
+    { "id": "M-08", "how": "reverify.js 9개 스테이지×500회: 소수 스테이지 key '.' 포함 100%, 스테이지 간 key 충돌 0. code-gen.node 73/0, func-static-problems 40/0, code-problems ISSUES {}." },
+    { "id": "U-01", "how": "reverify.js 400×800: HUD 띠 하단 102 = 캔버스 상단 102, 키 58px, scrollWidth 400; 스크린샷 revenge-monster--mobile.png 라벨·'복수!' 판독." },
+    { "id": "U-02", "how": "func-card-layout 12/0, ux-extra card-fit-1366x768 fireFullyVisible true; 스크린샷 card-array-div--desktop-light.png·card-array--mobile.png 발사 버튼 화면 안." },
+    { "id": "U-03", "how": "longlabel-two-monsters.png·rv2-1280-wave7-three.png(데스크톱 2·3마리 모두 판독), rv2-400-wave3-two.png(400px 2마리 판독). 400px 3마리는 R2-01." },
+    { "id": "U-04", "how": "codex-heatmap-hayun--desktop-light.png: 주황·연두 칸 어두운 글자, 초록 칸 흰 글자, 범례 판독." },
+    { "id": "U-05", "how": "codex-weaklist--desktop-light.png: 미획득 배지 이름·조건 글자 판독(아이콘만 흑백)." }
+  ],
+  "new_findings": [
+    {
+      "id": "R2-01",
+      "severity": "minor",
+      "title": "400px 폰에서 긴 라벨 스테이지(5-1 등) 웨이브 7~9에 몬스터 3마리가 동시에 있으면 가장 뒤(최신) 몬스터의 라벨 앞부분이 앞 라벨에 가려짐 (R-02 스폰 상한 0.35의 부수 효과)",
+      "description": "spawnClear의 need 상한(0.35×TRAVEL=301px)이 400px에서 확대된 라벨 폭(upscale 1.6~1.74, 라벨 상자 ≈430~470px)보다 작아 연속 몬스터 라벨이 겹치는데, 렌더의 계단식 배치는 2단(직전 라벨과만 비교, lift 0→1→0)이라 3마리째는 다시 기준 높이로 내려와 1마리째와 같은 단이 된다. 1·3마리째 간격(~600px)은 라벨 폭보다 크지만 라벨 x가 캔버스 안쪽(4~W-bw-4)으로 클램프되면서 두 라벨이 겹쳐 3마리째(가장 오른쪽·최신)의 첫 피연산자가 가려진다('□와 15의 최대공약수'). 가장 앞선 몬스터(답해야 할 대상)는 항상 판독되고 앞 몬스터를 격파하면 해소되므로 플레이는 가능하지만, 느린 학생이 폰에서 5-1·6-3을 할 때 '미리 읽기'가 안 된다. 데스크톱(1280)·태블릿 폭에서는 3마리도 모두 판독됨(라벨 폭 < 301px). 2라운드 전(상한 0.63)에는 400px에서 3마리가 동시에 뜨지 않아 보이지 않던 겹침이라 R-02의 회귀에 해당하나, 조건(폰 폭·긴 라벨 스테이지·웨이브 7+·3마리 적체·최신 몬스터만)이 좁아 minor.",
+      "evidence": "reverify-r2/out/g4/reverify-r2/reverify/rv2-400-wave7-three.png (라벨 '20과 26의 최대공약수'가 오른쪽 '…와 15의 최대공약수'의 앞부분을 덮음), 로그 s7=[['20과 26의 최대공약수',0.717],['10과 2의 최소공배수',0.366],['10과 15의 최대공약수',0.015]]. 비교: rv2-1280-wave7-three.png(데스크톱 3마리 모두 판독), rv2-400-wave3-two.png(400px 2마리 판독). 소스 js/game.js:146(spawnClear 상한), 327(labelRect 클램프), 356-358(2단 계단식).",
+      "suggested_fix": "render의 계단식을 3단으로 확장(겹침 시 lift = (prevLift+1)%3)하거나 겹침 판정을 '이미 그린 모든 라벨' 대상으로 하여 빈 단을 고른다. 또는 upscale>1(폰)일 때 SPAWN_MAX_PROGRESS를 라벨 폭 기준으로 보정(예: min(0.5, (bw+40)/TRAVEL))하거나 긴 라벨을 두 줄로 나눈다."
+    }
+  ],
+  "not_fixed_from_r1_still_open": [
+    { "id": "F-09", "severity": "minor", "note": "결과 화면 '다음 스테이지 ▶'가 다음 판을 바로 시작(README 명시). 수용 기준 8 검증 대상(해금·최고 점수·새로고침 유지)은 통과." },
+    { "id": "m-15", "severity": "minor", "note": "교정 카드 애니메이션 중 물리 키보드 입력 허용(수정팀·재검증팀 사유 타당, 보류)." }
+  ],
+  "test_failures_triage": [
+    { "module": "code-boss.pw (g1 1차 실행)", "failed": "보스 방패 1개는 약점 큐 사실(8−3 또는 9−4)에서 출제", "verdict": "테스트 전제의 확률적 결함(앱 결함 아님)", "reason": "테스트는 '9−4'(판 시작 전)·'8−3'(웨이브 9)을 box 0 약점으로 심고 정답만 쏘는데, 약점 큐가 스폰의 20%로 그 사실을 다시 출제하고 테스트가 맞히면 box가 2가 되어(A7 숙달) 보스 시점에 더 이상 약점이 아니다. 결정적 재현 모듈 reverify-r2/boss-weak.js(웨이브 9 동안 '8−3'을 매 폴링 box 0으로 재주입) → 보스 방패 '5−1 | 8−3 | 6−4'에 포함, 2/0 통과('8−3'이 웨이브 9에 3회 출제됨 확인). 단독 재실행(g7) 결과는 notes 참조. 1라운드 재검증·fix-r2 실행에서도 통과했던 모듈." },
+    { "module": "reverify-r2/reverify.js (독립 모듈)", "failed": "R-03 생성기 사실 600/672, 웨이브 중 시나리오 미수행", "verdict": "테스트 작성 오류", "reason": "672개는 프로필당 facts 600개 상한(migrate slice)에 걸린 것(cleanP 거부 아님) → reverify-wave.js에서 523/523 보존 확인. 웨이브 시나리오는 즉시 격파 루프라 2마리 동시 상태가 생기지 않은 것 → reverify-wave.js에서 대기 후 2건 모두 통과. reverify-wave.js의 1건 실패('17개 스테이지')도 스테이지 수가 19개인 것을 17로 가정한 테스트 오류(kept 523/523, 19개 스테이지 모두 포함)." }
+  ],
+  "acceptance_results": [
+    { "criterion": "AC1 file:// 홈, 24명 번호순, 6명만 기록, 활성 김하늘", "status": "pass", "note": "acceptance 55/0·func-home-data 147/0; pw-check 외부 요청 0(폰트 제외), 스모크 스크린샷 3장 홈 정상." },
+    { "criterion": "AC2 2-3 카드 19,800·★★☆, 3-3 열림·3-4 잠금", "status": "pass", "note": "acceptance '2-3 카드 19,800 ★★', '3-3 열림 / 3-4 잠금'; fix-r1-verify 잠긴 카드 아이콘." },
+    { "criterion": "AC3 WAVE 1 배너 → 몬스터 1마리, 보통 속도 약 12초 도달·하트 3→2·흔들림·피격음", "status": "pass", "note": "func-game-core 96/0(도달 12.0초, ❤❤🖤, damage 효과음·shake), acceptance 동일." },
+    { "criterion": "AC4 정답 발사 → 포탑 회전·명중·파티클·'+100/+150'·점수 증가", "status": "pass", "note": "func-game-core(파티클 12, '+150', 점수 0→150), ux-play play-hit-particles." },
+    { "criterion": "AC5 오답 → 버저·콤보 0·점 배열 카드·정답 후 0.5초 재개·2~4스폰 뒤 '복수!' 2배", "status": "pass", "note": "func-game-core·acceptance; reverify.js 오답 → card → 키보드 정답 → resume; 결과 화면 '복수' 표시·복수 격파 1(rv2-boss-result.png)." },
+    { "criterion": "AC6 5콤보 ×2·200(+보너스), 10콤보 ×3·게이지 1칸·Space 전멸", "status": "pass", "note": "func-game-core AC6, code-boss 'Space 필살기 전멸 100점씩·콤보 유지·게이지 -1'; R-01 수정 후에도 포탄 비행 중 필살기 시 정답 보존 확인." },
+    { "criterion": "AC7 10웨이브 보스 방패 3개·어두워짐·드럼음 → 팡파르·결과·별 1~3", "status": "pass", "note": "func-game-full 34/0(3★), func-game-full2 17/0(2★), code-boss 방패 3개, boss-weak 약점 방패 포함; reverify.js 보스 fire+super 뒤 클리어·결과 '스테이지 클리어 ★★★'." },
+    { "criterion": "AC8 '다음 스테이지' → 다음 카드 해금·최고 점수 갱신·새로고침 유지", "status": "pass", "note": "code-boss(1-3 open·최고 26,750·reload 유지), acceptance 새로고침 유지. 버튼은 다음 판 즉시 시작(F-09 minor)." },
+    { "criterion": "AC9 하트 0 → 게임 오버·별 0·플레이 수 +1", "status": "pass", "note": "acceptance '게임 오버 결과, 별 0, 플레이 수 +1', func-game-modes 57/0, ux-extra 게임 오버 결과." },
+    { "criterion": "AC10 느리게 약 16초, 3분 제한 03:00 카운트다운·시간 종료", "status": "pass", "note": "acceptance '느리게 16000ms', '⏱ 03:00', '시간 종료 결과'; ux-extra hud-time 02:59." },
+    { "criterion": "AC11 4-2 선택지 3개·조준선·키보드 1/2/3, 4-3 '.' 키·'4.20'→4.2", "status": "pass", "note": "acceptance '4-2 선택지 3개', '키보드 1/2/3 격파', '4-3 소수점 키', '6.80→6.8 정답'; code-ui 조준선." },
+    { "criterion": "AC12 HUD 스피커 음소거 → 효과음 없음·새로고침 유지", "status": "pass", "note": "ux-mute 2/0, debug-mute 1/0, extras(muted-header)." },
+    { "criterion": "AC13 2-3 랭킹 최민준/정하윤/김하늘, 비공개 시 내 행·'내 순위 n/N'", "status": "pass", "note": "acceptance 순서 일치; hall-private--desktop-light.png '내 순위 3/5' + 내 행 1개; func-home-data 비공개 11위 밖 처리." },
+    { "criterion": "AC14 이도윤 8×7 빨강·오답 3회 툴팁, 다시 풀기 후 상자 1·주황", "status": "pass", "note": "acceptance '8×7 칸 빨강', '툴팁 오답 3회', 복습 후 0/3→1/3; func-game-core AC14 box-1 색." },
+    { "criterion": "AC15 JSON 백업 → 샘플 초기화 → 복원, 임의 텍스트는 '형식이 맞지 않는 파일입니다'·데이터 불변", "status": "pass", "note": "acceptance 백업 파일명·초기화·확인 모달·복원; code-ui 잘못된 파일 모달. R-03 강화 뒤에도 정상 백업(생성기 사실 523개·샘플 118개) 전부 복원됨." },
+    { "criterion": "AC16 400px 가로 스크롤 없음·캔버스/HUD/키패드 보임·키 ≥56px", "status": "pass", "note": "reverify.js 400×800 scrollWidth 400·키 58px·HUD 띠/캔버스/패널 화면 안; func-responsive 34/0; pw-check mobile overflow 0." },
+    { "criterion": "AC17 localStorage 차단 환경에서 홈·플레이·'저장 불가' 배지", "status": "pass", "note": "code-blocked.pw 7/0, acceptance '차단: 홈 + 경고 배지'." },
+    { "criterion": "AC18 alert/confirm/prompt 없음, 외부 요청은 Google Fonts뿐", "status": "pass", "note": "lint-app issues 0; pw-check failedRequests 0·dialogs 0; 모든 모듈 dialogs 0." }
+  ],
+  "lint_issues": 0,
+  "lint_total_code_lines": 1794,
+  "pw_problems": [],
+  "pw_check": "pageErrors 0, consoleErrors 0, consoleWarnings 0, failedRequests 0, dialogs 0, overflow 0(desktop-light/dark, mobile-light) — _dev/tests/math-guardians/reverify-r2/smoke/*.png 3장 확인(홈 라이트·다크·모바일 정상, 첫 방문 토스트 표시)",
+  "tests_summary": "기존 모듈 24개 재실행(reverify-r2/out/g1~g3, 브라우저 3개 병렬): acceptance 55/0 · code-accept2 4/0 · code-blocked 7/0 · code-mobile 5/0 · code-boss 13/1(→ 단독 재실행 g7 14/0, 결정적 재현 boss-weak 2/0: 테스트 전제의 확률적 플레이크) · code-misc 29/0 · extras 24/0 · debug-mute 1/0 · code-ui 32/0 · func-home-data 147/0 · func-edge 7/0 · func-card-layout 12/0 · func-responsive 34/0 · func-game-core 96/0 · ux-mute 2/0 · ux-theme 8/0 · func-game-full 34/0 · func-game-full2 17/0 · func-game-modes 57/0 · ux-play 13/0 · ux-extra 9/0 · ux-shots 73/0 · fix-r1-verify 22/0 · fix-r1-corrupt 1/0 = 702 passed / 1 failed(재실행 포함 703/0). 수정팀 모듈 fix-r2-verify 12/0(g3: 보스 fire+super → shields 1·locked false·'+800 ×4' → 클리어; 페이싱 1280 0.349 / 400 0.355; 거대 수 가져오기 738ms). node 모듈: code-gen 73/0, code-problems ISSUES {}, func-static-problems 40/0. 독립 모듈: reverify-r2/reverify.js 20/2(실패 2건 모두 테스트 오류 — 600개 상한·즉시 격파 루프), reverify-r2/reverify-wave.js 3/1(실패 1건은 스테이지 수 19를 17로 가정한 테스트 오류, 실제 523/523 보존), reverify-r2/boss-weak.js 2/0. 모든 실행에서 pageErrors 0, consoleErrors 0, dialogs 0.",
+  "notes": "검증 산출물: D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\reverify-r2\\ (run-group.js, reverify.js, reverify-wave.js, boss-weak.js, smoke/ 3장, out/g1~g7, g*.log). R2 변경 파일은 js/game.js·js/app.js·js/problems.js·README.md뿐임을 mtime으로 확인(ui.js·data.js·style.css·index.html은 1라운드 이후 미변경) → 1라운드 UI/CSS 수정 항목은 모듈 재실행·스크린샷으로 회귀 없음 확인. 수정 보고서 주장 중 불일치: 없음(R-01/R-02/R-03 실측 일치). 보고서가 R-02에 대해 '계단식(2단) 배치가 흡수'라고 한 부분은 400px·3마리 동시 출현 조건에서는 성립하지 않음(R2-01 minor, 데스크톱·2마리는 성립). 그 외 관찰: useSuper가 비행 중 포탄을 먼저 명중 처리하므로 정답 발사 직후 필살기에서도 정답·콤보·사실 상자 보존(의도대로). 커밋 없음, 앱 소스 미수정."
+}

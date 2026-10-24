@@ -1,0 +1,26 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "reverify-wave.js",
+  "passed": [
+    "isLocked: 서로 다른 몬스터에 포탄 2발 동시 비행 → 둘 다 명중·오답 없음",
+    "R-01 일반 웨이브: 정답 발사 80ms 뒤 필살기 → 정답 명중 보존(정답 +1·콤보 +1) + 나머지 전멸(+100씩) + 게이지 -1",
+    "웨이브 중 시나리오 2건 수행(twoShot=true, waveSuper=true)"
+  ],
+  "failed": [
+    "R-03 17개 스테이지 생성기 사실 523/523 모두 cleanP 통과(과잉 거부 없음)"
+  ],
+  "logs": [
+    "cleanP kept 523/523 byStage={\"s1-1\":17,\"s1-2\":19,\"s1-3\":30,\"s2-1\":30,\"s2-2\":30,\"s2-3\":25,\"s3-1\":30,\"s3-2\":24,\"s3-3\":30,\"s3-4\":29,\"s4-1\":30,\"s4-2\":28,\"s4-3\":30,\"s5-1\":30,\"s5-2\":30,\"s5-3\":30,\"s6-1\":27,\"s6-2\":26,\"s6-3\":28}",
+    "two shots: locked 2, correct 7→9, wrong 0→0, monsters 0",
+    "wave super(80ms): monsters 2→0, gained 450 (min 400), combo 11→12, gauge 1→0, correct 11→12, floats=[\"+350 ×3\",\"+100\"]",
+    "end wave=4 gauge=0 correct=12 wrong=0 twoShot=true waveSuper=true secs=41"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\reverify-r2\\out\\g6\\reverify-r2\\reverify-wave\\wave-super-after.png"
+  ],
+  "fatal": null,
+  "summary": "3 passed, 1 failed, 0 page errors, 0 console errors"
+}

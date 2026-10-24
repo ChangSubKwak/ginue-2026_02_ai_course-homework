@@ -1,0 +1,14 @@
+{
+  "reverify-r2/reverify-wave": {
+    "passed": 3,
+    "failed": 1,
+    "failedList": [
+      "R-03 17개 스테이지 생성기 사실 523/523 모두 cleanP 통과(과잉 거부 없음)"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 46
+  }
+}

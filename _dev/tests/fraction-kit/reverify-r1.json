@@ -1,0 +1,44 @@
+{
+  "status": "pass",
+  "app": "분수교구함 (fraction-kit)",
+  "verified_at": "2026-10-25",
+  "method": "수정 보고서(fix-r1.json)의 주장을 전제하지 않고 (1) lint-app·pw-check 재실행, (2) 기존 테스트 모듈 16개 전부 재실행, (3) critical·major 결함 18건(중복 포함)을 소스 읽기 + 독립 재현 모듈(reverify-r1.js, 기존 테스트와 다른 입력·경로 77건)로 직접 확인, (4) UX 결함은 ux-shots 재실행 스크린샷 14장을 눈으로 확인, (5) 수용 기준 17개 재판정.",
+  "remaining": [
+    { "id": "F-10", "severity": "minor", "title": "칠판 모드 '좌측 세로 아이콘 바'·400px '전역 도구 → 더 보기 접기'가 스펙과 다르게 구현됨(미수정, README 제한 사항에 명시)", "evidence": "existing/d-83-board-kit-1920.png(제어 패널 240px 유지), reverify/rv-400-more.png(툴바 2줄). README.md 80행에 미구현 명시. 동작 결함은 아니며 원인이 된 F-03(메뉴 잘림)은 해결됨." },
+    { "id": "C-23", "severity": "minor", "title": "F-10과 동일 항목(칠판 모드 아이콘 바 미구현)", "evidence": "fix-r1.json not_fixed. README 제한 사항 기록으로 대체." },
+    { "id": "U-09", "severity": "minor", "title": "(부분 해결) 활동지 막대는 74.7×13.5mm로 색칠 가능해졌으나, 쪽당 6문항 고정이라 1쪽 문항 영역이 A4 높이의 약 53%에 그치고 원 문항(40mm)과 막대 문항(13.5mm) 높이 차가 큼", "evidence": "reverify-r1.result.json 로그 'U-09 worksheet figures' {bar 74.7×13.5mm, circle 40×40mm, page1FillPct 53}, existing/d-70-sheet-initial.png. 핵심 문제(막대가 3.5mm로 색칠 불가)는 해소되어 major → minor로 하향." }
+  ],
+  "new_findings": [
+    { "id": "R-01", "severity": "minor", "title": "비교 탭에서 바꾼 A·B가 교구판 등 다른 탭을 거쳐 연산 탭으로 가면 이어 붙지 않음", "description": "F-02 수정으로 abCarry 플래그는 '비교 → 연산' 직접 전환(state.tab === 'compare' && tab === 'arith')에서만 소비된다. 비교에서 B를 5/6으로 바꾼 뒤 교구판을 잠깐 들렀다가 연산 탭으로 가면 연산 탭 값(1/2, 1/4)이 그대로다. 스펙 흐름('비교·통분 탭 → 덧셈·뺄셈 탭으로 이동하면 마지막 A·B가 그대로 이어져')은 직접 이동이라 충족하지만, 교사가 중간에 다른 탭을 보는 경우 기대와 다를 수 있다. 플래그가 남아 있다가 다음 직접 전환 때 뒤늦게 덮어쓰는 일은 없다(arith 진입 시 해제).", "evidence": "reverify-r1.result.json 로그 'F-02(d) compare→kit→arith: [{1/2},{1/4}]'. app.js 110~114행.", "suggested_fix": "조건을 `changed && tab === 'arith' && tr.abCarry && state.arith.step === 0`으로 완화(직전 탭 조건 제거)하거나 현재 동작을 README에 한 줄 명시. 선택 사항." },
+    { "id": "R-02", "severity": "minor", "title": "학급 집계 입력란을 Backspace로 비우면 즉시 '0'이 채워짐", "description": "F-01 수정 후 input 핸들러가 빈 값을 0으로 정규화해 inp.value='0'을 바로 써넣는다. 이어서 숫자를 치면 '01' → '1'로 정규화되어 결과적으로 '15' 입력은 정상(재현 확인)이지만, 지우자마자 0이 나타나는 동작이 다소 낯설 수 있다. 데이터 오류는 없다.", "evidence": "reverify-r1.result.json 'F-01 Backspace로 지우면 저장값 0 (입력란 \"0\", 저장 0)', '전체 선택→Backspace→15 타이핑 = 15'. cards.js 236~238행.", "suggested_fix": "`if (inp.value === '') return;`을 보정 앞에 두어 빈 값은 그대로 두고(저장은 0) blur 때만 0을 채운다. 선택 사항." }
+  ],
+  "acceptance_results": [
+    { "criterion": "AC1 첫 실행 1/2 상태·세 모델·기호 패널·내장 장면 12/카드 24/세트 2", "status": "pass", "note": "acceptance 6건, func-kit 11건, pw-check 스크린샷 확인" },
+    { "criterion": "AC2 분모 8·3번째 칸 → 3/8, 0.375, 8분의 3, 원 3조각, 수직선 37.5%, 재클릭 2/8", "status": "pass", "note": "acceptance·code-review 통과, rv-kit-1280.png" },
+    { "criterion": "AC3 ×2/×3 색칠 폭 불변·사슬·라벨, 분모 24에서 버튼 비활성+툴팁", "status": "pass", "note": "acceptance 통과(폭 273.76 불변). 재검증: 사슬 가로 한 줄 .fline, 라벨 16px, 학년 상한 적용 시 툴팁 숫자 변경 확인" },
+    { "criterion": "AC4 8/12 합치기 → 4/6 → 2/3, ÷2 라벨 2회, 기약분수 토스트", "status": "pass", "note": "acceptance·code-review 통과. 분자 0 합치기 차단(F-05)도 func-edge 통과" },
+    { "criterion": "AC5 분모 4·분자 7 → 막대·원 2개, 수직선 0~2, 7/4 = 1 3/4, 1.75, 1과 4분의 3; 분모 13 원 조작 무시+캡션", "status": "pass", "note": "acceptance 6건 통과" },
+    { "criterion": "AC6 비교 2/3 vs 3/5 통분 3단계 식·차이 1/15, 겹쳐 보기 반투명+빗금", "status": "pass", "note": "acceptance·func-boards 통과. 같은 분모일 때 식 중복 제거(U-18)도 확인" },
+    { "criterion": "AC7 1/2+1/3 식 전개·결과 막대 5/6, 3/4+3/4 대분수·약분·2단위", "status": "pass", "note": "acceptance 5건 통과" },
+    { "criterion": "AC8 뺄셈 A<B 모달·바꾸기 → 1/6, 오개념 거울 라벨 2/5·13/30", "status": "pass", "note": "acceptance 5건 + 재검증(결과 막대 클릭 예외 없음, 라벨 2/5·13/30)" },
+    { "criterion": "AC9 카드 1/3 vs 1/4 커튼·예측·확인·통분 애니메이션·메시지·해설", "status": "pass", "note": "acceptance 6건, func-cards 통과" },
+    { "criterion": "AC10 학급 집계 9,12,3 → 37.5/50/12.5%, 라벨, 정답 강조, 새로고침 유지", "status": "pass", "note": "acceptance 4건 + 재검증 키보드 타이핑 12·7·11 그대로 입력(F-01), 새로고침 복원" },
+    { "criterion": "AC11 장면 저장·새로고침 유지·불러오기 복원·교사 메모 패널", "status": "pass", "note": "acceptance·func-scenes 통과. 메모 패널은 장면 탭과 같은 탭에서만 표시(C-18) 확인" },
+    { "criterion": "AC12 내보내기 JSON 재가져오기(동일 건너뜀)·비JSON 거부·장면 수 불변", "status": "pass", "note": "acceptance·func-scenes 통과(드롭·파일 선택 모두). 위험 id/op 가져오기 무해화(C-01·C-02) 재검증" },
+    { "criterion": "AC13 카드 6장+정답지 → A4 2쪽, 앱 UI 미출력, 순서 섞기", "status": "pass", "note": "print 미디어 에뮬레이션으로 확인(문항 6·.a4 2쪽·.app-shell none). 실제 Ctrl+P 대화상자는 헤드리스에서 미확인. 문항 0개 인쇄 안내(F-11) 확인" },
+    { "criterion": "AC14 칠판 토글(data-board, 1.5배, 56px, 고대비)·펜 그리기/지우기/끄기·커튼", "status": "pass", "note": "acceptance·func-shell 통과. OS 다크·수동 다크에서도 칠판 흰 배경(C-04) 재검증, 1920 칠판 막대 587×94·칸 번호 31px" },
+    { "criterion": "AC15 400px 가로 스크롤 없음·모델 탭·하단 시트, 1920px 세 모델 나란히", "status": "pass", "note": "6개 탭 모두 overflow 0(400/360px). 더 보기 메뉴 화면 안(F-03), 터치 타깃 44px(F-09), 활성 모델 끄기(F-07) 확인. pw-check 400px 'button right=455/524' 2건은 overflow-x:auto 탭 줄 안의 탭 칩으로 문서 가로 스크롤 없음" },
+    { "criterion": "AC16 localStorage 예외 시 배너 1회·세션 내 저장·내보내기", "status": "pass", "note": "acceptance 'AC16 저장 불가 배너', '세션 내 장면 저장 + 내보내기 가능' 통과, existing/d-86-save-banner.png" },
+    { "criterion": "AC17 칸 클릭→쪼개기→슬라이더 후 Ctrl+Z 3회 역순, 다시하기, 스택 끝 비활성", "status": "pass", "note": "acceptance 6건 통과. 이어 붙이기·자동 재생의 undo 중복(C-20)도 재검증에서 1회 push 확인" }
+  ],
+  "lint_issues": 0,
+  "pw_problems": [],
+  "pw_check": { "consoleErrors": 0, "pageErrors": 0, "failedRequests": 0, "dialogs": 0, "horizontalScroll": "none", "mobileElementsPastRightEdge": "탭 줄(overflow-x:auto) 안 탭 칩 2건 — 허용", "screenshots": "reverify-r1/check/desktop-light.png, desktop-dark.png, mobile-light.png (3장 눈으로 확인: 막대·수직선 라벨 판독 가능, 다크 대비 정상, 400px 모델 탭·하단 시트)" },
+  "tests_summary": "기존 모듈 16개 재실행(reverify-r1/existing/): acceptance 76/0, code-review 76/0, code-review-2 9/0, func-kit 97/0, func-boards 101/0, func-cards 91/0, func-scenes 80/0, func-shell 106/0, func-edge 21/0, should 23/0, ux-shots 1/0(스크린샷 71장), ux-shots-2 1/0(측정), debug-* 4/0 — 합계 686 passed / 0 failed / pageErrors 0 / consoleErrors 0 / dialogs 0. 독립 재검증 모듈 reverify-r1.js(reverify-r1/reverify/): 77 passed / 0 failed / pageErrors 0 / consoleErrors 0(스크린샷 11장). 수정팀의 테스트 변경 3건(func-boards 79행·func-edge 88행·func-shell 46~51행)은 git diff로 확인: U-18 새 출력 형식 반영과 비결정적 비교 수정으로 단언을 약화하지 않음.",
+  "verified_items": {
+    "critical": { "C-01": "id를 ID_RE로 검증·freshId 교체, 모든 data-id/data-pick/data-check/option value escapeHtml(scenes.js 90·100·25~32·233~234, cards.js 55·62~65). svg onload 벡터로 장면·카드·세트·활동지 출처까지 재현 → 실행 0, 세트 cardIds 치환 확인", "C-02": "OP_RE 허용 목록 + escapeHtml(app.js 28·43·213). 태그 op → 사슬 초기화, ×999 → 초기화, 정상 ×2·×3 유지 확인" },
+    "major": { "F-01": "updateTallyBars quiet 갱신(cards.js 95~104·236). 키보드 12·7·11 입력, 포커스 유지, 150→99 보정, 새로고침 복원", "F-02": "tr.abCarry(app.js 25·110~114·156·600~601, scenes.js 60). 직접 입력 유지·1회 이어 붙이기·undo·재방문 미덮어쓰기·불러온 장면 유지 5개 시나리오", "F-03": "720px 이하 .more{position:static}+max-width(style.css 87·471). 400px left 184/right 384, 360px 144/344, 항목 전부 화면 안", "C-03": "bindBoardCells who 가드(app.js 169). 결과 막대·오개념 막대 클릭 pageerror 0", "C-04/U-05": "칠판 팔레트 선택자 :root[data-board=on]·다크 블록 뒤(style.css 40). OS 다크·수동 다크 모두 흰 배경·#1d4ed8, 해제 시 다크 복귀, k-13 스크린샷", "C-05": "_arToken(app.js 385·409·411) + finishAll 반복(render.js 159~162). 뺄셈 이동 중 undo/장면 불러오기 후 1.7초 DOM=상태", "C-06": "estimateTap 목표 자기 분모(app.js 303). ×2 뒤 3/4 자리 → 정확해요, 합치기 뒤 3/8 목표 → 왼쪽으로 1칸", "U-01/F-08/U-14": "1100px+ grid-template-areas(style.css 434~448), 막대 높이 120/160. 1280px 막대 548×66·칸 번호 24px·눈금 19px, 1920 칠판 587×94·31px", "U-02": ".fline 가로 한 줄, eq-label 16px(app.js 213, style.css)", "U-03": "toDecimal gcd 약분 후 2·5 분해(fraction.js 20). 9개 입력값 표 일치", "U-04": "구분자 /\\s+\\/\\s+|\\n/ + 2줄 clamp(scenes.js 30, style.css 308). 내장 12개 메모 미리보기 전부 정상, d-60 스크린샷", "U-06": "F-03과 동일", "U-07": "dims() 모바일 160/104, 라벨 40/34/30px(app.js 12, style.css 491). 400px 연산 칸 번호 21px·행 라벨 19px·눈금 15px, m-14 스크린샷", "U-08": "card-item 2행 grid(style.css 255~262). 질문 영역 283px, 버튼 아래 줄, d-82·rv-cards 스크린샷", "U-09": "height 180 viewBox(scenes.js 212). A4 환산 74.7×13.5mm(이전 3.5mm) — 쪽 하단 공백은 잔여(minor)" },
+    "minor_spot_checked": "F-04(builtin 해제), F-05(0/6 합치기 차단), F-07(모델 토글·400px 전환), F-09(44px), F-11(빈 인쇄 안내), C-08(학년 상한 ×2/×3), C-13(분모 ± 경계), C-18(메모 탭 일치), C-19(3단위 초과 토스트·이동 생략), C-20(undo 1회), U-16(막대 먼저), U-18(비교식 중복 제거·정답지 ≈) — 모두 통과. C-21(PNG 합성)·C-24(전체화면 폴백 라벨)는 소스 읽기로만 확인(헤드리스 재현 불가)."
+  },
+  "notes": "최종 판정 pass: critical·major 잔여 0건, 테스트 실패 0, 페이지 예외 0, 콘솔 오류 0, 가로 스크롤 없음. 잔여 minor 3건(F-10·C-23 미구현 문서화, U-09 쪽 하단 공백)과 신규 minor 2건(R-01 간접 경로 이어 붙이기, R-02 집계 빈 값 즉시 0)은 제출을 막지 않는다. 앱 소스는 수정하지 않았고 커밋도 하지 않았다. 재검증 산출물: _dev/tests/fraction-kit/reverify-r1.js(테스트 모듈), reverify-r1/check(pw-check 3장), reverify-r1/existing(기존 모듈 결과·스크린샷 175장), reverify-r1/reverify(독립 재검증 결과·스크린샷 11장), *.stdout.txt(각 모듈 표준 출력). 처음 실행 시 결과 폴더 인자의 '$m' 확장 오류로 'reverify-r1$m' 폴더에 기록되어 'existing'으로 이름을 바꿨다(결과 내용 영향 없음)."
+}

@@ -1,0 +1,34 @@
+{
+  "fix-r1-verify": {
+    "passed": 21,
+    "failed": 1,
+    "failedList": [
+      "F-13/m-08 명단 CSV 2명 추가(학년·반 5-2) [[\"첫줄학생\",5,2,null]]"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 14
+  },
+  "func-home-data": {
+    "passed": 143,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": "locator.isEnabled: Timeout 30000ms exceeded. | Call log: | \u001b[2m  - waiting for locator('.stage-card[data-stage=\"s1-1\"] .start-btn')\u001b[22m | ",
+    "secs": 57
+  },
+  "func-game-core": {
+    "passed": 96,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 66
+  }
+}

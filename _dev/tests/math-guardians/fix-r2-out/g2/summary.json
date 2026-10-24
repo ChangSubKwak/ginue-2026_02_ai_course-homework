@@ -1,0 +1,72 @@
+{
+  "extras": {
+    "passed": 24,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 22
+  },
+  "debug-mute": {
+    "passed": 1,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 4
+  },
+  "code-ui.pw": {
+    "passed": 32,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 84
+  },
+  "func-home-data": {
+    "passed": 147,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 28
+  },
+  "func-edge": {
+    "passed": 7,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 95
+  },
+  "func-card-layout": {
+    "passed": 12,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 8
+  },
+  "func-responsive": {
+    "passed": 34,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 25
+  }
+}

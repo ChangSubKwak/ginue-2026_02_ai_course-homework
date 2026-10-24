@@ -1,0 +1,64 @@
+{
+  "code-blocked.pw": {
+    "passed": 7,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 8
+  },
+  "code-mobile.pw": {
+    "passed": 5,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 7
+  },
+  "func-card-layout": {
+    "passed": 12,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 7
+  },
+  "ux-extra": {
+    "passed": 8,
+    "failed": 1,
+    "failedList": [
+      "1366x768에서 교정 카드(나눗셈 묶음)의 발사 버튼이 스크롤 없이 보임"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 176
+  },
+  "ux-shots": {
+    "passed": 73,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 122
+  },
+  "debug-mute": {
+    "passed": 1,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 4
+  }
+}

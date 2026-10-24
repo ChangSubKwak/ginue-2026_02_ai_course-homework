@@ -6,7 +6,7 @@
     "편성 전 확정/다시 편성 비활성",
     "AC8 모둠 카드 6개: 6",
     "AC8 각 4명: 4,4,4,4,4,4",
-    "AC8 모둠별 역할 4종 1개씩: [[\"기록이\",\"지킴이\",\"이끔이\",\"나눔이\"],[\"기록이\",\"이끔이\",\"지킴이\",\"나눔이\"],[\"지킴이\",\"나눔이\",\"이끔이\",\"기록이\"],[\"이끔이\",\"나눔이\",\"기록이\",\"지킴이\"],[\"기록이\",\"지킴이\",\"이끔이\",\"나눔이\"],[\"지킴이\",\"이끔이\",\"기록이\",\"나눔이\"]]",
+    "AC8 모둠별 역할 4종 1개씩: [[\"기록이\",\"이끔이\",\"지킴이\",\"나눔이\"],[\"기록이\",\"지킴이\",\"나눔이\",\"이끔이\"],[\"지킴이\",\"이끔이\",\"나눔이\",\"기록이\"],[\"기록이\",\"지킴이\",\"나눔이\",\"이끔이\"],[\"지킴이\",\"나눔이\",\"이끔이\",\"기록이\"],[\"지킴이\",\"이끔이\",\"나눔이\",\"기록이\"]]",
     "기본 모둠 이름 빨강~보라",
     "모둠별 색 띠 상이",
     "편성 리포트 성별 균형 6/6: 편성 리포트성별 균형 모둠 6/6분리 쌍 위반 0건반복 모둠 쌍 0건인원 4·4·4·4·4·4",
@@ -113,11 +113,11 @@
   "consoleErrors": [],
   "dialogs": [],
   "screenshots": [
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\func-groups-present-print\\20-groups.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\func-groups-present-print\\21-present-before.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\func-groups-present-print\\22-present-after.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\func-groups-present-print\\23-print-teacher.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\func-groups-present-print\\24-print-plates.png"
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\func-groups-present-print\\20-groups.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\func-groups-present-print\\21-present-before.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\func-groups-present-print\\22-present-after.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\func-groups-present-print\\23-print-teacher.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\func-groups-present-print\\24-print-plates.png"
   ],
   "fatal": null,
   "summary": "101 passed, 0 failed, 0 page errors, 0 console errors"

@@ -1,0 +1,15 @@
+{
+  "reverify-r2/reverify": {
+    "passed": 20,
+    "failed": 2,
+    "failedList": [
+      "R-03 17개 스테이지 생성기 사실 600/672 모두 cleanP 통과(과잉 거부 없음)",
+      "웨이브 중 시나리오 수행(twoShot=false, waveSuper=false)"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 262
+  }
+}

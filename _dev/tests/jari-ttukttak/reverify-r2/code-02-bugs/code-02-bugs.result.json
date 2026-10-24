@@ -15,7 +15,7 @@
   ],
   "failed": [],
   "logs": [
-    "png saved: C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\out\\b1-saved-png.png name=jari-20261025.png",
+    "png saved: D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\out\\b1-saved-png.png name=jari-20261025.png",
     "png colW: {\"cols\":8,\"colWLen\":8,\"colW\":[110,110,38.5,110,110,38.5,110,110]}",
     "report right after confirm (stale?): 최근 3회 짝 회피: v0 | 같은 좌석 회피: v0",
     "after recompute: repeatSeat v=0, repeatPartner v=0, viol cells=0",
@@ -35,8 +35,8 @@
   "consoleErrors": [],
   "dialogs": [],
   "screenshots": [
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\code-02-bugs\\b2-self-compare.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\code-02-bugs\\b7-initial-seats.png"
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\code-02-bugs\\b2-self-compare.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\code-02-bugs\\b7-initial-seats.png"
   ],
   "fatal": null,
   "summary": "10 passed, 0 failed, 0 page errors, 0 console errors"

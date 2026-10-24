@@ -1,0 +1,20 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/02_학습지도_기억상자/index.html",
+  "test": "dbg-print.js",
+  "passed": [
+    "done"
+  ],
+  "failed": [],
+  "logs": [
+    "print: app display=flex btn=none",
+    "screen: btn=flex vis=52.390625",
+    "click ok (screen)",
+    "click ok (null)"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "1 passed, 0 failed, 0 page errors, 0 console errors"
+}

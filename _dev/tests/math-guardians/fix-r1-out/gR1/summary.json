@@ -1,0 +1,85 @@
+{
+  "acceptance": {
+    "passed": 55,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 193
+  },
+  "extras": {
+    "passed": 24,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 20
+  },
+  "code-accept2.pw": {
+    "passed": 4,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 26
+  },
+  "func-edge": {
+    "passed": 7,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 95
+  },
+  "func-responsive": {
+    "passed": 34,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 25
+  },
+  "ux-mute": {
+    "passed": 2,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 5
+  },
+  "ux-play": {
+    "passed": 13,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 161
+  },
+  "code-ui.pw": {
+    "passed": 30,
+    "failed": 2,
+    "failedList": [
+      "명예의 전당 2-3: 최민준 28,400 / 정하윤 24,150 / 김하늘 19,800",
+      "칸 툴팁에 평균 반응시간이 포함된다(스펙)"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 84
+  }
+}

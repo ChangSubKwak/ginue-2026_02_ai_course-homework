@@ -1,0 +1,60 @@
+{
+  "func-home-data": {
+    "passed": 114,
+    "failed": 1,
+    "failedList": [
+      "CSV 아닌 파일 거부 토스트"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": "page.click: Timeout 30000ms exceeded. | Call log: | \u001b[2m  - waiting for locator('.toolbar [data-action=\"new-profile\"]')\u001b[22m | \u001b[2m    - locator resolved to <button class=\"btn\" data-action=\"new-profile\">＋ 새 프로필</button>\u001b[22m",
+    "secs": 50
+  },
+  "func-game-core": {
+    "passed": 95,
+    "failed": 1,
+    "failedList": [
+      "일시정지 버튼 ▶ 계속하기/그만하기"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 66
+  },
+  "func-edge": {
+    "passed": 6,
+    "failed": 1,
+    "failedList": [
+      "새 프로필 모달에서 Enter 키로 만들기"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 96
+  },
+  "func-card-layout": {
+    "passed": 12,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 8
+  },
+  "func-responsive": {
+    "passed": 33,
+    "failed": 1,
+    "failedList": [
+      "HUD 버튼 44px 이상 (⚡ 필살기:80x40, 음소거 전환:40x40, 일시정지:40x40, 전체화면:40x40)"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 25
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "func-game-full2.js",
+  "passed": [
+    "판 종료 109s",
+    "정답 47·오답 3·미응답 0 (47/3/0)",
+    "교정 카드 3회 모두 점 배열 모델 (3)",
+    "복수 몬스터 3마리 등장·격파 (3/3)",
+    "약점 큐 출제(기존 약점 문제 6회 등장)",
+    "보스 방패 중 1개는 약점 큐 문제 (3×6,8×7,9×7 vs 약점 8×7,8×6,9×8,6×7,6×7,9×7,3×2)",
+    "AC7 정답률 94%(47/50) → 별 2개 (2)",
+    "결과 점수 = 종료 시 점수(무피해 보너스 포함) (25850)",
+    "최고 기록 갱신 리본 (9600→25850)",
+    "통계 정답률 94% | 최대 콤보 47 | 평균 반응 0.2초 | 남은 HP ❤❤❤ | 복수 격파 3 | 문제 수 50",
+    "틀린 문제 카드 3개(복수 표시) 6 × 7 = 42 복수 6 × 7 = 42 (6씩 7묶음) 상자 2/3 | 9 × 7 = 63 복수 9 × 7 = 63 (9씩 7묶음) 상자 3/3 | 3 × 2 = 6 복수 3 × 2 = 6 (3씩 2묶음) 상자 3/3",
+    "오답 사실 상자: 오답 0 → 복수 격파 +1 이상 (2,3,3; 약점 큐 재출제 6회)",
+    "결과 카드 상자 표시 = 실제 상자 (상자 2/3 | 상자 3/3 | 상자 3/3)",
+    "이도윤 2-3 기록 갱신 {\"best\":25850,\"stars\":2,\"plays\":6}",
+    "복습 후 상자 +1(최대 3) (2,3,3 → 3,3,3)",
+    "복습 결과 저장 유지 (3,3,3)",
+    "도감 칸 색 = 상자 값 (hm-cell box-3 | hm-cell box-3 | hm-cell box-3)"
+  ],
+  "failed": [],
+  "logs": [
+    "이도윤 2-3 약점: 8×7,8×6,9×8,6×7",
+    "플레이 109s, wrongKeys=6×7,9×7,3×2, revengeSeen=3, revengeKilled=3, weakSpawns=6, bossShields=3×6,8×7,9×7, final={\"score\":25850,\"correct\":47,\"wrong\":3,\"reached\":0,\"hp\":3}"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r1-out\\gD\\func-game-full2\\result-doyun-2stars.png"
+  ],
+  "fatal": null,
+  "summary": "17 passed, 0 failed, 0 page errors, 0 console errors"
+}

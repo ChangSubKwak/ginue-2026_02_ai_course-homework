@@ -1,0 +1,77 @@
+{
+  "status": "fail",
+  "verdict_reason": "1라운드 결함 목록의 critical 1·major 13건은 모두 소스·브라우저로 직접 확인해 해결됨(잔여 0). lint 0, pw-check problems 0, 기존 모듈 24개 703/0 통과, 페이지 예외·가로 스크롤 없음. 다만 재검증 중 새 major 1건(보스전에서 정답 발사 직후 필살기를 쓰면 보스가 locked 상태로 고착되어 더 이상 공격할 수 없는 소프트락, 재현 확인)이 발견되어 fail. 1라운드 수정이 만든 회귀는 아니며(기존 잠재 결함) 수정은 한 줄 수준.",
+  "remaining": [],
+  "resolved_critical_major": [
+    { "id": "C-01", "how_verified": "reverify.js: 가져오기 JSON의 classLabel·id·name·avatar·grade·classNo·number·skin·theme·facts key/question/answer·history.wrongKeys·badges.id 14종 페이로드 → window.__xss* 플래그 0, <img>/<svg> 0, 인쇄표 이스케이프 확인. migrate가 avatar 0, grade/classNo/number null, skin basic, theme meadow, id p_* 재발급, 알 수 없는 배지 제거(실측). code-ui.pw XSS 프로브 2종도 미실행." },
+    { "id": "M-01", "how_verified": "renderHint column 실측: 47+38 marks ['', '1', ''], 657+268 ['', '1', '1', ''], 85+76 최상위 넘침 1은 연산자 열 ['1','1',''] + res 161." },
+    { "id": "M-02", "how_verified": "503−178 marks ['', '4', '9', '13'](−1 없음), 600−178 ['', '5', '9', '10'], 62−27 ['', '5', '12'], 45−23 표시 없음. 스크린샷 shots/card-column--desktop-light.png(82−13: 7·12 빨간 표시)." },
+    { "id": "M-03", "how_verified": "code-blocked.pw 7/7(localStorage getter SecurityError 주입 상태에서 학년 탭·명예의 전당 탭 전환 동작). ui.js UI.gradeTab/UI.hallTab 메모리 상태 확인." },
+    { "id": "M-04 / F-02", "how_verified": "reverify.js: 2-3 기록 17명·비공개·활성 17위 → '내 순위 17/17' + 내 행 1개, 빈 상태 문구 없음; 공개 모드에서는 상위 10 + 내 행(17위) 덧붙임(11행). func-home-data 147/0, code-mobile 5/0." },
+    { "id": "M-05 / F-01", "how_verified": "reverify.js: PIN 4321 설정 → 게이트 안 'JSON 백업'·'샘플 데이터로 초기화' 버튼 표시 → 초기화 확인 모달 → 샘플 복귀·PIN null·게이트 해제. 스크린샷 shots/settings-pin-gate--desktop-light.png." },
+    { "id": "M-06", "how_verified": "game.js wrong()이 대상 없으면 즉시 return. 배너 중 fire('12') → wrong 0, combo 0, 모달 0(reverify.js·fix-r1-verify)." },
+    { "id": "M-07", "how_verified": "fullscreen 대상 #game-view가 캔버스·HUD·#input-panel 포함(DOM 확인), .game-view:fullscreen 스타일 존재." },
+    { "id": "M-08", "how_verified": "reverify.js 9개 스테이지×500회: 4-3/5-3/6-2 모두 '.' 포함, 1-1·2-3·3-2·3-3·4-1·소수 스테이지 간 key 교차 충돌 0. code-gen.node 73/0(4,000회 intOps 0)." },
+    { "id": "U-01", "how_verified": "400×800: HUD 띠 하단(102px)=캔버스 상단(102px)으로 캔버스를 덮지 않음, 라벨 CSS 18.7px(upscale 1.74), 키 58px, scrollWidth 400. 스크린샷 extra/revenge-monster--mobile.png, shots/game-longlabel-ratio--mobile.png에서 라벨·'복수!' 태그 판독 가능." },
+    { "id": "U-02", "how_verified": "func-card-layout 12/12, ux-extra card-fit-1366x768 fireFullyVisible true, 1280×800 56÷7 묶음 카드 2열 배치 스크린샷 shots/card-array-div--desktop-light.png(발사 버튼 화면 안)." },
+    { "id": "U-03", "how_verified": "extra/longlabel-two-monsters.png: 5-1 웨이브 3 두 라벨이 계단식(연결선)으로 분리되어 모두 판독 가능; wave7-three-monsters.png 겹침 없음. spawnClear가 라벨 폭+68px 기준으로 동작(소스)." },
+    { "id": "U-04", "how_verified": "reverify2.js: .hm-cell.box-1/.box-2 및 범례 글자색 rgb(15,22,48)(--night), box-3 흰색, 15.2px bold. 스크린샷 shots/codex-heatmap-hayun--desktop-light.png." },
+    { "id": "U-05", "how_verified": "미획득 .badge opacity 1·filter none, 아이콘만 흑백, 조건 글자 13.6px '🔒 …'. 스크린샷 shots/codex-weaklist--desktop-light.png." }
+  ],
+  "new_findings": [
+    {
+      "id": "R-01",
+      "severity": "major",
+      "title": "보스전에서 정답 발사 직후(포탄 비행 180ms 안) 필살기를 쓰면 보스가 locked 상태로 고착되어 더 이상 공격할 수 없음(소프트락)",
+      "description": "fire()→shoot(boss)는 boss.locked=true로 두고 포탄 명중(hit) 시에만 locked=false로 되돌린다. 그런데 useSuper()는 보스 방패 1개를 깬 뒤 G.projectiles=[]로 비행 중 포탄을 모두 지우므로 hit()가 호출되지 않아 locked가 영구히 true로 남는다. 이후 fire()는 cands(locked 아닌 후보)가 비어 '이미 조준된 몬스터만 있으면 무시' 분기로 조용히 리턴하고 choose()도 tgt.locked로 리턴해, 남은 방패를 어떤 정답으로도 깰 수 없다. 보스는 성에 도달해 HP −2 후 후퇴를 반복하고(필살기 게이지가 남아 있어야 방패 1개씩만 더 깰 수 있음) 결국 게임 오버/시간 종료로 끝난다. 정답으로 쏜 포탄의 점수도 사라진다. 발생 조건은 Enter 직후 Space(또는 발사→필살기 버튼 연타) 180ms 이내의 입력 경쟁이라 빈도는 낮지만, 결과가 '클리어 불가'라 major로 분류한다(1라운드 수정과 무관한 기존 잠재 결함).",
+      "evidence": "reverify-r1/out/reverify/reverify.result.json logs: 'boss after fire+super {shields:2, locked:true, state:playing}' → 다음 방패 정답 발사 후 'boss after next fire {shields:2, locked:true}' (expect FAIL '회귀 후보: 정답 발사 직후 필살기 뒤에도 보스를 계속 공격할 수 있다'). 소스: js/game.js:205-208(fire의 locked 필터), 216-221(shoot), 264-271(useSuper의 projectiles 초기화), 223-225(hit에서만 locked 해제).",
+      "suggested_fix": "useSuper()에서 보스 분기 처리 시 b.locked = false로 되돌리거나(또는 보스를 향한 포탄은 지우지 않고 유지), 포탄을 비울 때 대상 몬스터의 locked를 모두 해제한다: G.projectiles.forEach(p => { p.target.locked = false; }); G.projectiles = [];. 추가로 보스가 locked인 상태에서 성에 도달(reach)하면 locked를 해제하는 안전장치를 두면 어떤 경로로도 고착되지 않는다."
+    },
+    {
+      "id": "R-02",
+      "severity": "minor",
+      "title": "라벨 폭 기준 스폰 간격(U-03 수정)으로 긴 라벨 스테이지(5-1·6-3 등)는 웨이브 3 이상에서 다음 스폰이 스펙(2.8~1.6초·progress 0.18)보다 늦어짐 — 특히 폰(upscale 1.74)에서 두드러짐",
+      "description": "spawnClear는 직전 몬스터가 '자기 라벨 폭+68px'만큼 전진해야 다음을 내보낸다. 데스크톱(라벨 28px) 5-1은 약 progress 0.39(웨이브 3 기준 ~4초), 400px 폰(라벨 49px)은 약 0.63(~6.8초)이 되어 동시 출현 상한(2~3마리)에 거의 도달하지 못하고 한 판이 길어진다. 답을 빨리 맞히는 학생은 영향이 없지만(화면이 비면 즉시 스폰), 느린 학생은 5분 제한에 더 가까워진다. 겹침 방지라는 목적은 달성했으므로 minor.",
+      "evidence": "ux-extra 'longlabel monsters' [['10과 6의 최대공약수',0.435],['6과 7의 최소공배수',0.096]] (웨이브 3, 두 번째 스폰 시 첫 몬스터 progress≈0.39). 소스 js/game.js:144.",
+      "suggested_fix": "긴 라벨은 두 줄로 나눠 폭을 줄이거나(텍스트 폭 > 220이면 2줄), spawnClear의 need 상한을 TRAVEL×0.35 정도로 두고 겹침은 렌더의 계단식 배치(이미 구현)로 흡수한다."
+    },
+    {
+      "id": "R-03",
+      "severity": "minor",
+      "title": "migrate()/cleanP()가 가져온 facts.p의 숫자 범위를 제한하지 않아 거대한 수(예 {op:'gcd', a:1e12})가 들어오면 build()의 divisors() 루프로 탭이 멈춤",
+      "description": "cleanP는 p의 값이 유한한 숫자인지만 확인하고 build()를 호출한다. gcd/lcm 빌더의 divisors(n)은 1..n 선형 루프라 a=3e7에서 ~108ms, 1e9에서 수 초, 1e12 이상이면 사실상 무한 대기가 된다. 조작된 백업을 가져오거나(확인 모달 이후 replaceRoot에서 실행) 그런 데이터가 저장된 뒤에는 부팅(boot→migrate)마다 멈춘다. 정상 앱이 만드는 데이터로는 발생하지 않으므로 minor.",
+      "evidence": "reverify.js log 'build gcd a=3e7 ms=108'. 소스 js/app.js:22-26(cleanP), js/problems.js:20(divisors), 149-154.",
+      "suggested_fix": "cleanP에서 숫자 값을 0~10000(분모·소수 스케일 포함) 범위로 제한하고 범위 밖이면 null 반환; divisors는 sqrt(n) 탐색으로 바꾼다."
+    }
+  ],
+  "not_fixed_from_r1_still_open": [
+    { "id": "F-09", "severity": "minor", "note": "결과 화면 '다음 스테이지 ▶'가 맵이 아니라 다음 스테이지 게임을 바로 시작(README에 명시). 수용 기준 8의 검증 대상(맵 해금·최고 점수·새로고침 유지)은 통과." },
+    { "id": "m-15", "severity": "minor", "note": "교정 카드 애니메이션 중 물리 키보드 입력은 열려 있음(포인터만 잠금). 수정팀 사유 타당." }
+  ],
+  "acceptance_results": [
+    { "criterion": "AC1 file:// 홈, 24명 번호순, 6명만 기록, 활성 김하늘", "status": "pass", "note": "acceptance.js·func-home-data: 24명 번호순, 기록 6명 일치, 활성 김하늘(1번). pw-check 외부 요청 0(폰트 제외)." },
+    { "criterion": "AC2 2-3 카드 19,800·★★☆, 3-3 열림·3-4 잠금", "status": "pass", "note": "acceptance.js '2-3 카드 19,800 ★★', '3-3 열림 / 3-4 잠금'; fix-r1-verify 잠긴 카드 아이콘·안내·버튼 비활성." },
+    { "criterion": "AC3 WAVE 1 배너 → 몬스터 1마리 a×b, 보통 속도 약 12초 도달·하트 3→2·흔들림·피격음", "status": "pass", "note": "func-game-core: 게임시간 12.03s/실제 11.96s 도달, ❤❤🖤, damage 호출, shake 코드 확인. acceptance 12000ms." },
+    { "criterion": "AC4 정답 발사 → 포탑 회전·명중·파티클·'+100/+150'·점수 증가", "status": "pass", "note": "func-game-core: 파티클 12개, '+150', 점수 0→150, 포커스 이동 없음, 입력창 초기화." },
+    { "criterion": "AC5 오답 → 버저·콤보 0·점 배열 카드·정답 입력 후 0.5초 재개·2~4스폰 뒤 '복수!' 2배 점수", "status": "pass", "note": "func-game-core: 8×1 카드 8행, wrong 효과음, resume 0.5초, 복수 2번째 스폰, +300 '복수!'. acceptance 동일." },
+    { "criterion": "AC6 5콤보 ×2·다음 격파 200(+보너스), 10콤보 ×3·게이지 1칸·Space 전멸", "status": "pass", "note": "func-game-core: '×2 COMBO!', +250 ×2, 콤보 10 → ×3·게이지 1, Space → 몬스터 0·+100씩·콤보 유지." },
+    { "criterion": "AC7 10웨이브 보스 방패 3개·배경 어두워짐·드럼음 → 팡파르·결과·별 1~3", "status": "pass", "note": "func-game-full(34/0) 1-1 무결점 3★, func-game-full2 94% → 2★, code-boss 14/0 방패 3개 서로 다른 문제. 단 R-01(정답 직후 필살기 시 보스 고착) 신규 major." },
+    { "criterion": "AC8 '다음 스테이지' → 맵에서 다음 카드 해금·최고 점수 갱신·새로고침 유지", "status": "pass", "note": "code-boss(한수아 1-2 클리어 → 1-3 open·최고 26,750·reload 유지), acceptance '새로고침 후 기록 유지'. 버튼은 다음 판을 바로 시작(F-09 minor, README 명시)." },
+    { "criterion": "AC9 하트 0 → 게임 오버·별 0·플레이 수 +1", "status": "pass", "note": "acceptance '게임 오버 결과, 별 0, 플레이 수 3→4'; func-game-modes 57/0." },
+    { "criterion": "AC10 느리게 약 16초, 3분 제한 03:00 카운트다운·시간 종료 결과", "status": "pass", "note": "acceptance '느리게 성 도달 16000ms', '⏱ 03:00', '시간 종료 결과'(제한값 축소로 검증); ux-extra hud-time 02:59." },
+    { "criterion": "AC11 4-2 선택지 3개·조준선·키보드 1/2/3, 4-3 '.' 키·'4.20'→4.2 정답", "status": "pass", "note": "acceptance '4-2 선택지 3개, 키패드 없음', '키보드 1/2/3 선택 격파', '4-3 소수점 키', ''6.80' 입력도 6.8로 정답'; code-ui 조준선 픽셀 검사." },
+    { "criterion": "AC12 HUD 스피커 음소거 → 효과음 없음·새로고침 유지", "status": "pass", "note": "reverify.js: 음소거 후 격파 시 createOscillator/createBufferSource 0회, reload 후 muted true·툴바 🔇. ux-mute 2/0." },
+    { "criterion": "AC13 2-3 랭킹 최민준/정하윤/김하늘, 비공개 시 내 행·내 순위 n/N", "status": "pass", "note": "acceptance 순서 일치; 비공개 '내 순위 3/5'(스크린샷 hall-private); reverify.js 17명 중 17위 '17/17'·공개 모드 상위10+내 행." },
+    { "criterion": "AC14 이도윤 8×7 빨강·오답 3회 툴팁, 다시 풀기 후 상자 1·주황", "status": "pass", "note": "acceptance '8×7 칸 빨강(box-0)', '툴팁 오답 3회', 복습 후 0/3→1/3; func-game-core AC14 box-1 rgb(243,147,44). 툴팁에 평균 반응시간 추가(m-04)." },
+    { "criterion": "AC15 JSON 백업 → 샘플 초기화 → 복원, 임의 텍스트 파일은 '형식이 맞지 않는 파일입니다' 모달·데이터 불변", "status": "pass", "note": "acceptance 백업 파일명·초기화·확인 모달·복원; reverify2.js: notes.txt 선택 → '형식이 맞지 않는 파일입니다…(선택한 파일: notes.txt)' 모달, 손상 .json도 모달, 프로필 목록 불변(F-11 해결 확인)." },
+    { "criterion": "AC16 400px 가로 스크롤 없음·캔버스/HUD/키패드 보임·키 ≥56px", "status": "pass", "note": "reverify.js 400×800: scrollWidth 400, 키 58px, HUD 띠·캔버스·패널 모두 화면 안; func-responsive 34/0; pw-check mobile overflow 0." },
+    { "criterion": "AC17 localStorage 차단 환경에서 홈·플레이 가능·'저장 불가' 배지", "status": "pass", "note": "code-blocked.pw 7/7(배지·storageOk false·1-1 플레이·학년/랭킹 탭 전환), acceptance 'localStorage 차단: 홈 표시 + 경고 배지'." },
+    { "criterion": "AC18 alert/confirm/prompt 없음, 외부 요청은 Google Fonts뿐", "status": "pass", "note": "lint-app issues 0; pw-check failedRequests 0·dialogs 0; 모든 모듈 dialogs 0; grep 결과 alert/confirm/prompt 호출 0건." }
+  ],
+  "lint_issues": 0,
+  "lint_total_code_lines": 1789,
+  "pw_problems": [],
+  "pw_check": "pageErrors 0, consoleErrors 0, consoleWarnings 0, failedRequests 0, dialogs 0, overflow 0(desktop-light/dark, mobile-light) — _dev/tests/math-guardians/reverify-r1/smoke/*.png 3장 확인(홈 라이트·다크·모바일 정상)",
+  "tests_summary": "기존 모듈 24개 재실행(reverify-r1/out/g1~g4): acceptance 55/0 · code-accept2 4/0 · code-blocked 7/0 · code-mobile 5/0 · code-boss 14/0 · code-misc 29/0 · extras 24/0 · debug-mute 1/0 · code-ui 32/0 · func-home-data 147/0 · func-edge 7/0 · func-card-layout 12/0 · func-responsive 34/0 · func-game-core 96/0 · func-game-full 34/0 · func-game-full2 17/0 · func-game-modes 57/0 · ux-mute 2/0 · ux-theme 8/0 · ux-play 13/0 · ux-extra 9/0 · ux-shots 73/0 · fix-r1-verify 22/0 · fix-r1-corrupt 1/0 = 703 passed / 0 failed, pageErrors 0, dialogs 0. node 모듈: code-gen 73/0, code-problems ISSUES {}, func-static-problems 40/0. 신규 독립 모듈 reverify.js 23/2(실패 2건 중 1건은 R-01 앱 결함, 1건은 테스트 선택자 오류로 reverify2.js에서 재확인 통과; 콘솔 오류 12건은 테스트 자체의 file:// fetch CORS로 앱과 무관) · reverify2.js 3/1(실패 1건은 기대 색상값 오기 — 실측 --night rgb(15,22,48)로 정상).",
+  "notes": "검증 산출물: D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\reverify-r1\\ (run-group.js, reverify.js, reverify2.js, smoke/, out/). 수정 보고서의 주장 중 확인한 불일치: 없음(65건 수정 주장 중 critical/major 14건 전부 실측 일치). 기존 테스트 모듈 9개 수정 사유도 소스와 대조해 타당함(예: 필살기 격파는 사실 상자 변동 없음 → answered 보정, 보스 방패 중복 회피 등). 회귀 탐지: U-26(스폰 x=W+40) 뒤에도 도달 시간 12.00~12.03초 유지, U-14 키패드 12키·0 두 칸, U-01 HUD 분리 뒤 데스크톱 HUD 오버레이는 그대로, M-06 뒤에도 정상 오답 흐름(카드·복수) 동작. 신규 R-01은 1라운드 수정이 만든 회귀가 아니라 기존 잠재 결함이지만 보스전을 클리어 불가 상태로 만들어 major로 분류했다. R-02·R-03은 minor."
+}

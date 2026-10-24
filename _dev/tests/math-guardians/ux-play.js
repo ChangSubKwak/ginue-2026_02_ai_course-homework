@@ -62,7 +62,9 @@ module.exports = async ({ page, expect, log, sleep }) => {
   await multi('result-clear');
   // 복습 모달
   const hasReview = await page.$('[data-action="review"]');
-  if (hasReview) { await page.click('[data-action="review"]'); await sleep(1400); await multi('review-modal', false); await solveCard(); await sleep(500); await snap('result-after-review'); }
+  // fix-r1: 복습 카드는 게임 몬스터가 아니므로 결과 화면의 틀린 문제 카드에서 정답을 읽어 입력한다(기존 solveCard는 끝난 게임의 몬스터 목록을 참조해 아무것도 입력하지 않았음)
+  const solveReview = async () => { await page.evaluate(() => { const q = document.querySelector('.card-modal .card-q').textContent.replace(/\s*=\s*\?\s*$/, '').trim(); const card = [...document.querySelectorAll('.wrong-card')].find(c => c.querySelector('.wq').textContent.trim().startsWith(q)); const ans = card && card.querySelector('.wq b').textContent.trim(); const p = window.__app.MG.Pad.active; if (!ans || !p) return; if (p.type === 'choice3') p.key(String(p.choices.indexOf(ans) + 1)); else { for (const ch of ans) p.key(ch); p.key('fire'); } }); await sleep(800); };
+  if (hasReview) { await page.click('[data-action="review"]'); await sleep(1400); await multi('review-modal', false); for (let i = 0; i < 5 && await page.$('.card-modal'); i++) await solveReview(); await sleep(500); await snap('result-after-review'); }
   // 다음 스테이지 버튼 → 홈 3학년 카드 상태
   await page.click('[data-action="nav"][data-view="home"]'); await sleep(200);
   await page.click('[data-action="grade-tab"][data-grade="2"]'); await sleep(200); await snap('home-after-clear-g2');

@@ -1,0 +1,18 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "debug-mute.js",
+  "passed": [
+    "x"
+  ],
+  "failed": [],
+  "logs": [
+    "clicked",
+    "{\"r\":[782.8125,16,44,44],\"top\":\"BUTTON.hud-btn icon\",\"pe\":\"auto\"}"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "1 passed, 0 failed, 0 page errors, 0 console errors"
+}

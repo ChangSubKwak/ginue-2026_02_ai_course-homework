@@ -1,0 +1,12 @@
+{
+  "reverify-r2/boss-weak": {
+    "passed": 2,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 109
+  }
+}

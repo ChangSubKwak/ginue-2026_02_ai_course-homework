@@ -119,15 +119,15 @@
   "consoleErrors": [],
   "dialogs": [],
   "screenshots": [
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-shell\\sheet.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-shell\\theme-dark.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-shell\\board.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-shell\\curtain.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-shell\\dark-compare.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-shell\\mobile-kit-sheet.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-shell\\mobile-cards.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-shell\\mobile-sheet.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-shell\\desktop-1920.png"
+    "fix-r1\\func-shell\\sheet.png",
+    "fix-r1\\func-shell\\theme-dark.png",
+    "fix-r1\\func-shell\\board.png",
+    "fix-r1\\func-shell\\curtain.png",
+    "fix-r1\\func-shell\\dark-compare.png",
+    "fix-r1\\func-shell\\mobile-kit-sheet.png",
+    "fix-r1\\func-shell\\mobile-cards.png",
+    "fix-r1\\func-shell\\mobile-sheet.png",
+    "fix-r1\\func-shell\\desktop-1920.png"
   ],
   "fatal": null,
   "summary": "106 passed, 0 failed, 0 page errors, 0 console errors"

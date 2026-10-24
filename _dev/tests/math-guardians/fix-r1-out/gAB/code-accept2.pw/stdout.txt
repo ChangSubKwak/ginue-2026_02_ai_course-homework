@@ -1,0 +1,21 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "code-accept2.pw.js",
+  "passed": [
+    "AC2 2-3 카드 19,800 ★★☆ / 3-3 열림 / 3-4 잠금 아이콘",
+    "AC3 보통 속도 약 12초 도달, 하트 3→2"
+  ],
+  "failed": [],
+  "logs": [
+    "AC2: 2-3 \"최고 19,800\" \"★★☆\"; 3-3 \"stage-card open\"; 3-4 \"stage-card locked\" \"🔒 잠김\"",
+    "AC3: reached after 11983ms hearts=\"❤❤🖤\" reached=1 combo=0"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r1-out\\gAB\\code-accept2.pw\\code-home-grade3.png"
+  ],
+  "fatal": "page.click: Timeout 30000ms exceeded. | Call log: | \u001b[2m  - waiting for locator('[data-action=\"review\"]')\u001b[22m | \u001b[2m    - locator resolved to <button class=\"btn primary\" data-action=\"review\">🔁 다시 풀기</button>\u001b[22m",
+  "summary": "2 passed, 0 failed, 0 page errors, 0 console errors, FATAL"
+}

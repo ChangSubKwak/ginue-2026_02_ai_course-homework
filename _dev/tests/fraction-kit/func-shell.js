@@ -46,8 +46,10 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   expect(changes >= 3, 'AC13 순서 섞기 누를 때마다 재섞임 (' + changes + '/6 변경)');
   const pvOrder = await page.locator('#sheet-preview .ws-item .ws-num').allInnerTexts();
   expect(pvOrder.join() === '1,2,3,4,5,6', '미리보기 번호 재부여');
+  const liTexts = () => page.locator('#sheet-items li').allInnerTexts(); // 유형 배지 포함(1/4 색칠·1/4 수직선처럼 분수만 같은 문항 구분)
+  const beforeMove = (await liTexts()).join('|');
   await page.click('#sheet-items li:nth-child(2) [data-wmove="-1"]'); await sleep(50);
-  expect((await page.locator('#sheet-items .ws-item-fr').allInnerTexts()).join() !== prev, '문항 ↑ 이동');
+  expect((await liTexts()).join('|') !== beforeMove, '문항 ↑ 이동');
   await page.click('#sheet-items [data-wdel="0"]'); await sleep(50);
   expect(await page.locator('#sheet-items li').count() === 5, '문항 삭제 → 5');
   // 설정 반영

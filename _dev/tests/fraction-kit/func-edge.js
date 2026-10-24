@@ -85,7 +85,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   const ans = await page.evaluate(() => window.FK.sheet.answerOf({ type: 'arith', a: { n: 3, d: 4 }, b: { n: 1, d: 6 }, op: '-' }));
   expect(ans === '7/12', '뺄셈 정답 7/12: ' + ans);
   const ans2 = await page.evaluate(() => window.FK.sheet.answerOf({ type: 'write', a: { n: 8, d: 12 } }));
-  expect(ans2 === '8/12 = 2/3 = ≈0.667', '분수 쓰기 정답(기약·소수): ' + ans2);
+  expect(ans2 === '8/12 = 2/3 ≈ 0.667', '분수 쓰기 정답(기약·소수, "= ≈" 겹침 없음): ' + ans2); // U-18 수정 반영
   const ans3 = await page.evaluate(() => window.FK.sheet.answerOf({ type: 'arith', a: { n: 1, d: 3 }, b: { n: 1, d: 2 }, op: '-' }));
   expect(ans3.includes('뺄 수 없음'), 'A<B 뺄셈 문항 정답 문구: ' + ans3);
   await shot('edge-sheet');

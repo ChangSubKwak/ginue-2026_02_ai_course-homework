@@ -1,0 +1,18 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "fix-r1-corrupt.js",
+  "passed": [
+    "A. 손상 데이터 → .corrupt 보관 + 재시딩 + 토스트"
+  ],
+  "failed": [],
+  "logs": [
+    "A: toasts=[\"저장 데이터가 손상되어 샘플로 다시 시작했어요(원본은 보관됨)\"] kept=\"{broken json\" profiles=24",
+    "B: toasts=[] kept=null raw={\"schemaVersion\":1,\""
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "1 passed, 0 failed, 0 page errors, 0 console errors"
+}

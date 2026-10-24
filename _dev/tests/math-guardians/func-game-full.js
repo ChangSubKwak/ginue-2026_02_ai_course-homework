@@ -20,7 +20,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   const tStart = Date.now();
 
   // 자동 플레이: 살아 있는 미조준 몬스터를 즉시 격파, 웨이브별 스폰 수·동시 수 기록
-  const seen = new Set(); const perWave = {}; const maxLive = {}; let adaptSeen = '', adaptMax = 1, bossSeen = null, bossShieldKeys = {}, waveBannerSeen = new Set(), combo20 = false, superUsed = false, lastWave = 0, waveClearFloat = 0, hudTimeSeen = '', lastShot = null;
+  const seen = new Set(); const perWave = {}; const maxLive = {}; let adaptSeen = '', adaptMax = 1, bossSeen = null, bossShieldKeys = {}, waveBannerSeen = new Set(), combo20 = false, superUsed = false, superKilled = 0, lastWave = 0, waveClearFloat = 0, hudTimeSeen = '', lastShot = null;
   let g = await game();
   while (g && g.state !== 'ended' && Date.now() - tStart < 330000) {
     for (const m of g.monsters) if (!seen.has(m.id)) { seen.add(m.id); perWave[g.wave] = (perWave[g.wave] || 0) + 1; if (m.isBoss) { bossSeen = m; } }
@@ -35,7 +35,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
       if (tgt) {
         if (tgt.isBoss) { bossShieldKeys[tgt.shields] = tgt.key; if (tgt.shields === 1) lastShot = { score: g.score, combo: g.combo }; }
         // 콤보 10 이후 필살기 1회 사용(일반 웨이브)
-        if (!superUsed && g.superGauge >= 1 && !tgt.isBoss) { await page.keyboard.press('Space'); superUsed = true; await sleep(80); g = await game(); continue; }
+        if (!superUsed && g.superGauge >= 1 && !tgt.isBoss) { superKilled = g.monsters.filter(m => !m.isBoss).length; await page.keyboard.press('Space'); superUsed = true; await sleep(80); g = await game(); continue; }
         await page.evaluate(a => window.__app.actions.fire(a), tgt.answerText);
         await sleep(230);
       } else await sleep(70);
@@ -58,7 +58,9 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   expect(adaptMax > 1.0 && adaptSeen.includes('▲'), `적응형 난이도 상승·HUD ▲ 표시 (max ${adaptMax}, '${adaptSeen}')`);
   const snd = await sounds();
   expect(snd.includes('boss') && snd.includes('fanfare') && snd.filter(x => x === 'waveClear').length === 9, `보스 드럼·팡파르·웨이브 클리어 9회 효과음 (boss=${snd.filter(x => x === 'boss').length}, fanfare=${snd.filter(x => x === 'fanfare').length}, waveClear=${snd.filter(x => x === 'waveClear').length})`);
-  expect(g && g.hp === 3 && g.wrong === 0 && g.reached === 0 && g.correct === 50, `무결점: HP 3·정답 50·오답 0·미응답 0 (correct=${g && g.correct}, wrong=${g && g.wrong}, reached=${g && g.reached})`);
+  // 필살기로 제거한 몬스터는 스펙상 '답한 문제'가 아니므로(사실 상자 변동 없음) 정답 수 = 50 − 필살기 격파 수
+  const answered = 50 - superKilled;
+  expect(g && g.hp === 3 && g.wrong === 0 && g.reached === 0 && g.correct === answered, `무결점: HP 3·정답 ${answered}(=50−필살기 ${superKilled})·오답 0·미응답 0 (correct=${g && g.correct}, wrong=${g && g.wrong}, reached=${g && g.reached})`);
   log(`종료 점수 ${g && g.score}, maxCombo? combo=${g && g.combo}`);
 
   // 결과 화면
@@ -71,7 +73,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   const bossPts = lastShot ? 500 * (lastShot.combo < 5 ? 1 : lastShot.combo < 10 ? 2 : lastShot.combo < 20 ? 3 : 4) : 0;
   expect(lastShot && finalScore === lastShot.score + bossPts + 1000 && finalScore === g.score, `보스 격파 500×배율(${bossPts}) + 무피해 클리어 +1,000 반영 (${lastShot && lastShot.score} → ${finalScore})`);
   const stats = (await page.locator('.stat').allInnerTexts()).map(x => x.replace(/\s+/g, ' '));
-  expect(stats.some(x => x.includes('정답률 100%')) && stats.some(x => x.includes('문제 수 50')), `통계 ${stats.join(' | ')}`);
+  expect(stats.some(x => x.includes('정답률 100%')) && stats.some(x => x.includes(`문제 수 ${answered}`)), `통계 ${stats.join(' | ')}`);
   expect((await txt('#result-view')).includes('틀린 문제 없음'), "'틀린 문제 없음! 완벽해요' 표시");
   const unlockList = await txt('.unlock-list');
   expect(unlockList.includes("'첫 격파'") && unlockList.includes("'콤보 10'") && unlockList.includes("'콤보 20'") && unlockList.includes("'철벽 수호'") && unlockList.includes('다음 스테이지 1-2'), `새 획득 알림: 배지 4종·다음 스테이지 해금 (${unlockList.replace(/\s+/g, ' ').slice(0, 160)})`);
@@ -81,8 +83,8 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   // 기록 확인
   const rec = await page.evaluate(() => { const p = window.__app.MG.current(); return { r: p.stageRecords['s1-1'], badges: p.badges.map(b => b.id), hist: p.history[0], dates: p.playDates, ct: p.counters }; });
   log('기록: ' + JSON.stringify(rec));
-  expect(rec.r.bestScore === finalScore && rec.r.bestStars === 3 && rec.r.plays === 1 && rec.r.clears === 1 && rec.r.correct === 50 && rec.r.avgMs > 0, `스테이지 기록 갱신 (best ${rec.r.bestScore}, ★${rec.r.bestStars}, plays ${rec.r.plays}, avgMs ${rec.r.avgMs})`);
-  expect(rec.hist.endedBy === 'clear' && rec.hist.stars === 3 && rec.dates.length === 1 && rec.ct.totalProblems === 50 && rec.ct.bossKills === 1 && rec.ct.threeStarClears === 1, 'history·playDates·counters 갱신');
+  expect(rec.r.bestScore === finalScore && rec.r.bestStars === 3 && rec.r.plays === 1 && rec.r.clears === 1 && rec.r.correct === answered && rec.r.avgMs > 0, `스테이지 기록 갱신 (best ${rec.r.bestScore}, ★${rec.r.bestStars}, plays ${rec.r.plays}, avgMs ${rec.r.avgMs})`);
+  expect(rec.hist.endedBy === 'clear' && rec.hist.stars === 3 && rec.dates.length === 1 && rec.ct.totalProblems === answered && rec.ct.bossKills === 1 && rec.ct.threeStarClears === 1, 'history·playDates·counters 갱신');
   expect(['first_kill', 'combo10', 'combo20', 'perfect'].every(b => rec.badges.includes(b)) && rec.badges.length === 4, `배지 ${rec.badges.join(',')}`);
   // AC8: 다음 스테이지 버튼 → 1-2 시작됨(스테이지 맵이 아님)
   await page.click('.result-actions [data-action="start-stage"][data-stage="s1-2"]'); await sleep(300);

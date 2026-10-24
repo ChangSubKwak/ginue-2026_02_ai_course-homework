@@ -234,7 +234,8 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   expect(await page.locator('#result-view [data-action="review"]').count() === 1 && await page.locator('#result-view [data-action="start-stage"][data-stage="s2-3"]').count() === 1, "'다시 풀기'·'다시 도전' 버튼");
   expect(await page.evaluate(() => sessionStorage.getItem('mathGuardians.inGame')) === null, '판 종료 후 세션 플래그 해제');
   await shot('result-quit');
-  // 다시 풀기(복습): 2문제
+  // 다시 풀기(복습): 2문제. fix-r1: 복습 전 상자 값은 판 중 약점 큐 재출제(20%)로 1 또는 2일 수 있어 실측값 기준 +1을 기대한다
+  const boxPre = await page.evaluate(k => window.__app.MG.current().facts[k].box, m3.key);
   await page.click('[data-action="review"]'); await sleep(100);
   expect((await txt('.modal-title')).includes('다시 풀기 1/2'), `복습 모달 제목 '${await txt('.modal-title')}'`);
   for (let i = 0; i < 2; i++) {
@@ -246,8 +247,8 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   const tR = await toastTexts();
   expect(await page.locator('.card-modal').count() === 0 && tR.some(x => x.includes('복습 완료 2/2')), `복습 완료 토스트 (${JSON.stringify(tR)})`);
   const boxAfter = await page.evaluate(k => window.__app.MG.current().facts[k].box, m3.key);
-  expect(boxAfter === 2, `복습 후 오답 사실 상자 +1 (복수 격파 1 → 복습 2, 실제 ${boxAfter})`);
-  expect((await page.locator(`.wrong-card[data-key="${m3.key}"] .box-state`).innerText()).includes('2/3'), '결과 카드 상자 표시 갱신');
+  expect(boxAfter === Math.min(3, boxPre + 1), `복습 후 오답 사실 상자 +1 (복습 전 ${boxPre} → 실제 ${boxAfter})`);
+  expect((await page.locator(`.wrong-card[data-key="${m3.key}"] .box-state`).innerText()).includes(`${boxAfter}/3`), '결과 카드 상자 표시 갱신');
   // '다시 도전' → 같은 스테이지 재시작, '스테이지 맵' → 홈
   await page.click('#result-view [data-action="start-stage"][data-stage="s2-3"]'); await sleep(200);
   s = await st(); expect(s.view === 'game' && s.game.stage === 's2-3' && s.game.score === 0, "'다시 도전' → 2-3 새 판 시작");

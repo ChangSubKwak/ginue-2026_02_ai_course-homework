@@ -100,9 +100,9 @@
   "consoleErrors": [],
   "dialogs": [],
   "screenshots": [
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-cards\\cards-wrong.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-cards\\cards-tally.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-cards\\cards-restored.png"
+    "fix-r1\\func-cards\\cards-wrong.png",
+    "fix-r1\\func-cards\\cards-tally.png",
+    "fix-r1\\func-cards\\cards-restored.png"
   ],
   "fatal": null,
   "summary": "91 passed, 0 failed, 0 page errors, 0 console errors"

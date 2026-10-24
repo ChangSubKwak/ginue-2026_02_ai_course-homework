@@ -1,0 +1,42 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/01_교과교육지원_분수교구함/index.html",
+  "test": "func-edge.js",
+  "passed": [
+    "[스펙 reduce(0,d)→(0,d)] 0/6에서 합치기는 분모를 유지해야 함(실제 0/6)",
+    "슬라이더 키보드 → 분모 6",
+    "슬라이더 포커스 상태에서 Ctrl+Z 동작 (d=5)",
+    "검색창 Ctrl+Z → 앱 오류 없음",
+    "장면 \"4-2 분모가 같은 덧셈\"(2/5+2/5) 불러오기",
+    "[결함 재현] 불러온 덧셈 장면(2/5+2/5)이 비교 탭을 거쳐 돌아오면 유지되어야 함(실제 2/5 + 2/5)",
+    "메모 패널은 여전히 해당 장면 발문 표시(상태 불일치 여부)",
+    "[UI] 400px에서 막대 모델을 끄면 보이는 모델이 없어짐 (visible=circle)",
+    "모달 role=dialog·aria-modal·labelledby·포커스 {\"role\":\"dialog\",\"modal\":\"true\",\"labelled\":true,\"focusIn\":true}",
+    "Tab 12회 후에도 포커스가 모달 안",
+    "닫힌 뒤 장면 저장 버튼으로 포커스 복귀",
+    "텍스트 없는 버튼은 모두 aria-label 보유 []",
+    "탭 role·토스트 aria-live",
+    "토스트 최대 3개 쌓임",
+    "토스트 2.5초 후 소멸",
+    "손상된 workspace 값 정상화(클램프·기본값) {\"kit\":{\"n\":72,\"d\":24,\"lineRange\":\"auto\",\"models\":{\"bar\":true,\"circle\":true,\"line\":true},\"showDecimal\":true,\"chain\":[{\"n\":72,\"d\":24,\"op\":\"start\"}]},\"c\":{\"n\":0,\"d\":2},\"ar\":{\"a\":{\"n\":1,\"d\":2},\"b\":{\"n\":1,\"d\":2},\"op\":\"+\",\"step\":4,\"mirror\":false}}",
+    "정상화된 상태로 렌더 오류 없음",
+    "뺄셈 카드 → 활동지 뺄셈 문항",
+    "뺄셈 정답 7/12: 7/12",
+    "분수 쓰기 정답(기약·소수, \"= ≈\" 겹침 없음): 8/12 = 2/3 ≈ 0.667",
+    "A<B 뺄셈 문항 정답 문구: 앞의 분수가 더 작아 뺄 수 없음"
+  ],
+  "failed": [],
+  "logs": [
+    "0/6 합치기 결과: {\"n\":0,\"d\":6,\"lineRange\":\"auto\",\"models\":{\"bar\":true,\"circle\":true,\"line\":true},\"showDecimal\":true,\"chain\":[{\"n\":0,\"d\":6,\"op\":\"start\"}]} toasts=[\"색칠된 칸이 없어요. 먼저 칸을 색칠해 보세요\"]",
+    "장면 로드 후 compare 경유: arith={\"a\":{\"n\":2,\"d\":5},\"b\":{\"n\":2,\"d\":5},\"op\":\"+\",\"step\":0,\"mirror\":false}",
+    "400px 막대 모델 끈 상태: {\"active\":\"circle\",\"visible\":[\"circle\"],\"barTabHidden\":true}",
+    "compareSet 1/13 → {\"n\":1,\"d\":13}"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\fraction-kit\\reverify-r1$m\\edge-sheet.png"
+  ],
+  "fatal": null,
+  "summary": "21 passed, 0 failed, 0 page errors, 0 console errors"
+}

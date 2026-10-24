@@ -1,0 +1,34 @@
+{
+  "func-home-data": {
+    "passed": 146,
+    "failed": 1,
+    "failedList": [
+      "손상 저장 데이터 → .corrupt 보관 + 재시딩 + 토스트 ([])"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 28
+  },
+  "code-ui.pw": {
+    "passed": 32,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 84
+  },
+  "acceptance": {
+    "passed": 55,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 194
+  }
+}

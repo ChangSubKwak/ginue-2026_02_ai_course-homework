@@ -1,0 +1,107 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "dialogs": [],
+  "views": {
+    "desktop-light": {
+      "title": "연산수호대",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 1280,
+      "scrollWidth": 1280,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [],
+      "headings": [
+        "H1: 연산수호대",
+        "H3: 9까지의 덧셈",
+        "H3: 9까지의 뺄셈",
+        "H3: 받아올림 없는 두 자리 덧셈·뺄셈",
+        "H2: ⚙ 선생님 설정",
+        "H3: 게임 설정",
+        "H3: 프로필 관리",
+        "H3: 데이터"
+      ],
+      "buttons": 42,
+      "inputs": 15,
+      "textLength": 371,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(243, 239, 230)",
+      "bodyColor": "rgb(29, 33, 64)",
+      "rootDataTheme": null,
+      "firstText": "+× 연산수호대 답을 입력해 쏘는 연산 타워 디펜스 김 김하늘 5학년 2반 1번 ▾ ＋ 새 프로필 체험하기 🔊 🌙 ? ⚙ 🏰 홈 📘 도감 🏆 명예의 전당 김 김하늘 5학년 2반 1번 ⭐ 총 별 16 🏅 배지 3/10 👹 약점 문제 4 황금 포탑 · 초원 테마 1학년 2학년 3학년 4학년 5학년 6학년 1-1 ⌨ 키패드 9까지의 덧셈 최고 6,200 ★★☆ 시작 1-2 ⌨ 키패드 9까지의 뺄셈 최고 5,900 ★★☆ 시작 1-3 ⌨ 키패드 받아올림 없는 두 자리 덧셈·뺄셈 최고 7,400 ★★☆ 시작 바이브코딩으로 만드는 교육용 앱 · 연산수호대 · 2026 · 내장된 데이터는 모두 가상의 샘플입니다 프로필을 고르고 스테이지를 눌러 시작하세요",
+      "screenshot": "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\reverify-r1\\smoke\\desktop-light.png"
+    },
+    "desktop-dark": {
+      "title": "연산수호대",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 1280,
+      "scrollWidth": 1280,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [],
+      "headings": [
+        "H1: 연산수호대",
+        "H3: 9까지의 덧셈",
+        "H3: 9까지의 뺄셈",
+        "H3: 받아올림 없는 두 자리 덧셈·뺄셈",
+        "H2: ⚙ 선생님 설정",
+        "H3: 게임 설정",
+        "H3: 프로필 관리",
+        "H3: 데이터"
+      ],
+      "buttons": 42,
+      "inputs": 15,
+      "textLength": 371,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(15, 22, 48)",
+      "bodyColor": "rgb(241, 243, 255)",
+      "rootDataTheme": null,
+      "firstText": "+× 연산수호대 답을 입력해 쏘는 연산 타워 디펜스 김 김하늘 5학년 2반 1번 ▾ ＋ 새 프로필 체험하기 🔊 ☀️ ? ⚙ 🏰 홈 📘 도감 🏆 명예의 전당 김 김하늘 5학년 2반 1번 ⭐ 총 별 16 🏅 배지 3/10 👹 약점 문제 4 황금 포탑 · 초원 테마 1학년 2학년 3학년 4학년 5학년 6학년 1-1 ⌨ 키패드 9까지의 덧셈 최고 6,200 ★★☆ 시작 1-2 ⌨ 키패드 9까지의 뺄셈 최고 5,900 ★★☆ 시작 1-3 ⌨ 키패드 받아올림 없는 두 자리 덧셈·뺄셈 최고 7,400 ★★☆ 시작 바이브코딩으로 만드는 교육용 앱 · 연산수호대 · 2026 · 내장된 데이터는 모두 가상의 샘플입니다 프로필을 고르고 스테이지를 눌러 시작하세요",
+      "screenshot": "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\reverify-r1\\smoke\\desktop-dark.png"
+    },
+    "mobile-light": {
+      "title": "연산수호대",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 400,
+      "scrollWidth": 400,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [],
+      "headings": [
+        "H1: 연산수호대",
+        "H3: 9까지의 덧셈",
+        "H3: 9까지의 뺄셈",
+        "H3: 받아올림 없는 두 자리 덧셈·뺄셈",
+        "H2: ⚙ 선생님 설정",
+        "H3: 게임 설정",
+        "H3: 프로필 관리",
+        "H3: 데이터"
+      ],
+      "buttons": 42,
+      "inputs": 15,
+      "textLength": 339,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(243, 239, 230)",
+      "bodyColor": "rgb(29, 33, 64)",
+      "rootDataTheme": null,
+      "firstText": "+× 연산수호대 김 김하늘 ▾ ＋ 새 프로필 체험하기 🔊 🌙 ? ⚙ 🏰 홈 📘 도감 🏆 명예의 전당 김 김하늘 5학년 2반 1번 ⭐ 총 별 16 🏅 배지 3/10 👹 약점 문제 4 황금 포탑 · 초원 테마 1학년 2학년 3학년 4학년 5학년 6학년 1-1 ⌨ 키패드 9까지의 덧셈 최고 6,200 ★★☆ 시작 1-2 ⌨ 키패드 9까지의 뺄셈 최고 5,900 ★★☆ 시작 1-3 ⌨ 키패드 받아올림 없는 두 자리 덧셈·뺄셈 최고 7,400 ★★☆ 시작 바이브코딩으로 만드는 교육용 앱 · 연산수호대 · 2026 · 내장된 데이터는 모두 가상의 샘플입니다 프로필을 고르고 스테이지를 눌러 시작하세요",
+      "screenshot": "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\reverify-r1\\smoke\\mobile-light.png"
+    }
+  },
+  "problems": []
+}

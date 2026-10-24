@@ -89,8 +89,8 @@
   "consoleErrors": [],
   "dialogs": [],
   "screenshots": [
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-scenes\\scenes-grid.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-scenes\\scenes-200.png"
+    "fix-r1\\func-scenes\\scenes-grid.png",
+    "fix-r1\\func-scenes\\scenes-200.png"
   ],
   "fatal": null,
   "summary": "80 passed, 0 failed, 0 page errors, 0 console errors"

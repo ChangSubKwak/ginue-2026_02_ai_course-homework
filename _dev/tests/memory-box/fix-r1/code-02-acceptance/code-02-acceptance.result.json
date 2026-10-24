@@ -63,15 +63,15 @@
   "consoleErrors": [],
   "dialogs": [],
   "screenshots": [
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\code-02-acceptance\\history.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\code-02-acceptance\\session-400-front.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\code-02-acceptance\\session-400-back.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\code-02-acceptance\\session-flipped.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\code-02-acceptance\\summary.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\code-02-acceptance\\home-after.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\code-02-acceptance\\teacher.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\code-02-acceptance\\teacher-tabs-400.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\code-02-acceptance\\storage-fail.png"
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\code-02-acceptance\\history.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\code-02-acceptance\\session-400-front.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\code-02-acceptance\\session-400-back.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\code-02-acceptance\\session-flipped.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\code-02-acceptance\\summary.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\code-02-acceptance\\home-after.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\code-02-acceptance\\teacher.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\code-02-acceptance\\teacher-tabs-400.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\code-02-acceptance\\storage-fail.png"
   ],
   "fatal": null,
   "summary": "51 passed, 0 failed, 0 page errors, 0 console errors"

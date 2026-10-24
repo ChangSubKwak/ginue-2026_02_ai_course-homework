@@ -1,0 +1,55 @@
+{
+  "code-boss.pw": {
+    "passed": 14,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 116
+  },
+  "code-misc.pw": {
+    "passed": 29,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 19
+  },
+  "func-home-data": {
+    "passed": 134,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": "locator.isVisible: Error: strict mode violation: locator('[data-action=\"reset-sample\"]') resolved to 2 elements: |     1) <button class=\"btn danger-outline\" data-action=\"reset-sample\">샘플 데이터로 초기화</button> aka getByRole('button', { name: '샘플 데이터로 초기화' }) |     2) <button class=\"btn danger-outline\" data-action=\"reset-sample\">샘플 데이터로 초기화</button> aka locator('#settings-body').getByText('샘플 데이터로 초기화') | ",
+    "secs": 25
+  },
+  "func-game-core": {
+    "passed": 94,
+    "failed": 2,
+    "failedList": [
+      "복습 후 오답 사실 상자 +1 (복수 격파 1 → 복습 2, 실제 3)",
+      "결과 카드 상자 표시 갱신"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 66
+  },
+  "func-game-full": {
+    "passed": 34,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 113
+  }
+}

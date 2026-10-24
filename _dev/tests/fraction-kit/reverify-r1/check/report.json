@@ -1,0 +1,98 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/01_교과교육지원_분수교구함/index.html",
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "dialogs": [],
+  "views": {
+    "desktop-light": {
+      "title": "분수교구함",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 1280,
+      "scrollWidth": 1280,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [],
+      "headings": [
+        "H1: 분수교구함",
+        "H2: 문항 출처",
+        "H2: 문항 목록",
+        "H2: 설정"
+      ],
+      "buttons": 129,
+      "inputs": 19,
+      "textLength": 396,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(238, 242, 248)",
+      "bodyColor": "rgb(21, 34, 56)",
+      "rootDataTheme": null,
+      "firstText": "분수교구함 막대·원·수직선이 한 몸처럼 움직이는 분수 교구 ↶ 되돌리기 ↷ 다시하기 장면 저장 ✎ 펜 커튼 칠판 전체화면 ⋯ 🌙 ? 교구판 비교·통분 덧셈·뺄셈 탐구 카드 장면 보관함 활동지 교사 메모 — 5-1 동치분수 찾기 ×2, ×3을 눌러도 색칠된 양은 변할까? / 1/2과 같은 분수를 5개 찾아보자 분모 2 − + 분자 1 − + 같게 쪼개기·합치기 ×2 ×3 합치기(약분) 사슬 지우기 수직선 범위 자동 0~1 0~2 0~3 모델 표시 막대 원 수직선 소수 표시 어림해서 찍기 막대 — 길이 1 2 원 — 넓이 수직선 — 수 0 1/2 1 1 2 1/2 소수 0.5 읽기 2분의 1 1/2 바이브코딩으로 만드는 교육용 앱 · 분수교구함 · 2026 · 내장된 데이터는 모두 가상의 샘플입니다",
+      "screenshot": "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\fraction-kit\\reverify-r1\\check\\desktop-light.png"
+    },
+    "desktop-dark": {
+      "title": "분수교구함",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 1280,
+      "scrollWidth": 1280,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [],
+      "headings": [
+        "H1: 분수교구함",
+        "H2: 문항 출처",
+        "H2: 문항 목록",
+        "H2: 설정"
+      ],
+      "buttons": 129,
+      "inputs": 19,
+      "textLength": 396,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(15, 23, 42)",
+      "bodyColor": "rgb(230, 237, 247)",
+      "rootDataTheme": null,
+      "firstText": "분수교구함 막대·원·수직선이 한 몸처럼 움직이는 분수 교구 ↶ 되돌리기 ↷ 다시하기 장면 저장 ✎ 펜 커튼 칠판 전체화면 ⋯ ☀️ ? 교구판 비교·통분 덧셈·뺄셈 탐구 카드 장면 보관함 활동지 교사 메모 — 5-1 동치분수 찾기 ×2, ×3을 눌러도 색칠된 양은 변할까? / 1/2과 같은 분수를 5개 찾아보자 분모 2 − + 분자 1 − + 같게 쪼개기·합치기 ×2 ×3 합치기(약분) 사슬 지우기 수직선 범위 자동 0~1 0~2 0~3 모델 표시 막대 원 수직선 소수 표시 어림해서 찍기 막대 — 길이 1 2 원 — 넓이 수직선 — 수 0 1/2 1 1 2 1/2 소수 0.5 읽기 2분의 1 1/2 바이브코딩으로 만드는 교육용 앱 · 분수교구함 · 2026 · 내장된 데이터는 모두 가상의 샘플입니다",
+      "screenshot": "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\fraction-kit\\reverify-r1\\check\\desktop-dark.png"
+    },
+    "mobile-light": {
+      "title": "분수교구함",
+      "lang": "ko",
+      "hasDoctype": true,
+      "clientWidth": 400,
+      "scrollWidth": 400,
+      "horizontalOverflow": false,
+      "elementsPastRightEdge": [
+        "button right=455",
+        "button right=524"
+      ],
+      "headings": [
+        "H1: 분수교구함",
+        "H2: 문항 출처",
+        "H2: 문항 목록",
+        "H2: 설정"
+      ],
+      "buttons": 129,
+      "inputs": 19,
+      "textLength": 275,
+      "externalScripts": [],
+      "externalStyles": [
+        "https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      ],
+      "usesModules": false,
+      "bodyBg": "rgb(238, 242, 248)",
+      "bodyColor": "rgb(21, 34, 56)",
+      "rootDataTheme": null,
+      "firstText": "분수교구함 막대·원·수직선이 한 몸처럼 움직이는 분수 교구 ↶ ↷ 장면 저장 ✎ 커튼 칠판 전체화면 ⋯ 🌙 ? 교구판 비교·통분 덧셈·뺄셈 탐구 카드 장면 보관함 활동지 교사 메모 — 5-1 동치분수 찾기 ×2, ×3을 눌러도 색칠된 양은 변할까? / 1/2과 같은 분수를 5개 찾아보자 조작 패널 막대 원 수직선 막대 — 길이 1 2 1 2 1/2 소수 0.5 읽기 2분의 1 1/2 바이브코딩으로 만드는 교육용 앱 · 분수교구함 · 2026 · 내장된 데이터는 모두 가상의 샘플입니다",
+      "screenshot": "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\fraction-kit\\reverify-r1\\check\\mobile-light.png"
+    }
+  },
+  "problems": []
+}

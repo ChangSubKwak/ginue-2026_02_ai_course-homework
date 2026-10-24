@@ -1,0 +1,37 @@
+{
+  "func-game-full": {
+    "passed": 30,
+    "failed": 4,
+    "failedList": [
+      "무결점: HP 3·정답 50·오답 0·미응답 0 (correct=49, wrong=0, reached=0)",
+      "통계 정답률 100% | 최대 콤보 49 | 평균 반응 0.2초 | 남은 HP ❤❤❤ | 복수 격파 0 | 문제 수 49",
+      "스테이지 기록 갱신 (best 26400, ★3, plays 1, avgMs 172)",
+      "history·playDates·counters 갱신"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 115
+  },
+  "func-game-full2": {
+    "passed": 17,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 121
+  },
+  "func-game-modes": {
+    "passed": 57,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 89
+  }
+}

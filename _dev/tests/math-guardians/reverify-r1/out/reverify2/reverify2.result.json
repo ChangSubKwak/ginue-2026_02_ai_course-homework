@@ -1,0 +1,24 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "reverify2.js",
+  "passed": [
+    "AC15 .txt 파일 선택 → 형식 불일치 모달",
+    "AC15 손상 .json → 형식 불일치 모달",
+    "AC15 잘못된 파일 후 데이터 불변"
+  ],
+  "failed": [
+    "U-04 주황·연두 칸/범례 어두운 글자(#1d2140), 빨강·초록 흰 글자, 15.2px bold"
+  ],
+  "logs": [
+    "txt modal: 가져오기 실패 형식이 맞지 않는 파일입니다. 연산수호대 JSON 백업(.json) 파일만 가져올 수 있어요. (선택한 파일: notes.txt) 확인",
+    "heatmap {\"c1\":\"rgb(15, 22, 48)\",\"c2\":\"rgb(15, 22, 48)\",\"c0\":null,\"c3\":\"rgb(255, 255, 255)\",\"l1\":\"rgb(15, 22, 48)\",\"l2\":\"rgb(15, 22, 48)\",\"px\":15.2,\"w\":700}"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "out\\reverify2\\rv2-txt-modal.png"
+  ],
+  "fatal": null,
+  "summary": "3 passed, 1 failed, 0 page errors, 0 console errors"
+}

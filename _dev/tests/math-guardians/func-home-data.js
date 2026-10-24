@@ -395,7 +395,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   await sleep(400); await reload();
   await page.click('.toolbar [data-action="nav"][data-view="settings"]');
   expect(!(await page.locator('#pin-gate').isHidden()) && await page.locator('#settings-body').isHidden(), '새로고침 후 설정 진입 시 PIN 게이트');
-  const resetVisible = await page.locator('[data-action="reset-sample"]').isVisible();
+  const resetVisible = await page.locator('#pin-gate [data-action="reset-sample"]').isVisible(); // fix-r1: PIN 게이트 안의 초기화 버튼(설정 본문에도 같은 버튼이 있음)
   expect(resetVisible, "PIN 게이트 상태에서 안내문대로 '샘플 데이터로 초기화' 버튼에 접근 가능");
   await page.fill('#pin-gate-input', '0000'); await page.click('[data-action="pin-unlock"]'); await sleep(100);
   t = await toastTexts(); expect(t.some(x => x.includes('PIN이 맞지')) && await page.locator('#settings-body').isHidden(), '틀린 PIN 거부');
@@ -406,7 +406,8 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   await shot('settings-final');
 
   // ---------- 저장 손상·세션 플래그 ----------
-  await page.evaluate(() => localStorage.setItem('mathGuardians.v1', '{broken json'));
+  // fix-r1: 앱이 pagehide에서 대기 중인 저장을 즉시 실행하므로, 먼저 flush한 뒤 손상 값을 써야 외부 손상 상황이 재현된다
+  await page.evaluate(() => { window.__app.actions.flushSave(); localStorage.setItem('mathGuardians.v1', '{broken json'); });
   await reload();
   t = await toastTexts(); s = await st();
   const corruptKept = await page.evaluate(() => localStorage.getItem('mathGuardians.v1.corrupt'));
@@ -427,6 +428,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   // ---------- 프로필 0명 상태 / facts 600개 상한 ----------
   await page.evaluate(() => { const MG = window.__app.MG; MG.root.profiles = []; MG.root.activeProfileId = null; MG.guest = null; MG.UI.renderProfileBar(); MG.UI.showView('home'); });
   expect((await txt('#profile-name')) === '체험 학생' && (await page.locator('#profile-menu').innerText()).includes('프로필이 없습니다'), '프로필 0명 → 게스트 표시·드롭다운 안내');
+  await page.click('[data-action="grade-tab"][data-grade="1"]'); await sleep(100); // fix-r1: 앞 단계에서 다른 학년 탭이 선택된 채 남아 있으므로 1학년 탭으로 이동(기존 테스트 오류)
   expect(await page.locator('.stage-card[data-stage="s1-1"] .start-btn').isEnabled(), '프로필 0명에서도 1-1 시작 가능(게스트)');
   await page.click('#main-tabs [data-action="nav"][data-view="hall"]');
   expect((await txt('#hall-view')).includes('랭킹에 포함되지 않아요') || (await txt('#hall-view')).includes('아직 기록이 없어요'), '프로필 0명 랭킹 빈 상태 메시지');

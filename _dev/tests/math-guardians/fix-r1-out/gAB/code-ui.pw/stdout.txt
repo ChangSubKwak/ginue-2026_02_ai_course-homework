@@ -1,0 +1,46 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "code-ui.pw.js",
+  "passed": [
+    "47+38: 받아올림 1이 십의 자리(윗자리) 위에 표시된다",
+    "503−178: 연쇄 받아내림에서 십의 자리 위에 \"-1\"이 표시되지 않는다",
+    "몬스터가 없을 때 발사하면 오답으로 집계되지 않는다(교정 카드 없이 wrong++ 금지)",
+    "3초 이내 정답 격파 시 +150 표시·점수 가산",
+    "오답 시 교정 카드(문제 + 점 배열)가 뜬다",
+    "오답 시 콤보 0",
+    "오답 사실이 복수 큐에 등록된다",
+    "정답 입력 시 카드가 닫히고 재개 카운트 상태",
+    "0.5초 후 playing 복귀",
+    "복수 몬스터 격파 시 2배 점수 + 복수! 표시",
+    "5연속 정답 시 HUD \"×2 COMBO!\"",
+    "일시정지 모달에서 Enter로 포커스된 버튼을 활성화할 수 있다"
+  ],
+  "failed": [
+    "전체화면 대상(#stage-wrap)이 입력 패널을 포함한다"
+  ],
+  "logs": [
+    "47+38 marks(연산자,십,일)=[\"\",\"1\",\"\"] digits=[\"\",\"4\",\"7\"]",
+    "657+268 marks=[\"\",\"1\",\"1\",\"\"] res=[\"\",\"9\",\"2\",\"5\"]",
+    "503−178 marks=[\"\",\"4\",\"9\",\"13\"] res=[\"\",\"3\",\"2\",\"5\"]",
+    "62−27 marks=[\"\",\"5\",\"12\"] res=[\"\",\"3\",\"5\"]",
+    "banner: t=263ms monsters=0 state=playing",
+    "no-monster fire → wrong=0 combo=0 state=playing modal=0",
+    "first monster key=7×6 answer=42 spawnedAt=1012",
+    "after hit: score 0→150 floats=[\"+150\"] correct=1",
+    "wrong → state=card combo=0 cardQ=\"9 × 5 = ?\" arrRows=9 revengeQueue=[\"9×5\"]",
+    "card solved → state=resume modal=0",
+    "revenge kill (spawnIndex≈5): score +300 (combo 1, mult 1) floats=[\"+300 복수!\"]",
+    "kills=5 comboHud@5=\"×2 COMBO!\" revenge=9×5 wave=2",
+    "pause modal first focus = 계속하기",
+    "after Enter: state=playing modal=0"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r1-out\\gAB\\code-ui.pw\\code-card-array.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r1-out\\gAB\\code-ui.pw\\code-revenge.png"
+  ],
+  "fatal": "locator.isVisible: Error: strict mode violation: locator('[data-action=\"reset-sample\"]') resolved to 2 elements: |     1) <button class=\"btn danger-outline\" data-action=\"reset-sample\">샘플 데이터로 초기화</button> aka getByRole('button', { name: '샘플 데이터로 초기화' }) |     2) <button class=\"btn danger-outline\" data-action=\"reset-sample\">샘플 데이터로 초기화</button> aka locator('#settings-body').getByText('샘플 데이터로 초기화') | ",
+  "summary": "12 passed, 1 failed, 0 page errors, 0 console errors, FATAL"
+}

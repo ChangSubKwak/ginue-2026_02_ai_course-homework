@@ -61,8 +61,8 @@
   "consoleErrors": [],
   "dialogs": [],
   "screenshots": [
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-robustness\\r01-drawing-back.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\memory-box\\fix-r1\\func-robustness\\r02-after-modal-tests.png"
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-robustness\\r01-drawing-back.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\memory-box\\fix-r1\\func-robustness\\r02-after-modal-tests.png"
   ],
   "fatal": null,
   "summary": "49 passed, 0 failed, 0 page errors, 0 console errors"

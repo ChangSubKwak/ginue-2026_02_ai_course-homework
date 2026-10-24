@@ -1,0 +1,30 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "code-mobile.pw.js",
+  "passed": [
+    "400px 게임 화면 가로 스크롤 없음",
+    "키패드 버튼 12개 높이 ≥56px",
+    "캔버스·HUD·키패드가 한 화면에 보임",
+    "400px 교정 카드 표시·가로 스크롤 없음",
+    "랭킹 비공개 시 상위 10 밖 학생도 내 기록·내 순위 14/14 표시"
+  ],
+  "failed": [],
+  "logs": [
+    "scrollWidth(doc,body,inner)=400,400,400",
+    "key heights=58,58,58,58,58,58,58,58,58,58,58,58",
+    "layout={\"canvas\":{\"top\":102,\"bottom\":309,\"w\":368,\"h\":207},\"hud\":{\"top\":14,\"bottom\":44,\"w\":39,\"h\":30},\"panel\":{\"top\":321,\"bottom\":741,\"w\":368,\"h\":420},\"vh\":800}",
+    "card at 400px: visible=true scrollWidth=400",
+    "2-3 기록 14명, 최하위 프로필 활성, 비공개: note=\"선생님이 랭킹을 비공개로 설정했어요. 내 기록과 내 순위만 보입니다 — 내 순위 14/14\", rows=1"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r2-out\\g1\\code-mobile.pw\\code-mobile-game.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r2-out\\g1\\code-mobile.pw\\code-mobile-card.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r2-out\\g1\\code-mobile.pw\\code-mobile-result.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r2-out\\g1\\code-mobile.pw\\code-hall-private-11th.png"
+  ],
+  "fatal": null,
+  "summary": "5 passed, 0 failed, 0 page errors, 0 console errors"
+}

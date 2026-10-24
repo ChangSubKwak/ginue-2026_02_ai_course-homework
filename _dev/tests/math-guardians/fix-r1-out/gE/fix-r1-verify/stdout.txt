@@ -1,0 +1,34 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "fix-r1-verify.js",
+  "passed": [
+    "F-10 잠긴 카드(3-4)에서도 입력 방식 아이콘 보임",
+    "U-18 잠긴 카드 본문에 해금 조건 안내",
+    "잠긴 카드 시작 버튼 비활성",
+    "U-14 키패드 빈 칸 없음, 0 두 칸, 12키",
+    "M-07 전체화면 대상(#game-view)이 캔버스와 입력 패널을 모두 포함",
+    "시작 직후(배너 중) 몬스터 0",
+    "M-06 몬스터 없을 때 발사는 무시(wrong=0)",
+    "오답 → 교정 카드",
+    "U-13 카드 제목 물음표 1개 (6 × 7 = ?)",
+    "키보드 정답으로 카드 닫힘",
+    "F-12/U-15 일시정지 중 입력 누적 없음('?'), 첫 포커스 '계속하기'('계속하기')",
+    "m-01 일시정지 모달에서 Enter로 계속하기",
+    "U-02/F-07 1366×768 교정 카드 2열, 발사 버튼이 화면 안",
+    "U-01/F-06 400px: HUD가 캔버스를 덮지 않고 라벨 ≥18px, HUD 버튼 ≥40px, 가로 스크롤 없음"
+  ],
+  "failed": [],
+  "logs": [
+    "card-fit-1366x768 {\"modalBottom\":626,\"fireBottom\":606,\"vh\":768,\"twoCol\":true}",
+    "mobile {\"canvasW\":368,\"hudOverlaps\":false,\"labelCssPx\":18.7,\"hudBtnH\":44,\"sw\":400,\"cw\":400}"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r1-out\\gE\\fix-r1-verify\\fix-card-1366.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r1-out\\gE\\fix-r1-verify\\fix-mobile-game.png"
+  ],
+  "fatal": "page.click: Timeout 30000ms exceeded. | Call log: | \u001b[2m  - waiting for locator('[data-action=\"hall-tab\"][data-tab=\"growth\"]')\u001b[22m | \u001b[2m    - locator resolved to <button role=\"tab\" data-tab=\"growth\" aria-selected=\"false\" data-action=\"hall-tab\">성장(7일)</button>\u001b[22m",
+  "summary": "14 passed, 0 failed, 0 page errors, 0 console errors, FATAL"
+}

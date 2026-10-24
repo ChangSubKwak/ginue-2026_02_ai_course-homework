@@ -86,8 +86,9 @@ module.exports = async ({ page, expect, shot, log, sleep, reload, ctx }) => {
   // 복수 몬스터 격파 점수 2배
   s = await waitGame(g => g.monsters.some(x => x.isRevenge && x.progress > 0) && !g.monsters.some(x => x.locked), 8000);
   const sc0 = s.game.score, cmb = s.game.combo; await act('fire', rev.answerText); await sleep(450); s = await st();
-  const d = s.game.score - sc0, mu = cmb < 5 ? 1 : cmb < 10 ? 2 : cmb < 20 ? 3 : 4;
-  expect(d === 200 * mu || d === 200 * mu + 100, `복수 격파 점수 2배: +${d} (콤보 ${cmb}, 배율 ${mu})`);
+  const d = s.game.score - sc0, mu = cmb < 5 ? 1 : cmb < 10 ? 2 : cmb < 20 ? 3 : 4, wb = 100 * s.game.wave;
+  // 2×(100×배율 [+50 속도 보너스]); 복수 몬스터가 웨이브 마지막이면 450ms 안에 웨이브 클리어 보너스(100×웨이브)가 함께 더해질 수 있음
+  expect([200 * mu, 200 * mu + 100].some(b => d === b || d === b + wb), `복수 격파 점수 2배: +${d} (콤보 ${cmb}, 배율 ${mu}, 웨이브 ${s.game.wave})`);
   // 6. 콤보·필살기
   s = await autoplay(g => g.combo >= 5, 60000);
   expect(s.game.combo >= 5 && (await txt('#hud-combo')).includes('×2 COMBO!'), 'HUD ×2 COMBO!');

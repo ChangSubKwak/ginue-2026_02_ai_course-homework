@@ -42,10 +42,10 @@
   "consoleErrors": [],
   "dialogs": [],
   "screenshots": [
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\fix-r2-verify\\r2-pin-shuffle.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\fix-r2-verify\\r2-toast-top.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\fix-r2-verify\\r2-mobile-resized.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\jari-ttukttak\\reverify-r2\\fix-r2-verify\\r2-exam-fit.png"
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\fix-r2-verify\\r2-pin-shuffle.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\fix-r2-verify\\r2-toast-top.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\fix-r2-verify\\r2-mobile-resized.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\jari-ttukttak\\reverify-r2\\fix-r2-verify\\r2-exam-fit.png"
   ],
   "fatal": null,
   "summary": "28 passed, 0 failed, 0 page errors, 0 console errors"

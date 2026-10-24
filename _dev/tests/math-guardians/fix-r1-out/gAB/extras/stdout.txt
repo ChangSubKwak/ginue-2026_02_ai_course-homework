@@ -1,0 +1,36 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "extras.js",
+  "passed": [
+    "이름 유효성 메시지",
+    "중복 이름 → 김하늘(2) 생성·활성",
+    "체험 모드 진입",
+    "일시정지 모달",
+    "상태 paused",
+    "계속하기 → playing",
+    "중단 결과 + 게스트 프로필 만들기 버튼",
+    "게스트 기록 미저장",
+    "도움말 6단계",
+    "Esc로 모달 닫힘",
+    "저학년 3지선다 모드: 1-1 선택지 3개",
+    "오선택 → 점 모델 카드 + 틀린 선택지 비활성",
+    "카드에서 재선택으로 닫힘",
+    "교정 카드 세로셈 받아내림 모델",
+    "교정 카드 분수 막대 모델",
+    "교정 카드 한 줄 풀이 모델"
+  ],
+  "failed": [],
+  "logs": [],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r1-out\\gAB\\extras\\guest-result.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r1-out\\gAB\\extras\\card-dots-choice.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r1-out\\gAB\\extras\\card-s2-2.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r1-out\\gAB\\extras\\card-s5-2.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r1-out\\gAB\\extras\\card-s6-3.png"
+  ],
+  "fatal": "page.click: Timeout 30000ms exceeded. | Call log: | \u001b[2m  - waiting for locator('[data-view=\"codex\"]')\u001b[22m | \u001b[2m    - locator resolved to 3 elements. Proceeding with the first one: <button role=\"tab\" data-action=\"nav\" data-view=\"codex\" aria-selected=\"false\">📘 도감</button>\u001b[22m",
+  "summary": "16 passed, 0 failed, 0 page errors, 0 console errors, FATAL"
+}

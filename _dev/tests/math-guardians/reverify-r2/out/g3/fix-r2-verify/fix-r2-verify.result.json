@@ -1,0 +1,39 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "fix-r2-verify.js",
+  "passed": [
+    "R-03 거대 수 가져오기가 멈추지 않음(738ms)",
+    "R-03 범위 밖·비정수·분모 0 매개변수 사실 제외",
+    "R-03 정상 사실(8×7·9999와 6의 최대공약수)은 유지",
+    "R-03 divisors √n 탐색 결과 정렬·정답 3",
+    "R-03 재부팅 즉시 완료",
+    "R-02 데스크톱 5-1 웨이브 3 두 번째 스폰 시 첫 몬스터 진행도 0.349 (0.18~0.35+샘플링 여유)",
+    "R-02 400px 5-1 웨이브 3 두 번째 스폰 시 첫 몬스터 진행도 0.355",
+    "보스 도달 wave=10",
+    "보스전 진입 시 필살기 게이지 ≥1 (2)",
+    "R-01 정답 발사 직후 필살기 → 방패 3→1(명중+필살기), locked=false (shields=1, locked=false, state=playing)",
+    "R-01 남은 방패를 정답으로 깨고 클리어 (state=ended)",
+    "보스 클리어 → 결과 화면"
+  ],
+  "failed": [],
+  "logs": [
+    "import ms=738 facts=13 has 8×7=true has 거대=false",
+    "divisors {\"ms\":0,\"sol\":\"9999의 약수 1,3,9,11,33,99,101,303,909,1111,3333,9999 / 6의 약수 1,2,3,6 → 공약수 중 최대 3\",\"ans\":3}",
+    "reload ms=93",
+    "pacing 1280px wave=3 sample=[[\"3과 24의 최소공배수\",0.349],[\"4와 6의 최대공약수\",0.006]]",
+    "pacing 400px wave=3 sample=[[\"22와 12의 최대공약수\",0.355],[\"8과 24의 최대공약수\",0.005]]",
+    "boss reach=true wave=10 score=22150 hp=3 gauge=2 secs=104",
+    "boss after fire+super {\"shields\":1,\"locked\":false,\"state\":\"playing\",\"score\":22950,\"floats\":[\"+800 ×4\"]}",
+    "boss after next fire {\"state\":\"ended\"}"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\reverify-r2\\out\\g3\\fix-r2-verify\\r2-pacing-1280.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\reverify-r2\\out\\g3\\fix-r2-verify\\r2-pacing-400.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\reverify-r2\\out\\g3\\fix-r2-verify\\r2-boss-result.png"
+  ],
+  "fatal": null,
+  "summary": "12 passed, 0 failed, 0 page errors, 0 console errors"
+}

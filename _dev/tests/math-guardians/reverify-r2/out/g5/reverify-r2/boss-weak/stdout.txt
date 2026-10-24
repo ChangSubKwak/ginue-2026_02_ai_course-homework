@@ -1,0 +1,18 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "boss-weak.js",
+  "passed": [
+    "보스 방패 3개 모두 관측(3)",
+    "보스 직전 약점(box 0)인 사실 '8−3'이 보스 방패에 포함(5−1 | 8−3 | 6−4)"
+  ],
+  "failed": [],
+  "logs": [
+    "end state=ended wave=10 correct=50 wrong=0 weakBeforeBoss=[\"8−3:0\"] bossKeys=5−1 | 8−3 | 6−4 8−3 spawned 3x secs=106"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "2 passed, 0 failed, 0 page errors, 0 console errors"
+}

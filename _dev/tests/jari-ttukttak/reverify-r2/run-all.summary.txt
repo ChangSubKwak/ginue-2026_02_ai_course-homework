@@ -1,13 +1,12 @@
-acceptance: 64 passed / 0 failed - pageErrors 0 - consoleErrors 0 - dialogs 0 - fatal none
-code-01-accept: 46 passed / 0 failed - pageErrors 0 - consoleErrors 0 - dialogs 0 - fatal none
-code-02-bugs: 10 passed / 0 failed - pageErrors 0 - consoleErrors 0 - dialogs 0 - fatal none
-code-03-badge: 2 passed / 0 failed - pageErrors 0 - consoleErrors 0 - dialogs 0 - fatal none
-func-roster: 93 passed / 0 failed - pageErrors 0 - consoleErrors 0 - dialogs 0 - fatal none
-func-seats: 146 passed / 0 failed - pageErrors 0 - consoleErrors 0 - dialogs 0 - fatal none
-func-groups-present-print: 101 passed / 0 failed - pageErrors 0 - consoleErrors 0 - dialogs 0 - fatal none
-func-storage-responsive: 110 passed / 0 failed - pageErrors 0 - consoleErrors 0 - dialogs 0 - fatal none
-ux-shots: 28 passed / 0 failed - pageErrors 0 - consoleErrors 0 - dialogs 0 - fatal none
-fix-r1-verify: 24 passed / 0 failed - pageErrors 0 - consoleErrors 0 - dialogs 0 - fatal none
-fix-r2-verify: 28 passed / 0 failed - pageErrors 0 - consoleErrors 0 - dialogs 0 - fatal none
-reverify: 100 passed / 0 failed - pageErrors 0 - consoleErrors 0 - dialogs 0 - fatal none
-DONE
+acceptance: NOT RUN (acceptance.js 모듈이 tests 폴더·스크래치패드 어디에도 없음 — 이전 요약의 64건은 stale 결과 파일)
+code-01-accept: 46 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+code-02-bugs: 10 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+code-03-badge: 2 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+func-roster: 93 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+func-seats: 146 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+func-groups-present-print: 101 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+func-storage-responsive: 110 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+ux-shots: 28 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+fix-r1-verify: 24 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+reverify: 100 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none
+fix-r2-verify: 28 passed / 0 failed · pageErrors 0 · consoleErrors 0 · dialogs 0 · fatal none

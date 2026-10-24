@@ -21,7 +21,7 @@
     "6/2+6/2: moving=null formula=6/2 + 6/2 resultCells=6/6",
     "6/2+6/2 step3 formula=6/2 + 6/2 = 12/2 = 6",
     "same-tab click: strokes 1 → 1",
-    "kit-d stepper disabled at bounds: {\"minus\":false,\"plus\":false}",
+    "kit-d stepper disabled at bounds: {\"minus\":true,\"plus\":true}",
     "delete current card: toasts=[\"결과가 3을 넘어 막대로는 3까지만 보여요\",\"카드를 삭제했어요\"] cards=23 current=c3-02",
     "choice textContent: [\"56\",\"25\",\"15\"]",
     "errors: []"

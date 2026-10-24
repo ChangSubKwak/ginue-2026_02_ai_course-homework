@@ -1,0 +1,31 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "ux-theme.js",
+  "passed": [
+    "테마 토글 버튼 → dark 저장",
+    "음소거 아이콘이 헤더·HUD 모두 🔇로 전환",
+    "새로고침 후 테마·음소거 유지",
+    "도움말 모달 열림",
+    "Esc로 도움말 닫힘",
+    "닫힌 뒤 도움말 버튼으로 포커스 복귀",
+    "잠긴 카드의 시작 버튼 비활성",
+    "프로필 메뉴 항목이 키보드로 포커스 가능"
+  ],
+  "failed": [],
+  "logs": [
+    "after toggle [\"dark\",\"☀️\",\"rgb(15, 22, 48)\",\"dark\"]",
+    "mute icons [\"🔇/true\",\"🔇/true\"]",
+    "after reload [\"dark\",true,\"🔇\"]",
+    "modal initial focus: 확인",
+    "focus after close: help",
+    "locked card {\"disabled\":true,\"text\":\"🔒 잠김\",\"title\":\"이전 스테이지를 별 1개 이상으로 클리어하면 열려요\"}",
+    "profile-menu focusable options: 24",
+    "done"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "8 passed, 0 failed, 0 page errors, 0 console errors"
+}

@@ -31,7 +31,7 @@
     "분모 2에서 − 비활성",
     "분모 12에서 + 비활성",
     "같은 분모 → 토스트 + 바로 3단계",
-    "같은 분모 비교식 2/5 < 3/5 → 2/5 < 3/5 차이: 1/5",
+    "같은 분모 비교식(통분 생략, 한 번만) 2/5 < 3/5 차이: 1/5",
     "자동 재생 완료, 1/2 = 2/4, 차이 0/4: 1/2 = 2/4 2/4 = 2/4 2/4 = 2/4 → 1/2 = 2/4 차이: 0/4",
     "L=63>48: 분할선 가늘게·라벨 생략·식 정확",
     "L>48 수직선은 정수 눈금만",
@@ -112,11 +112,11 @@
   "consoleErrors": [],
   "dialogs": [],
   "screenshots": [
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-boards\\compare-overlay.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-boards\\compare-63.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-boards\\arith-sub.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-boards\\arith-mirror.png",
-    "C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\fraction-kit\\fix-r1\\func-boards\\arith-add-mixed.png"
+    "fix-r1\\func-boards\\compare-overlay.png",
+    "fix-r1\\func-boards\\compare-63.png",
+    "fix-r1\\func-boards\\arith-sub.png",
+    "fix-r1\\func-boards\\arith-mirror.png",
+    "fix-r1\\func-boards\\arith-add-mixed.png"
   ],
   "fatal": null,
   "summary": "101 passed, 0 failed, 0 page errors, 0 console errors"

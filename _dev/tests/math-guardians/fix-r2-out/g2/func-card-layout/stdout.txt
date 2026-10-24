@@ -1,0 +1,34 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "func-card-layout.js",
+  "passed": [
+    "1280×800 점 배열 2행: 발사 버튼이 스크롤 없이 보임 (버튼 하단 622 ≤ 모달 하단 642)",
+    "1280×800 점 배열 5행: 발사 버튼이 스크롤 없이 보임 (버튼 하단 622 ≤ 모달 하단 642)",
+    "1280×800 점 배열 7행: 발사 버튼이 스크롤 없이 보임 (버튼 하단 622 ≤ 모달 하단 642)",
+    "1280×800 점 배열 9행: 발사 버튼이 스크롤 없이 보임 (버튼 하단 622 ≤ 모달 하단 642)",
+    "1024×768 점 배열 2행: 발사 버튼이 스크롤 없이 보임 (버튼 하단 606 ≤ 모달 하단 626)",
+    "1024×768 점 배열 5행: 발사 버튼이 스크롤 없이 보임 (버튼 하단 606 ≤ 모달 하단 626)",
+    "1024×768 점 배열 7행: 발사 버튼이 스크롤 없이 보임 (버튼 하단 606 ≤ 모달 하단 626)",
+    "1024×768 점 배열 9행: 발사 버튼이 스크롤 없이 보임 (버튼 하단 606 ≤ 모달 하단 626)",
+    "400×800 점 배열 2행: 발사 버튼이 스크롤 없이 보임 (버튼 하단 664 ≤ 모달 하단 684)",
+    "400×800 점 배열 5행: 발사 버튼이 스크롤 없이 보임 (버튼 하단 697 ≤ 모달 하단 717)",
+    "400×800 점 배열 7행: 발사 버튼이 스크롤 없이 보임 (버튼 하단 697 ≤ 모달 하단 717)",
+    "400×800 점 배열 9행: 발사 버튼이 스크롤 없이 보임 (버튼 하단 712 ≤ 모달 하단 732)"
+  ],
+  "failed": [],
+  "logs": [
+    "1280×800: {\"2\":{\"modalBottom\":642,\"fireBottom\":622,\"fireTop\":574,\"vh\":800,\"scrollable\":false},\"5\":{\"modalBottom\":642,\"fireBottom\":622,\"fireTop\":574,\"vh\":800,\"scrollable\":false},\"7\":{\"modalBottom\":642,\"fireBottom\":622,\"fireTop\":574,\"vh\":800,\"scrollable\":false},\"9\":{\"modalBottom\":642,\"fireBottom\":622,\"fireTop\":574,\"vh\":800,\"scrollable\":false}}",
+    "1024×768: {\"2\":{\"modalBottom\":626,\"fireBottom\":606,\"fireTop\":558,\"vh\":768,\"scrollable\":false},\"5\":{\"modalBottom\":626,\"fireBottom\":606,\"fireTop\":558,\"vh\":768,\"scrollable\":false},\"7\":{\"modalBottom\":626,\"fireBottom\":606,\"fireTop\":558,\"vh\":768,\"scrollable\":false},\"9\":{\"modalBottom\":626,\"fireBottom\":606,\"fireTop\":558,\"vh\":768,\"scrollable\":false}}",
+    "400×800: {\"2\":{\"modalBottom\":684,\"fireBottom\":664,\"fireTop\":616,\"vh\":800,\"scrollable\":false},\"5\":{\"modalBottom\":717,\"fireBottom\":697,\"fireTop\":649,\"vh\":800,\"scrollable\":false},\"7\":{\"modalBottom\":717,\"fireBottom\":697,\"fireTop\":649,\"vh\":800,\"scrollable\":false},\"9\":{\"modalBottom\":732,\"fireBottom\":712,\"fireTop\":664,\"vh\":800,\"scrollable\":false}}"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r2-out\\g2\\func-card-layout\\card-layout-1280x800-rows9.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r2-out\\g2\\func-card-layout\\card-layout-1024x768-rows9.png",
+    "D:\\workspace\\ginue-2026_02_ai_course-homework\\_dev\\tests\\math-guardians\\fix-r2-out\\g2\\func-card-layout\\card-layout-400x800-rows9.png"
+  ],
+  "fatal": null,
+  "summary": "12 passed, 0 failed, 0 page errors, 0 console errors"
+}

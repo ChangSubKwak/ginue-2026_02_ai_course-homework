@@ -1,0 +1,84 @@
+{
+  "acceptance": {
+    "passed": 55,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 194
+  },
+  "code-accept2.pw": {
+    "passed": 4,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 26
+  },
+  "code-blocked.pw": {
+    "passed": 7,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 7
+  },
+  "code-mobile.pw": {
+    "passed": 5,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 7
+  },
+  "code-boss.pw": {
+    "passed": 13,
+    "failed": 1,
+    "failedList": [
+      "보스 방패 1개는 약점 큐 사실(8−3 또는 9−4)에서 출제"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 115
+  },
+  "code-misc.pw": {
+    "passed": 29,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 19
+  },
+  "extras": {
+    "passed": 24,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 20
+  },
+  "debug-mute": {
+    "passed": 1,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 4
+  }
+}

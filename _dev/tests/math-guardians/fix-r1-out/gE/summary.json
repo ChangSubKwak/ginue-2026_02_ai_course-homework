@@ -1,0 +1,64 @@
+{
+  "ux-mute": {
+    "passed": 1,
+    "failed": 1,
+    "failedList": [
+      "700ms 뒤 새로고침하면 음소거 유지"
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 6
+  },
+  "ux-theme": {
+    "passed": 8,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 6
+  },
+  "ux-play": {
+    "passed": 9,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": "page.click: Timeout 30000ms exceeded. | Call log: | \u001b[2m  - waiting for locator('[data-action=\"nav\"][data-view=\"home\"]')\u001b[22m | \u001b[2m    - locator resolved to 2 elements. Proceeding with the first one: <button role=\"tab\" data-view=\"home\" data-action=\"nav\" aria-selected=\"false\">🏰 홈</button>\u001b[22m",
+    "secs": 154
+  },
+  "ux-extra": {
+    "passed": 9,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 178
+  },
+  "ux-shots": {
+    "passed": 73,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": null,
+    "secs": 122
+  },
+  "fix-r1-verify": {
+    "passed": 14,
+    "failed": 0,
+    "failedList": [],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "dialogs": [],
+    "fatal": "page.click: Timeout 30000ms exceeded. | Call log: | \u001b[2m  - waiting for locator('[data-action=\"hall-tab\"][data-tab=\"growth\"]')\u001b[22m | \u001b[2m    - locator resolved to <button role=\"tab\" data-tab=\"growth\" aria-selected=\"false\" data-action=\"hall-tab\">성장(7일)</button>\u001b[22m",
+    "secs": 42
+  }
+}

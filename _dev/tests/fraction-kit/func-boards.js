@@ -76,7 +76,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   await chipA(2, 5); await chipB(3, 5);
   await page.click('[data-action=cmp-start]'); await sleep(200);
   s = await S(); expect(s.compare.step === 3 && (await toasts()).some(t => t.includes('이미 분모가 같아요')), '같은 분모 → 토스트 + 바로 3단계');
-  f = await txt('.cmp-formula'); expect(f.includes('2/5 < 3/5 → 2/5 < 3/5') && f.includes('차이: 1/5'), '같은 분모 비교식 ' + norm(f));
+  f = await txt('.cmp-formula'); expect(f.includes('2/5 < 3/5') && !f.includes('→') && f.includes('차이: 1/5'), '같은 분모 비교식(통분 생략, 한 번만) ' + norm(f)); // U-18 수정 반영
   await page.click('[data-action=cmp-reset]');
   // 같음(=) 비교와 L>48
   await chipA(1, 2); await act('compareSet', 'b', 2, 4);
