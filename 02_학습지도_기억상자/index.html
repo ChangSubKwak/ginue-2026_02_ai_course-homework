@@ -29,6 +29,7 @@
       </div>
       <div class="toolbar">
         <button class="chip chip-profile" type="button" data-action="profile-menu" id="profile-chip" aria-haspopup="true" aria-label="프로필 전환"><span class="chip-emoji">🐳</span><span class="chip-name">김하늘</span><span class="chip-caret" aria-hidden="true">▾</span></button>
+        <button class="icon-btn" type="button" data-action="goto" data-view="settings" aria-label="데이터(백업·복원·샘플)" title="데이터(백업·복원·샘플)">💾</button>
         <button class="icon-btn" type="button" data-action="theme" id="theme-btn" aria-label="테마 전환">🌙</button>
         <button class="icon-btn" type="button" data-action="help" aria-label="도움말">?</button>
       </div>
@@ -41,7 +42,7 @@
       <button class="tab" role="tab" type="button" data-view="history" aria-selected="false" id="tab-history"><span class="tab-ico" aria-hidden="true">📈</span><span>기록</span></button>
       <button class="tab" role="tab" type="button" data-view="exam" aria-selected="false" id="tab-exam"><span class="tab-ico" aria-hidden="true">📅</span><span>시험</span></button>
       <button class="tab" role="tab" type="button" data-view="print" aria-selected="false" id="tab-print"><span class="tab-ico" aria-hidden="true">🖨️</span><span>인쇄</span></button>
-      <button class="tab" role="tab" type="button" data-view="teacher" aria-selected="false" id="tab-teacher" hidden><span class="tab-ico" aria-hidden="true">🧑‍🏫</span><span>교사</span></button>
+      <button class="tab" role="tab" type="button" data-view="teacher" aria-selected="false" id="tab-teacher" hidden><span class="tab-ico" aria-hidden="true">🏫</span><span>교사</span></button>
       <button class="tab" role="tab" type="button" data-view="settings" aria-selected="false" id="tab-settings"><span class="tab-ico" aria-hidden="true">⚙️</span><span>설정</span></button>
     </nav>
 
@@ -65,7 +66,8 @@
   <div id="print-view" class="print-view" hidden>
     <div class="print-toolbar no-print">
       <button class="btn btn-ghost" type="button" data-action="print-back">← 돌아가기</button>
-      <span class="print-hint">인쇄 설정: 여백 없음 · 배율 100% · 양면은 '긴 쪽 넘김'</span>
+      <div class="print-extra" id="print-extra" hidden></div>
+      <div class="print-hints"><span class="print-hint" id="print-hint">인쇄 설정: 여백 없음 · 배율 100% · 양면은 '긴 쪽 넘김'</span><span class="print-hint print-scale-note" id="print-scale-note" hidden>화면에 맞게 축소해 보여 줘요 · 실제 인쇄는 종이 크기 그대로</span></div>
       <button class="btn btn-primary" type="button" data-action="print-now">🖨️ 인쇄</button>
     </div>
     <div id="print-area" class="print-area"></div>

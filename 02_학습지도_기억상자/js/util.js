@@ -21,6 +21,8 @@ const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토'];
 const weekdayKo = s => WEEKDAYS[parseYmd(s).getDay()];
 // 해당 주의 월요일
 const mondayOf = s => { const d = parseYmd(s); const off = (d.getDay() + 6) % 7; return addDays(s, -off); };
+// ISO 주차 키 'YYYY-WW'(월요일 시작, 목요일이 속한 해 기준)
+const isoWeekKey = s => { const d = parseYmd(s); const th = new Date(d.getFullYear(), d.getMonth(), d.getDate() - ((d.getDay() + 6) % 7) + 3); const y = th.getFullYear(); const jan1 = new Date(y, 0, 1), firstThu = new Date(y, 0, 1 + ((4 - jan1.getDay()) + 7) % 7); return `${y}-${pad2(1 + Math.round((th - firstThu) / 604800000))}`; };
 
 /* ---------- 작은 도우미 ---------- */
 // 짧은 랜덤 ID
@@ -31,16 +33,20 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const pct = (a, b) => (b ? Math.round((a / b) * 100) : 0);
 // 시드 랜덤(mulberry32) — 샘플 데이터 재생성이 결정적이도록
 const mulberry32 = seed => () => { seed |= 0; seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
-// 디바운스
-const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
 // 문자열 앞부분 자르기
 const truncate = (s, n) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
+// 내려받기 파일명 정제: Windows 금지 문자·제어 문자 치환, 40자 제한
+const safeFileName = s => String(s == null ? '' : s).replace(/[\\/:*?"<>|\u0000-\u001F]+/g, '_').replace(/\s+/g, ' ').trim().slice(0, 40) || '이름없음';
+// 손그림 dataURL 형식 검사(JPEG/PNG base64만 허용) — 가져온 파일의 값을 src에 넣기 전에 반드시 통과
+const isDrawing = s => typeof s === 'string' && s.length < 400000 && /^data:image\/(jpeg|png);base64,[A-Za-z0-9+/]+=*$/.test(s);
 
 /* ---------- CSV ---------- */
+// UTF-8 BOM 문자(U+FEFF). 소스에 보이지 않는 문자를 두지 않도록 코드로 만든다
+const BOM = String.fromCharCode(0xFEFF);
 // 문자 단위 상태기계 파서: BOM 제거, 따옴표 안 쉼표·줄바꿈·"" 처리, \r\n/\n 모두
 function parseCsv(text) {
   const rows = []; let row = [], field = '', q = false;
-  const src = text.replace(/^﻿/, '');
+  const src = text.startsWith(BOM) ? text.slice(1) : text;
   for (let i = 0; i < src.length; i++) {
     const ch = src[i];
     if (q) {
@@ -58,7 +64,7 @@ function parseCsv(text) {
 // CSV 한 칸 이스케이프
 const csvCell = v => { const s = String(v == null ? '' : v); return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
 // 2차원 배열 → CSV 문자열(UTF-8 BOM 포함)
-const toCsv = rows => '﻿' + rows.map(r => r.map(csvCell).join(',')).join('\r\n');
+const toCsv = rows => BOM + rows.map(r => r.map(csvCell).join(',')).join('\r\n');
 
 /* ---------- 파일 입출력 ---------- */
 // Blob + a[download]로 내려받기
@@ -104,15 +110,16 @@ function showToast(message, type = 'info', ms = 2500) {
 }
 
 /* ---------- 모달(Promise) ---------- */
-// showModal({title, body, confirmText, cancelText, danger, wide, buttons, beforeClose}) → Promise<값>
+// showModal({title, body, confirmText, cancelText, danger, wide, buttons, beforeClose, onOpen, backdrop}) → Promise<값>
 // buttons를 주면 [{text, value, kind:'primary'|'ghost'|'danger'}]로 하단 버튼을 구성한다.
-let modalStack = 0;
+// 키 입력은 document(capture)에서 받아 최상단 모달만 처리하므로 모달 안 빈 곳을 눌러 포커스가 body로 가도 ESC·Tab 트랩이 동작한다.
+const modalStack = [];
 function showModal(opts) {
   return new Promise(resolve => {
     const root = document.getElementById('modal-root');
     const prev = document.activeElement;
     const back = document.createElement('div'); back.className = 'modal-back';
-    const box = document.createElement('div'); box.className = 'modal' + (opts.wide ? ' modal-wide' : ''); box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true');
+    const box = document.createElement('div'); box.className = 'modal' + (opts.wide ? ' modal-wide' : ''); box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.tabIndex = -1;
     const buttons = opts.buttons || [
       ...(opts.cancelText === null ? [] : [{ text: opts.cancelText || '취소', value: false, kind: 'ghost' }]),
       { text: opts.confirmText || '확인', value: true, kind: opts.danger ? 'danger' : 'primary' },
@@ -122,33 +129,41 @@ function showModal(opts) {
     if (typeof opts.body === 'string') bodyEl.innerHTML = opts.body; else if (opts.body) bodyEl.appendChild(opts.body);
     const foot = box.querySelector('.modal-foot');
     buttons.forEach(b => { const btn = document.createElement('button'); btn.type = 'button'; btn.className = `btn btn-${b.kind || 'ghost'}`; btn.textContent = b.text; btn.dataset.value = String(b.value); if (b.id) btn.id = b.id; btn.addEventListener('click', () => close(b.value)); foot.appendChild(btn); });
-    back.appendChild(box); root.appendChild(back); modalStack++;
+    const rec = { back }; back.appendChild(box); root.appendChild(back); modalStack.push(rec);
     document.body.classList.add('modal-open');
+    const isTop = () => modalStack[modalStack.length - 1] === rec;
+    // 모달 안의 포커스 가능 요소(비활성·숨김 제외)
+    const focusables = () => [...box.querySelectorAll('button,input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(x => !x.disabled && x.offsetParent !== null);
     const onKey = e => {
-      if (e.key === 'Escape') { e.stopPropagation(); close(false); }
-      if (e.key === 'Tab') { // 포커스 트랩
-        const f = [...box.querySelectorAll('button,input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(x => !x.disabled && x.offsetParent !== null);
-        if (!f.length) return; const first = f[0], last = f[f.length - 1];
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      if (!isTop()) return;
+      if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(false); return; }
+      if (e.key === 'Tab') { // 포커스 트랩: 포커스가 모달 밖이면 안으로 끌어온다
+        const f = focusables(); if (!f.length) { e.preventDefault(); box.focus(); return; }
+        const first = f[0], last = f[f.length - 1], cur = document.activeElement;
+        if (!box.contains(cur) || (e.shiftKey && cur === first)) { e.preventDefault(); (e.shiftKey ? last : first).focus(); }
+        else if (!e.shiftKey && cur === last) { e.preventDefault(); first.focus(); }
       }
     };
     function close(v) {
       if (opts.beforeClose && opts.beforeClose(v, box) === false) return;
-      back.removeEventListener('keydown', onKey); back.remove(); modalStack--;
-      if (modalStack <= 0) { modalStack = 0; document.body.classList.remove('modal-open'); }
-      if (prev && prev.focus) prev.focus();
+      document.removeEventListener('keydown', onKey, true); back.remove();
+      const i = modalStack.indexOf(rec); if (i >= 0) modalStack.splice(i, 1);
+      if (!modalStack.length && !document.querySelector('.session:not([hidden]), .print-view:not([hidden])')) document.body.classList.remove('modal-open');
+      if (prev && prev.focus && document.contains(prev)) setTimeout(() => prev.focus(), 0); // 브라우저 기본 포커스 이동 뒤에 복귀
       resolve(v);
     }
-    back.addEventListener('keydown', onKey);
-    back.addEventListener('mousedown', e => { if (e.target === back && opts.backdrop !== false) close(false); });
+    document.addEventListener('keydown', onKey, true);
+    let downOnBack = false;
+    back.addEventListener('mousedown', e => { downOnBack = e.target === back; });
+    back.addEventListener('click', e => { if (e.target === back && downOnBack && opts.backdrop !== false) close(false); downOnBack = false; });
     box.querySelector('.modal-x').addEventListener('click', () => close(false));
     if (opts.onOpen) opts.onOpen(box, close);
-    const focusTarget = box.querySelector('[autofocus]') || foot.querySelector('.btn-primary, .btn-danger') || foot.querySelector('button');
-    setTimeout(() => focusTarget && focusTarget.focus(), 30);
+    // 첫 포커스: autofocus → 활성 primary/danger 버튼 → 첫 활성 요소(닫기 버튼 포함) → 모달 자체
+    setTimeout(() => { const t = box.querySelector('[autofocus]') || [...foot.querySelectorAll('.btn-primary, .btn-danger')].find(b => !b.disabled) || focusables()[0] || box; t.focus(); }, 30);
   });
 }
 // 모달이 열려 있는지
-const isModalOpen = () => modalStack > 0;
+const isModalOpen = () => modalStack.length > 0;
 
 /* ---------- 라이트너 공통 알고리즘(샘플 생성기와 앱이 함께 사용) ---------- */
 const INTERVALS = { 1: 1, 2: 2, 3: 4, 4: 7, 5: 15, master: 30 };

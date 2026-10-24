@@ -2,7 +2,6 @@
 'use strict';
 
 const APP_DATA = {
-  version: 1,
   school: '가온초등학교', className: '5학년 2반', teacher: '이가람',
   // 오답 원인 태그
   REASONS: [
@@ -62,7 +61,8 @@ function buildTeacherSample(today) {
   const map = {};
   TEACHER_SAMPLE_ROWS.forEach(([name, unit, reason, n, fails]) => {
     const s = map[name] || (map[name] = { studentName: name, exportedAt: addDays(today, -1) + 'T16:00:00', importedAt: '', decks: [{ name: '수학 오답노트', subject: '수학', unit: '5학년 1학기', total: 0, boxes: [0, 0, 0, 0, 0] }], wrong: [], stats: {} });
-    for (let i = 0; i < n; i++) { const f = UNIT_FRONTS[unit][i % UNIT_FRONTS[unit].length]; s.wrong.push({ deck: '수학 오답노트', unit, front: f + (i >= UNIT_FRONTS[unit].length ? ' (' + (i + 1) + ')' : ''), reason, fails: Math.max(1, Math.round(fails / n) + (i === 0 ? fails % n : 0)), lastFail: addDays(today, -(i + 2)) }); }
+    // 틀림 횟수 합(fails)을 n장에 정확히 나눠 담는다(앞쪽 카드부터 나머지 1씩)
+    for (let i = 0; i < n; i++) { const f = UNIT_FRONTS[unit][i % UNIT_FRONTS[unit].length]; s.wrong.push({ deck: '수학 오답노트', unit, front: f + (i >= UNIT_FRONTS[unit].length ? ' (' + (i + 1) + ')' : ''), reason, fails: Math.max(1, Math.floor(fails / n) + (i < fails % n ? 1 : 0)), lastFail: addDays(today, -(i + 2)) }); }
   });
   Object.values(map).forEach(s => { const [rv, acc, st] = TEACHER_SAMPLE_STATS[s.studentName]; s.stats = { reviewed30d: rv, accuracy30d: acc, streak: st }; s.decks[0].total = s.wrong.length + 6; s.decks[0].boxes = [s.wrong.length, 3, 2, 1, 0]; });
   return Object.values(map);
@@ -115,7 +115,7 @@ function buildSampleData(today) {
   [...chosen].sort().slice(-14).forEach((d, i) => {
     const cnt = dailyLog[d].reviewed, know = Math.round(cnt * 0.55), lucky = Math.round(cnt * 0.2), illusion = Math.round(cnt * 0.1), aware = cnt - know - lucky - illusion;
     const s = { id: uid(), date: d, startedAt: d + 'T19:00:00', endedAt: d + 'T19:12:00', count: cnt, ok: know + lucky, fail: illusion + aware, quadrants: { know, lucky, illusion, aware }, moves: { up: know, down: illusion + aware, stay: lucky }, reasons: { concept: Math.round(aware * 0.3), misread: 0, calc: Math.round(aware * 0.5), time: 0, unknown: illusion }, coaching: '', reflectionId: null, kind: 'today' };
-    if (i >= 9) { const r = { id: uid(), date: d, sessionId: s.id, text: SAMPLE_CONTENT.reflections[i - 9] }; reflections.push(r); s.reflectionId = r.id; }
+    if (i >= 9) { const r = { id: uid(), date: d, sessionId: s.id, text: SAMPLE_CONTENT.reflections[i - 9] }; reflections.unshift(r); s.reflectionId = r.id; } // 최신이 앞
     sessions.push(s);
   });
   const haneul = { decks: [d1, d2, d3, d4, d5], cards, sessions, dailyLog, reflections, exams: [exam], pendingSession: null, weeklyChecks: [] };
