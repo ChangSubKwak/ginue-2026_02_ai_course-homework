@@ -13,7 +13,7 @@ window.MG = window.MG || {};
   MG.VERSION = '1.0.0';
   MG.STORAGE_KEY = 'mathGuardians.v1';
 
-  // 17개 스테이지 메타 (생성 규칙은 problems.js)
+  // 19개 스테이지 메타: 1학년 3 + 2학년 3 + 3학년 4 + 4~6학년 각 3 (생성 규칙은 problems.js)
   const S = (id, grade, order, name, inputType, hintModel, gridFacts) => ({ id, grade, order, name, inputType, hintModel, gridFacts: !!gridFacts });
   MG.STAGES = [
     S('s1-1', 1, 1, '9까지의 덧셈', 'number', 'dots'), S('s1-2', 1, 2, '9까지의 뺄셈', 'number', 'dots'), S('s1-3', 1, 3, '받아올림 없는 두 자리 덧셈·뺄셈', 'number', 'column'),
@@ -65,7 +65,8 @@ window.MG = window.MG || {};
   // 사실 1개 (problems.js 빌더로 문제·정답 문자열 생성)
   const fact = (stageId, p, box, hit, miss, daysAgo, masteredDaysAgo) => {
     const pr = MG.Problems.build(stageId, p);
-    return { key: pr.key, stageId, p, box, hit, miss, lastAt: dayISO(daysAgo), masteredAt: masteredDaysAgo == null ? null : dayISO(masteredDaysAgo), answer: pr.answerText, question: pr.text };
+    // rtSum: 정답 반응시간 합(ms). 샘플은 상자가 높을수록 빠른 편(3.6초 → 2.1초)으로 생성
+    return { key: pr.key, stageId, p, box, hit, miss, rtSum: hit * (3600 - box * 500), lastAt: dayISO(daysAgo), masteredAt: masteredDaysAgo == null ? null : dayISO(masteredDaysAgo), answer: pr.answerText, question: pr.text };
   };
   const summary = (stageId, score, stars, correct, wrong, reached, maxCombo, avgMs, wrongKeys, endedBy, daysAgo) =>
     ({ stageId, score, stars, correct, wrong, reached, maxCombo, avgMs, revengeKills: wrongKeys.length ? 1 : 0, wrongKeys, endedBy, playedAt: dayISO(daysAgo) });

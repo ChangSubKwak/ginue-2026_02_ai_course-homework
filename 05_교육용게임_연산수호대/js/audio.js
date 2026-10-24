@@ -1,4 +1,4 @@
-/* audio.js — Web Audio 합성 효과음 9종(A11). 오디오 파일 0개, 첫 사용자 입력 후 AudioContext 생성 */
+/* audio.js — Web Audio 합성 효과음 12종(A11 9종 + 복수·별·배지 3종). 오디오 파일 0개, 첫 사용자 입력 후 AudioContext 생성 */
 'use strict';
 (function (MG) {
   let ctx = null, master = null, noiseBuf = null, active = 0;

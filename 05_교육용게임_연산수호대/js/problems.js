@@ -1,7 +1,9 @@
-/* problems.js — 17개 스테이지 규칙 기반 문제 생성기(A1), 3지선다 오답(A2), 분수·소수 표기 유틸(A14), 한 줄 풀이(A10) */
+/* problems.js — 19개 스테이지 규칙 기반 문제 생성기(A1), 3지선다 오답(A2), 분수·소수 표기 유틸(A14), 한 줄 풀이(A10) */
 'use strict';
 (function (MG) {
   const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+  // 소수 피연산자용: 10의 배수를 제외한 난수(×0.1 스케일에서 정수가 되지 않게)
+  const rndDec = (a, b) => { let v; do { v = rnd(a, b); } while (v % 10 === 0); return v; };
   const pick = arr => arr[Math.floor(Math.random() * arr.length)];
   const gcd = (a, b) => b ? gcd(b, a % b) : Math.abs(a);
   const lcm = (a, b) => a / gcd(a, b) * b;
@@ -15,7 +17,10 @@
   };
   // 소수 표기: 정수 스케일 v를 10^k로 나눠 뒤 0 제거
   const fmtDec = (v, k) => { const s = (v / Math.pow(10, k)).toFixed(k); return s.includes('.') ? s.replace(/0+$/, '').replace(/\.$/, '') : s; };
-  const divisors = n => { const r = []; for (let i = 1; i <= n; i++) if (n % i === 0) r.push(i); return r; };
+  // 약수 목록: √n까지만 탐색(큰 수에서도 즉시 반환)
+  const divisors = n => { const lo = [], hi = []; for (let i = 1; i * i <= n; i++) if (n % i === 0) { lo.push(i); if (i * i !== n) hi.push(n / i); } return lo.concat(hi.reverse()); };
+  // 숫자 뒤 조사(은/는): 끝자리가 2·4·5·9(이·사·오·구)면 받침 없음
+  const eun = n => [2, 4, 5, 9].includes(n % 10) ? '는' : '은';
   const carryCount = (a, b) => { let c = 0, n = 0; while (a || b) { const s = a % 10 + b % 10 + c; c = s >= 10 ? 1 : 0; n += c; a = Math.floor(a / 10); b = Math.floor(b / 10); } return n; };
   const borrowCount = (a, b) => { let br = 0, n = 0; while (a || b) { const x = a % 10 - br, y = b % 10; br = x < y ? 1 : 0; n += br; a = Math.floor(a / 10); b = Math.floor(b / 10); } return n; };
 
@@ -40,7 +45,7 @@
     's3-4': () => { let a, b; do { a = rnd(10, 99); b = rnd(2, 9); } while (a % b === 0); return { op: Math.random() < 0.5 ? 'divq' : 'divr', a, b }; },
     's4-1': () => { if (Math.random() < 0.5) return { op: 'mul', a: rnd(11, 59), b: rnd(11, 59) }; const b = rnd(11, 29); return { op: 'div', a: b * rnd(2, 9), b }; },
     's4-2': () => { const d = rnd(3, 12); if (Math.random() < 0.5) return { op: 'fadd', n1: rnd(1, d - 1), d1: d, n2: rnd(1, d - 1), d2: d, keep: true }; const n1 = rnd(2, d - 1); return { op: 'fsub', n1, d1: d, n2: rnd(1, n1 - 1), d2: d, keep: true }; },
-    's4-3': () => { let a = rnd(1, 99), b = rnd(1, 99); if (Math.random() < 0.5) return { op: 'dadd', a, b, k: 1 }; if (a === b) a++; return { op: 'dsub', a: Math.max(a, b), b: Math.min(a, b), k: 1 }; },
+    's4-3': () => { let a = rndDec(1, 99), b = rndDec(1, 99); if (Math.random() < 0.5) return { op: 'dadd', a, b, k: 1 }; while (a === b) b = rndDec(1, 99); return { op: 'dsub', a: Math.max(a, b), b: Math.min(a, b), k: 1 }; },
     's5-1': () => { let a, b; if (Math.random() < 0.5) { do { a = rnd(2, 30); b = rnd(2, 30); } while (a === b || gcd(a, b) < 2); return { op: 'gcd', a, b }; } do { a = rnd(2, 30); b = rnd(2, 30); } while (a === b || lcm(a, b) > 100); return { op: 'lcm', a, b }; },
     's5-2': () => {
       const D = [2, 3, 4, 5, 6, 8, 10, 12]; let d1, d2, n1, n2;
@@ -48,14 +53,14 @@
       if (Math.random() < 0.5) return { op: 'fadd', n1, d1, n2, d2 };
       return n1 * d2 > n2 * d1 ? { op: 'fsub', n1, d1, n2, d2 } : { op: 'fsub', n1: n2, d1: d2, n2: n1, d2: d1 };
     },
-    's5-3': () => Math.random() < 0.5 ? { op: 'dmul', a: rnd(1, 99), b: rnd(1, 9), ka: 1, kb: 0 } : { op: 'dmul', a: rnd(1, 99), b: rnd(1, 99), ka: 1, kb: 1 },
+    's5-3': () => Math.random() < 0.5 ? { op: 'dmul', a: rndDec(1, 99), b: rnd(1, 9), ka: 1, kb: 0 } : { op: 'dmul', a: rndDec(1, 99), b: rndDec(1, 99), ka: 1, kb: 1 },
     's6-1': () => {
       const t = rnd(0, 2);
       if (t === 0) { const d = rnd(2, 9); return { op: 'fdiv', n1: rnd(1, d - 1), d1: d, n2: rnd(2, 9), d2: 1 }; }
       if (t === 1) return { op: 'fdiv', n1: rnd(1, 9), d1: 1, n2: 1, d2: rnd(2, 9) };
       const d1 = rnd(2, 12), d2 = rnd(2, 12); return { op: 'fdiv', n1: rnd(1, d1 - 1), d1, n2: rnd(1, d2 - 1), d2 };
     },
-    's6-2': () => { const q = rnd(1, 9), k = rnd(2, 9); return Math.random() < 0.5 ? { op: 'ddiv', a: q * k, b: k, kb: 0 } : { op: 'ddiv', a: q * k, b: k, kb: 1 }; },
+    's6-2': () => { let q, k; do { q = rnd(1, 9); k = rnd(2, 9); } while ((q * k) % 10 === 0); return Math.random() < 0.5 ? { op: 'ddiv', a: q * k, b: k, kb: 0 } : { op: 'ddiv', a: q * k, b: k, kb: 1 }; },
     's6-3': () => {
       const t = rnd(0, 2);
       if (t === 0) { const p = pick([5, 10, 20, 25, 30, 40, 50, 60, 75, 80]), step = 100 / gcd(p, 100); return { op: 'pctof', n: step * rnd(1, Math.floor(200 / step)), p }; }
@@ -100,7 +105,7 @@
       case 'div': {
         const q = a / b; key = `${a}÷${b}`; text = `${a} ÷ ${b}`; answer = q; answerText = String(q);
         solution = `${a} ÷ ${b} → ${b} × ${q} = ${a} → ${q}`;
-        hint = a <= 81 ? { model: 'array', data: { total: a, group: b } } : { model: 'text', data: solution }; break;
+        hint = stage.hintModel === 'array' && a <= 81 ? { model: 'array', data: { total: a, group: b } } : { model: 'text', data: solution }; break;
       }
       case 'divq': case 'divr': {
         const q = Math.floor(a / b), r = a % b, isQ = p.op === 'divq';
@@ -113,7 +118,7 @@
         key = `${n1}/${d1}${sym}${n2}/${d2}`; text = `${n1}/${d1} ${sym} ${n2}/${d2}`; inputType = 'choice3';
         answerText = fmtFrac(rn, L, !!p.keep);
         let cands;
-        if (d1 === d2) { cands = [[rn, 2 * d1], [plus ? n1 - n2 : n1 + n2, d1], [rn + 1, d1], [rn - 1, d1]]; solution = `${n1}/${d1} ${sym} ${n2}/${d1} = ${rn}/${d1}` + (rn >= d1 ? ` = ${answerText}` : ''); }
+        if (d1 === d2) { cands = [[plus ? n1 - n2 : n1 + n2, d1], [rn + 1, d1], [rn - 1, d1], [rn + 2, d1], [rn - 2, d1]]; solution = `${n1}/${d1} ${sym} ${n2}/${d1} = ${rn}/${d1}` + (rn >= d1 ? ` = ${answerText}` : ''); }
         else { cands = [[plus ? n1 + n2 : Math.abs(n1 - n2), d1 + d2], [plus ? n1 + n2 : Math.abs(n1 - n2), Math.max(d1, d2)], [rn + 1, L], [rn - 1, L]]; solution = `${n1}/${d1} ${sym} ${n2}/${d2} = ${n1 * m1}/${L} ${sym} ${n2 * m2}/${L} = ${rn}/${L}` + (fmtFrac(rn, L) !== `${rn}/${L}` ? ` = ${fmtFrac(rn, L)}` : ''); }
         ({ choices, correctIndex } = shuffle3(answerText, fracChoices(rn, L, cands, !!p.keep)));
         answer = correctIndex; hint = { model: 'bar', data: { n1, d1, n2, d2, plus, L, rn, result: answerText } }; break;
@@ -150,8 +155,8 @@
         hint = { model: 'text', data: solution }; break;
       }
       case 'pctof': { const r = p.n * p.p / 100; key = `${p.n}의 ${p.p}%`; text = key; answer = r; answerText = String(r); solution = `${p.n}의 ${p.p}% = ${p.n}×${p.p}÷100 = ${r}`; hint = { model: 'text', data: solution }; break; }
-      case 'pct': { const r = p.m * 100 / p.n; key = `전체 ${p.n} 중 ${p.m}은 몇 %`; text = `${p.n} 중 ${p.m} → ?%`; answer = r; answerText = String(r); solution = `${p.m}÷${p.n}×100 = ${r}%`; hint = { model: 'text', data: solution }; break; }
-      case 'ratio': { const r = a * 100 / b; key = `비 ${a}:${b}를 백분율로`; text = `${a}:${b} → ?%`; answer = r; answerText = String(r); solution = `${a}:${b} → ${a}÷${b}×100 = ${r}%`; hint = { model: 'text', data: solution }; break; }
+      case 'pct': { const r = p.m * 100 / p.n; key = `전체 ${p.n} 중 ${p.m}은 몇 %`; text = `${p.n} 중 ${p.m}${eun(p.m)} 몇 %?`; answer = r; answerText = String(r); solution = `${p.m}÷${p.n}×100 = ${r}%`; hint = { model: 'text', data: solution }; break; }
+      case 'ratio': { const r = a * 100 / b; key = `비 ${a}:${b}를 백분율로`; text = `${a}:${b}${eun(b)} 몇 %?`; answer = r; answerText = String(r); solution = `${a}:${b} → ${a}÷${b}×100 = ${r}%`; hint = { model: 'text', data: solution }; break; }
       default: throw new Error('unknown op ' + p.op);
     }
     // 저학년 3지선다 모드: 정답 ±1, ±2, ±10 중 음수 아닌 값 2개

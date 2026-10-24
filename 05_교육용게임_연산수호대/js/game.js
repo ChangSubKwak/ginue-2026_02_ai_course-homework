@@ -1,8 +1,9 @@
 /* game.js — Canvas 디펜스 전투 루프(rAF·파티클), 조준·판정(A3), 웨이브·스폰(A4), 점수·콤보(A5), 적응형(A6), 사실 상자(A7), 입력 패드 */
 'use strict';
 (function (MG) {
-  const W = 960, H = 540, GROUND = 330, TURRET = { x: 92, y: 282 }, SPAWN_X = 940, TRAVEL = 800;
+  const W = 960, H = 540, GROUND = 330, TURRET = { x: 92, y: 282 }, CASTLE_X = 140, SPAWN_X = W + 40, TRAVEL = SPAWN_X - CASTLE_X;
   const WAVE_COUNTS = [3, 4, 4, 5, 5, 6, 6, 7, 7], BOSS_WAVE = 10, MAX_WAVE_T = 12, BOSS_T = 20, PROJ_MS = 180;
+  const SPAWN_MIN_PROGRESS = 0.18, SPAWN_MAX_PROGRESS = 0.35, LABEL_GAP = 40, BOSS_PUSHBACK = 0.15, REVENGE_DUE_MIN = 2, REVENGE_DUE_SPAN = 3, RESUME_MS = 500, WEAK_RATE = 0.2, LABEL_PX = 28, LABEL_PX_BIG = 34;
   const comboMult = c => c < 5 ? 1 : c < 10 ? 2 : c < 20 ? 3 : 4;
   const waveT = w => w === BOSS_WAVE ? BOSS_T : Math.max(6, MAX_WAVE_T - 0.6 * (w - 1));
   const THEME_COLORS = {
@@ -19,11 +20,11 @@
 
   // ---- 사실 숙달 상자(A7): 게임·복습에서 공용 ----
   const Facts = {
-    update(profile, pr, kind) {
+    update(profile, pr, kind, rtMs) {
       if (!profile) return;
       let f = profile.facts[pr.key];
-      if (!f) f = profile.facts[pr.key] = { key: pr.key, stageId: pr.stageId, p: pr.p, box: 0, hit: 0, miss: 0, lastAt: null, masteredAt: null, answer: pr.answerText, question: pr.text };
-      if (kind === 'hit' || kind === 'review') { f.box = Math.min(3, f.box + 1); if (kind === 'hit') f.hit++; if (f.box >= 2 && !f.masteredAt) f.masteredAt = nowISO(); }
+      if (!f) f = profile.facts[pr.key] = { key: pr.key, stageId: pr.stageId, p: pr.p, box: 0, hit: 0, miss: 0, rtSum: 0, lastAt: null, masteredAt: null, answer: pr.answerText, question: pr.text };
+      if (kind === 'hit' || kind === 'review') { f.box = Math.min(3, f.box + 1); if (kind === 'hit') { f.hit++; f.rtSum = (f.rtSum || 0) + (rtMs || 0); } if (f.box >= 2 && !f.masteredAt) f.masteredAt = nowISO(); }
       else if (kind === 'miss') { f.box = 0; f.miss++; f.masteredAt = null; }
       else if (kind === 'reached') { f.box = Math.max(0, f.box - 1); f.miss++; }
       f.lastAt = nowISO();
@@ -42,8 +43,9 @@
         if (pad.type === 'choice3') {
           container.innerHTML = `<div class="pad-hint">정답을 고르세요 (키보드 1·2·3)</div><div class="choices">${pad.choices.map((c, i) => `<button class="choice-btn" data-i="${i}" ${pad.disabled.has(i) ? 'disabled' : ''}><span class="num">${i + 1}</span>${c}</button>`).join('')}</div>`;
         } else {
-          const keys = ['7', '8', '9', '4', '5', '6', '1', '2', '3', pad.type === 'decimal' ? '.' : '', '0', 'back'];
-          container.innerHTML = `<div class="input-display" aria-live="polite">${pad.input || '<span class="ph">?</span>'}</div><div class="keypad">${keys.map(k => k === '' ? '<span></span>' : `<button class="key ${k === 'back' ? 'key-back' : ''}" data-k="${k}" aria-label="${k === 'back' ? '지우기' : k}">${k === 'back' ? '⌫' : k}</button>`).join('')}<button class="key key-fire" data-k="fire">발사 ⏎</button></div>`;
+          // number 타입은 '0'이 두 칸을 차지하는 전화기 배열, decimal은 '.' 키 추가
+          const keys = ['7', '8', '9', '4', '5', '6', '1', '2', '3'].concat(pad.type === 'decimal' ? ['.', '0', 'back'] : ['0', 'back']);
+          container.innerHTML = `<div class="input-display" aria-live="polite">${pad.input || '<span class="ph">?</span>'}</div><div class="keypad">${keys.map(k => `<button class="key ${k === 'back' ? 'key-back' : ''} ${k === '0' && pad.type !== 'decimal' ? 'key-zero' : ''}" data-k="${k}" aria-label="${k === 'back' ? '지우기' : k}">${k === 'back' ? '⌫' : k}</button>`).join('')}<button class="key key-fire" data-k="fire">발사 ⏎</button></div>`;
         }
       };
       pad.updateDisplay = () => { const d = container.querySelector('.input-display'); if (d) d.innerHTML = pad.input || '<span class="ph">?</span>'; };
@@ -75,8 +77,11 @@
   };
 
   // ---- 게임 본체 ----
-  let canvas, ctx, G = null, rafId = 0, lastTs = 0, hooks = {}, dprEff = 1, gamePad = null, fpsBad = 0, lastHud = '';
+  let canvas, ctx, G = null, rafId = 0, lastTs = 0, hooks = {}, dprEff = 1, gamePad = null, fpsBad = 0, lastHud = '', bgGrad = null, bgGradTheme = '';
   const labelCache = new Map();
+  // 좁은 화면(폰)에서는 캔버스가 축소되므로 라벨·태그 글씨를 CSS 기준 20px 이상이 되게 확대(최대 2.2배)
+  const upscale = () => { const cssW = canvas && canvas.clientWidth || W; return Math.max(1, Math.min(2.2, 640 / cssW)); };
+  const labelSize = () => Math.round((G && G.settings.bigText ? LABEL_PX_BIG : LABEL_PX) * upscale());
   const el = id => document.getElementById(id);
 
   // 캔버스 해상도 재계산(논리 960×540 유지, DPR 1.5 상한·저사양 1)
@@ -88,6 +93,8 @@
   const alive = () => G.monsters.filter(m => m.alive);
   const front = () => { let best = null; for (const m of alive()) if (!best || m.progress > best.progress) best = m; return best; };
   const boss = () => G.monsters.find(m => m.isBoss && m.alive);
+  // 조준 중(포탄 비행 중) 여부는 플래그 대신 비행 중인 포탄에서 바로 계산 → 포탄이 사라지면 자동 해제(고착 없음)
+  const isLocked = m => G.projectiles.some(p => p.target === m);
   const speedPreset = () => MG.SPEED_PRESETS[G.settings.speedPreset] || 1;
   const inputMode = () => MG.Problems.effectiveInput(G.stage.id, G.settings);
   const mx = m => SPAWN_X - m.progress * TRAVEL;
@@ -113,8 +120,9 @@
     G.wave = w; G.spawnedInWave = 0; G.bannerUntil = G.elapsedMs + 1000; G.waveClearAt = 0;
     if (w === BOSS_WAVE) {
       G.remainingInWave = 0; G.bannerText = 'BOSS!'; MG.Audio.play('boss');
-      const shields = [0, 1, 2].map(() => makeProblem(true));
-      const weak = weakFacts(); if (weak.length) { const f = weak[Math.floor(Math.random() * weak.length)]; shields[1] = MG.Problems.build(G.stage.id, f.p, buildOpts()); }
+      // 방패 3개는 서로 다른 문제로(앞선 방패 키를 회피 집합에 추가), 약점 사실 1개는 다른 방패와 겹치지 않을 때만 교체
+      const shields = [], used = new Set(); for (let i = 0; i < 3; i++) { const pr = makeProblem(true, used); shields.push(pr); used.add(pr.key); }
+      const weak = weakFacts(true).filter(f => !used.has(f.key)); if (weak.length) { const f = weak[Math.floor(Math.random() * weak.length)]; shields[1] = MG.Problems.build(G.stage.id, f.p, buildOpts()); }
       G.monsters.push({ id: G.nextId++, isBoss: true, alive: true, progress: 0, shields, problem: shields[0], spawnedAt: G.elapsedMs + 1000, color: '#c23b4a', isRevenge: false });
     } else { G.remainingInWave = WAVE_COUNTS[w - 1]; G.bannerText = 'WAVE ' + w; G.lastSpawnAt = G.elapsedMs + 1000 - interval() * 1000; }
     if (G.capAdjust < 0) G.capAdjust = 0;
@@ -122,22 +130,24 @@
   const interval = () => Math.max(1.6, 2.8 - 0.15 * (G.wave - 1));
   const cap = () => { let c = G.wave <= 2 ? 1 : G.wave <= 6 ? 2 : 3; if (inputMode() === 'choice3') c = Math.min(c, 2); return Math.max(1, c + G.capAdjust); };
   const buildOpts = () => ({ choice: inputMode() === 'choice3' && G.stage.inputType === 'number' });
-  // 약점 큐 후보: 같은 스테이지·상자<2·오답≥1·최근 5스폰에 없던 사실
-  const weakFacts = () => Object.values(G.profile.facts || {}).filter(f => f.stageId === G.stage.id && f.box < 2 && f.miss >= 1 && f.p && !G.recentKeys.slice(-5).includes(f.key));
+  // 약점 큐 후보: 같은 스테이지·상자<2·오답≥1·최근 5스폰에 없던 사실(보스 방패는 최근 출제 여부와 무관하게 약점이면 후보)
+  const weakFacts = ignoreRecent => Object.values(G.profile.facts || {}).filter(f => f.stageId === G.stage.id && f.box < 2 && f.miss >= 1 && f.p && (ignoreRecent || !G.recentKeys.slice(-5).includes(f.key)));
   // 스폰 문제 결정: 복수 큐 → 약점 큐(20%) → 일반 생성
-  const makeProblem = forBoss => {
-    const avoid = new Set(alive().map(m => m.problem.key).concat(G.recentKeys.slice(-3)));
+  const makeProblem = (forBoss, extraAvoid) => {
+    const avoid = new Set(alive().map(m => m.problem.key).concat(G.recentKeys.slice(-3), extraAvoid ? [...extraAvoid] : []));
     if (!forBoss) {
       const ri = G.revengeQueue.findIndex(r => r.due <= G.spawnIndex);
       if (ri >= 0) { const r = G.revengeQueue.splice(ri, 1)[0]; const pr = MG.Problems.build(G.stage.id, r.p, buildOpts()); pr.isRevenge = true; return pr; }
-      const weak = weakFacts(); if (weak.length && Math.random() < 0.2) return MG.Problems.build(G.stage.id, weak[Math.floor(Math.random() * weak.length)].p, buildOpts());
+      const weak = weakFacts(); if (weak.length && Math.random() < WEAK_RATE) return MG.Problems.build(G.stage.id, weak[Math.floor(Math.random() * weak.length)].p, buildOpts());
     }
     return MG.Problems.generate(G.stage.id, buildOpts(), avoid);
   };
+  // 직전 몬스터가 자기 라벨 폭만큼 전진했을 때만 다음 스폰(라벨 겹침 방지, progress 0.18~0.35 사이로 제한 — 그 이상의 겹침은 렌더의 계단식 라벨 배치가 흡수)
+  const spawnClear = last => { if (!last) return true; const need = Math.min(SPAWN_MAX_PROGRESS * TRAVEL, Math.max(SPAWN_MIN_PROGRESS * TRAVEL, labelWidth(last.problem.text, labelSize()) + 28 + LABEL_GAP)); return last.progress * TRAVEL >= need; };
   const spawn = () => {
     G.spawnIndex++; G.spawnedInWave++; G.remainingInWave--; G.lastSpawnAt = G.elapsedMs;
     const pr = makeProblem(false); G.recentKeys.push(pr.key);
-    G.monsters.push({ id: G.nextId++, problem: pr, progress: 0, alive: true, isBoss: false, isRevenge: pr.isRevenge, spawnedAt: G.elapsedMs, color: MONSTER_COLORS[(G.spawnIndex * 3 + G.wave) % MONSTER_COLORS.length], locked: false });
+    G.monsters.push({ id: G.nextId++, problem: pr, progress: 0, alive: true, isBoss: false, isRevenge: pr.isRevenge, spawnedAt: G.elapsedMs, color: MONSTER_COLORS[(G.spawnIndex * 3 + G.wave) % MONSTER_COLORS.length] });
   };
 
   // 매 프레임 갱신(playing 상태)
@@ -148,7 +158,7 @@
     // 스폰
     if (G.remainingInWave > 0 && t >= G.bannerUntil) {
       const live = alive(), last = live[live.length - 1];
-      if (live.length < cap() && (t - G.lastSpawnAt) / 1000 >= interval() && (!last || last.progress >= 0.18)) spawn();
+      if (live.length < cap() && (t - G.lastSpawnAt) / 1000 >= interval() && spawnClear(last)) spawn();
     }
     // 몬스터 전진
     const v0 = speedPreset() * (G.settings.adaptive ? G.adaptive : 1);
@@ -184,7 +194,8 @@
     else { m.alive = false; Facts.update(G.profile, m.problem, 'reached'); G.wrongList.push({ problem: m.problem, kind: 'reached' }); adaptRecord(false, 1, true); }
     if (G.hp <= 0) { G.hp = 0; end('gameover'); }
   };
-  const addScore = (pts, x, y, label) => { G.score += pts; if (x != null) G.floats.push({ x, y, text: label || `+${pts}`, life: 1.1, big: pts >= 500 }); };
+  // 점수 가산 + 플로팅 텍스트(x는 캔버스 안쪽으로 클램프해 가장자리 잘림 방지)
+  const addScore = (pts, x, y, label) => { G.score += pts; if (x != null) G.floats.push({ x: Math.min(W - 110, Math.max(110, x)), y, text: label || `+${pts}`, life: 1.1, big: pts >= 500 }); };
   const burst = (x, y, color, n) => { const max = G.settings.lowSpec ? 40 : 120; for (let i = 0; i < n && G.particles.length < max; i++) { const a = Math.random() * Math.PI * 2, s = 80 + Math.random() * 220; G.particles.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 80, life: 0.5 + Math.random() * 0.5, color, r: 3 + Math.random() * 4 }); } };
 
   // 발사(A3 ①~⑤): 입력 문자열 파싱 → 일치 몬스터 중 가장 앞선 것 조준
@@ -194,18 +205,18 @@
     const val = mode === 'decimal' ? Math.round(parseFloat(raw.startsWith('.') ? '0' + raw : raw) * 100) : parseInt(raw, 10);
     if (Number.isNaN(val)) return;
     const b = boss(), matching = b ? (b.shields[0].answer === val ? [b] : []) : alive().filter(m => m.problem.answer === val);
-    const cands = matching.filter(m => !m.locked);
+    const cands = matching.filter(m => !isLocked(m));
     if (!cands.length) { if (matching.length) return; return wrong(null); } // 이미 조준된 몬스터만 있으면 무시
     shoot(cands.reduce((a, m) => m.progress > a.progress ? m : a));
   };
   const choose = i => {
     if (G.state !== 'playing') return;
-    const tgt = boss() || front(); if (!tgt || tgt.locked) return;
+    const tgt = boss() || front(); if (!tgt || isLocked(tgt)) return;
     const pr = tgt.isBoss ? tgt.shields[0] : tgt.problem;
     if (i === pr.correctIndex) shoot(tgt); else wrong(i);
   };
   const shoot = m => {
-    m.locked = true; const tx = mx(m), ty = my(m);
+    const tx = mx(m), ty = my(m);
     G.turretTarget = Math.atan2(ty - TURRET.y, tx - TURRET.x);
     G.projectiles.push({ x: TURRET.x, y: TURRET.y, tx, ty, t: 0, target: m });
     MG.Audio.play('shoot');
@@ -213,16 +224,15 @@
   // 명중 처리: 점수·콤보·사실 상자·반응시간
   const hit = m => {
     if (!m.alive || G.state === 'ended') return;
-    m.locked = false;
     const mult = comboMult(G.combo), rt = G.elapsedMs - m.spawnedAt, x = mx(m), y = my(m);
     const pr = m.isBoss ? m.shields[0] : m.problem;
     G.correct++; G.combo++; G.maxCombo = Math.max(G.maxCombo, G.combo); G.reactionTimes.push(rt);
-    Facts.update(G.profile, pr, 'hit'); adaptRecord(true, rt / 1000 / waveT(G.wave), false);
+    Facts.update(G.profile, pr, 'hit', rt); adaptRecord(true, rt / 1000 / waveT(G.wave), false);
     if (G.combo % 10 === 0 && G.superGauge < 2) G.superGauge++;
     MG.Audio.play('hit'); if (G.combo >= 5) MG.Audio.play('combo', G.combo);
     if (G.combo >= 10) { G.flash = 0.3; G.flashColor = '#ffd166'; }
     if (m.isBoss) {
-      m.shields.shift(); m.progress = Math.max(0, m.progress - 0.15); burst(x, y, '#ffd166', 16);
+      m.shields.shift(); m.progress = Math.max(0, m.progress - BOSS_PUSHBACK); burst(x, y, '#ffd166', 16);
       if (m.shields.length) { addScore(200 * mult, x, y - 70, `+${200 * mult}${mult > 1 ? ' ×' + mult : ''}`); m.problem = m.shields[0]; }
       else { m.alive = false; G.bossKills++; addScore(500 * mult, x, y - 70, `BOSS +${500 * mult}`); burst(x, y, '#ff5a66', 40); end('clear'); }
     } else {
@@ -232,13 +242,13 @@
     }
     hooks.onBadgeCheck && hooks.onBadgeCheck(G);
   };
-  // 오답: 버저·콤보 0·가장 앞선 몬스터에 귀속·교정 카드
+  // 오답: 버저·콤보 0·가장 앞선 몬스터에 귀속·교정 카드 (화면에 몬스터가 없으면 집계 없이 무시)
   const wrong = wrongIndex => {
-    MG.Audio.play('wrong'); G.combo = 0; G.wrong++;
     const tgt = boss() || front(); if (!tgt) return;
+    MG.Audio.play('wrong'); G.combo = 0; G.wrong++;
     const pr = tgt.isBoss ? tgt.shields[0] : tgt.problem;
     Facts.update(G.profile, pr, 'miss'); adaptRecord(false, 1, false);
-    if (!G.revengeKeys.has(pr.key) && G.wave < BOSS_WAVE) { G.revengeKeys.add(pr.key); G.revengeQueue.push({ p: pr.p, key: pr.key, due: G.spawnIndex + 2 + Math.floor(Math.random() * 3) }); }
+    if (!G.revengeKeys.has(pr.key) && G.wave < BOSS_WAVE) { G.revengeKeys.add(pr.key); G.revengeQueue.push({ p: pr.p, key: pr.key, due: G.spawnIndex + REVENGE_DUE_MIN + Math.floor(Math.random() * REVENGE_DUE_SPAN) }); }
     G.wrongList.push({ problem: pr, kind: 'wrong', revenge: !tgt.isBoss });
     G.state = 'card'; G.cardTarget = tgt;
     hooks.onCard(pr, wrongIndex);
@@ -247,18 +257,20 @@
   const cardSolved = () => {
     if (!G || G.state !== 'card') return;
     const m = G.cardTarget; G.cardTarget = null;
-    if (m && m.alive) { if (m.isBoss) { m.shields.shift(); m.progress = Math.max(0, m.progress - 0.15); if (!m.shields.length) { m.alive = false; G.bossKills++; } else m.problem = m.shields[0]; } else m.alive = false; burst(mx(m), my(m), '#9aa3b2', 8); }
+    if (m && m.alive) { if (m.isBoss) { m.shields.shift(); m.progress = Math.max(0, m.progress - BOSS_PUSHBACK); if (!m.shields.length) { m.alive = false; G.bossKills++; } else m.problem = m.shields[0]; } else m.alive = false; burst(mx(m), my(m), '#9aa3b2', 8); }
     if (m && m.isBoss && !m.alive) return end('clear');
-    G.state = 'resume'; G.resumeAt = performance.now() + 500; Pad.active = gamePad;
+    G.state = 'resume'; G.resumeAt = performance.now() + RESUME_MS; Pad.active = gamePad;
   };
-  // 필살기: 보스 제외 전멸(100점씩) / 보스전은 방패 1개
+  // 필살기: 보스 제외 전멸(100점씩) / 보스전은 방패 1개. 비행 중인 포탄(정답 발사)은 먼저 명중 처리해 점수를 보존한다(포탄만 지우면 대상이 조준 상태로 남아 공격 불가가 되는 소프트락 방지)
   const useSuper = () => {
     if (!G || G.state !== 'playing' || G.superGauge <= 0) return;
+    const flying = G.projectiles; G.projectiles = [];
+    for (const p of flying) { if (G.state !== 'playing') return; hit(p.target); }
+    if (G.state !== 'playing') return;
     G.superGauge--; G.flash = 0.4; G.flashColor = '#ffffff'; MG.Audio.play('superSkill');
     const b = boss();
-    if (b) { b.shields.shift(); b.progress = Math.max(0, b.progress - 0.15); if (b.shields.length) b.problem = b.shields[0]; else { b.alive = false; G.bossKills++; addScore(500, mx(b), my(b) - 70, 'BOSS +500'); return end('clear'); } }
+    if (b) { b.shields.shift(); b.progress = Math.max(0, b.progress - BOSS_PUSHBACK); if (b.shields.length) b.problem = b.shields[0]; else { b.alive = false; G.bossKills++; addScore(500, mx(b), my(b) - 70, 'BOSS +500'); return end('clear'); } }
     else for (const m of alive()) { m.alive = false; G.superKills++; addScore(100, mx(m), my(m) - 60, '+100'); burst(mx(m), my(m), m.color, 10); }
-    G.projectiles = [];
   };
   // 적응형 난이도(A6)
   const adaptRecord = (ok, r, reached) => {
@@ -270,7 +282,8 @@
     else G.capAdjust = 0;
     if (G.adaptive !== before) { G.adaptSign = G.adaptive > before ? 1 : -1; G.adaptUntil = performance.now() + 1000; }
   };
-  const pause = () => { if (G && G.state === 'playing') { G.state = 'paused'; hooks.onPause && hooks.onPause(); } };
+  // 일시정지(silent=true면 일시정지 모달 없이 상태만 멈춤 — 저사양 제안 모달 등에서 사용)
+  const pause = silent => { if (G && G.state === 'playing') { G.state = 'paused'; if (silent !== true && hooks.onPause) hooks.onPause(); } };
   const resume = () => { if (G && G.state === 'paused') { G.state = 'playing'; lastTs = performance.now(); } };
   // 판 종료(A5 별·요약) → 훅으로 UI에 전달
   const end = reason => {
@@ -290,8 +303,9 @@
   const labelWidth = (text, size) => { const k = text + '|' + size; if (!labelCache.has(k)) { ctx.font = `bold ${size}px Jua, "Malgun Gothic", sans-serif`; labelCache.set(k, ctx.measureText(text).width); } return labelCache.get(k); };
   const roundRect = (x, y, w, h, r) => { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); };
   const drawBackground = () => {
-    const th = THEME_COLORS[G.profile.theme] || THEME_COLORS.meadow, g = ctx.createLinearGradient(0, 0, 0, H);
-    g.addColorStop(0, th.sky[0]); g.addColorStop(1, th.sky[1]); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    const th = THEME_COLORS[G.profile.theme] || THEME_COLORS.meadow;
+    if (!bgGrad || bgGradTheme !== G.profile.theme) { bgGrad = ctx.createLinearGradient(0, 0, 0, H); bgGrad.addColorStop(0, th.sky[0]); bgGrad.addColorStop(1, th.sky[1]); bgGradTheme = G.profile.theme; }
+    ctx.fillStyle = bgGrad; ctx.fillRect(0, 0, W, H);
     ctx.fillStyle = 'rgba(255,255,255,0.8)'; for (const [x, y, s] of STARS) ctx.fillRect(x, y, s, s);
     ctx.fillStyle = '#f4e9c8'; ctx.beginPath(); ctx.arc(820, 80, 34, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = th.hill2; ctx.beginPath(); ctx.moveTo(0, 350); for (let x = 0; x <= W; x += 40) ctx.lineTo(x, 330 - 30 * Math.sin(x / 120) - 10 * Math.sin(x / 37)); ctx.lineTo(W, 400); ctx.lineTo(0, 400); ctx.fill();
@@ -309,7 +323,9 @@
     ctx.rotate(G.turretAngle); ctx.fillStyle = base; roundRect(0, -9, 46, 18, 6); ctx.fill(); ctx.fillStyle = acc; ctx.fillRect(36, -6, 8, 12); ctx.restore();
     ctx.fillStyle = base; ctx.beginPath(); ctx.arc(TURRET.x, TURRET.y, 13, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = acc; ctx.beginPath(); ctx.arc(TURRET.x - 4, TURRET.y - 4, 4, 0, Math.PI * 2); ctx.fill();
   };
-  const drawMonster = (m, isTarget, size) => {
+  // 라벨 상자 위치·크기(렌더와 겹침 판정에서 공용)
+  const labelRect = (m, size) => { const x = mx(m), r = m.isBoss ? 50 : 26, tw = labelWidth(m.problem.text, size), bw = tw + 28, bh = size + 18; return { lx: Math.min(W - bw - 4, Math.max(4, x - bw / 2)), bw, bh, ly: my(m) - r - (m.isBoss ? 60 : 34) - bh }; };
+  const drawMonster = (m, isTarget, size, lift) => {
     const x = mx(m), y = my(m), r = m.isBoss ? 50 : 26, t = G.elapsedMs / 1000;
     if (m.isRevenge) { ctx.strokeStyle = `rgba(230,57,70,${0.5 + 0.4 * Math.sin(t * 8)})`; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(x, y, r + 8 + 3 * Math.sin(t * 8), 0, Math.PI * 2); ctx.stroke(); }
     ctx.fillStyle = 'rgba(0,0,0,0.25)'; ctx.beginPath(); ctx.ellipse(x, GROUND + 34, r * 0.9, 7, 0, 0, Math.PI * 2); ctx.fill();
@@ -320,10 +336,11 @@
     ctx.fillStyle = '#1b1f3a'; ctx.beginPath(); ctx.arc(x - r * 0.35 - 3, y - r * 0.12, eye * 0.5, 0, Math.PI * 2); ctx.arc(x + r * 0.35 - 3, y - r * 0.12, eye * 0.5, 0, Math.PI * 2); ctx.fill();
     ctx.strokeStyle = '#1b1f3a'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(x, y + r * 0.3, r * 0.4, 0.15 * Math.PI, 0.85 * Math.PI); ctx.stroke();
     // 라벨(흰 둥근 상자 + 검정 굵은 글씨)
-    const text = m.problem.text, tw = labelWidth(text, size), bw = tw + 28, bh = size + 18, lx = Math.min(W - bw - 4, Math.max(4, x - bw / 2)), ly = y - r - (m.isBoss ? 60 : 34) - bh;
+    const text = m.problem.text, { lx, bw, bh } = labelRect(m, size), ly = labelRect(m, size).ly - (lift || 0) * (bh + 8);
+    if (lift) { ctx.strokeStyle = 'rgba(255,255,255,0.5)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x, ly + bh); ctx.lineTo(x, y - r - 6); ctx.stroke(); }
     ctx.fillStyle = '#fff'; roundRect(lx, ly, bw, bh, 12); ctx.fill(); ctx.strokeStyle = m.isRevenge ? '#E63946' : 'rgba(0,0,0,0.2)'; ctx.lineWidth = m.isRevenge ? 3 : 1.5; ctx.stroke();
     ctx.fillStyle = '#111'; ctx.font = `bold ${size}px Jua, "Malgun Gothic", sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(text, lx + bw / 2, ly + bh / 2 + 1);
-    if (m.isRevenge) { ctx.fillStyle = '#E63946'; roundRect(lx + bw / 2 - 30, ly - 24, 60, 24, 8); ctx.fill(); ctx.fillStyle = '#fff'; ctx.font = 'bold 16px Jua, "Malgun Gothic", sans-serif'; ctx.fillText('복수!', lx + bw / 2, ly - 12); }
+    if (m.isRevenge) { const ts = Math.round(16 * upscale()), tw2 = ts * 3.4, th2 = ts + 8; ctx.fillStyle = '#E63946'; roundRect(lx + bw / 2 - tw2 / 2, ly - th2, tw2, th2, 8); ctx.fill(); ctx.fillStyle = '#fff'; ctx.font = `bold ${ts}px Jua, "Malgun Gothic", sans-serif`; ctx.fillText('복수!', lx + bw / 2, ly - th2 / 2); }
     if (m.isBoss) for (let i = 0; i < 3; i++) { ctx.fillStyle = i < m.shields.length ? '#4fc3f7' : 'rgba(255,255,255,0.2)'; ctx.beginPath(); ctx.arc(x - 24 + i * 24, ly - 16, 8, 0, Math.PI * 2); ctx.fill(); }
     if (isTarget) { ctx.strokeStyle = '#E63946'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(x, y, r + 14, 0, Math.PI * 2); ctx.stroke(); ctx.beginPath(); [[-1, 0], [1, 0], [0, -1], [0, 1]].forEach(([dx, dy]) => { ctx.moveTo(x + dx * (r + 6), y + dy * (r + 6)); ctx.lineTo(x + dx * (r + 22), y + dy * (r + 22)); }); ctx.stroke(); }
   };
@@ -334,9 +351,11 @@
     drawBackground();
     if (boss()) { ctx.fillStyle = 'rgba(0,0,0,0.35)'; ctx.fillRect(-20, -20, W + 40, H + 40); }
     drawCastle();
-    const size = G.settings.bigText ? 34 : 28, tgt = inputMode() === 'choice3' ? (boss() || front()) : null;
-    const list = alive().sort((a, b) => a.progress - b.progress);
-    for (const m of list) if (G.elapsedMs >= m.spawnedAt) drawMonster(m, tgt === m, size);
+    const size = labelSize(), tgt = inputMode() === 'choice3' ? (boss() || front()) : null;
+    const list = alive().filter(m => G.elapsedMs >= m.spawnedAt).sort((a, b) => a.progress - b.progress);
+    // 라벨이 직전 몬스터 라벨과 가로로 겹치면 한 단 위로 올려(계단식, 2단) 뒤 문제가 가려지지 않게 한다
+    let prevRect = null, prevLift = 0;
+    for (const m of list) { const rc = labelRect(m, size); const overlap = prevRect && rc.lx < prevRect.lx + prevRect.bw && rc.lx + rc.bw > prevRect.lx; const lift = overlap ? (prevLift ? 0 : 1) : 0; drawMonster(m, tgt === m, size, lift); prevRect = rc; prevLift = lift; }
     for (const p of G.projectiles) { const k = Math.min(1, p.t / PROJ_MS), x = p.x + (p.tx - p.x) * k, y = p.y + (p.ty - p.y) * k; ctx.fillStyle = '#ffd166'; ctx.beginPath(); ctx.arc(x, y, 7, 0, Math.PI * 2); ctx.fill(); ctx.strokeStyle = 'rgba(255,209,102,0.5)'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(x - (p.tx - p.x) * 0.08, y - (p.ty - p.y) * 0.08); ctx.lineTo(x, y); ctx.stroke(); }
     for (const p of G.particles) { ctx.globalAlpha = Math.max(0, p.life); ctx.fillStyle = p.color; ctx.fillRect(p.x - p.r / 2, p.y - p.r / 2, p.r, p.r); }
     ctx.globalAlpha = 1; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
@@ -381,8 +400,10 @@
     gamePad = Pad.create(el('input-panel'), 'number', { onFire: fire, onChoose: choose });
     window.addEventListener('resize', resize);
     document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => labelCache.clear()).catch(() => {}); // 웹폰트 로드 후 라벨 폭 재측정
     document.addEventListener('keydown', e => {
       if (e.target.matches('input, textarea, select') || e.ctrlKey || e.metaKey || e.altKey) return;
+      if (G && G.state === 'paused') return; // 일시정지 모달이 키를 처리(숫자 누적·Enter 가로채기 방지)
       if (Pad.active && Pad.active.handleKey(e)) { e.preventDefault(); MG.Audio.init(); return; }
       if (!G || G.state === 'ended' || !hooks.isGameView()) return;
       if (e.key === ' ') { e.preventDefault(); if (G.state === 'playing') useSuper(); }
@@ -390,7 +411,7 @@
     });
   };
   const getState = () => G ? { stage: G.stage.id, wave: G.wave, state: G.state, score: G.score, combo: G.combo, hp: G.hp, superGauge: G.superGauge, correct: G.correct, wrong: G.wrong, reached: G.reached, adaptive: G.adaptive, elapsedMs: G.elapsedMs,
-    monsters: alive().map(m => ({ id: m.id, key: m.problem.key, text: m.problem.text, answer: m.problem.answer, answerText: m.problem.answerText, progress: +m.progress.toFixed(3), spawnedAt: Math.round(m.spawnedAt), locked: !!m.locked, isBoss: m.isBoss, isRevenge: m.isRevenge, shields: m.shields ? m.shields.length : 0, choices: m.problem.choices, correctIndex: m.problem.correctIndex })),
+    monsters: alive().map(m => ({ id: m.id, key: m.problem.key, text: m.problem.text, answer: m.problem.answer, answerText: m.problem.answerText, progress: +m.progress.toFixed(3), spawnedAt: Math.round(m.spawnedAt), locked: isLocked(m), isBoss: m.isBoss, isRevenge: m.isRevenge, shields: m.shields ? m.shields.length : 0, choices: m.problem.choices, correctIndex: m.problem.correctIndex })),
     revengeQueue: G.revengeQueue.map(r => r.key), particles: G.particles.length, floats: G.floats.map(f => f.text) } : null;
   const quit = () => { if (G && G.state !== 'ended') end('quit'); };
   const destroy = () => { cancelAnimationFrame(rafId); G = null; Pad.active = null; };
