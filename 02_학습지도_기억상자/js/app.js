@@ -23,7 +23,7 @@
     const ymd = v => (typeof v === 'string' && YMD.test(v) ? v : today), obj = v => (v && typeof v === 'object' && !Array.isArray(v) ? v : {});
     const numObj = v => { const o = obj(v), r = {}; Object.keys(o).forEach(k => { r[k] = num0(o[k]); }); return r; };
     const reasonOrNull = v => (REASON_KEYS.includes(v) ? v : null);
-    const deckMap = {}, cardMap = {}; // 형식이 어긋난 id는 새로 발급하고 참조(카드 deckId·시험 deckIds·진행 중 세션)도 따라 바꾼다
+    const deckMap = Object.create(null), cardMap = Object.create(null); // 형식이 어긋난 id는 새로 발급하고 참조(카드 deckId·시험 deckIds·진행 중 세션)도 따라 바꾼다
     out.decks = out.decks.filter(x => x && typeof x === 'object' && typeof x.name === 'string').map(x => { const id = safeId(x.id, uid), subject = APP_DATA.SUBJECTS.includes(x.subject) ? x.subject : '기타'; deckMap[x.id] = id; return Object.assign(x, { id, subject, unit: strN(x.unit, 40), color: DECK_COLORS.includes(x.color) ? x.color : APP_DATA.SUBJECT_KEY[subject] }); });
     out.cards = out.cards.filter(c => c && typeof c === 'object' && typeof c.front === 'string' && typeof c.back === 'string').map(c => { const id = safeId(c.id, uid); cardMap[c.id] = id; return Object.assign(c, { id, deckId: deckMap[c.deckId] || safeId(c.deckId, () => ''), type: c.type === 'wrong' ? 'wrong' : 'memo', hint: strN(c.hint, LIMITS.hint), note: strN(c.note, LIMITS.note), myAnswer: strN(c.myAnswer, 100), reason: reasonOrNull(c.reason), box: clamp(Math.round(Number(c.box)) || 1, 1, 5), mastered: !!c.mastered, due: ymd(c.due), createdAt: ymd(c.createdAt), failReasons: (Array.isArray(c.failReasons) ? c.failReasons : []).filter(k => REASON_KEYS.includes(k)), history: (Array.isArray(c.history) ? c.history : []).filter(h => h && typeof h === 'object'), drawing: isDrawing(c.drawing) ? c.drawing : null }); });
     out.sessions = out.sessions.filter(s => s && typeof s === 'object').map(s => Object.assign(s, { id: safeId(s.id, uid), date: ymd(s.date), count: num0(s.count), ok: num0(s.ok), fail: num0(s.fail), quadrants: numObj(s.quadrants), reasons: numObj(s.reasons), moves: numObj(s.moves) }));
@@ -515,9 +515,9 @@
     const list = state.data.exams.slice().sort((a, b) => (a.status === 'done') - (b.status === 'done') || a.date.localeCompare(b.date));
     $('#view-exam').innerHTML = `<div class="panel-head"><h2>시험 준비</h2><button class="btn btn-primary btn-sm" data-action="new-exam" ${decks().length ? '' : 'disabled'}>+ 시험</button></div>
       ${list.map(e => { const dn = diffDays(today, e.date), target = cards().filter(c => e.deckIds.includes(c.deckId)), remain = target.filter(c => c.due < e.date && c.due <= today).length, live = examPlanLive(e); const days = []; for (let d = today; d < e.date; d = addDays(d, 1)) days.push(d);
-        return `<div class="panel" data-exam="${e.id}"><div class="panel-head"><div><h3>${e.status === 'done' ? '<span class="badge">시험 끝</span> ' : `<span class="badge badge-box dday-badge">D-${dn || 'Day'}</span> `}${escapeHtml(e.title)}</h3><p class="small muted">${escapeHtml(e.date)}(${weekdayKo(e.date)}) · 덱: ${e.deckIds.map(id => escapeHtml((deckById(id) || {}).name || '삭제된 덱')).join(', ')} · 카드 ${target.length}장 · 오늘까지 남은 ${remain}장</p></div>
+        return `<div class="panel" data-exam="${escapeHtml(e.id)}"><div class="panel-head"><div><h3>${e.status === 'done' ? '<span class="badge">시험 끝</span> ' : `<span class="badge badge-box dday-badge">D-${dn || 'Day'}</span> `}${escapeHtml(e.title)}</h3><p class="small muted">${escapeHtml(e.date)}(${weekdayKo(e.date)}) · 덱: ${e.deckIds.map(id => escapeHtml((deckById(id) || {}).name || '삭제된 덱')).join(', ')} · 카드 ${target.length}장 · 오늘까지 남은 ${remain}장</p></div>
           <div class="row">${e.status === 'done' ? `<button class="btn btn-sm btn-primary" data-action="exam-wrong" data-id="${escapeHtml(e.id)}">시험에서 틀린 문제 추가</button>` : `<button class="btn btn-sm" data-action="exam-regen" data-id="${escapeHtml(e.id)}">다시 생성</button>`}<button class="btn btn-sm btn-ghost" data-action="exam-delete" data-id="${escapeHtml(e.id)}">삭제</button></div></div>
-          ${e.status === 'done' ? '' : `<div class="plan-cal" id="plan-${e.id}">${days.map(d => `<div class="plan-day ${d === today ? 'today' : ''}"><span>${fmtMd(d)}</span><b class="num">${live[d] || 0}</b><span>${weekdayKo(d)}</span></div>`).join('')}</div>`}</div>`; }).join('') || `<div class="empty panel"><strong>예정된 시험이 없어요</strong><p>시험 이름과 날짜, 덱을 고르면 복습 계획을 시험 전날까지 나눠 드려요.</p></div>`}`;
+          ${e.status === 'done' ? '' : `<div class="plan-cal" id="plan-${escapeHtml(e.id)}">${days.map(d => `<div class="plan-day ${d === today ? 'today' : ''}"><span>${fmtMd(d)}</span><b class="num">${live[d] || 0}</b><span>${weekdayKo(d)}</span></div>`).join('')}</div>`}</div>`; }).join('') || `<div class="empty panel"><strong>예정된 시험이 없어요</strong><p>시험 이름과 날짜, 덱을 고르면 복습 계획을 시험 전날까지 나눠 드려요.</p></div>`}`;
   };
   function openExamModal() {
     const body = document.createElement('div'); body.className = 'list'; const min = addDays(today, 1);
@@ -702,9 +702,9 @@
     const v = await showModal({ title: '백업 복원', body, buttons: [{ text: '취소', value: false, kind: 'ghost' }, { text: '프로필로 추가', value: 'add', kind: 'ghost' }, { text: '덮어쓰기', value: 'over', kind: 'danger' }] });
     if (!v) return;
     // 프로필 id는 저장소 키·data-id 속성에 쓰이므로 허용 형식이 아니면 새로 발급하고, 이모지·목표·설정도 허용 값으로만 보정한다(파일의 다른 키는 버린다)
-    const idMap = {}; ps.forEach(p => { idMap[p.id] = safeId(p.id, () => 'p-' + uid()); });
+    const idMap = Object.create(null); ps.forEach(p => { idMap[p.id] = safeId(p.id, () => 'p-' + uid()); });
     if (v === 'over') {
-      const next = {}; ps.forEach(p => { next[idMap[p.id]] = coerceProfileData(obj.profiles[p.id]); });
+      const next = Object.create(null); ps.forEach(p => { next[idMap[p.id]] = coerceProfileData(obj.profiles[p.id]); });
       Object.entries(next).forEach(([id, d]) => storage.set(KEY.profile(id), d)); // 새 데이터를 먼저 쓰고
       storage.keys().filter(k => k.startsWith('v1.profile.') && !next[k.slice(11)]).forEach(k => storage.remove(k)); // 남은 옛 키만 지운다
       const ms = obj.meta.settings && typeof obj.meta.settings === 'object' ? obj.meta.settings : {};

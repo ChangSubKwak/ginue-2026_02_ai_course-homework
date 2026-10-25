@@ -1,0 +1,50 @@
+{
+  "status": "pass",
+  "round": 2,
+  "remaining": [],
+  "verified_fixed": [
+    {
+      "id": "R-01",
+      "severity": "major",
+      "note": "소스 확인(app.js 13~38행 coerceProfileData, 62~63행 fixProfile, 84행 deckClass, 690~716행 restoreFromFile): 덱 color는 SUBJECT_KEY 값 집합만 유지, 덱·카드·세션·시험·되새김 id는 SAFE_ID(/^[A-Za-z0-9_-]{1,40}$/) 아니면 uid()로 재발급하고 deckMap/cardMap으로 카드 deckId·시험 deckIds·pendingSession 참조를 재연결, 프로필 emoji는 PROFILE_EMOJIS 허용 목록(아니면 🐼), 프로필 id는 safeId로 검사해 'p-'+uid 발급, 덮어쓰기 meta는 고정 키로 재구성(settings boolean 강제). 렌더에서도 헤더 칩 textContent, 설정 목록·팝오버 emoji/id·덱 카드·카드 행·시험 data-exam/plan-id·인쇄 덱 칩·카드 모달 option 모두 escapeHtml. 브라우저 확인(reverify-r2/reverify.js, 수정 보고서와 다른 페이로드: <svg onload> emoji, 작은따옴표 속성 탈출 color/id, 프로필 이름·덱 이름·단원·카드 앞뒤·힌트·메모·내 답·세션 coaching/kind·되새김·시험 제목·pendingSession.results.front·javascript:/text-html drawing): '프로필로 추가'→설정·팝오버·전환 토스트·홈·세션 앞뒤·요약 모달(4분면 목록·코칭 R3)·덱 목록·덱 상세·전체 카드·카드 수정 모달·기록·주간 리포트·시험 탭·시험 모달·인쇄 미리보기(카드/학습지)·교사 탭(백업 자동 변환·요약 파일·셀 클릭)·CSV 미리보기/가져온 목록, '덮어쓰기'→새로고침 후 전 탭 순회까지 window.__x_* 미설정, 주입된 <img>/<svg> 요소 0개, 콘솔 오류 0(주입 img 로드 시도 없음). 스크린샷 reverify-r2/reverify-out/r2-evil-summary.png·r2-evil-after-reload.png·r2-evil-teacher.png에서 HTML이 문자 그대로 보임. 1라운드 재검증 모듈 reverify-r1/reverify.js 'R 신규' 3건 포함 53/0, 회귀 모듈 fix-r2-xss.js 40/0 통과. 정상 샘플 백업 왕복(72장·상자 14/18/16/14/10·큐 11·시험 deckIds·프로필 id/이모지 유지)으로 정화 로직의 회귀 없음 확인."
+    },
+    {
+      "id": "1라운드 critical·major 14건(F-01/C-03, F-02/C-01, F-03/C-02, F-04/M-01, F-05, F-06/M-02, U-01~U-08)",
+      "note": "reverify-r1에서 검증 완료된 항목의 회귀 여부를 전 모듈 재실행으로 확인: func-session(큐 정렬·진행 표시·busy 잠금) 85/0, func-settings-data(복원 검증·덮어쓰기 데이터 보존) 99/0, func-robustness 49/0, code-01-bugs 8/0, ux-shots 60/0·ux-shots2 8/0·ux-shots3 2/0, visual 14/0. 스크린샷 육안 확인: ml-home-storage-banner.png(U-01 '설정으로' 버튼 한 줄), ml-home-viewport.png(U-06 FAB가 상자 5개를 가리지 않음, 상자 3+2 두 줄), dl-session-summary-expanded.png(U-08 펼친 칸만 늘어나고 옆 칸 유지), dl-session-flipped.png(U-04 채점 버튼 흰 글자 대비 충분). 회귀 없음."
+    }
+  ],
+  "new_findings": [
+    {
+      "id": "R2-01",
+      "severity": "minor",
+      "area": "복원(깨진 파일 내성)",
+      "title": "백업 JSON의 프로필 id가 '__proto__'이거나 activeProfileId가 Object.prototype 속성 이름('constructor' 등)이면 idMap 조회가 프로토타입 값을 돌려줘 복원 직후 예외(덮어쓰기) 또는 추가된 프로필 유실(프로필로 추가)이 생긴다",
+      "description": "restoreFromFile(app.js 705~713행)의 idMap과 coerceProfileData의 deckMap/cardMap이 일반 객체({})라서, 파일의 id가 '__proto__'이면 대입이 무시되고 조회 idMap['__proto__']가 Object.prototype 객체를 돌려준다. (1) '프로필로 추가': 프로필 id가 Object.prototype 객체가 되어 저장 키 'v1.profile.[object Object]'에 데이터가 들어가고 meta에는 id {}로 직렬화 → 새로고침 시 typeof id !== 'string' 필터로 그 프로필이 사라진다(원래 데이터는 무사). (2) '덮어쓰기': obj.meta.activeProfileId가 프로필 목록에 없는 'constructor' 같은 이름이면 idMap['constructor']가 Object 함수(truthy)가 되어 state.data=undefined → render()에서 'Cannot read properties of undefined (reading \\'emoji\\')' 예외로 화면이 멈추고, 새로고침하면 첫 프로필로 복구된다(이 경우도 '__proto__' 프로필은 유실). 앱이 내보낸 백업은 id가 uid()/'p-'+uid 형식이라 이 값이 나올 수 없고, 직접 손으로 만든 파일에서만 재현되며 스크립트 실행·기존 데이터 손실은 없어 minor로 분류했다.",
+      "evidence": "reverify-r2/reverify.js 4절 실패 4건: 추가 후 프로필 id 목록 'string:p-ev,string:p-…,string:pa,object:[object Object]'; 새로고침 후 프로필 '나' 없음; 덮어쓰기(activeProfileId='constructor') 후 pageErrors ['Cannot read properties of undefined (reading \\'emoji\\')'], getState 호출 실패; 새로고침 후 프로필 '가' 1개만 남음. 결과: reverify-r2/reverify-out/reverify.result.json, 스크린샷 r2-proto-after.png",
+      "file": "D:\\workspace\\ginue-2026_02_ai_course-homework\\02_학습지도_기억상자\\js\\app.js",
+      "line": 705,
+      "suggested_fix": "idMap·deckMap·cardMap을 Object.create(null) 또는 Map으로 만들고 조회를 hasOwnProperty/Map.get으로 바꾼다. 덮어쓰기에서 activeProfileId는 ps에 포함된 id일 때만 쓰고 아니면 ps[0]로 대체(`ps.some(p => p.id === obj.meta.activeProfileId) ? idMap[...] : idMap[ps[0].id]`). fixProfile/coerce 결과 id가 문자열이 아니면 새 id를 발급하는 방어선을 하나 더 둔다. func-settings-data에 '__proto__'/'constructor' id 백업 복원 케이스를 추가한다."
+    }
+  ],
+  "acceptance_results": [
+    { "criterion": "AC1 file://로 열면 김하늘·오늘 복습 11장·밀림 3장·스트릭 6·D-12 배너", "status": "pass", "note": "pw-check desktop-light/dark·mobile 스크린샷 육안 확인(상자 14/18/16/14/10, 6일, D-12 수학 5단원 단원평가); accept.js AC1 통과; reverify.js 기준 검사 큐 11·상자 분포 일치." },
+    { "criterion": "AC2 세션 열림·확신도 전 뒤집기 disabled·확실해요 후 스페이스로 뒤집힘·틀렸어요/맞았어요 표시", "status": "pass", "note": "accept.js AC2 통과; ux-shots dl-session-flipped.png에서 뒷면·채점 버튼 확인; reverify.js에서 1→Space→← 키보드 흐름 동작." },
+    { "criterion": "AC3 2상자 확실→맞음 → 미니 상자 3 +1, 상자 3·오늘+4; 틀림 → 상자 1·오늘+1", "status": "pass", "note": "accept.js AC3 4건 통과(code-02-acceptance 51/0 포함)." },
+    { "criterion": "AC4 오답 카드 틀림 → 원인 패널, 고르기 전 진행 안 됨, 고르면 목록 배지 변경", "status": "pass", "note": "accept.js AC4 통과; func-session 85/0." },
+    { "criterion": "AC5 11장 처리 후 요약 모달 4분면 합 11·코칭 1개·되새김 '테스트'가 기록 탭 맨 위", "status": "pass", "note": "accept.js AC5 통과; dl-session-summary-expanded.png(11+0+0+0=11, 코칭 1줄); reverify.js에서도 되새김 '테스트'가 목록에 표시." },
+    { "criterion": "AC6 Esc 종료 후 새로고침 → '이어서 하기(남은 N장)', 처리한 카드 상자 유지", "status": "pass", "note": "accept.js AC6 통과; reverify.js에서 복원된 pendingSession으로 '이어서 하기(남은 1장)' 표시 및 진행." },
+    { "criterion": "AC7 새 덱 + 헤더 포함 3열 CSV 10행(따옴표 안 쉼표) → 총 10행, 덱 10장, 1상자 +10, 쉼표 행 보존", "status": "pass", "note": "accept.js AC7 통과; func-cards 84/0; reverify.js CSV(따옴표 안 \"\" 이스케이프 포함) 가져오기 정상." },
+    { "criterion": "AC8 하루 목표 5 → 새로고침 후 설정 값·홈 분모 5", "status": "pass", "note": "accept.js AC8 통과; func-settings-data 99/0." },
+    { "criterion": "AC9 '지금 복습 안 하면' 토글 → 두 번째 선 + '7일 뒤 N장', 끄면 사라짐; 잔디 셀 30개 이상", "status": "pass", "note": "accept.js AC9 통과; func-history-exam-print 81/0." },
+    { "criterion": "AC10 시험 오늘+10·영어 덱 → 홈 D-10, 계획 달력 10칸 합 ≥16, 덱 카드 due ≤ 시험 전날", "status": "pass", "note": "accept.js AC10 통과." },
+    { "criterion": "AC11 교사 모드 → 샘플 학급 6명, 복습 포인트 1위 분수의 덧셈과 뺄셈·5명, 계산 실수형 박서아·한수아", "status": "pass", "note": "accept.js AC11 통과; reverify-r1/reverify.js C-02 회귀 검사(17장·53%) 통과." },
+    { "criterion": "AC12 이도윤 전환 → 큐 9·덱 2, 김하늘 복귀 → 11장·5덱", "status": "pass", "note": "accept.js AC12 통과; reverify.js 샘플 복귀 후 큐 11·김하늘 확인." },
+    { "criterion": "AC13 400px 가로 스크롤 없음·탭바로 모든 화면 이동·세션 버튼 모두 보임", "status": "pass", "note": "pw-check mobile overflow 0; accept.js AC13·func-responsive-theme 50/0; ml-home-viewport.png 육안 확인." },
+    { "criterion": "AC14 localStorage.setItem 예외 → '저장이 되지 않아요' 배너, 복습·카드 추가 동작", "status": "pass", "note": "accept.js AC14 통과; ml-home-storage-banner.png에서 배너·'설정으로' 버튼 확인." },
+    { "criterion": "AC15 5상자 확실→맞음 → 5상자 유지·오늘+30·숙달 별", "status": "pass", "note": "accept.js AC15 통과." }
+  ],
+  "lint_issues": 0,
+  "pw_problems": [],
+  "tests_summary": "lint-app.js issues 0(총 1,590줄: app.js 808·util.js 208·data.js 134·style.css 357·index.html 83). pw-check.js problems 0(콘솔 오류·경고 0, 가로 스크롤 0, 스크린샷 reverify-r2/check/ 3장 육안 확인). 기존 모듈 13개 + reverify-r1/reverify + fix-r2-xss 전부 재실행(reverify-r2/run-mods.js → reverify-r2/<모듈>/): func-session 85/0, func-cards 84/0, func-history-exam-print 81/0, func-settings-data 99/0, func-robustness 49/0, func-responsive-theme 50/0, code-01-bugs 8/0, code-02-acceptance 51/0, ux-shots 60/0, ux-shots2 8/0, ux-shots3 2/0, accept 58/0, visual 14/0, reverify(r1) 53/0, fix-r2-xss 40/0 — 합계 742 passed / 0 failed, pageErrors 0, consoleErrors 0, dialogs 0. 독립 재검증 모듈 reverify-r2/reverify.js: 58 passed / 4 failed, pageErrors 1 — 실패 4건과 페이지 예외 1건은 모두 손으로 만든 프로토타입 키 id 백업(R2-01, minor)에서만 발생하고 R-01 공격 경로 검사 54건은 전부 통과.",
+  "notes": "2라운드 대상 R-01(백업 JSON의 프로필 emoji·덱 color·id로 XSS)은 소스와 브라우저에서 직접 확인해 해결됨: 정화(coerceProfileData/fixProfile/safeId)와 렌더 이스케이프가 모든 화면(설정·팝오버·홈·세션·요약·카드·기록·주간 리포트·시험·인쇄·교사·CSV)에 적용되어 수정 보고서와 다른 페이로드로도 스크립트가 실행되지 않았고, 정상 백업 왕복·전 모듈 742건 통과로 회귀 없음. 1라운드 critical 3건·major 11건도 재실행·스크린샷으로 회귀 없음을 확인했다. 새로 발견한 R2-01은 앱이 만든 파일로는 재현되지 않는 손으로 만든 백업('__proto__' 프로필 id / 'constructor' activeProfileId)에서만 복원 직후 예외·추가 프로필 유실이 나는 내성 문제로 스크립트 실행·기존 데이터 손실이 없어 minor로 분류했고, critical·major 잔여 0건·기존 테스트 실패 0·pw-check 가로 스크롤/예외 0이므로 status=pass. 미수정 minor 2건(F-15 더보기 탭, U-24 데스크톱 홈 여백)은 보고서 사유(새 UI 추가·기존 테스트 선택자 영향)가 타당하고 README 제한 사항에 기재되어 잔여 이슈로 세지 않았다. 앱 소스는 수정하지 않았고 커밋도 하지 않았다. 결과 폴더: _dev/tests/memory-box/reverify-r2/ (check/, <모듈>/, reverify-out/, run-all.log, run-a.log, run-b.log, reverify.js, run-mods.js)."
+}
