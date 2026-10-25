@@ -1,0 +1,38 @@
+{
+  "url": "file:///D:/workspace/ginue-2026_02_ai_course-homework/05_교육용게임_연산수호대/index.html",
+  "test": "math-guardians.js",
+  "passed": [
+    "01 2학년 스테이지 카드 3개",
+    "12 3-4 잠김 카드",
+    "07 히트맵 빨간 칸",
+    "08 순위표 행",
+    "10 도움말 모달",
+    "02 몬스터 등장",
+    "03 교정 카드 표시",
+    "04 복수 몬스터 등장",
+    "05 보스(방패 3) 등장",
+    "06 결과 화면 표시",
+    "11 모바일 몬스터 등장"
+  ],
+  "failed": [],
+  "logs": [
+    "shot 05_교육용게임_연산수호대\\docs\\screens\\01-home.png",
+    "shot 05_교육용게임_연산수호대\\docs\\screens\\12-dark.png",
+    "shot 05_교육용게임_연산수호대\\docs\\screens\\07-codex.png",
+    "shot 05_교육용게임_연산수호대\\docs\\screens\\08-hall.png",
+    "shot 05_교육용게임_연산수호대\\docs\\screens\\09-settings.png",
+    "shot 05_교육용게임_연산수호대\\docs\\screens\\10-help.png",
+    "shot 05_교육용게임_연산수호대\\docs\\screens\\02-game-wave1.png",
+    "shot 05_교육용게임_연산수호대\\docs\\screens\\03-card-array.png",
+    "shot 05_교육용게임_연산수호대\\docs\\screens\\04-revenge.png",
+    "shot 05_교육용게임_연산수호대\\docs\\screens\\05-boss.png",
+    "shot 05_교육용게임_연산수호대\\docs\\screens\\06-result.png",
+    "shot 05_교육용게임_연산수호대\\docs\\screens\\11-mobile-game.png"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "dialogs": [],
+  "screenshots": [],
+  "fatal": null,
+  "summary": "11 passed, 0 failed, 0 page errors, 0 console errors"
+}
