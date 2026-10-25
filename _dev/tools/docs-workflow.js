@@ -197,7 +197,7 @@ ${JSON.stringify(specs.map(s => ({ category_num: s.category_num, category: s.cat
 }
 
 phase('Write')
-const docResults = await pipeline(
+const docResults = args.reportOnly ? [] : await pipeline(
   specs,
   (spec) => {
     const build = (buildResults || []).find(b => b.app && b.app.app_name_en === spec.app_name_en) || null
