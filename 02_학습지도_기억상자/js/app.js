@@ -358,7 +358,7 @@
         <div class="face face-back"><div class="face-tag">정답</div><div class="${faceCls(c.back)}">${escapeHtml(c.back)}</div><div class="face-extra">${c.type === 'wrong' && c.myAnswer ? `<div><b>내 답:</b> <s>${escapeHtml(c.myAnswer)}</s></div>` : ''}<div id="hint-line" hidden><b>힌트:</b> ${escapeHtml(c.hint || '없음')}</div>${c.note ? `<div><b>조심할 점:</b> ${escapeHtml(c.note)}</div>` : ''}${isDrawing(c.drawing) ? `<img class="drawing" src="${escapeHtml(c.drawing)}" alt="손그림">` : ''}</div></div>
       </div></div>
       <div class="session-actions">
-        <div class="conf-btns" id="conf-btns">${[3, 2, 1].map(k => `<button class="btn" data-action="conf" data-c="${k}" aria-pressed="false">${k === 3 ? '😊' : k === 2 ? '🤔' : '😵'} ${APP_DATA.CONF[k]}</button>`).join('')}</div>
+        <div class="conf-btns" id="conf-btns">${[1, 2, 3].map(k => `<button class="btn" data-action="conf" data-c="${k}" aria-pressed="false">${k === 3 ? '😊' : k === 2 ? '🤔' : '😵'} ${APP_DATA.CONF[k]}</button>`).join('')}</div>
         <button class="btn btn-primary btn-lg" id="flip-btn" data-action="flip" disabled>뒤집기</button>
         <div id="after-flip" hidden><div class="row spread" style="margin-bottom:8px"><button class="btn btn-sm" data-action="hint" ${c.hint ? '' : 'disabled'}>💡 힌트 보기</button><span class="small muted">← 왼쪽으로 밀면 틀림 · 오른쪽으로 밀면 맞음 →</span></div>
           <div class="grade-btns" id="grade-btns"><button class="btn btn-danger btn-lg" data-action="grade" data-ok="0">✗ 틀렸어요</button><button class="btn btn-ok btn-lg" data-action="grade" data-ok="1">✓ 맞았어요</button></div>
@@ -731,7 +731,7 @@
   const helpModal = () => showModal({ title: '기억상자 사용법', wide: true, cancelText: null, confirmText: '닫기', body: `<ol class="help-steps">
     <li><b>카드 넣기</b> — 카드 탭에서 덱을 만들고 ‘+ 카드’로 외울 것(암기)이나 틀린 것(오답)을 적어요. 교사가 준 CSV를 끌어 놓아도 돼요.</li>
     <li><b>오늘 복습</b> — 홈의 ‘오늘 복습 N장’을 누르면 잊기 직전인 카드만 골라 보여 줘요.</li>
-    <li><b>확신도 → 뒤집기 → 채점</b> — 뒤집기 전에 ‘확실해요/애매해요/모르겠어요’를 고르고, 뒤집어 정답을 본 뒤 ‘맞았어요/틀렸어요’를 눌러요. 맞히면 다음 상자로, 틀리면 1상자로 가요.</li>
+    <li><b>확신도 → 뒤집기 → 채점</b> — 뒤집기 전에 ‘모르겠어요/애매해요/확실해요’를 고르고, 뒤집어 정답을 본 뒤 ‘맞았어요/틀렸어요’를 눌러요. 맞히면 다음 상자로, 틀리면 1상자로 가요.</li>
     <li><b>되새김</b> — 다 끝나면 4분면 표와 코칭 한 줄이 나와요. ‘오늘 가장 헷갈린 것 한 줄’을 적어 두세요.</li>
     <li><b>기록·시험·인쇄</b> — 기록 탭에서 잔디 달력·원인 도넛·망각 예측을 보고, 시험 탭에서 D-Day 계획을, 인쇄 탭에서 암기카드·학습지를 뽑아요.</li>
     <li><b>교사</b> — 설정에서 교사 모드를 켜고 학생들의 ‘복습 요약 JSON’을 모으면 학급 공통 오답을 집계해요.</li></ol>
