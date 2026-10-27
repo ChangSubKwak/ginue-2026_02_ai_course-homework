@@ -133,6 +133,7 @@ input[type="checkbox"] { width: 1.3rem; height: 1.3rem; accent-color: var(--acce
 /* SVG 글자는 viewBox 단위(1000 기준) — 화면 폭에 비례 */
 .cell-label { font: 700 34px var(--font-display); fill: var(--fg-muted); pointer-events: none; }
 .cell-label.on { fill: var(--fill-fg); }
+.cell-label.dense { font-size: 26px; } /* 원 조각이 9개 이상이면 번호가 분할선을 넘지 않게 */
 .axis { stroke: var(--div); stroke-width: 3; }
 .axis-arrow { fill: var(--div); }
 .tick { stroke: var(--div); stroke-width: 2; }
@@ -190,6 +191,7 @@ input[type="checkbox"] { width: 1.3rem; height: 1.3rem; accent-color: var(--acce
   .check-row { margin-left: 0; }
   .model-circle svg { max-height: 16rem; }
   .cell-label { font-size: 48px; }
+  .cell-label.dense { font-size: 30px; }
   .tick-label { font-size: 40px; }
   .tick-label.int, .pt-label { font-size: 46px; }
 }

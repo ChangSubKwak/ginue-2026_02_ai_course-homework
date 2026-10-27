@@ -74,18 +74,20 @@
   // 같게 쪼개기(×k): 분자·분모를 함께 곱하고 사슬에 추가
   function split(k) {
     if (state.d * k > D_MAX) { showToast(`분모는 ${D_MAX}까지만 쪼갤 수 있어요`, 'warn'); return; }
-    pushChain(); anim = { type: 'split', from: state.d };
+    pushChain(true); anim = { type: 'split', from: state.d };
     state.n *= k; state.d *= k; pushChain(); commit();
   }
   // 합치기(약분): 최대공약수로 나눔
   function reduce() {
     const g = state.n === 0 ? 1 : gcd(state.n, state.d);
     if (g === 1) { showToast('이미 가장 간단한 분수예요', 'info'); return; }
-    pushChain(); anim = { type: 'merge', from: state.d };
+    pushChain(true); anim = { type: 'merge', from: state.d };
     state.n /= g; state.d /= g; pushChain(); commit();
   }
   // 사슬 끝에 현재 분수 추가(같은 값 연속 방지, 최대 6개)
-  function pushChain() {
+  // fromHere: 조작 직전 호출이면, 현재 분수가 사슬 중간 항일 때 그 뒤를 잘라 내고 이어 감
+  function pushChain(fromHere) {
+    if (fromHere) { let at = -1; state.chain.forEach((f, i) => { if (f.n === state.n && f.d === state.d) at = i; }); if (at >= 0) state.chain.length = at + 1; }
     const last = state.chain[state.chain.length - 1];
     if (last && last.n === state.n && last.d === state.d) return;
     state.chain.push({ n: state.n, d: state.d });
@@ -206,7 +208,7 @@
           : `<path class="cell${on ? ' on' : ''}" data-i="${gi}" d="M ${cx} ${cy} L ${pt(cx, cy, a0)} A ${R} ${R} 0 ${360 / d > 180 ? 1 : 0} 1 ${pt(cx, cy, a1)} Z">`;
         s += `${shape}<title>${gi + 1}번째 조각</title></${d === 1 ? 'circle' : 'path'}>`;
         const [lx, ly] = pt(cx, cy, (a0 + a1) / 2, d === 1 ? 0 : R * .68).split(' ');
-        s += `<text class="cell-label${on ? ' on' : ''}" x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="central">${i + 1}</text>`;
+        s += `<text class="cell-label${on ? ' on' : ''}${d >= 9 ? ' dense' : ''}" x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="central">${i + 1}</text>`;
       }
       for (const j of ghosts) s += `<line class="div ghost" x1="${cx}" y1="${cy}" x2="${pt(cx, cy, -90 + j * 360 / anim.from).replace(' ', '" y2="')}"/>`;
       if (d > 1) for (let j = 0; j < d; j++) s += `<line class="${divClass(j, d)}" x1="${cx}" y1="${cy}" x2="${pt(cx, cy, -90 + j * 360 / d).replace(' ', '" y2="')}"/>`;

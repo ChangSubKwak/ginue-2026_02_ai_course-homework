@@ -16,3 +16,7 @@ Thumbs.db
 # 개발 도구 의존성
 _dev/tools/node_modules/
 _dev/tests/**/*.png
+
+# 과제제출물 임시 파일
+과제제출물/_preview.*
+**/~$*

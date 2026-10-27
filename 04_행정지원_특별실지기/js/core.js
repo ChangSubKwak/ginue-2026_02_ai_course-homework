@@ -110,7 +110,7 @@ const SRB = (() => {
       if (e.target.closest('[data-close]')) { close(null); return; }
       const b = e.target.closest('[data-result]'); if (b && !b.disabled) close(b.dataset.result);
     });
-    requestAnimationFrame(() => { const f = $('.modal-foot button:not([disabled]), .modal-body input, .modal-body select, .modal-body button', wrap); (f || $('[data-close]', wrap)).focus(); });
+    requestAnimationFrame(() => { const f = $('.modal-foot button:not([disabled]), .modal-body input, .modal-body select, .modal-body button', wrap); (f || $('[data-close]', wrap)).focus({ preventScroll: true }); $$('.table-wrap', wrap).forEach(t => { t.scrollLeft = 0; }); });
     return { el: wrap, body: bodyEl, foot: footEl, close, done };
   }
   function showModal({ title, body, confirmText = '확인', cancelText = '취소', danger = false }) {

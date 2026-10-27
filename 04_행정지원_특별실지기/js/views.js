@@ -351,7 +351,7 @@
       </div>
       <div class="split">
         <section class="card"><h2>자원별 가동률</h2><p class="muted small">사용 교시 ÷ 가용 교시(수업일 × 사용 가능 교시 − 차단 교시, 수량형은 × 보유 수량)</p><div class="chart-wrap">${svgRateBars(st)}</div></section>
-        <section class="card"><h2>학년별 이용 횟수</h2><p class="muted small">학급 또는 '학년 전체' 예약 건수</p><div class="chart-wrap">${svgGradeBars(st)}</div></section>
+        <section class="card"><h2>학년별 이용 횟수</h2><p class="muted small">학급 또는 '학년 전체' 예약 건수</p><div class="chart-wrap narrow">${svgGradeBars(st)}</div></section>
       </div>
       <section class="card"><h2>학급 × 자원 이용 형평성 히트맵</h2><p class="muted small">칸의 숫자는 예약 건수. 같은 학년 평균의 50% 미만(평균 2건 이상)이면 빨간 테두리와 모서리 표시로 '저조'를 나타냅니다.</p><div class="chart-wrap">${svgHeatmap(st)}</div>
         <h3>이용 저조 학급 <small class="muted">${st.low.length}건</small></h3>${lowListHtml(st)}</section>
