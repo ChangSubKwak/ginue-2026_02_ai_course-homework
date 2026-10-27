@@ -21,7 +21,7 @@ module.exports = async ({ page, expect, shot, log, sleep }) => {
   expect(await page.locator('#roster-table tr.is-inactive').count() === 1, 'AC1 비활성 1명(is-inactive) 표시');
   const inOp = await page.$eval('#roster-table tr.is-inactive td', td => getComputedStyle(td).opacity);
   expect(Number(inOp) < 1, '비활성 행 회색 처리(opacity<1): ' + inOp);
-  expect((await page.textContent('#class-name-btn')).includes('가온초등학교 5학년 2반'), 'AC1 학급명 표시');
+  expect((await page.textContent('#class-name-btn')).includes('경인초등학교 5학년 2반'), 'AC1 학급명 표시');
   expect((await page.textContent('#roster-summary')).includes('활성 24명 (남 12·여 12)'), '요약 칩 활성 24명(남 12·여 12)');
   expect((await page.textContent('#roster-summary')).includes('앞자리 필요 3') && (await page.textContent('#roster-summary')).includes('키 큼 3'), '요약 칩 태그 인원');
   expect(s.state.history.length === 4 && s.state.groupHistory.length === 1, 'AC1 히스토리 4건 + 모둠 1건');

@@ -168,7 +168,7 @@
     }
   ],
   "acceptance_results": [
-    { "criterion": "file://로 열면 콘솔 에러 없이 가온초 5-2 명렬 25명(비활성 1 회색)·히스토리 4건", "status": "pass", "note": "pw-check 콘솔/페이지 오류 0, 학생 25·is-inactive 1행·seat 히스토리 카드 4건 확인" },
+    { "criterion": "file://로 열면 콘솔 에러 없이 경인초 5-2 명렬 25명(비활성 1 회색)·히스토리 4건", "status": "pass", "note": "pw-check 콘솔/페이지 오류 0, 학생 25·is-inactive 1행·seat 히스토리 카드 4건 확인" },
     { "criterion": "'자동 배치' 1초 이내 24장 + '분리 쌍 2/2 충족', '앞자리 배려 3/3 충족' 초록", "status": "pass", "note": "196ms, 24장, 패널티 0, 리포트 문구 일치(out/ac2-seats.png)" },
     { "criterion": "앞자리 태그 7명(앞 구역 6책상) 하드 → 위반 좌석 1 빨간 테두리 + '앞 구역 책상 부족' 제안", "status": "pass", "note": "front total 7·violations 1, .seat.viol ≥1, 제안 '앞 구역 책상 부족(7>6)' (out/ac3-front-violation.png)" },
     { "criterion": "카드 드래그 교환 → 분리 쌍 인접 시 토스트 '분리 조건 위반: 최민준-강시우' + 빨간 테두리, Ctrl+Z 복구", "status": "pass", "note": "Pointer 드래그로 교환, 토스트 문구 정확, viol 2개, Ctrl+Z 후 seats 동일" },

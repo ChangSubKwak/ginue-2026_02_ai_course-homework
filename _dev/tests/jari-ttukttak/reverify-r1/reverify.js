@@ -14,7 +14,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   await section('AC1', async () => {
     const n = await page.locator('#roster-table tbody tr').count(), inactive = await page.locator('#roster-table tr.is-inactive').count();
     expect(n === 25 && inactive === 1, `AC1 명렬 25행·비활성 1행 (${n}/${inactive})`);
-    expect((await page.locator('#class-name-btn').innerText()).includes('가온초등학교 5학년 2반'), 'AC1 학급명 표시');
+    expect((await page.locator('#class-name-btn').innerText()).includes('경인초등학교 5학년 2반'), 'AC1 학급명 표시');
     await tab('history');
     const seatCards = await page.locator('.hist-card.kind-seat').count(), groupCards = await page.locator('.hist-card.kind-group').count();
     expect(seatCards === 4 && groupCards === 1, `AC1 히스토리 자리 4건·모둠 1건 (${seatCards}/${groupCards})`);

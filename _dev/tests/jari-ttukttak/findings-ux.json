@@ -234,7 +234,7 @@
     }
   ],
   "acceptance_results": [
-    { "criterion": "index.html을 file://로 열면 콘솔 에러 없이 '가온초등학교 5학년 2반' 명렬 25명(비활성 1명 회색)과 히스토리 4건이 보인다", "result": "pass", "evidence": "d-light-01-roster.png (25번 백건우 회색), d-light-50-history.png (자리 4건+모둠 1건), pw-check consoleErrors 0" },
+    { "criterion": "index.html을 file://로 열면 콘솔 에러 없이 '경인초등학교 5학년 2반' 명렬 25명(비활성 1명 회색)과 히스토리 4건이 보인다", "result": "pass", "evidence": "d-light-01-roster.png (25번 백건우 회색), d-light-50-history.png (자리 4건+모둠 1건), pw-check consoleErrors 0" },
     { "criterion": "'자동 배치'를 누르면 1초 이내에 24개 좌석 카드가 채워지고 '분리 쌍 2/2 충족', '앞자리 배려 3/3 충족'이 초록으로 표시된다", "result": "pass", "evidence": "d-light-12-seats-auto.png, 리포트 로그 '분리 쌍 | 하드 | 2/2 충족', '앞자리 배려 | 하드 | 3/3 충족'" },
     { "criterion": "'앞자리 필요' 태그를 7명으로 늘리고 하드로 자동 배치하면 위반 좌석이 빨간 테두리로 표시되고 '앞 구역 책상 부족' 완화 제안이 나타난다", "result": "pass", "evidence": "d-light-18-seats-hard-violation.png (15명으로 테스트: '앞 구역 책상 부족(15>6)…' 제안, 빨간 테두리 9개)" },
     { "criterion": "좌석 카드를 드래그/탭-탭으로 교환하면 두 학생이 교환되고, 분리 쌍을 인접시키면 '분리 조건 위반: 최민준-강시우' 토스트와 빨간 테두리가 즉시 뜨며 Ctrl+Z로 원래대로 돌아간다", "result": "pass", "evidence": "d-light-15-seats-violation-toast.png (토스트 '분리 조건 위반: 최민준-강시우', 빨간 테두리 2개), expect 'Ctrl+Z 후 위반 해제' 통과, m-400-14 탭-탭 교환 통과" },

@@ -10,7 +10,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   expect(st.state.students.length === 25, 'AC1 명렬 25명');
   expect(await page.locator('#roster-table tr.is-inactive').count() === 1, 'AC1 비활성 1명 회색 행');
   expect(st.state.history.length === 4, 'AC1 히스토리 4건');
-  expect(st.state.classInfo.school === '가온초등학교' && st.state.classInfo.className === '5학년 2반', 'AC1 학급명');
+  expect(st.state.classInfo.school === '경인초등학교' && st.state.classInfo.className === '5학년 2반', 'AC1 학급명');
 
   // AC2: 자동 배치 1초 이내, 24장, 리포트
   await page.click('[data-tab=seats]'); await sleep(200);

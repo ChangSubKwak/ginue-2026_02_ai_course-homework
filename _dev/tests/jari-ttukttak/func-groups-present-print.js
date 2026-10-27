@@ -120,7 +120,7 @@ module.exports = async ({ page, expect, shot, log, sleep }) => {
   expect(await page.$$eval('#present-map .face.front', es => es.length === 24 && es.every(e => e.textContent.trim() === '?')), 'AC7 뒷면 "?"');
   expect(await page.locator('#present-map .seat.empty').count() === 6, '빈 책상 6개 플립 대상 제외');
   expect((await page.textContent('#present-progress')) === '0/24 공개', '진행 표시 0/24 공개');
-  expect((await page.textContent('#present-title')).includes('가온초등학교 5학년 2반'), '발표 제목 학급명');
+  expect((await page.textContent('#present-title')).includes('경인초등학교 5학년 2반'), '발표 제목 학급명');
   const flipCss = await page.$eval('#present-map .flip', el => getComputedStyle(el).transformStyle + '|' + getComputedStyle(el).transitionDuration);
   expect(flipCss.startsWith('preserve-3d') && flipCss.includes('0.5s'), 'CSS 3D 플립(preserve-3d, 0.5s): ' + flipCss);
   const cellPx = await page.$eval('#present-map', el => parseInt(el.style.getPropertyValue('--cell')));
@@ -198,7 +198,7 @@ module.exports = async ({ page, expect, shot, log, sleep }) => {
   expect((await page.textContent('#print-pagecount')).includes('총 6페이지') && (await page.textContent('#print-pagecount')).includes('세로'), '총 6페이지·A4 세로');
   expect((await page.$eval('#page-style', el => el.textContent)).includes('portrait'), '@page portrait');
   const plateTxt = await page.textContent('#print-pages .plate');
-  expect(plateTxt.includes('번') && plateTxt.includes('가온초등학교'), '명패 큰 이름+번호+학급');
+  expect(plateTxt.includes('번') && plateTxt.includes('경인초등학교'), '명패 큰 이름+번호+학급');
   expect(await page.locator('#print-pages .plate .pl-name').count() === 48 && (await page.$eval('#print-pages .pl-name', el => parseFloat(getComputedStyle(el).fontSize))) >= 48, '명패 이름 큰 글자');
   await shot('24-print-plates');
   await page.check('input[name=print-kind][value="groups"]'); await sleep(300);
@@ -213,7 +213,7 @@ module.exports = async ({ page, expect, shot, log, sleep }) => {
   await page.uncheck('#opt-title'); await sleep(200);
   expect(await page.locator('#print-pages .p-title').count() === 0, '제목 해제');
   await page.check('#opt-no'); await page.check('#opt-gender'); await page.check('#opt-title'); await sleep(200);
-  expect((await page.textContent('#print-pages .p-title')).includes('가온초등학교 5학년 2반'), '인쇄 제목 학급명');
+  expect((await page.textContent('#print-pages .p-title')).includes('경인초등학교 5학년 2반'), '인쇄 제목 학급명');
   expect((await h.st()).state.settings.print.showNo === true, '인쇄 옵션 설정 저장');
   await page.check('input[name=print-kind][value="plates"]'); await sleep(200);
   await page.emulateMedia({ media: 'print' }); await sleep(100);

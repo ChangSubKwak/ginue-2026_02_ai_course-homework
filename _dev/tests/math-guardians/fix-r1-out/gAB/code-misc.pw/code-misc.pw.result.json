@@ -47,7 +47,7 @@
     "disabled stage: class=\"stage-card disabled\" toast=\"선생님이 닫아 둔 스테이지입니다\" view=home",
     "timeout: view=result head=\"⏰ 시간 종료\" stars=0",
     "keypad pointerdown: {\"disp\":\"7\",\"focusTag\":\"BODY\",\"focusCls\":\"in-game\"}",
-    "print: {\"printed\":1,\"root\":\"block\",\"main\":\"none\",\"header\":\"none\",\"text\":\"연산수호대 오늘의 기록표가온초등학교 5학년 2반 (담임 이가람) · 2026-10-25 · 인쇄 오전 07:25 번호이름스테이지결과점수별정답률최대 콤보틀린 문제1김하늘1-1 9까지의 덧셈중단0☆☆☆0%01김하늘1-1\"}",
+    "print: {\"printed\":1,\"root\":\"block\",\"main\":\"none\",\"header\":\"none\",\"text\":\"연산수호대 오늘의 기록표경인초등학교 5학년 2반 (담임 이가람) · 2026-10-25 · 인쇄 오전 07:25 번호이름스테이지결과점수별정답률최대 콤보틀린 문제1김하늘1-1 9까지의 덧셈중단0☆☆☆0%01김하늘1-1\"}",
     "print rows=2 row=\"1김하늘1-1 9까지의 덧셈중단0☆☆☆0%0\""
   ],
   "pageErrors": [],

@@ -58,7 +58,7 @@ module.exports = async ({ page, expect, shot, log, sleep }) => {
   await page.evaluate(() => { window.print = () => { window.__printed = true; }; });
   await page.click('[data-view="hall"]'); await page.click('[data-action="print-today"]');
   const pr = await page.evaluate(() => ({ printed: window.__printed, html: document.getElementById('print-root').innerText }));
-  expect(pr.printed && pr.html.includes('오늘의 기록표') && pr.html.includes('가온초등학교'), '인쇄용 기록표 생성: ' + pr.html.slice(0, 60).replace(/\s+/g, ' '));
+  expect(pr.printed && pr.html.includes('오늘의 기록표') && pr.html.includes('경인초등학교'), '인쇄용 기록표 생성: ' + pr.html.slice(0, 60).replace(/\s+/g, ' '));
   // 기록 CSV 다운로드
   const [dl] = await Promise.all([page.waitForEvent('download'), page.click('[data-action="export-records"]')]);
   expect(/math-guardians-records-\d{8}\.csv/.test(dl.suggestedFilename()), 'CSV 파일명 ' + dl.suggestedFilename());

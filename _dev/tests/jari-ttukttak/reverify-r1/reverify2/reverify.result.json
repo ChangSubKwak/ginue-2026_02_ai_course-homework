@@ -135,7 +135,7 @@
     "bad import modal: 가져오기 실패 / 파일 구조가 맞지 않습니다: history 항목 오류(layoutSnapshot/seats)\n기존 데이터는 그대로 유지됩니다.",
     "bad2 modal1: 백업 가져오기",
     "bad2 modal2: 가져오기 실패",
-    "import modal: 가온초등학교 5학년 2반  학생 29명 배치 5건 · 모둠 2건 저장 시각 2026-10-24T15:50:14.810Z  현재 데이터를 모두 덮어씁니다.",
+    "import modal: 경인초등학교 5학년 2반  학생 29명 배치 5건 · 모둠 2건 저장 시각 2026-10-24T15:50:14.810Z  현재 데이터를 모두 덮어씁니다.",
     "mobile seats: {\"panelsOpen\":[false,false],\"autoTop\":398,\"zoom\":\"48\",\"wrapW\":366,\"scrollW\":367,\"docScroll\":400,\"tabsPos\":\"fixed\",\"tabsBottom\":\"0px\",\"cards\":0}",
     "mobile print: {\"printY\":53,\"printVisible\":true,\"closeVisible\":true,\"docScroll\":400}",
     "mobile present: {\"cell\":\"64px\",\"barVisible\":true,\"nameFs\":\"16.64px\",\"mapLeft\":20,\"docScroll\":400}"

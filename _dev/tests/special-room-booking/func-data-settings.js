@@ -38,7 +38,7 @@ module.exports = async (h) => {
   expect(!(await modal().locator('[data-result="ok"]').isDisabled()), "'초기화' 입력 → 활성");
   await modal().locator('[data-result="ok"]').click(); await sleep(400);
   const s1 = await state();
-  expect(s1.data.bookings.length === 0 && s1.data.series.length === 0 && s1.data.events.length === 0 && s1.data.resources.length === 10 && s1.data.classes.length === 18 && s1.data.teachers.length === 23 && s1.data.settings.schoolName === '가온초등학교', 'AC9 초기화: 예약·시리즈·일정 삭제, 자원·명단·설정 유지');
+  expect(s1.data.bookings.length === 0 && s1.data.series.length === 0 && s1.data.events.length === 0 && s1.data.resources.length === 10 && s1.data.classes.length === 18 && s1.data.teachers.length === 23 && s1.data.settings.schoolName === '경인초등학교', 'AC9 초기화: 예약·시리즈·일정 삭제, 자원·명단·설정 유지');
   await tab('board');
   expect(await $('.chip[data-resource]').count() === 10 && await $('.grid .block').count() === 0 && (await $('.summary').textContent()).includes('예약 0건'), 'AC9 예약판 비고 칩 유지');
   await shot('data-01-after-reset');
@@ -85,7 +85,7 @@ module.exports = async (h) => {
   await modal().locator('[data-result="merge"]').click(); await sleep(500);
   const s3 = await state();
   const b0 = s3.data.bookings.find(x => x.id === mod.bookings[0].id), b1 = s3.data.bookings.find(x => x.id === mod.bookings[1].id);
-  expect(s3.data.bookings.length === n0 + 1 && b0.memo === '병합 최신' && b1.memo !== '병합 과거' && s3.data.settings.schoolName === '가온초등학교' && s3.data.teachers.length === 24, '병합: 최신 우선·과거 무시·설정 유지·신규 추가');
+  expect(s3.data.bookings.length === n0 + 1 && b0.memo === '병합 최신' && b1.memo !== '병합 과거' && s3.data.settings.schoolName === '경인초등학교' && s3.data.teachers.length === 24, '병합: 최신 우선·과거 무시·설정 유지·신규 추가');
   expect(/초과 예약 2건 확인 필요/.test(await lastToast()), '병합 후 초과 예약 재검사 토스트(겹친 2건): ' + await lastToast());
   await page.evaluate(() => { window.__app.actions.deleteBooking('b_merge_new'); });
   // ── 파일 선택 input 경로

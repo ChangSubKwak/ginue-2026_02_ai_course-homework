@@ -64,7 +64,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   // ---------- AC10 학급 집계 ----------
   await page.click('[data-pick="c3-04"]'); await page.click('[data-pick="c3-03"]'); await sleep(150);
   const seeded = await page.evaluate(() => [...document.querySelectorAll('.tally-row input')].map(i => i.value));
-  expect(seeded.join(',') === '9,12,3' && (await txt('.tally-head')).includes('가온초 5-2 예시'), '내장 집계 예시 9,12,3 + 라벨');
+  expect(seeded.join(',') === '9,12,3' && (await txt('.tally-head')).includes('경인초 5-2 예시'), '내장 집계 예시 9,12,3 + 라벨');
   const inp = i => page.locator(`.tally-row input[data-tally="${i}"]`);
   await inp(0).fill('0'); await inp(1).fill('0'); await inp(2).fill('0'); await sleep(50);
   let labels = await page.locator('.tally-label').allInnerTexts();

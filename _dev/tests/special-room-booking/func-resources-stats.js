@@ -163,7 +163,7 @@ module.exports = async (h) => {
   const rep = modal();
   expect(await modalCount() === 1 && await rep.locator('.paper.portrait').count() === 1, '실적 보고 미리보기(A4 세로)');
   const repTxt = await rep.locator('.paper').textContent();
-  expect(['가온초등학교', '운영 실적 보고서', '1. 요약', '2. 자원별 운영 실적', '3. 학년별 이용 횟수', '4. 학급 × 자원 이용 형평성', '이용 저조 학급', '5-3', '수업일 83일'].every(x => repTxt.includes(x)), '보고서 내용(학교명·제목·요약·자원별 표·학년별 표·히트맵·저조 학급)');
+  expect(['경인초등학교', '운영 실적 보고서', '1. 요약', '2. 자원별 운영 실적', '3. 학년별 이용 횟수', '4. 학급 × 자원 이용 형평성', '이용 저조 학급', '5-3', '수업일 83일'].every(x => repTxt.includes(x)), '보고서 내용(학교명·제목·요약·자원별 표·학년별 표·히트맵·저조 학급)');
   expect(await rep.locator('.paper svg.heat').count() === 1 && await rep.locator('.approval th').count() === 4 && await rep.locator('table.rep tbody tr').count() >= 11, '보고서 히트맵 SVG + 결재란 + 표');
   await shot('stats-02-report');
   await page.evaluate(() => { window.__printCalls = 0; window.print = () => { window.__printCalls++; }; });
@@ -182,7 +182,7 @@ module.exports = async (h) => {
   expect(await modalCount() === 1 && await wp.locator('.paper.landscape').count() === 1 && (await wp.locator('h2').first().textContent()).includes('주간 이용 현황표'), 'AC7 인쇄 미리보기 모달(A4 가로)');
   expect(await wp.locator('.print-page').count() === 9, 'AC7 전체 자원(활성 9개) 자원당 1쪽: ' + await wp.locator('.print-page').count());
   const head = (await wp.locator('.print-page').first().locator('.print-head').textContent()).replace(/\s+/g, ' ');
-  expect(['가온초등학교', '2026학년도 2학기 특별실 주간 이용 현황표', '2026년 10월 4주', '10/19~10/23', '출력일'].every(x => head.includes(x)), 'AC7 학교명·제목·주차·기간·출력일: ' + head.slice(0, 140));
+  expect(['경인초등학교', '2026학년도 2학기 특별실 주간 이용 현황표', '2026년 10월 4주', '10/19~10/23', '출력일'].every(x => head.includes(x)), 'AC7 학교명·제목·주차·기간·출력일: ' + head.slice(0, 140));
   const appr = await wp.locator('.print-page').first().locator('.approval th').allTextContents();
   expect(appr.join(',') === '결재,담당,부장,교감', 'AC7 결재란 3칸 담당/부장/교감: ' + appr.join(','));
   const gymPage = wp.locator('.print-page', { hasText: '자원: 강당' });

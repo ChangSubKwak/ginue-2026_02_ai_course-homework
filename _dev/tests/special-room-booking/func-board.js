@@ -14,7 +14,7 @@ module.exports = async (h) => {
   const st0 = await state();
   log('bookings=' + st0.data.bookings.length + ' weekStart=' + st0.ui.weekStart);
   expect(st0.data.bookings.length >= 150, '샘플 예약 150건 이상 (' + st0.data.bookings.length + ')');
-  expect((await $('#school-label').textContent()).includes('가온초등학교'), '헤더 학교명·학기 표시');
+  expect((await $('#school-label').textContent()).includes('경인초등학교'), '헤더 학교명·학기 표시');
   expect(/이번 주 예약 \d+건 · 빈 교시 \d+칸/.test(await $('.summary').textContent()), '하단 요약 표시');
   expect(await $('.legend li').count() >= 8, '범례 표시');
   await shot('board-01-initial');

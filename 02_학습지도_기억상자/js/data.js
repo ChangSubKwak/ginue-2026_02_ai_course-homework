@@ -1,8 +1,8 @@
-/* data.js — 기억상자 상수·샘플 콘텐츠·샘플 데이터 생성기(모든 이름은 가상, 공통 샘플 명단 '가온초등학교 5학년 2반') */
+/* data.js — 기억상자 상수·샘플 콘텐츠·샘플 데이터 생성기(모든 이름은 가상, 공통 샘플 명단 '경인초등학교 5학년 2반') */
 'use strict';
 
 const APP_DATA = {
-  school: '가온초등학교', className: '5학년 2반', teacher: '이가람',
+  school: '경인초등학교', className: '5학년 2반', teacher: '이가람',
   // 오답 원인 태그
   REASONS: [
     { key: 'concept', label: '개념 부족', short: '개념' },

@@ -1,6 +1,6 @@
 'use strict';
 /* 특별실지기 — data.js
-   샘플 데이터 정의(가온초등학교 2026학년도 2학기). 자원·학급·교사·학사일정은 그대로 쓰고,
+   샘플 데이터 정의(경인초등학교 2026학년도 2학기). 자원·학급·교사·학사일정은 그대로 쓰고,
    정기 예약 시리즈와 단건 예약 계획은 core.js의 buildSampleData()가 실제 충돌 검사로 전개한다.
    모든 인물·학교는 가상이며 학생 개인 데이터는 다루지 않는다. */
 const APP_DATA = (() => {
@@ -12,7 +12,7 @@ const APP_DATA = (() => {
     { key: 7, label: '방과후1', time: '14:50~15:30' }, { key: 8, label: '방과후2', time: '15:40~16:20' },
   ];
   const settings = {
-    schoolName: '가온초등학교', schoolYear: 2026, semester: 2,
+    schoolName: '경인초등학교', schoolYear: 2026, semester: 2,
     semesterStart: '2026-09-01', semesterEnd: '2026-12-31', periods, approvalLine: ['담당', '부장', '교감'],
   };
   // 학급 18개와 담임(공통 샘플 담임 '이가람'은 5-2)

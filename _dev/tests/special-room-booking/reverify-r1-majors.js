@@ -207,7 +207,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   const pr = await page.evaluate(() => { const pg = document.querySelector('.modal .paper .print-page'); const td = pg.querySelector('.wk tbody td'); const th = pg.querySelector('.wk thead th'); const foot = pg.querySelector('.print-foot'); return { tdFs: parseFloat(getComputedStyle(td).fontSize), thFs: parseFloat(getComputedStyle(th).fontSize), tdH: Math.round(td.getBoundingClientRect().height), footFs: parseFloat(getComputedStyle(foot).fontSize), pages: document.querySelectorAll('.modal .paper .print-page').length, rowVar: getComputedStyle(pg).getPropertyValue('--wk-row').trim(), head: pg.querySelector('.print-head').textContent.replace(/\s+/g, ' ').trim(), approvalThs: Array.from(pg.querySelectorAll('.approval th')).map(t => t.textContent), paperW: Math.round(pg.closest('.paper').getBoundingClientRect().width), tableH: Math.round(pg.querySelector('.wk').getBoundingClientRect().height) }; });
   log('print=' + JSON.stringify(pr));
   expect(pr.tdFs >= 13 && pr.thFs >= 13 && pr.tdH >= 56 && pr.footFs >= 10, 'U-04: 인쇄 셀 글자 13px·행 높이 58px·각주 10px');
-  expect(pr.pages === 10 && /가온초등학교/.test(pr.head) && /특별실 주간 이용 현황표/.test(pr.head) && /10\/19~10\/23/.test(pr.head) && pr.approvalThs.join('/') === '결재/담당/부장/교감', 'AC7: 자원당 1쪽·학교명·제목·주차·결재란 3칸');
+  expect(pr.pages === 10 && /경인초등학교/.test(pr.head) && /특별실 주간 이용 현황표/.test(pr.head) && /10\/19~10\/23/.test(pr.head) && pr.approvalThs.join('/') === '결재/담당/부장/교감', 'AC7: 자원당 1쪽·학교명·제목·주차·결재란 3칸');
   await snap('rv-print-weekly');
   await closeAll();
 

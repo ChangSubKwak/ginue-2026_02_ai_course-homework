@@ -651,7 +651,7 @@
     saveNow(); return true;
   }
   async function resetSample() {
-    if (!await showModal({ title: '샘플 데이터 다시 불러오기', body: '현재 데이터를 지우고 가온초등학교 5학년 2반 샘플(학생 25명·히스토리 4건)로 되돌립니다. 계속할까요?', confirmText: '샘플 불러오기', danger: true })) return;
+    if (!await showModal({ title: '샘플 데이터 다시 불러오기', body: '현재 데이터를 지우고 경인초등학교 5학년 2반 샘플(학생 25명·히스토리 4건)로 되돌립니다. 계속할까요?', confirmText: '샘플 불러오기', danger: true })) return;
     applyRoot(sampleRoot()); showToast('샘플 데이터를 불러왔습니다', 'success');
   }
   async function wipeAll() {

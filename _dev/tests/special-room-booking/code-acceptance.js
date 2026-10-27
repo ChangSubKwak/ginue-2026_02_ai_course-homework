@@ -137,7 +137,7 @@ module.exports = async ({ page, expect, shot, log, sleep }) => {
   await S('[data-act="print-week"]').click(); await sleep(300);
   const paper = modal().locator('.paper');
   const ptxt = await paper.textContent();
-  expect(/가온초등학교/.test(ptxt) && /주간 이용 현황표/.test(ptxt) && /10월 3주/.test(ptxt), 'AC7 학교명·제목·주차 표시');
+  expect(/경인초등학교/.test(ptxt) && /주간 이용 현황표/.test(ptxt) && /10월 3주/.test(ptxt), 'AC7 학교명·제목·주차 표시');
   // (fix-r1) 전체 자원 10쪽이 한 .paper에 있으므로 첫 결재란만 센다(기존 셀렉터는 40개를 세어 항상 실패)
   expect(await paper.locator('.approval').first().locator('th').count() === 4 && /담당부장교감/.test((await paper.locator('.approval').first().textContent()).replace(/\s/g, '')), 'AC7 결재란 담당/부장/교감 3칸');
   expect(await paper.locator('.print-page').count() === 10, 'AC7 전체 자원 자원당 1쪽(10쪽)');

@@ -1,5 +1,5 @@
 // data.js — 자리뚝딱 샘플 데이터·기본 설정·상수 (전역 const APP_DATA)
-// 가온초등학교 5학년 2반(담임 이가람)은 가상의 학급이며 학생 이름은 모두 가상입니다.
+// 경인초등학교 5학년 2반(담임 이가람)은 가상의 학급이며 학생 이름은 모두 가상입니다.
 'use strict';
 
 const APP_DATA = (() => {
@@ -77,7 +77,7 @@ const APP_DATA = (() => {
   return {
     version: 1,
     appVersion: '1.0.0',
-    classInfo: { school: '가온초등학교', grade: 5, classNo: 2, teacher: '이가람', className: '5학년 2반' },
+    classInfo: { school: '경인초등학교', grade: 5, classNo: 2, teacher: '이가람', className: '5학년 2반' },
     students,
     pairs: [
       { id: 'p1', a: 's04', b: 's06', type: 'apart', hard: true, memo: '' },

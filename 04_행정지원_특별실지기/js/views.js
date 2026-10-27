@@ -413,7 +413,7 @@
           <div><h3>가져오기</h3><div class="dropzone" tabindex="0" role="button" aria-label="JSON 파일 드롭 또는 선택"><p><b>JSON 파일을 여기에 끌어다 놓거나</b> 클릭해 선택하세요</p><p class="muted small">검증 후 '교체' 또는 '병합(같은 id는 최신 우선)'을 선택합니다</p><input type="file" accept=".json,application/json" hidden></div></div>
         </div>
         <div class="danger-zone"><div><h3>새 학기 초기화</h3><p class="muted small">예약·정기 예약·학사일정만 삭제하고 자원·학급·교사·설정은 유지합니다.</p></div><button type="button" class="btn btn-danger-outline" data-act="reset-semester">새 학기 초기화</button>
-          <div><h3>샘플 데이터 복원</h3><p class="muted small">내장된 가온초등학교 샘플(자원 10개·예약 약 220건)로 되돌립니다.</p></div><button type="button" class="btn" data-act="load-sample">샘플 데이터 복원</button></div>
+          <div><h3>샘플 데이터 복원</h3><p class="muted small">내장된 경인초등학교 샘플(자원 10개·예약 약 220건)로 되돌립니다.</p></div><button type="button" class="btn" data-act="load-sample">샘플 데이터 복원</button></div>
       </section>
       <section class="card guide"><h2>운영 방법 안내</h2><div class="split">
         <div><h3>공용 PC 1대 운영</h3><p>교무실 공용 PC의 브라우저에서 index.html을 열어 두고 모든 교사가 같은 화면에서 예약합니다. 데이터는 그 PC의 브라우저(localStorage)에 저장되므로 주 1회 JSON 내보내기로 백업하세요.</p></div>
@@ -524,7 +524,7 @@
   function showOnboarding() {
     const body = document.createElement('div');
     body.innerHTML = `<p class="lead">특별실·기자재 예약을 요일×교시 격자에서 드래그로 등록하고, 이중 예약·휴업일·행사 차단을 저장 전에 잡아내는 학교 공유 자원 예약판입니다.</p>
-      <div class="onboard-choice"><button type="button" class="choice" data-result="sample"><b>샘플로 시작</b><span>가온초등학교 자원 10개·예약 약 220건으로 바로 체험</span></button><button type="button" class="choice" data-result="empty"><b>빈 상태로 시작</b><span>우리 학교 자원·학급을 직접 등록</span></button></div>
+      <div class="onboard-choice"><button type="button" class="choice" data-result="sample"><b>샘플로 시작</b><span>경인초등학교 자원 10개·예약 약 220건으로 바로 체험</span></button><button type="button" class="choice" data-result="empty"><b>빈 상태로 시작</b><span>우리 학교 자원·학급을 직접 등록</span></button></div>
       <p class="guide-title">운영 방법 안내</p><div class="split small-gap"><div class="guide-box"><h3>공용 PC 운영</h3><p>교무실 공용 PC 브라우저에 데이터가 저장됩니다. 주 1회 JSON 백업을 권장합니다.</p></div><div class="guide-box"><h3>JSON 공유 드라이브</h3><p>담당자가 입력하고 JSON을 공유합니다. 다른 PC는 '가져오기 → 교체'로 최신 파일을 읽습니다.</p></div></div>`;
     const m = S.openModal({ title: '특별실지기에 오신 것을 환영합니다', body, cls: 'modal-lg' });
     m.done.then(v => {
@@ -557,7 +557,7 @@
   }
   function render() { renderHeader(); (RENDER[S.state.ui.tab] || RENDER.board)(); }
   async function loadSample(confirm) {
-    if (confirm && !(await S.showModal({ title: '샘플 데이터 복원', body: '<p>현재 데이터를 지우고 내장 샘플(가온초등학교)로 되돌립니다. 계속할까요?</p>', confirmText: '복원', danger: true }))) return false;
+    if (confirm && !(await S.showModal({ title: '샘플 데이터 복원', body: '<p>현재 데이터를 지우고 내장 샘플(경인초등학교)로 되돌립니다. 계속할까요?</p>', confirmText: '복원', danger: true }))) return false;
     S.buildSampleData(); S.state.ui = Object.assign(S.defaultUi(), { tab: S.state.ui.tab }); S.save(); S.saveUi(); render();
     if (confirm) S.showToast('샘플 데이터를 복원했습니다.', 'success'); return true;
   }

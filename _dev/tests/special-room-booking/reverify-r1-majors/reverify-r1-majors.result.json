@@ -93,7 +93,7 @@
     "fonts={\"block\":14.7,\"blockB\":14.7,\"blockSpan\":13.1,\"cell\":13.6,\"phB\":15.2,\"phSpan\":12.8,\"chipH\":44,\"btnSmH\":44,\"dateH\":44,\"role\":\"group\"}",
     "eq={\"n\":2,\"texts\":[\"3-2 표지원탐구\",\"3-3 설다정탐구\"],\"h\":[32,32],\"w\":[221,221],\"cellW\":229,\"fs\":13.6,\"left\":\"2/2 사용 중\",\"full\":true}",
     "blocked col={\"blocked\":8,\"labels\":1,\"firstLabel\":\"■ 학예회 리허설\",\"conflictBlocks\":3,\"badges\":[\"충돌\",\"충돌\",\"충돌\"]}",
-    "print={\"tdFs\":13,\"thFs\":13,\"tdH\":58,\"footFs\":10,\"pages\":10,\"rowVar\":\"58px\",\"head\":\"가온초등학교2026학년도 2학기 특별실 주간 이용 현황표 2026년 10월 4주 (10/19~10/23) · 자원: 과학실1 (담당 류은채) · 출력일 2026년 10월 25일(일)결재담당부장교감\",\"approvalThs\":[\"결재\",\"담당\",\"부장\",\"교감\"],\"paperW\":1142,\"tableH\":490}",
+    "print={\"tdFs\":13,\"thFs\":13,\"tdH\":58,\"footFs\":10,\"pages\":10,\"rowVar\":\"58px\",\"head\":\"경인초등학교2026학년도 2학기 특별실 주간 이용 현황표 2026년 10월 4주 (10/19~10/23) · 자원: 과학실1 (담당 류은채) · 출력일 2026년 10월 25일(일)결재담당부장교감\",\"approvalThs\":[\"결재\",\"담당\",\"부장\",\"교감\"],\"paperW\":1142,\"tableH\":490}",
     "snap C:\\Users\\parad\\AppData\\Local\\Temp\\claude\\D--workspace-ginue-2026-02-ai-course-homework\\1716854d-9f4f-4d06-ba55-fb3e97031963\\scratchpad\\tests\\special-room-booking\\reverify-r1-majors\\rv-print-weekly.png",
     "nav={\"prev\":[16,255,44,44],\"label\":[66,265,268,24],\"next\":[340,255,44,44],\"thisW\":[16,305,181,44],\"input\":[203,305,181,44]}",
     "u2={\"ih\":800,\"verdict\":{\"top\":502,\"bottom\":718},\"bad\":{\"top\":513,\"bottom\":604},\"alt\":{\"top\":612,\"bottom\":656},\"alts\":3,\"saveDisabled\":true,\"bodyScrollTop\":0,\"bodyScrollable\":true,\"pos\":\"sticky\",\"reasons\":[\"1교시: 5-1 류은채 사용 중\",\"2교시: 5-1 류은채 사용 중\"],\"modalW\":400}",

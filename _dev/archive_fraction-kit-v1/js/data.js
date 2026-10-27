@@ -65,7 +65,7 @@ const APP_DATA = (() => {
     { id: 'cs-b02', name: '4-2 분수의 덧셈과 뺄셈 1차시', cardIds: ['c4-01', 'c4-02', 'c4-05', 'c4-03', 'c4-06'], builtin: true, createdAt: T0 },
   ];
 
-  const tally = { 'c3-03': { counts: [9, 12, 3], label: '가온초 5-2 예시', updatedAt: T0 } };
+  const tally = { 'c3-03': { counts: [9, 12, 3], label: '경인초 5-2 예시', updatedAt: T0 } };
 
   const wi = (id, type, a, b, extra) => Object.assign({ id, type, a, b: b || null, op: null, model: 'bar', lineRange: 1, sourceId: null }, extra || {});
   const worksheet = {

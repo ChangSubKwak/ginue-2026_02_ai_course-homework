@@ -434,7 +434,7 @@
     'hall-tab': b => { UI.hallTab = b.dataset.tab; uiPref.set('lastHallTab', UI.hallTab); renderHall(); },
     'print-today': printToday, 'export-records': exportRecords, 'export-weak': exportWeak,
     'export-json': () => { download(`math-guardians-backup-${stamp()}.json`, JSON.stringify(MG.root, null, 1), 'application/json'); showToast('JSON 백업 파일을 내려받았어요', 'success'); },
-    'reset-sample': async () => { if (await showModal({ title: '샘플 데이터로 초기화', body: '모든 프로필·기록·설정이 삭제되고 가온초등학교 5학년 2반 샘플로 돌아갑니다. 계속할까요?', confirmText: '초기화', danger: true })) { MG.resetSample(); UI.pinOk = false; renderProfileBar(); showView('home'); showToast('샘플 데이터로 초기화했어요', 'success'); } },
+    'reset-sample': async () => { if (await showModal({ title: '샘플 데이터로 초기화', body: '모든 프로필·기록·설정이 삭제되고 경인초등학교 5학년 2반 샘플로 돌아갑니다. 계속할까요?', confirmText: '초기화', danger: true })) { MG.resetSample(); UI.pinOk = false; renderProfileBar(); showView('home'); showToast('샘플 데이터로 초기화했어요', 'success'); } },
     'grade-all': b => { const ids = MG.STAGES.filter(x => x.grade === +b.dataset.grade).map(x => x.id), s = MG.root.settings; s.activeStageIds = b.dataset.on === '1' ? [...new Set(s.activeStageIds.concat(ids))] : s.activeStageIds.filter(id => !ids.includes(id)); applySetting('activeStageIds', s.activeStageIds); renderSettings(); },
     'save-pin': () => { const v = el('pin-input').value.trim(); if (v && !/^\d{4}$/.test(v)) return showToast('PIN은 숫자 4자리입니다', 'error'); applySetting('teacherPin', v || null); el('pin-status').textContent = v ? 'PIN 설정됨' : 'PIN 없음'; },
     'pin-unlock': () => { if (el('pin-gate-input').value === MG.root.settings.teacherPin) { UI.pinOk = true; renderSettings(); } else showToast('PIN이 맞지 않아요', 'error'); },

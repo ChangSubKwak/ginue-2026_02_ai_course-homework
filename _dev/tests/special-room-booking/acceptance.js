@@ -132,7 +132,7 @@ module.exports = async ({ page, expect, shot, log, sleep, reload }) => {
   await page.evaluate(() => { window.print = () => { window.__printed = true; }; });
   await $('[data-act="print-week"]').click(); await sleep(400);
   const ptxt = await modal().textContent();
-  expect(ptxt.includes('가온초등학교') && ptxt.includes('주간 이용 현황표') && /\d+월 \d+주/.test(ptxt), 'AC7 미리보기 학교명·제목·주차');
+  expect(ptxt.includes('경인초등학교') && ptxt.includes('주간 이용 현황표') && /\d+월 \d+주/.test(ptxt), 'AC7 미리보기 학교명·제목·주차');
   expect(await modal().locator('table.wk').count() >= 1, 'AC7 자원별 요일×교시 표');
   const appr = await modal().locator('.approval').first().locator('th:not(.v)').allTextContents();
   expect(appr.join(',') === '담당,부장,교감', 'AC7 결재란 3칸: ' + appr.join(','));
