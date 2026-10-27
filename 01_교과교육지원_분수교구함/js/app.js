@@ -56,7 +56,7 @@
     base.d = clamp(s.d, D_MIN, D_MAX); base.n = clamp(s.n, 0, base.d * N_UNITS_MAX); base.big = !!s.big;
     for (const k in base.show) if (typeof (s.show || {})[k] === 'boolean') base.show[k] = s.show[k];
     if (!base.show.bar && !base.show.circle && !base.show.line) base.show.bar = true;
-    if (Array.isArray(s.chain)) base.chain = s.chain.filter(f => f && Number.isInteger(f.n) && Number.isInteger(f.d) && f.d >= D_MIN && f.d <= D_MAX).slice(-CHAIN_MAX);
+    if (Array.isArray(s.chain)) base.chain = s.chain.filter(f => f && Number.isInteger(f.n) && Number.isInteger(f.d) && f.d >= D_MIN && f.d <= D_MAX && f.n >= 0 && f.n <= f.d * N_UNITS_MAX).slice(-CHAIN_MAX);
     return base;
   }
   // 저장
@@ -106,7 +106,7 @@
   }
   // 표시 옵션(bar/circle/line/decimal/reading)
   function setShow(key, bool) {
-    if (!(key in state.show)) return;
+    if (!(key in state.show) || state.show[key] === !!bool) return;
     if (!bool && ['bar', 'circle', 'line'].includes(key)) { toggleModel(key); return; }
     state.show[key] = !!bool; commit();
   }
@@ -155,7 +155,8 @@
   function renderChain() {
     const c = state.chain;
     if (!c.length) { $('#chain').innerHTML = '<span class="empty">×2, ×3, 합치기를 누르면 같은 크기의 분수가 이어져요.</span>'; return; }
-    $('#chain').innerHTML = c.map((f, i) => `${i ? '<span class="eq">=</span>' : ''}<button type="button" class="term${f.n === state.n && f.d === state.d ? ' last' : ''}" data-chain="${i}" aria-label="${toText(f.n, f.d)}(으)로 보기">${f.n}/${f.d}</button>`).join('');
+    let cur = -1; c.forEach((f, i) => { if (f.n === state.n && f.d === state.d) cur = i; });
+    $('#chain').innerHTML = c.map((f, i) => `${i ? '<span class="eq">=</span>' : ''}<button type="button" class="term${i === cur ? ' last' : ''}" data-chain="${i}" aria-label="${toText(f.n, f.d)}(으)로 보기">${f.n}/${f.d}</button>`).join('');
   }
   // 모델 캡션 요약('4칸 중 3칸')
   function renderCaptions() {
@@ -219,7 +220,9 @@
   function renderLine(svg) {
     const { n, d } = state, U = units(), x0 = 40, x1 = BAR_W - 40, y = 56, total = U * d;
     const px = v => (x0 + (x1 - x0) * v / U).toFixed(1);
-    const every = (x1 - x0) / total < 72 ? 2 : 1; // 눈금이 촘촘하면 분수 라벨을 하나 걸러 표시
+    lineW = svg.clientWidth;
+    const scale = (lineW || BAR_W) / BAR_W, gapPx = (x1 - x0) / total * scale;
+    const every = Math.max(1, Math.ceil((state.big ? 46 : 38) / gapPx)); // 화면에서 라벨 간격이 좁으면 몇 개씩 걸러 표시
     let s = `<line class="axis" x1="${x0 - 14}" x2="${x1 + 14}" y1="${y}" y2="${y}"/><path class="axis-arrow" d="M ${x1 + 16} ${y} l -12 -7 v 14 z"/>`;
     if (n > 0) s += `<line class="pt-track" x1="${px(0)}" x2="${px(n / d)}" y1="${y}" y2="${y}"/>`;
     for (const j of ghostIdx(d)) for (let u = 0; u < U; u++) { const x = px(u + j / anim.from); s += `<line class="tick ghost" x1="${x}" x2="${x}" y1="${y - 10}" y2="${y + 10}"/>`; }
@@ -269,8 +272,10 @@
           else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
         }
       };
+      let downOnBackdrop = false;
+      wrap.addEventListener('mousedown', e => { downOnBackdrop = e.target === wrap; });
       wrap.addEventListener('click', e => {
-        if (e.target === wrap) return close(false);
+        if (e.target === wrap) { if (downOnBackdrop) close(false); return; }
         const b = e.target.closest('[data-value]'); if (b) close(b.dataset.value === '1');
       });
       document.addEventListener('keydown', onKey);
@@ -311,6 +316,12 @@
   function toggleTheme() { const t = isDark() ? 'light' : 'dark'; applyTheme(t); storage.set('theme', t); }
   // 저장된 테마가 없으면 OS 설정 변경을 따라 아이콘 갱신
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (!document.documentElement.dataset.theme) applyTheme(null); });
+  // 화면 폭이 바뀌어 수직선 너비가 달라지면 라벨 간격을 다시 계산
+  let resizeTimer = 0, lineW = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { const svg = $('#svg-line'); if (state.show.line && svg.clientWidth !== lineW) { lineW = svg.clientWidth; renderLine(svg); } }, 120);
+  });
 
   // ---- 이벤트(위임) ----
   const ACTIONS = {
@@ -345,7 +356,8 @@
   $('#chips').innerHTML = CHIPS.map(([n, d]) => `<button type="button" class="chip" data-n="${n}" data-d="${d}" aria-label="${toText(n, d)}">${n}/${d}</button>`).join('');
 
   // ---- 시작 ----
-  applyTheme(storage.get('theme', null));
+  const savedTheme = storage.get('theme', null);
+  applyTheme(savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : null);
   render();
   // 테스트·디버그용 공개 API
   window.__app = { version: VERSION, getState: () => JSON.parse(JSON.stringify(state)), actions: { setFraction, split, reduce, reset, toggleModel, setShow } };

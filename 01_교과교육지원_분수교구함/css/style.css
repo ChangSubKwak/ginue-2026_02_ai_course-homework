@@ -103,6 +103,7 @@ svg { max-width: 100%; }
 .fr-d { padding: .06em .2em 0; }
 .fr-w { font-size: 1.3em; margin-right: .05em; }
 .sym-extra { display: flex; flex-wrap: wrap; gap: 8px 28px; flex: 1; }
+#mixed b, #reading b { white-space: normal; overflow-wrap: anywhere; }
 .sym-item { display: flex; flex-direction: column; min-width: 0; }
 .sym-item small { font-size: .78rem; color: var(--fg-muted); }
 .sym-item b { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -185,6 +186,7 @@ input[type="checkbox"] { width: 1.3rem; height: 1.3rem; accent-color: var(--acce
   .toolbar .tb { flex: 1 1 auto; justify-content: center; }
   .panel, .model { padding: 12px; }
   .number-panel { gap: 10px 18px; }
+  .sym-extra { flex-basis: 100%; }
   .check-row { margin-left: 0; }
   .model-circle svg { max-height: 16rem; }
   .cell-label { font-size: 48px; }
