@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# render-docs.sh — 각 앱의 docs/manual.content.json → docs/<앱이름>_개요및설명서.docx/.pdf, 과제제출물/report.{detailed,brief}.content.json → 과제보고서 상세본·요약본
+# render-docs.sh — 각 앱의 docs/manual.content.json → docs/<앱이름>_개요및설명서.docx/.pdf, docs/manual.simple.content.json → docs/<앱이름>_간단사용법.docx/.pdf,과제제출물/report.{detailed,brief}.content.json → 과제보고서 상세본·요약본
 # 사용법: bash render-docs.sh <프로젝트 루트> [앱 폴더명...]   (앱 폴더명 생략 시 0*_ 전체 + 보고서)
 set -u
 ROOT="$1"; shift || true
@@ -17,6 +17,11 @@ for app in "$@"; do
     render "$c" "$ROOT/$app/docs/${name}_개요및설명서"
   else
     echo "SKIP (no content): $app"
+  fi
+  s="$ROOT/$app/docs/manual.simple.content.json"
+  if [ -f "$s" ]; then
+    name="${app#*_}"; name="${name#*_}"
+    render "$s" "$ROOT/$app/docs/${name}_간단사용법"
   fi
 done
 if [ "${DO_REPORT:-0}" = "1" ]; then # 과제 보고서 상세본·요약본

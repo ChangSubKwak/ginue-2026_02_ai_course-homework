@@ -4,7 +4,7 @@
 // {
 //   "title": "...", "subtitle": "...", "cover_label": "과제 제출물", "cover_note": "...", "accent": "1F3A5F",
 //   "meta_rows": [["과제명", "..."], ["제출자", "..."]],
-//   "toc": true, "header_text": "...",
+//   "toc": true, "header_text": "...", "compact": false (true면 표지 쪽 없이 첫 쪽 위에 제목·부제만),
 //   "sections": [ { "heading": "1. 개요", "level": 1, "page_break_before": false, "blocks": [
 //       {"type":"paragraph","text":"**굵게**와 `코드` 지원"},
 //       {"type":"bullets","items":["..."]}, {"type":"numbered","items":["..."]},
@@ -129,6 +129,10 @@ function blockToElements(b) {
 }
 
 const children = [];
+if (content.compact) { // 표지 없이 첫 쪽 위에 제목만 두는 짧은 문서(간단 사용법)
+  children.push(new Paragraph({ spacing: { after: 60 }, children: [new TextRun({ text: content.title, font: FONT, size: 44, bold: true, color: ACCENT })] }));
+  if (content.subtitle) children.push(new Paragraph({ spacing: { after: 240 }, border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: 'CBD5E1', space: 6 } }, children: [new TextRun({ text: content.subtitle, font: FONT, size: 24, color: '555555' })] }));
+} else {
 children.push(new Paragraph({ spacing: { before: 2400, after: 200 }, alignment: AlignmentType.CENTER, children: [new TextRun({ text: content.cover_label || '과제 제출물', font: FONT, size: 24, color: '666666' })] }));
 children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [new TextRun({ text: content.title, font: FONT, size: 52, bold: true, color: ACCENT })] }));
 if (content.subtitle) children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 600 }, children: [new TextRun({ text: content.subtitle, font: FONT, size: 28, color: '444444' })] }));
@@ -141,6 +145,7 @@ if (content.meta_rows && content.meta_rows.length) {
 }
 if (content.cover_note) children.push(new Paragraph({ spacing: { before: 400 }, alignment: AlignmentType.CENTER, children: runs(content.cover_note, { size: 20, color: '666666' }) }));
 children.push(new Paragraph({ children: [new PageBreak()] }));
+}
 if (content.toc) {
   children.push(new Paragraph({ spacing: { before: 200, after: 240 }, border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: 'CBD5E1', space: 4 } }, children: [new TextRun({ text: '목차', font: FONT, size: 34, bold: true, color: ACCENT })] }));
   children.push(new TableOfContents('목차', { hyperlink: true, headingStyleRange: '1-3' }));

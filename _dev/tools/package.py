@@ -12,7 +12,7 @@ out = os.path.join(root, out_name)
 os.makedirs(out, exist_ok=True)
 
 EXCLUDE_DIRS = {".idea", "node_modules", ".git", "__pycache__", out_name, "_dev"}
-EXCLUDE_FILES = {"_preview.docx", "manual.content.json", "report.content.json", "main.py"}
+EXCLUDE_FILES = {"_preview.docx", "manual.content.json", "manual.simple.content.json","report.content.json", "main.py"}
 
 
 def app_dirs():
@@ -44,7 +44,8 @@ for d in app_dirs():
             if fn.endswith((".docx", ".pdf")) and not fn.startswith("_") and not fn.startswith("~$"):
                 dst = os.path.join(out, f"{d}_{fn}")
                 shutil.copy2(os.path.join(docs, fn), dst)
-                lines.append(f"   - {os.path.basename(dst)}  (앱 개요 및 설명서)")
+                kind = "1~2쪽 간단 사용법" if "간단사용법" in fn else "앱 개요 및 설명서"
+                lines.append(f"   - {os.path.basename(dst)}  ({kind})")
     lines.append("")
 
 all_zip = os.path.join(out, "00_전체소스_모든앱.zip")
